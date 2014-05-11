@@ -25,8 +25,8 @@ object frmAppOptions: TfrmAppOptions
     Caption = 'OK'
     Default = True
     ModalResult = 1
-    TabOrder = 0
     NumGlyphs = 2
+    TabOrder = 0
   end
   object bbtCancel: TBitBtn
     Left = 451
@@ -36,8 +36,8 @@ object frmAppOptions: TfrmAppOptions
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
-    TabOrder = 1
     NumGlyphs = 2
+    TabOrder = 1
   end
   object panAppOptions: TPanel
     Left = 0
@@ -57,58 +57,63 @@ object frmAppOptions: TfrmAppOptions
       TabOrder = 0
       OnChange = jtvAppOptionsChange
       Items.NodeData = {
-        0104000000210000000000000000000000FFFFFFFFFFFFFFFF00000000040000
-        00044D00610069006E00270000000000000000000000FFFFFFFFFFFFFFFF0000
-        00000000000007470065006E006500720061006C002D00000000000000000000
-        00FFFFFFFFFFFFFFFF00000000000000000A4100700070006500610072006100
-        6E0063006500210000000000000000000000FFFFFFFFFFFFFFFF000000000000
-        00000444006F0063006B003D0000000000000000000000FFFFFFFFFFFFFFFF00
-        0000000000000012460069006C00650073002000280065007800740065006E00
-        730069006F006E0073002900250000000000000000000000FFFFFFFFFFFFFFFF
-        00000000030000000645006400690074006F0072002700000000000000000000
-        00FFFFFFFFFFFFFFFF00000000000000000744006900730070006C0061007900
-        290000000000000000000000FFFFFFFFFFFFFFFF000000000000000008410064
-        00760061006E006300650064002D0000000000000000000000FFFFFFFFFFFFFF
-        FF00000000000000000A4B00650079007300740072006F006B00650073001B00
-        00000000000000000000FFFFFFFFFFFFFFFF0000000008000000015200290000
-        000000000000000000FFFFFFFFFFFFFFFF000000000000000008500061007400
-        680020002800520029002B0000000000000000000000FFFFFFFFFFFFFFFF0000
-        0000000000000942006100730069006300200028005200290033000000000000
-        0000000000FFFFFFFFFFFFFFFF00000000000000000D5200650073006F007500
-        72006300650073002000280052002900310000000000000000000000FFFFFFFF
-        FFFFFFFF00000000000000000C5000610063006B006100670065007300200028
-        0052002900210000000000000000000000FFFFFFFFFFFFFFFF00000000020000
-        00045200670075006900350000000000000000000000FFFFFFFFFFFFFFFF0000
-        0000000000000E4F007000740069006F006E0073002000280052006700750069
-        0029003D0000000000000000000000FFFFFFFFFFFFFFFF000000000000000012
-        5200650063006F0067006E006900740069006F006E0020002800520067007500
-        69002900230000000000000000000000FFFFFFFFFFFFFFFF0000000002000000
-        0552007400650072006D00370000000000000000000000FFFFFFFFFFFFFFFF00
-        000000000000000F4F007000740069006F006E00730020002800520074006500
-        72006D002900330000000000000000000000FFFFFFFFFFFFFFFF000000000000
-        00000D4500720072006F0072002000280052007400650072006D002900290000
-        000000000000000000FFFFFFFFFFFFFFFF000000000200000008520065006600
-        6F0072006D0061007400310000000000000000000000FFFFFFFFFFFFFFFF0000
-        0000000000000C5200200028007200650066006F0072006D0061007400290033
-        0000000000000000000000FFFFFFFFFFFFFFFF00000000000000000D52006400
-        200028007200650066006F0072006D0061007400290029000000000000000000
-        0000FFFFFFFFFFFFFFFF00000000000000000852002000730065007200760065
-        0072002D0000000000000000000000FFFFFFFFFFFFFFFF00000000020000000A
-        500072006F00630065007300730069006E0067002D0000000000000000000000
-        FFFFFFFFFFFFFFFF00000000040000000A43006F006E00760065007200730069
-        006F006E00270000000000000000000000FFFFFFFFFFFFFFFF00000000000000
-        00074400650070006C00610074006500250000000000000000000000FFFFFFFF
-        FFFFFFFF000000000000000006500061006E0064006F00630029000000000000
-        0000000000FFFFFFFFFFFFFFFF00000000000000000854007800740032007400
-        6100670073003B0000000000000000000000FFFFFFFFFFFFFFFF000000000000
-        0000114D006F00720065002000280063006F006E00760065007200730069006F
-        006E002900230000000000000000000000FFFFFFFFFFFFFFFF00000000030000
-        00054C0061007400650078002F0000000000000000000000FFFFFFFFFFFFFFFF
-        00000000000000000B440056004900200028006C00610074006500780029002F
-        0000000000000000000000FFFFFFFFFFFFFFFF00000000000000000B50004400
-        4600200028006C0061007400650078002900310000000000000000000000FFFF
-        FFFFFFFFFFFF00000000000000000C4D006F0072006500200028006C00610074
-        00650078002900}
+        0304000000260000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
+        000400000001044D00610069006E002C0000000000000000000000FFFFFFFFFF
+        FFFFFFFFFFFFFF00000000000000000107470065006E006500720061006C0032
+        0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000001
+        0A41007000700065006100720061006E00630065002600000000000000000000
+        00FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010444006F0063006B0042
+        0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000001
+        12460069006C00650073002000280065007800740065006E00730069006F006E
+        00730029002A0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
+        0003000000010645006400690074006F0072002C0000000000000000000000FF
+        FFFFFFFFFFFFFFFFFFFFFF0000000000000000010744006900730070006C0061
+        0079002E0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000
+        000000010841006400760061006E006300650064003200000000000000000000
+        00FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010A4B0065007900730074
+        0072006F006B0065007300200000000000000000000000FFFFFFFFFFFFFFFFFF
+        FFFFFF0000000008000000010152002E0000000000000000000000FFFFFFFFFF
+        FFFFFFFFFFFFFF00000000000000000108500061007400680020002800520029
+        00300000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00000000000000
+        0001094200610073006900630020002800520029003800000000000000000000
+        00FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010D5200650073006F0075
+        0072006300650073002000280052002900360000000000000000000000FFFFFF
+        FFFFFFFFFFFFFFFFFF0000000000000000010C5000610063006B006100670065
+        0073002000280052002900260000000000000000000000FFFFFFFFFFFFFFFFFF
+        FFFFFF0000000002000000010452006700750069003A00000000000000000000
+        00FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010E4F007000740069006F
+        006E0073002000280052006700750069002900420000000000000000000000FF
+        FFFFFFFFFFFFFFFFFFFFFF000000000000000001125200650063006F0067006E
+        006900740069006F006E00200028005200670075006900290028000000000000
+        0000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000200000001055200740065
+        0072006D003C0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
+        0000000000010F4F007000740069006F006E0073002000280052007400650072
+        006D002900380000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
+        0000000000010D4500720072006F0072002000280052007400650072006D0029
+        002E0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00000000020000
+        0001085200650066006F0072006D0061007400360000000000000000000000FF
+        FFFFFFFFFFFFFFFFFFFFFF0000000000000000010C5200200028007200650066
+        006F0072006D00610074002900380000000000000000000000FFFFFFFFFFFFFF
+        FFFFFFFFFF0000000000000000010D52006400200028007200650066006F0072
+        006D006100740029002E0000000000000000000000FFFFFFFFFFFFFFFFFFFFFF
+        FF00000000000000000108520020007300650072007600650072003200000000
+        00000000000000FFFFFFFFFFFFFFFFFFFFFFFF0000000002000000010A500072
+        006F00630065007300730069006E006700320000000000000000000000FFFFFF
+        FFFFFFFFFFFFFFFFFF0000000004000000010A43006F006E0076006500720073
+        0069006F006E002C0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00
+        0000000000000001074400650070006C006100740065002A0000000000000000
+        000000FFFFFFFFFFFFFFFFFFFFFFFF00000000000000000106500061006E0064
+        006F0063002E0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000
+        0000000000010854007800740032007400610067007300400000000000000000
+        000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000001114D006F00720065
+        002000280063006F006E00760065007200730069006F006E0029002800000000
+        00000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000300000001054C0061
+        00740065007800340000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF00
+        00000000000000010B440056004900200028006C006100740065007800290034
+        0000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000000001
+        0B500044004600200028006C0061007400650078002900360000000000000000
+        000000FFFFFFFFFFFFFFFFFFFFFFFF0000000000000000010C4D006F00720065
+        00200028006C0061007400650078002900}
       LineColor = clScrollBar
       PageControl = pgApp
     end
@@ -158,6 +163,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'General'
         ImageIndex = 3
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object GroupBox4: TGroupBox
           Left = 0
           Top = 0
@@ -405,6 +414,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Appearance'
         ImageIndex = 24
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object GroupBox20: TGroupBox
           Left = 0
           Top = 0
@@ -506,6 +519,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Dock'
         ImageIndex = 5
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object GroupBox8: TGroupBox
           Left = 0
           Top = 0
@@ -561,6 +578,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Files (extensions)'
         ImageIndex = 21
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object GroupBox18: TGroupBox
           Left = 0
           Top = 0
@@ -587,6 +608,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Display'
         ImageIndex = 21
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gbRightEdge: TGroupBox
           Left = 0
           Top = 0
@@ -1173,7 +1198,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 205
             Height = 21
             Style = csDropDownList
-            ItemHeight = 13
             TabOrder = 0
             Items.Strings = (
               'Vertical Line'
@@ -1187,7 +1211,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 205
             Height = 21
             Style = csDropDownList
-            ItemHeight = 13
             TabOrder = 1
             Items.Strings = (
               'Vertical Line'
@@ -1201,6 +1224,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Keystrokes'
         ImageIndex = 23
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label20: TLabel
           Left = 3
           Top = 363
@@ -1292,7 +1319,6 @@ object frmAppOptions: TfrmAppOptions
             Height = 21
             BevelInner = bvNone
             BevelOuter = bvNone
-            ItemHeight = 13
             Sorted = True
             TabOrder = 0
             OnExit = cbCommandsExit
@@ -1305,6 +1331,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Path (R)'
         ImageIndex = 8
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbPathRTerm: TGroupBox
           Left = 0
           Top = 0
@@ -1337,8 +1367,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 307
             Height = 25
             Caption = 'Search path'
-            TabOrder = 3
-            OnClick = bbtRTermPathClick
             Glyph.Data = {
               F6000000424DF600000000000000760000002800000010000000100000000100
               0400000000008000000000000000000000001000000010000000000000000000
@@ -1348,6 +1376,8 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
+            TabOrder = 3
+            OnClick = bbtRTermPathClick
           end
           object edParRTerm: TEditAlign
             Left = 13
@@ -1413,8 +1443,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 307
             Height = 25
             Caption = 'Search path'
-            TabOrder = 3
-            OnClick = bbtRGuiPathClick
             Glyph.Data = {
               F6000000424DF600000000000000760000002800000010000000100000000100
               0400000000008000000000000000000000001000000010000000000000000000
@@ -1424,6 +1452,8 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
+            TabOrder = 3
+            OnClick = bbtRGuiPathClick
           end
           object edParRGui: TEditAlign
             Left = 13
@@ -1522,6 +1552,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Basic (R)'
         ImageIndex = 9
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label10: TLabel
           Left = 0
           Top = 395
@@ -1681,7 +1715,6 @@ object frmAppOptions: TfrmAppOptions
               BevelInner = bvNone
               BevelOuter = bvNone
               Style = csDropDownList
-              ItemHeight = 13
               Sorted = True
               TabOrder = 0
               Items.Strings = (
@@ -1696,7 +1729,6 @@ object frmAppOptions: TfrmAppOptions
               BevelInner = bvNone
               BevelOuter = bvNone
               Style = csDropDownList
-              ItemHeight = 13
               Sorted = True
               TabOrder = 1
               Items.Strings = (
@@ -1765,6 +1797,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Resources (R)'
         ImageIndex = 10
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gbSendR: TGroupBox
           Left = 0
           Top = 0
@@ -2088,6 +2124,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Packages (R)'
         ImageIndex = 7
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label5: TLabel
           Left = 1
           Top = 355
@@ -2229,6 +2269,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Options (Rgui)'
         ImageIndex = 12
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbRguiReturnFocus: TGroupBox
           Left = 0
           Top = 0
@@ -2363,6 +2407,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Recognition (Rgui)'
         ImageIndex = 11
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label9: TLabel
           Left = 3
           Top = 160
@@ -2416,6 +2464,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Options (Rterm)'
         ImageIndex = 14
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gbpRtermDisposition: TGroupBox
           Left = 0
           Top = 0
@@ -2519,6 +2571,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Error (Rterm)'
         ImageIndex = 13
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object Label1: TLabel
           Left = 3
           Top = 89
@@ -2563,6 +2619,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'R (reformat)'
         ImageIndex = 6
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object GroupBox13: TGroupBox
           Left = 0
           Top = 0
@@ -2653,6 +2713,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Rd (reformat)'
         ImageIndex = 7
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object GroupBox12: TGroupBox
           Left = 0
           Top = 0
@@ -2687,6 +2751,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'R server'
         ImageIndex = 15
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbRServerTCPIP: TGroupBox
           Left = 0
           Top = 0
@@ -2748,6 +2816,10 @@ object frmAppOptions: TfrmAppOptions
               Options = [ftoAutoFontDirection, ftoExcludeGlyphs]
               object tbsIPLocal: TTabSheet
                 Caption = 'Local'
+                ExplicitLeft = 0
+                ExplicitTop = 0
+                ExplicitWidth = 0
+                ExplicitHeight = 0
                 object Label2: TLabel
                   Left = 5
                   Top = 3
@@ -2786,6 +2858,10 @@ object frmAppOptions: TfrmAppOptions
               object tbsIPRemote: TTabSheet
                 Caption = 'Remote'
                 ImageIndex = 1
+                ExplicitLeft = 0
+                ExplicitTop = 0
+                ExplicitWidth = 0
+                ExplicitHeight = 0
                 object Label14: TLabel
                   Left = 5
                   Top = 3
@@ -2865,6 +2941,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Deplate'
         ImageIndex = 15
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbParDeplate: TGroupBox
           Left = 0
           Top = 0
@@ -2939,8 +3019,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 307
             Height = 28
             Caption = 'Search path'
-            TabOrder = 1
-            OnClick = bbtIntPathDeplateClick
             Glyph.Data = {
               F6000000424DF600000000000000760000002800000010000000100000000100
               0400000000008000000000000000000000001000000010000000000000000000
@@ -2950,6 +3028,8 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
+            TabOrder = 1
+            OnClick = bbtIntPathDeplateClick
           end
         end
         object gpbConPathDeplate: TGroupBox
@@ -2984,8 +3064,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 307
             Height = 28
             Caption = 'Search path'
-            TabOrder = 1
-            OnClick = bbtConPathDeplateClick
             Glyph.Data = {
               F6000000424DF600000000000000760000002800000010000000100000000100
               0400000000008000000000000000000000001000000010000000000000000000
@@ -2995,6 +3073,8 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
+            TabOrder = 1
+            OnClick = bbtConPathDeplateClick
           end
         end
       end
@@ -3002,6 +3082,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Pandoc'
         ImageIndex = 19
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbPathPandoc: TGroupBox
           Left = 0
           Top = 0
@@ -3034,8 +3118,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 307
             Height = 28
             Caption = 'Search path'
-            TabOrder = 1
-            OnClick = bbtPathPandocClick
             Glyph.Data = {
               F6000000424DF600000000000000760000002800000010000000100000000100
               0400000000008000000000000000000000001000000010000000000000000000
@@ -3045,6 +3127,8 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
+            TabOrder = 1
+            OnClick = bbtPathPandocClick
           end
         end
       end
@@ -3052,6 +3136,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Txt2tags'
         ImageIndex = 14
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbParTxt2tags: TGroupBox
           Left = 0
           Top = 0
@@ -3126,8 +3214,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 307
             Height = 28
             Caption = 'Search path'
-            TabOrder = 1
-            OnClick = bbtIntPathTxt2tagsClick
             Glyph.Data = {
               F6000000424DF600000000000000760000002800000010000000100000000100
               0400000000008000000000000000000000001000000010000000000000000000
@@ -3137,6 +3223,8 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
+            TabOrder = 1
+            OnClick = bbtIntPathTxt2tagsClick
           end
         end
         object gpbConPathTxt2tags: TGroupBox
@@ -3171,8 +3259,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 307
             Height = 28
             Caption = 'Search path'
-            TabOrder = 1
-            OnClick = bbtConPathTxt2tagsClick
             Glyph.Data = {
               F6000000424DF600000000000000760000002800000010000000100000000100
               0400000000008000000000000000000000001000000010000000000000000000
@@ -3182,6 +3268,8 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
+            TabOrder = 1
+            OnClick = bbtConPathTxt2tagsClick
           end
         end
       end
@@ -3189,6 +3277,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'More (conversion)'
         ImageIndex = 16
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbConversionMore: TGroupBox
           Left = 0
           Top = 0
@@ -3217,6 +3309,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'DVI (latex)'
         ImageIndex = 18
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbDVIParameters: TGroupBox
           Left = 0
           Top = 0
@@ -3311,6 +3407,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'PDF (latex)'
         ImageIndex = 17
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbPDFParameters: TGroupBox
           Left = 0
           Top = 0
@@ -3405,6 +3505,10 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'More (latex)'
         ImageIndex = 19
         TabVisible = False
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object gpbLatexOptions: TGroupBox
           Left = 0
           Top = 0
@@ -3533,9 +3637,6 @@ object frmAppOptions: TfrmAppOptions
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
-    ParentFont = False
-    TabOrder = 3
-    OnClick = bbHelpClick
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
       2000000000000004000000000000000000000000000000000000FF00FF00FF00
@@ -3571,6 +3672,9 @@ object frmAppOptions: TfrmAppOptions
       FC00B6DFF8006BBBED0056AFE80077BEEC00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00B0E2F500A7DCF5009DD9F50091D1F10082CBF00076C4
       EF006DBFED0077C3EE00FF00FF00FF00FF00FF00FF00FF00FF00}
+    ParentFont = False
+    TabOrder = 3
+    OnClick = bbHelpClick
   end
   object odAppOptions: TOpenDialog
     Left = 3

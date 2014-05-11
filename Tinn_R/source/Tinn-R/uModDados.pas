@@ -48,7 +48,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  DBClient, DB, MidasLib, FMTBcd, SqlExpr, WideStrings;
+  DBClient, DB, MidasLib, FMTBcd, SqlExpr, WideStrings, System.Actions; //Adding System.Actions solves "assuspended/asnormal undefined" issue
 
 type
   TmodDados = class(TDataModule)
@@ -885,7 +885,7 @@ begin
                        sShortcut,
                        iImage);
       end;
-      frmTinnMain.alMain.State:= asNormal;
+    frmTinnMain.alMain.State:= asNormal;
       
       with cdTmp do begin
         MergeChangeLog;

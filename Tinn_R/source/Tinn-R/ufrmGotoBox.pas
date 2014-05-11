@@ -48,7 +48,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, Buttons, Spin, Mask, JvExMask, JvSpin;
+  StdCtrls, Buttons, Mask, JvExMask, JvSpin;
 
 type
   TfrmGotoBox = class(TForm)

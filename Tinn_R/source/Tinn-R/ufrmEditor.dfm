@@ -110,7 +110,6 @@ object frmEditor: TfrmEditor
     SelectedColor.Foreground = clWindow
     OnChange = synEditorChange
     OnGutterClick = synEditorGutterClick
-    OnReplaceText = synEditorReplaceText
     OnStatusChange = synEditorStatusChange
     FontSmoothing = fsmNone
   end
@@ -119,7 +118,7 @@ object frmEditor: TfrmEditor
     Top = 8
   end
   object synEditRegexSearch: TSynEditRegexSearch
-    Left = 121
-    Top = 44
+    Left = 113
+    Top = 76
   end
 end

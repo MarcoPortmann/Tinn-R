@@ -81,7 +81,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, SynEditPrint, SynEditPrintTypes, SynEdit,
-  Buttons, Mask, ActnList;
+  Buttons, Mask, ActnList, System.Actions;
 
 type
   TfrmConfigurePrint = class(TForm)

@@ -74,10 +74,6 @@ object frmRterm: TfrmRterm
     Options = [ftoAutoFontDirection, ftoExcludeGlyphs]
     object tbsIO: TTabSheet
       Caption = 'IO'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object synIO: TSynEdit
         Left = 0
         Top = 0
@@ -120,10 +116,6 @@ object frmRterm: TfrmRterm
     object tbsLog: TTabSheet
       Caption = 'Log'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object synLog: TSynEdit
         Left = 0
         Top = 0
@@ -380,7 +372,7 @@ object frmRterm: TfrmRterm
   end
   object JvDockClientRterm: TJvDockClient
     DirectDrag = False
-    Left = 55
+    Left = 151
     Top = 32
   end
   object cRTerm: TConsoleIO

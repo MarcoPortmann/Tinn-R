@@ -405,6 +405,7 @@ object frmRmirrors: TfrmRmirrors
       item
         Expanded = False
         FieldName = 'Code'
+        Width = 64
         Visible = True
       end>
   end
@@ -446,9 +447,6 @@ object frmRmirrors: TfrmRmirrors
     Font.Height = -11
     Font.Name = 'MS Sans Serif'
     Font.Style = []
-    ParentFont = False
-    TabOrder = 12
-    OnClick = bbHelpClick
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
       2000000000000004000000000000000000000000000000000000FF00FF00FF00
@@ -484,5 +482,8 @@ object frmRmirrors: TfrmRmirrors
       FC00B6DFF8006BBBED0056AFE80077BEEC00FF00FF00FF00FF00FF00FF00FF00
       FF00FF00FF00FF00FF00B0E2F500A7DCF5009DD9F50091D1F10082CBF00076C4
       EF006DBFED0077C3EE00FF00FF00FF00FF00FF00FF00FF00FF00}
+    ParentFont = False
+    TabOrder = 12
+    OnClick = bbHelpClick
   end
 end

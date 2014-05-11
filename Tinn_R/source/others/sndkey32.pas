@@ -97,6 +97,9 @@ Changed by José Cláudio Faria: 20/11/2004
 for use in Tinn-R project.
 *)
 
+
+//m.p. KeyString was changed from string[20] to String. Check whether this causes problems!
+
 unit sndkey32;
 
 interface
@@ -230,7 +233,7 @@ var
   PosSpace : Byte;
   I, L : Integer;
   NumTimes, MKey : Word;
-  KeyString : string[20];
+  KeyString : String;
 
 function BitSet(BitTable, BitMask : Byte) : Boolean;
 begin
@@ -361,6 +364,7 @@ begin
     ControlDown := false;
     AltDown := false;
   end;
+
 end;
 
 begin
@@ -376,7 +380,6 @@ begin
     L := AllocationSize;
   if (L = 0) then
     Exit;
-
   while (I < L) do begin
     case SendKeysString[I] of
     '(' : begin

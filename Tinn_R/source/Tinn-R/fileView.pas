@@ -1068,20 +1068,22 @@ begin
   //JCFaria
   //frmTinnMain.dlgSDMain.Filter := 'Text files (*.txt)|*.txt';
   //frmTinnMain.dlgSDMain.DefaultExt := 'txt';
+
+
   frmTinnMain.sdMain.FilterIndex := 3;
   if not frmTinnMain.sdMain.execute then exit;
   with TStringList.create do
   try
     beginupdate;
-    add('Difference Report - '+ formatdatetime(shortdateformat+', '+ShortTimeFormat, now));
+    add('Difference Report - '+ formatdatetime(FormatSettings.Shortdateformat+', '+FormatSettings.ShortTimeFormat, now));
     add('================================================================================');
     add('');
     add(format('File 1: "%s"',[fn1]));
     add('        Last modified on '+
-      formatdatetime(shortdateformat +', '+ ShortTimeFormat, filedateToDatetime(fa1)));
+      formatdatetime(FormatSettings.Shortdateformat +', '+ FormatSettings.ShortTimeFormat, filedateToDatetime(fa1)));
     add(format('File 2: "%s"',[fn2]));
     add('        Last modified on '+
-      formatdatetime(shortdateformat +', '+ ShortTimeFormat, filedateToDatetime(fa2)));
+      formatdatetime(FormatSettings.Shortdateformat +', '+ FormatSettings.ShortTimeFormat, filedateToDatetime(fa2)));
     add('');
 
     ln := 0;

@@ -198,6 +198,7 @@ end;
 
 procedure TfrmFoldersFrame.Setup;
 begin
+
   fFolderBmp := TBitmap.create;
   fFolderBmp.LoadFromResourceName(hInstance,'FOLDER');
   fFolderBmp.Transparent := true;
@@ -229,8 +230,8 @@ begin
   sgFolder2.ColWidths[1] := sgFolder1.ColWidths[1];
 
   sgFolder1.ColWidths[2] :=
-    frmDiffMain.Canvas.TextWidth(formatDatetime(shortDateFormat +
-      '        '+ ShortTimeFormat, 0));
+    frmDiffMain.Canvas.TextWidth(formatDatetime(FormatSettings.ShortDateFormat +
+      '        '+ FormatSettings.ShortTimeFormat, 0));
   sgFolder2.ColWidths[2] := sgFolder1.ColWidths[2];
 
 end;
@@ -493,6 +494,7 @@ var
   FolderStringList: TStringList;
   sgFolder: TStringgrid;
 begin
+
   if IsFolder1 then begin
     FolderStringList := fFolder1StringList;
     sgFolder := sgFolder1;
@@ -510,7 +512,7 @@ begin
       for j := 1 to 2 do sgFolder.Cells[j,i+1] := '';
       if (Name <> '') and not IsDirectory then begin
         sgFolder.Cells[1,i+1] := format('%1.0n KB',[(Size + 512)/1024]);
-        sgFolder.Cells[2,i+1] := formatDatetime(shortDateFormat + '  '+ ShortTimeFormat, Modified);
+        sgFolder.Cells[2,i+1] := formatDatetime(FormatSettings.ShortDateFormat + '  '+ FormatSettings.ShortTimeFormat, Modified);
     end;
   end;
 end;

@@ -500,11 +500,11 @@ begin
                    not SysUtils.faReadOnly;
         FileSetAttr(sActiveFile,
                     wFileAtt);
-
+    {m.p. IMPORTANT
         seeEncoding_ToSave:= GetEncoding_ToSave(TSynEditStringList(synEditor.Lines).SaveFormat);
         if (seeEncoding_ToSave <> seANSI) then bBOM_ToSave:= True  // Always add BOM to <> ANSI!!!
                                           else bBOM_ToSave:= False;
-
+                }
         SaveToFile(synEditor.Lines,
                    sActiveFile,
                    seeEncoding_ToSave,
@@ -587,12 +587,12 @@ begin
                not SysUtils.faReadOnly;
     FileSetAttr(sFile,
                 wFileAtt);
-
+    {m.p. IMPORTANT
     seeEncoding_ToSave:= GetEncoding_ToSave(TSynEditStringList(synEditor.Lines).SaveFormat);
 
     if (seeEncoding_ToSave <> seANSI) then bBOM_ToSave:= True  // Always add BOM to <> ANSI!!!
                                       else bBOM_ToSave:= False;
-
+       }
     SaveToFile(synEditor.Lines,
                sFile,
                seeEncoding_ToSave,
@@ -666,7 +666,8 @@ begin
 
   sActiveEditor:= 'synEditor';
 
-  synEditor.Lines.SaveFormat:= frmTinnMain.sefDefault;
+
+  //m.p. IMPORTANT synEditor.Lines.SaveFormat:= frmTinnMain.sefDefault;
 
   with frmTinnMain do begin
     // The below is alphabetically ordered
@@ -1137,6 +1138,9 @@ begin
                      CaretX := CaretX - 1;
                    end;
     end;
+
+
+
 
 {
     case key of

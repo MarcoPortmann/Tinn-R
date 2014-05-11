@@ -185,7 +185,7 @@ uses
   JvDockControlForm, JvDockTree, JvDockVSNetStyle,
   JvComponent, JvAppStorage, JvAppIniStorage, JvDockVIDStyle, JvExComCtrls,
   JvComCtrls, JvMenus, JvAppHotKey, JvTimer, SynUnicode, SynEditTextBuffer, DB,
-  SynEditOC;
+  SynEditOC, System.Actions;
 
 const
   WM_OPENEDITOR = WM_USER + 1;
@@ -592,7 +592,6 @@ type
     Bottom2: TMenuItem;
     Bottom3: TMenuItem;
     Card1: TMenuItem;
-    cbSpellLanguage: TSpellLanguageComboBox;
     cbSyntax: TComboBox;
     cdMain: TColorDialog;
     Clear3: TMenuItem;
@@ -1708,7 +1707,6 @@ type
     Search1: TMenuItem;
     SGML1: TMenuItem;
     Showall1: TMenuItem;
-    SpellChecker: TSpellChecker;
     stbMain: TStatusBar;
     Sweave1: TMenuItem;
     synEditor2DataCompletion: TSynCompletionProposal;
@@ -2837,8 +2835,6 @@ type
     RHistory                  : TRHistory;
     sAppSelected              : string;
     sBeginComment             : string;
-    sCommentsBookMark         : string;
-    sCompletionBookMark       : string;
     sDragSource               : string;
     sDragSourceLine           : string;
     seeEncoding               : TSynEncoding;
@@ -2865,10 +2861,7 @@ type
     sPathTinnR                : string;
     sPathTinnRcom             : string;
     sPathTmp                  : string;
-    sRcardBookMark            : string;
     sRmirror                  : string;
-    sRmirrorsBookMark         : string;
-    sRtipBookMark             : string;
     sRversion                 : string;
     sSaveAsFileExt            : string;
     sSearchTextHistory        : string;
@@ -2876,6 +2869,14 @@ type
     sTipToWrite               : string;
     sUtilsOrigin              : string;
     sWorkingDir               : string;
+
+    sCommentsBookMark         : TArray<Byte>;
+    sCompletionBookMark       : TArray<Byte>;
+    sRmirrorsBookMark         : TArray<Byte>;
+    sRtipBookMark             : TArray<Byte>;
+    sRcardBookMark            : TArray<Byte>;
+
+
 
     function FindTopWindow: integer;
     function GetBuildInfo: string;
@@ -3134,7 +3135,7 @@ var
   i,
    iArrayLength     : integer;
   pP                : TPoint;
-  sTmp              : WideString;
+  sTmp              : String;
 
 const
   AllBrackets = ['{',
@@ -3202,6 +3203,10 @@ begin
                                        sTmp,
                                        Attri);
 
+
+  //m.p. Assigned(.) prevents from running into errors. However, the reason why that occurs is unclear
+  // seEditor.Higlighter may not loads at app start as it is supposed to do.
+  if Assigned(seEditor.Highlighter) then
   if (seEditor.Highlighter.SymbolAttribute = Attri) then begin
     for i:= low(aOpenChar) to High(aOpenChar) do begin
       if (sTmp = aOpenChar[i]) or
@@ -3386,7 +3391,7 @@ begin
     if (frmTools.jvdlbWorkExplorer.Directory <> sTmp) then begin
       frmTools.jvdlbWorkExplorer.Directory:= sTmp;
 
-      if (trim(frmTools.edWorkExplorerFilter.Text) = '*.*') then frmTools.jvflbWorkExplorer.Mask:= EmptyStr
+      if ((trim(frmTools.edWorkExplorerFilter.Text) = '*.*') or (trim(frmTools.edWorkExplorerFilter.Text) = '')) then frmTools.jvflbWorkExplorer.Mask:= '*.*'
                                                             else frmTools.jvflbWorkExplorer.Mask:= trim(frmTools.edWorkExplorerFilter.Text);
     end;
   end;
@@ -3743,7 +3748,7 @@ begin
     WriteInteger('App', 'iShortcuts.ItemIndex', frmTools.lbShortcuts.ItemIndex);
     WriteInteger('App', 'iSpell.Left', tobSpell.Left);
     WriteInteger('App', 'iSpell.Top', tobSpell.Top);
-    WriteInteger('App', 'iSpellLanguage.ItemIndex', cbSpellLanguage.ItemIndex);
+//m.p.    WriteInteger('App', 'iSpellLanguage.ItemIndex', cbSpellLanguage.ItemIndex);
     WriteInteger('App', 'iSyntax.Left', tobSyntax.Left);
     WriteInteger('App', 'iSyntax.Top', tobSyntax.Top);
     WriteInteger('App', 'iView.Left', tobView.Left);
@@ -4269,7 +4274,7 @@ begin
     WriteInteger('App', 'iShortcuts.ItemIndex', frmTools.lbShortcuts.ItemIndex);
     WriteInteger('App', 'iSpell.Left', tobSpell.Left);
     WriteInteger('App', 'iSpell.Top', tobSpell.Top);
-    WriteInteger('App', 'iSpellLanguage.ItemIndex', cbSpellLanguage.ItemIndex);
+//m.p.    WriteInteger('App', 'iSpellLanguage.ItemIndex', cbSpellLanguage.ItemIndex);
     WriteInteger('App', 'iSyntax.Left', tobSyntax.Left);
     WriteInteger('App', 'iSyntax.Top', tobSyntax.Top);
     WriteInteger('App', 'iView.Left', tobView.Left);
@@ -4750,14 +4755,17 @@ var
 
   function GetSaveFormat: string;
   begin
-    sf:= TSynEditStringList(usTmp).SaveFormat;
-    case sf of
+  //m.p.
+  //  sf:= TSynEditStringList(usTmp).FileFormat;
+  {
+    //case sf of
+
       sfANSI:     ssf:= 'ANSI';
       sfUTF8:     ssf:= 'UTF-8';
       sfUTF16LSB: ssf:= 'UTF16-LE';
       sfUTF16MSB: ssf:= 'UTF16-BE';
-    end;
-    Result:= ssf;
+    end;}
+    Result:= 'unicode'//ssf;
   end;
 
 begin
@@ -4800,7 +4808,7 @@ end;
 procedure TfrmTinnMain.SetBuffer_SaveFormat(sf: TSaveFormat);
 begin
   with (Self.MDIChildren[FindTopWindow] as TfrmEditor) do begin
-    TSynEditStringList(synEditor.Lines).SaveFormat:= sf;
+//m.p.    TSynEditStringList(synEditor.Lines).SaveFormat:= sf;
     synEditor.Modified:= True;
     SetTabTitle('*');
     CheckSaveStatus;
@@ -5150,7 +5158,7 @@ begin
   iToolsDockHeight            := ifTinn.ReadInteger('App', 'iToolsDock.Height', 200);
   iToolsDockWidth             := ifTinn.ReadInteger('App', 'iToolsDock.Width', 100);
 
-  cbSpellLanguage.ItemIndex:= ifTinn.ReadInteger('App', 'iSpellLanguage.ItemIndex', -1);
+//m.p.  cbSpellLanguage.ItemIndex:= ifTinn.ReadInteger('App', 'iSpellLanguage.ItemIndex', -1);
   iCompletionFilter        := ifTinn.ReadInteger('App', 'iCompletion.ItemIndex', 0);
   iCountriesFilter         := ifTinn.ReadInteger('App', 'iCountries.ItemIndex', 0);
   iRcardFilter             := ifTinn.ReadInteger('App', 'iRcard.ItemIndex', 0);
@@ -7000,6 +7008,7 @@ begin
     menToolsUtils.Visible:= False;
   {$ENDIF}
 *)
+
   if (DebugHook <> 0) then menToolsUtils.Visible:= True;
 
   GetPathRes;
@@ -7035,67 +7044,71 @@ begin
     SetIniStructure;
     UpdateSplash('03');
 
-    CheckVersion;
 
-    sOldPreferencesTmp:= sPathIni +
-                         '_tmp';
+      CheckVersion;
 
-    SavePreferencesOfOldVersion;
+      sOldPreferencesTmp:= sPathIni +
+                           '_tmp';
 
-    frmRterm:= TfrmRterm.Create(nil);
-    UpdateSplash('04');
+      SavePreferencesOfOldVersion;
 
-    SetPreferences_Application;
-    SetPreferences_Editor;
+      frmRterm:= TfrmRterm.Create(nil);
+      UpdateSplash('04');
 
-    CheckIni;
+      SetPreferences_Application;
+      SetPreferences_Editor;
 
-    SetDataCompletion(synIOTip,
-                      frmRterm.synIO,
-                      sTriggerRtip);
+      CheckIni;
 
-    SetDataCompletion(synIODataCompletion,
-                      frmRterm.synIO,
-                      sTriggerRDataCompletion);
+      SetDataCompletion(synIOTip,
+                        frmRterm.synIO,
+                        sTriggerRtip);
 
-    CheckIniDock;
-    UpdateSplash('05');
+      SetDataCompletion(synIODataCompletion,
+                        frmRterm.synIO,
+                        sTriggerRDataCompletion);
 
-    CheckData;
+      CheckIniDock;
+      UpdateSplash('05');
+
+      CheckData;
 
     Application.CreateForm(TmodDados,
                            modDados);
     UpdateSplash('06');
 
-    SetRcard;
-    UpdateSplash('07');
 
-    SetCompletion;
-    SetRmirrors;
-    UpdateSplash('08');
+      SetRcard;
+      UpdateSplash('07');
 
-    SetShortcuts;
+      SetCompletion;
+      SetRmirrors;
+      UpdateSplash('08');
 
-    frmTools.tbsLatex.TabVisible:= actLatexVisible.Checked;
-    CheckLatex(False);
+      SetShortcuts;
+
+      frmTools.tbsLatex.TabVisible:= actLatexVisible.Checked;
+      CheckLatex(False);
+
 
     CheckEditorOptions;
     UpdateSplash('09');
 
-    DeleteDir(sOldPreferencesTmp);
-    if bColors_OldVersion or
-       bCustom_OldVersion or
-       bSyntax_OldVersion then begin
-      bColors_OldVersion:= False;
-      bCustom_OldVersion:= False;
-      bSyntax_OldVersion:= False;
-    end;
+      DeleteDir(sOldPreferencesTmp);
+      if bColors_OldVersion or
+         bCustom_OldVersion or
+         bSyntax_OldVersion then begin
+        bColors_OldVersion:= False;
+        bCustom_OldVersion:= False;
+        bSyntax_OldVersion:= False;
+      end;
 
     Application.CreateForm(TdmSyn,
                            dmSyn);
 
     synURIOpener.URIHighlighter:= dmSyn.synURI;
     UpdateSplash('10');
+
 
     // Application
     SaveNewIni_Application;                                                   // Will create a new and clean Tinn.tmp
@@ -7110,6 +7123,7 @@ begin
 
     RenameFile(sPathIniEditor_Tmp,
                sPathIniEditor_File);                                          // Set the new Editor.ini
+
 
     UpdateSplash('11');
   except
@@ -7166,6 +7180,7 @@ begin
 
   sdMain.Filter:= slFilters.Text;
 
+
   with frmTools do begin
     fcbbToolsWinExplorer.Filter := slFilters.Text;
     fcbbToolsWorkExplorer.Filter:= slFilters.Text;
@@ -7176,6 +7191,9 @@ begin
     imlRexplorer.GetBitmap(i,
                            aImg[i]);
   end;
+
+
+
 
   with frmTools.cbbToolsRExplorer.Items do begin
     AddObject('All'       , aImg[0]);
@@ -8476,6 +8494,7 @@ end;
 procedure TfrmTinnMain.actRmirrorsEditExecute(Sender: TObject);
 begin
   sRmirrorsBookMark:= modDados.cdRmirrors.Bookmark;
+
   menToolsDatabaseMirrorsRClick(nil);
   SetFocus_Main;
 end;
@@ -12050,9 +12069,9 @@ begin
     else                // IO and Log in distinct view
       actRtermIOSplitRemoveExecute(nil);
 
-  cbSpellLanguage.ItemIndex:= ifTinn.ReadInteger('App',
+{m.p.  cbSpellLanguage.ItemIndex:= ifTinn.ReadInteger('App',
                                                  'iSpellLanguage.ItemIndex',
-                                                 -1);
+                                                 -1);     }
 
   if FileExists(sPathColor_Custom) then cdMain.CustomColors.LoadFromFile(sPathColor_Custom);
 
@@ -18319,7 +18338,7 @@ begin
                 else frmTools.memSpell.Text:= Text;
   end;
 
-  SpellChecker.Check(frmTools.memSpell);
+//m.p.  SpellChecker.Check(frmTools.memSpell);
   Refresh;
   UpdateFile(seEditor,
              smOption);
@@ -18626,7 +18645,7 @@ var
   cTmp: WideChar;
   iPos: integer;
 
-  sAtCursor: WideString;
+  sAtCursor: String;
 
 begin
   with seActive do begin

@@ -167,7 +167,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 0
     Top = 100
     Width = 1
-    Height = 887
+    Height = 874
     Align = alLeft
     BevelOuter = bvNone
     DockSite = True
@@ -178,7 +178,7 @@ object frmTinnMain: TfrmTinnMain
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1018
+    Width = 1010
     Height = 80
     Align = alTop
     AutoSize = True
@@ -187,7 +187,7 @@ object frmTinnMain: TfrmTinnMain
     object ctbMain: TControlBar
       Left = 0
       Top = 0
-      Width = 1018
+      Width = 1010
       Height = 52
       Align = alTop
       AutoDock = False
@@ -229,7 +229,7 @@ object frmTinnMain: TfrmTinnMain
           OnClick = actFileOpenExecute
         end
         object ToolButton6: TToolButton
-          Left = 59
+          Left = 61
           Top = 0
           Width = 8
           Caption = 'ToolButton6'
@@ -237,18 +237,18 @@ object frmTinnMain: TfrmTinnMain
           Style = tbsSeparator
         end
         object tbSave: TToolButton
-          Left = 67
+          Left = 69
           Top = 0
           Action = actFileSave
         end
         object tbSaveAll: TToolButton
-          Left = 90
+          Left = 92
           Top = 0
           Hint = 'File: save all'
           Action = actFileSaveAll
         end
         object ToolButton5: TToolButton
-          Left = 113
+          Left = 115
           Top = 0
           Width = 8
           Caption = 'ToolButton5'
@@ -256,12 +256,12 @@ object frmTinnMain: TfrmTinnMain
           Style = tbsSeparator
         end
         object tbReload: TToolButton
-          Left = 121
+          Left = 123
           Top = 0
           Action = actReload
         end
         object ToolButton1: TToolButton
-          Left = 144
+          Left = 146
           Top = 0
           Width = 8
           Caption = 'ToolButton1'
@@ -269,7 +269,7 @@ object frmTinnMain: TfrmTinnMain
           Style = tbsSeparator
         end
         object tbPrint: TToolButton
-          Left = 152
+          Left = 154
           Top = 0
           Action = actPrint
         end
@@ -342,7 +342,6 @@ object frmTinnMain: TfrmTinnMain
           Font.Name = 'Tahoma'
           Font.Pitch = fpFixed
           Font.Style = []
-          ItemHeight = 13
           ParentCtl3D = False
           ParentFont = False
           Sorted = True
@@ -699,29 +698,8 @@ object frmTinnMain: TfrmTinnMain
         TabOrder = 9
         Transparent = True
         Wrapable = False
-        object cbSpellLanguage: TSpellLanguageComboBox
-          Left = 0
-          Top = 0
-          Width = 141
-          Height = 21
-          Hint = 'Tools: set dictionary to spell'
-          SpellChecker = SpellChecker
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Pitch = fpFixed
-          Font.Style = []
-          BiDiMode = bdLeftToRight
-          ParentBiDiMode = False
-          ItemHeight = 13
-          ItemIndex = 0
-          ParentFont = False
-          Style = csDropDownList
-          TabOrder = 0
-        end
         object ToolButton7: TToolButton
-          Left = 141
+          Left = 0
           Top = 0
           Width = 8
           Caption = 'ToolButton1'
@@ -729,7 +707,7 @@ object frmTinnMain: TfrmTinnMain
           Style = tbsSeparator
         end
         object tbSpell: TToolButton
-          Left = 149
+          Left = 8
           Top = 0
           Action = actSpell
         end
@@ -928,7 +906,7 @@ object frmTinnMain: TfrmTinnMain
     object TBRDockTop: TTBDock
       Left = 0
       Top = 52
-      Width = 1018
+      Width = 1010
       Height = 28
       BoundLines = [blTop, blBottom, blLeft, blRight]
       PopupMenu = pmenRRes
@@ -1147,7 +1125,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 1
     Top = 100
     Width = 9
-    Height = 887
+    Height = 874
     BoundLines = [blTop, blBottom, blLeft, blRight]
     FixAlign = True
     LimitToOneRow = True
@@ -1165,8 +1143,8 @@ object frmTinnMain: TfrmTinnMain
   end
   object stbMain: TStatusBar
     Left = 0
-    Top = 996
-    Width = 1018
+    Top = 983
+    Width = 1010
     Height = 20
     Anchors = [akLeft, akBottom]
     Constraints.MaxHeight = 21
@@ -1214,10 +1192,10 @@ object frmTinnMain: TfrmTinnMain
     OnDrawPanel = stbMainDrawPanel
   end
   object TBDockRight: TTBDock
-    Left = 1009
+    Left = 1001
     Top = 100
     Width = 9
-    Height = 887
+    Height = 874
     BoundLines = [blTop, blBottom, blLeft, blRight]
     FixAlign = True
     LimitToOneRow = True
@@ -1226,8 +1204,8 @@ object frmTinnMain: TfrmTinnMain
   end
   object TBDockBottom: TTBDock
     Left = 0
-    Top = 987
-    Width = 1018
+    Top = 974
+    Width = 1010
     Height = 9
     BoundLines = [blTop, blBottom, blLeft, blRight]
     FixAlign = True
@@ -1238,7 +1216,7 @@ object frmTinnMain: TfrmTinnMain
   object pgFiles: TJvgPageControl
     Left = 0
     Top = 80
-    Width = 1018
+    Width = 1010
     Height = 20
     Align = alTop
     Font.Charset = DEFAULT_CHARSET
@@ -1396,7 +1374,6 @@ object frmTinnMain: TfrmTinnMain
     UseBackground = True
     Left = 272
     Top = 144
-    TitleW = 'Untitled'
   end
   object synExporterHTML: TSynExporterHTML
     Color = clWindow
@@ -1411,7 +1388,6 @@ object frmTinnMain: TfrmTinnMain
     UseBackground = True
     Left = 272
     Top = 176
-    TitleW = 'Untitled'
   end
   object synExporterTeX: TSynExporterTeX
     Color = clWindow
@@ -1427,7 +1403,6 @@ object frmTinnMain: TfrmTinnMain
     UseBackground = True
     Left = 272
     Top = 208
-    TitleW = 'Untitled'
   end
   object odMain: TOpenDialog
     Left = 208
@@ -1713,7 +1688,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 176
     Top = 144
     Bitmap = {
-      494C01010A002806280610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A002806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2589,7 +2564,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 176
     Top = 112
     Bitmap = {
-      494C010124012806280610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010124012806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000A0040000010020000000000000A0
       0400000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -12364,26 +12339,6 @@ object frmTinnMain: TfrmTinnMain
       FFFF80078007FFFFFFFFFFFFFFFDFFFF00000000000000000000000000000000
       000000000000}
   end
-  object SpellChecker: TSpellChecker
-    Language = 2057
-    SpellerType = sptISpell
-    UserLanguage = ulEnglish
-    Options = [spoSuggestFromUserDict, spoIgnoreAllCaps, spoIgnoreMixedDigits, spoIgnoreRomanNumerals, spoFindUncappedSentences, spoFindRepeatWord]
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Arial'
-    Font.Style = []
-    MisspellFont.MspName = 'Arial'
-    MisspellFont.MspColor = clRed
-    MisspellFont.MspStyle = [fsBold]
-    ModalDialog = True
-    HTMLSupport = True
-    FinishMessage = 'Speller finished!'
-    ShowFinishMessage = True
-    Left = 336
-    Top = 144
-  end
   object pmenSpell: TJvPopupMenu
     Images = imlTinnR
     Style = msOffice
@@ -15309,7 +15264,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 176
     Top = 176
     Bitmap = {
-      494C010105002806280610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105002806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -15809,7 +15764,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 176
     Top = 208
     Bitmap = {
-      494C010104002806280610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104002806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -16098,13 +16053,10 @@ object frmTinnMain: TfrmTinnMain
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = [fsBold]
     Columns = <>
-    OnExecute = synRtipExecute
     ShortCut = 0
     TimerInterval = 100
     Left = 368
     Top = 240
-    EndOfTokenChrW = '()[]. '
-    TriggerCharsW = '.'
   end
   object synEditorTip: TSynCompletionProposal
     Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
@@ -16124,13 +16076,10 @@ object frmTinnMain: TfrmTinnMain
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = [fsBold]
     Columns = <>
-    OnExecute = synRtipExecute
     ShortCut = 0
     TimerInterval = 100
     Left = 304
     Top = 240
-    EndOfTokenChrW = '()[]. '
-    TriggerCharsW = '.'
   end
   object synEditor2Tip: TSynCompletionProposal
     Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
@@ -16150,13 +16099,10 @@ object frmTinnMain: TfrmTinnMain
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = [fsBold]
     Columns = <>
-    OnExecute = synRtipExecute
     ShortCut = 0
     TimerInterval = 100
     Left = 336
     Top = 240
-    EndOfTokenChrW = '()[]. '
-    TriggerCharsW = '.'
   end
   object synEditorDataCompletion: TSynCompletionProposal
     Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
@@ -16176,13 +16122,10 @@ object frmTinnMain: TfrmTinnMain
     TitleFont.Style = [fsBold]
     Columns = <>
     Margin = 3
-    OnExecute = synEditorDataCompletionExecute
     ShortCut = 0
     TimerInterval = 100
     Left = 304
     Top = 272
-    EndOfTokenChrW = '()[]. '
-    TriggerCharsW = '.'
   end
   object synEditor2DataCompletion: TSynCompletionProposal
     Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
@@ -16202,13 +16145,10 @@ object frmTinnMain: TfrmTinnMain
     TitleFont.Style = [fsBold]
     Columns = <>
     Margin = 3
-    OnExecute = synEditorDataCompletionExecute
     ShortCut = 0
     TimerInterval = 100
     Left = 336
     Top = 272
-    EndOfTokenChrW = '()[]. '
-    TriggerCharsW = '.'
   end
   object synIODataCompletion: TSynCompletionProposal
     Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
@@ -16228,13 +16168,10 @@ object frmTinnMain: TfrmTinnMain
     TitleFont.Style = [fsBold]
     Columns = <>
     Margin = 3
-    OnExecute = synEditorDataCompletionExecute
     ShortCut = 0
     TimerInterval = 100
     Left = 368
     Top = 272
-    EndOfTokenChrW = '()[]. '
-    TriggerCharsW = '.'
   end
   object pmenIO: TJvPopupMenu
     Images = imlTinnR
@@ -19265,7 +19202,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 176
     Top = 240
     Bitmap = {
-      494C010104001003100310001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104001003280310001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

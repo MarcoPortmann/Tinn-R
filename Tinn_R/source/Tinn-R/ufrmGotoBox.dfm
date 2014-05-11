@@ -50,9 +50,9 @@ object frmGotoBox: TfrmGotoBox
     Caption = 'OK'
     Default = True
     ModalResult = 1
+    NumGlyphs = 2
     TabOrder = 1
     OnClick = BitBtn1Click
-    NumGlyphs = 2
   end
   object BitBtn2: TBitBtn
     Left = 178
@@ -62,7 +62,7 @@ object frmGotoBox: TfrmGotoBox
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
-    TabOrder = 2
     NumGlyphs = 2
+    TabOrder = 2
   end
 end

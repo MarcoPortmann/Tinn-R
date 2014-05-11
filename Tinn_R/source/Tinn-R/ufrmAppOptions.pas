@@ -48,7 +48,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ComCtrls, CommCtrl, StdCtrls, Buttons, Spin, ExtCtrls, ImgList,
+  ComCtrls, CommCtrl, StdCtrls, Buttons, ExtCtrls, ImgList,
   Menus, EditAlign, ScktComp, trShape, JvExControls,
   JvColorTrackbar, JvgPage, JvExComCtrls, JvComCtrls,
   SynEdit, SynEditMiscClasses, SynEditKeyCmds, SynEditKeyConst,

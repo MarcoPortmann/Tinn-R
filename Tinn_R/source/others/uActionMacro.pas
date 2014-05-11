@@ -141,7 +141,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   SynEdit, Menus, StdActns, ActnList, StdCtrls, ExtCtrls,
-  SynEditKeyCmds, SynMacroRecorder;
+  SynEditKeyCmds, SynMacroRecorder, System.Actions;
 
 const
   ecAction: TsynEditorCommand = ecUserFirst;
@@ -153,8 +153,8 @@ type
     fActionName: string;
     fActionLists: TList;
   protected
-    function GetAsString : WideString; override;
-    procedure InitEventParameters(sStr : WideString); override;
+    function GetAsString : WideString; //m.p. override;
+    procedure InitEventParameters(sStr : WideString); //m.p. override;
   public
     constructor Create(); override;
     destructor Destroy; override;

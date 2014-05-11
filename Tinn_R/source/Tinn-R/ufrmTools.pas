@@ -55,7 +55,7 @@ uses
   ShellCtrls, ExtCtrls, JvDockTree, JvDockControlForm, 
   JvComponentBase, SynEditKeyCmds, JvgPage, Clipbrd, JvExControls,
   JvPoweredBy, JvExComCtrls, JvHotKey, SynEditMiscClasses, JvStatusBar,
-  JvExButtons, JvBitBtn, Mask;
+  JvExButtons, JvBitBtn, Mask, System.Actions; //Adding System.Actions solves "assuspended/asnormal undefined" issue
 
 type
   TfrmTools = class(TForm)
@@ -637,13 +637,13 @@ end;
 
 procedure TfrmTools.bbtWinExplorerFilterRefreshClick(Sender: TObject);
 begin
-  if (trim(edWinExplorerFilter.Text) = '*.*') then jvflbWinExplorer.Mask:= ''
+  if ((trim(edWinExplorerFilter.Text) = '*.*') or (trim(edWinExplorerFilter.Text) = '')) then jvflbWinExplorer.Mask:= '*.*'
                                               else jvflbWinExplorer.Mask:= trim(edWinExplorerFilter.Text);
 end;
 
 procedure TfrmTools.bbtWorkExplorerFileterRefreshClick(Sender: TObject);
 begin
-  if (trim(edWorkExplorerFilter.Text) = '*.*') then jvflbWorkExplorer.Mask:= ''
+  if ((trim(edWorkExplorerFilter.Text) = '*.*') or (trim(edWorkExplorerFilter.Text) = '')) then jvflbWorkExplorer.Mask:= '*.*'
                                                else jvflbWorkExplorer.Mask:= trim(edWorkExplorerFilter.Text);
 end;
 
@@ -832,8 +832,8 @@ procedure TfrmTools.edWinExplorerFilterKeyDown(Sender: TObject;
                                                Shift: TShiftState);
 begin
   case Key of
-    VK_RETURN: if (trim(edWinExplorerFilter.Text) = '*.*') then
-                 jvflbWinExplorer.Mask:= ''
+    VK_RETURN: if ( (trim(edWinExplorerFilter.Text) = '*.*') or  (trim(edWinExplorerFilter.Text) = '') ) then
+                 jvflbWinExplorer.Mask:= '*.*'
                else
                  jvflbWinExplorer.Mask:= trim(edWinExplorerFilter.Text);
     VK_ESCAPE: begin
@@ -848,8 +848,8 @@ procedure TfrmTools.edWorkExplorerFilterKeyDown(Sender: TObject;
                                                 Shift: TShiftState);
 begin
   case Key of
-    VK_RETURN: if (trim(edWorkExplorerFilter.Text) = '*.*') then
-                 jvflbWorkExplorer.Mask:= ''
+    VK_RETURN: if ((trim(edWorkExplorerFilter.Text) = '*.*') or (trim(edWorkExplorerFilter.Text) = '')) then
+                 jvflbWorkExplorer.Mask:= '*.*'
                else
                  jvflbWorkExplorer.Mask:= trim(edWorkExplorerFilter.Text);
     VK_ESCAPE: begin
@@ -861,10 +861,11 @@ end;
 
 procedure TfrmTools.fcbbToolsWinExplorerChange(Sender: TObject);
 begin
+
   with jvflbWinExplorer do begin
     Items.BeginUpdate;
-    if (trim(fcbbToolsWinExplorer.Mask) = '*.*') then
-      jvflbWinExplorer.Mask:= ''
+    if ((trim(fcbbToolsWinExplorer.Mask) = '*.*') or (trim(fcbbToolsWinExplorer.Mask) = '')) then
+      jvflbWinExplorer.Mask:= '*.*'
     else
       jvflbWinExplorer.Mask:= trim(fcbbToolsWinExplorer.Mask);
     Items.EndUpdate;
@@ -875,8 +876,8 @@ procedure TfrmTools.fcbbToolsWorkExplorerChange(Sender: TObject);
 begin
   with jvflbWorkExplorer do begin
     Items.BeginUpdate;
-    if (trim(fcbbToolsWorkExplorer.Mask) = '*.*') then
-      jvflbWorkExplorer.Mask:= ''
+    if ((trim(fcbbToolsWorkExplorer.Mask) = '*.*') or (trim(fcbbToolsWorkExplorer.Mask) = '')) then
+      jvflbWorkExplorer.Mask:= '*.*'
     else
       jvflbWorkExplorer.Mask:= trim(fcbbToolsWorkExplorer.Mask);
     Items.EndUpdate;
@@ -940,7 +941,9 @@ end;
 
 procedure TfrmTools.jvhkShortcutsEnter(Sender: TObject);
 begin
+
   frmTinnMain.alMain.State:= asSuspended;
+
 end;
 
 procedure TfrmTools.jvhkShortcutsExit(Sender: TObject);
