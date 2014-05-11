@@ -1,23 +1,10 @@
 ### Tinn-R
 
-This is the development code of the **Tinn-R Editor - GUI for R Language and Environment**.
-You should use it if you want to contribute to its development:
-testing unreleased versions, fixing bugs, writing code, etc.
+This is a fork of the **Tinn-R Editor - GUI for R Language and Environment** maintained by Josï¿½ Clï¿½udio Faria.
 
-Tinn-R is free, simple but efficient replacement for the basic code editor provided by Rgui.
-The project is coordinate by José Cláudio Faria/UESC/DCET.
-All users are welcome to make it better.
+In particular, the project aims at (a) migrating the source code of Tinn-R to Delphi XE6, (b) adding a autosave/reload files on start function and (c) a code navigator for R to Tinn-R.
 
-LANGUAGE: **Object Pascal**, IDE: **DELPHI 2007**.
 
-To download do the following in a terminal emulator:
+LANGUAGE: **Object Pascal**, IDE: **DELPHI XE6**.
 
-> git clone git://github.com/jcfaria/Tinn-R.git
->
-> or
->
-> git clone https://jcfaria@github.com/jcfaria/Tinn-R.git
-
-The stable version of this software is available at:
-- http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
-- https://sourceforge.net/projects/tinn-r/
+To
