@@ -6,5 +6,3 @@ In particular, the project aims at (a) migrating the source code of Tinn-R to De
 
 
 LANGUAGE: **Object Pascal**, IDE: **DELPHI XE6**.
-
-To
