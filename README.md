@@ -22,7 +22,7 @@ In particular, the project aims at migrating the source code of Tinn-R to Delphi
 - **Bugs, bugs, bugs, and missing features:** Don’t click on “auto hide” or “reformat”! There is no category or package filter for the library at the moment. “Printing”, “search in multiple files”, “apply filter” in the toolbar, invert case, LaTeX support etc. etc. doesn’t work at the moment. Only the R highlighter works at the moment, the style descriptions in the highlighter menu are probably wrong or weird.  
 
 ## Installation
-The app is **available [here]https://github.com/MarcoPortmann/Tinn-R/blob/Delphi-XE/Tinn_R/install_setup/bin/Tinn-R_3.0.3.6_setup.exe?raw=true)**
+The app is **available [here](https://github.com/MarcoPortmann/Tinn-R/blob/Delphi-XE/Tinn_R/install_setup/bin/Tinn-R_3.0.3.6_setup.exe?raw=true)**
 
 ### First run
 Start Tinn-R and click on “R control: term start/close” in the toolbar. Tinn-R asks for the path of the R executable, starts to download all required packages and imports the R help files into the library. First, make sure that you are connected to the internet and no popup windows are hidden behind the main window and are waiting for your input (e.g. specifying a download server). Second, it can take up to 15 minutes until the help files of all packages are imported (depending on the number of installed and loaded packages). Whenever the user loads a package that has never been loaded before Tinn-R will import it. However, it will stay in the library afterwards. There is no progress indication at the moment! Therefore, just be patient when you connect to R for the first time.
