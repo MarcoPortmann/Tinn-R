@@ -1,45 +1,45 @@
 (*
- Tinn is a ASCII file editor primarily intended as a better replacement
- of the default Notepad.exe under Windows.
+  Tinn is a ASCII file editor primarily intended as a better replacement
+  of the default Notepad.exe under Windows.
 
- This software is distributed under the terms of the GNU General
- Public License, either Version 2, June 1991 or Version 3, June 2007.
- The terms of version 2 and of the license are in a folder called
- doc (licence_gpl2.txt and licence_gpl2.txt)
- which you should have received with this software.
+  This software is distributed under the terms of the GNU General
+  Public License, either Version 2, June 1991 or Version 3, June 2007.
+  The terms of version 2 and of the license are in a folder called
+  doc (licence_gpl2.txt and licence_gpl2.txt)
+  which you should have received with this software.
 
- See http://www.opensource.org/licenses/gpl-license.html or
- http://www.fsf.org/copyleft/gpl.html for further information.
+  See http://www.opensource.org/licenses/gpl-license.html or
+  http://www.fsf.org/copyleft/gpl.html for further information.
 
- Copyright
+  Copyright
   Russell May - http://www.solarvoid.com
 
- Tinn-R is an extension of Tinn that provides additional tools to control R
- (http://cran.r-project.org). The project is coordened by José Cláudio Faria
- (joseclaudio.faria@gmail.com).
+  Tinn-R is an extension of Tinn that provides additional tools to control R
+  (http://cran.r-project.org). The project is coordened by José Cláudio Faria
+  (joseclaudio.faria@gmail.com).
 
- As such, Tinn-R is a feature-rich replacement of the basic script editor
- provided with Rgui. It provides syntax-highlighting, submission of code in
- whole, or line-by-line, and many other useful tools to ease writting and
- debugging of R code.
+  As such, Tinn-R is a feature-rich replacement of the basic script editor
+  provided with Rgui. It provides syntax-highlighting, submission of code in
+  whole, or line-by-line, and many other useful tools to ease writting and
+  debugging of R code.
 
- Copyright
+  Copyright
   Tinn-R team October/2005
   Tinn-R team October/2013
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 and 3 of the License, or
- (at your option) any later version.
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 and 3 of the License, or
+  (at your option) any later version.
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *)
 
 unit ufrmShortcuts;
@@ -49,7 +49,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, Db, DBTables,
-  Buttons, ComCtrls, JvExComCtrls, JvHotKey;
+  Buttons, ComCtrls, JvExComCtrls, JvHotKey, System.UITypes ;
 
 type
   TfrmShortcuts = class(TForm)
@@ -109,22 +109,24 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormShow(Sender: TObject);
     procedure jvhkShortcutEnter(Sender: TObject);
-    procedure jvhkShortcutKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure jvhkShortcutKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure jvhkShortcutKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure jvhkShortcutKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure jvhkShortcutSearchChange(Sender: TObject);
     procedure jvhkShortcutSearchEnter(Sender: TObject);
 
   private
     { Private declarations }
-    bNothing      : boolean;
-    bShortcutInUse: boolean;
-    
+    bNothing: Boolean;
+    bShortcutInUse: Boolean;
+
     procedure ActualizeGroups;
     procedure ClearWarnings;
-    
+
   public
     { Public declarations }
-    bLocating: boolean;
+    bLocating: Boolean;
 
   end;
 
@@ -138,41 +140,44 @@ uses
   uModDados,
   ufrmTools,
   Menus,
-  //FMTBcd,
+  // FMTBcd,
   SqlExpr;
 
 {$R *.dfm}
 
 procedure TfrmShortcuts.ClearWarnings;
 begin
-  with stbShortcuts do begin
-    Panels[3].Text:= '';
-    Panels[4].Text:= '';
+  with stbShortcuts do
+  begin
+    Panels[3].Text := '';
+    Panels[4].Text := '';
   end;
 end;
 
 procedure TfrmShortcuts.edtGroupSearchChange(Sender: TObject);
 begin
   ClearWarnings;
-  with edtGroupSearch do begin
-    if (Text = '') then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
+  with edtGroupSearch do
+  begin
+    if (Text = '') then
+    begin
+      Color := clWindow;
+      Font.Color := clBlack;
+      Font.Style := [];
       Exit;
     end;
 
-    if (modDados.cdShortcuts.Locate('Group',
-                                     Text,
-                                     [loPartialKey]) = True) then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
+    if (modDados.cdShortcuts.Locate('Group', Text, [loPartialKey]) = True) then
+    begin
+      Color := clWindow;
+      Font.Color := clBlack;
+      Font.Style := [];
     end
-    else begin
-      Color     := clRed;
-      Font.Color:= clWhite;
-      Font.Style:= [fsBold];
+    else
+    begin
+      Color := clRed;
+      Font.Color := clWhite;
+      Font.Style := [fsBold];
     end;
   end;
 end;
@@ -185,25 +190,28 @@ end;
 procedure TfrmShortcuts.edtCaptionSearchChange(Sender: TObject);
 begin
   ClearWarnings;
-  with edtCaptionSearch do begin
-    if (Text = '') then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
+  with edtCaptionSearch do
+  begin
+    if (Text = '') then
+    begin
+      Color := clWindow;
+      Font.Color := clBlack;
+      Font.Style := [];
       Exit;
     end;
 
-    if (modDados.cdShortcuts.Locate('Caption',
-                                     Text,
-                                     [loPartialKey]) = True) then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
+    if (modDados.cdShortcuts.Locate('Caption', Text, [loPartialKey]) = True)
+    then
+    begin
+      Color := clWindow;
+      Font.Color := clBlack;
+      Font.Style := [];
     end
-    else begin
-      Color     := clRed;
-      Font.Color:= clWhite;
-      Font.Style:= [fsBold];
+    else
+    begin
+      Color := clRed;
+      Font.Color := clWhite;
+      Font.Style := [fsBold];
     end;
   end;
 end;
@@ -219,47 +227,57 @@ var
 
 begin
   ClearWarnings;
-  with frmTinnMain do begin
-    with dbeGroup do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
+  with frmTinnMain do
+  begin
+    with dbeGroup do
+    begin
+      Color := clBGApplication;
+      Font.Color := clFGApplication;
     end;
 
-    with dbeCaption do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
+    with dbeCaption do
+    begin
+      Color := clBGApplication;
+      Font.Color := clFGApplication;
     end;
 
-    with dbmHint do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
+    with dbmHint do
+    begin
+      Color := clBGApplication;
+      Font.Color := clFGApplication;
     end;
 
-    with jvhkShortcut do begin
-      //Color     := clBGApplication;
-      //Font.Color:= clFGApplication;
+    with jvhkShortcut do
+    begin
+      // Color     := clBGApplication;
+      // Font.Color:= clFGApplication;
     end;
 
-    with dbgShortcuts do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
+    with dbgShortcuts do
+    begin
+      Color := clBGApplication;
+      Font.Color := clFGApplication;
     end;
   end;
 
-  with stbShortcuts do begin
-    Panels[0].Text:= 'Browse mode';
-    Panels[2].Text:= ExtractFileName(frmTinnMain.sShortcutsInUse);
+  with stbShortcuts do
+  begin
+    Panels[0].Text := 'Browse mode';
+    Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
   end;
 
-  with ModDados.cdShortcuts do begin
-    pTmp:= GetBookmark;
-    Filtered:= False;
-  end;  
+  with modDados.cdShortcuts do
+  begin
+    pTmp := GetBookmark;
+    Filtered := False;
+  end;
 
-  frmTools.lbShortcuts.Selected[frmTinnMain.iShortcutsFilter]:= False;
-  
-  with modDados.cdShortcuts do begin
-    if BookmarkValid(pTmp) then GoToBookmark(pTmp);
+  frmTools.lbShortcuts.Selected[frmTinnMain.iShortcutsFilter] := False;
+
+  with modDados.cdShortcuts do
+  begin
+    if BookmarkValid(pTmp) then
+      GoToBookmark(pTmp);
     FreeBookmark(pTmp);
   end;
 
@@ -269,12 +287,14 @@ end;
 procedure TfrmShortcuts.ActualizeGroups;
 begin
   ClearWarnings;
-  //Actualize Groups in frmTinnMain
-  with modDados do begin
+  // Actualize Groups in frmTinnMain
+  with modDados do
+  begin
     ShortcutsGroupsFilter(nil);
 
-    with frmTinnMain do begin
-      frmTools.lbShortcuts.Items:= slShortcuts_Groups;
+    with frmTinnMain do
+    begin
+      frmTools.lbShortcuts.Items := slShortcuts_Groups;
       frmTools.lbShortcuts.Refresh;
     end;
 
@@ -284,97 +304,108 @@ end;
 
 procedure TfrmShortcuts.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  with frmTinnMain do begin
-    frmTools.lbShortcuts.ItemIndex:= iShortcutsFilter;
+  with frmTinnMain do
+  begin
+    frmTools.lbShortcuts.ItemIndex := iShortcutsFilter;
     frmTools.lbShortcutsClick(Self);
   end;
 end;
 
 procedure TfrmShortcuts.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  with modDados.cdShortcuts do begin
+  with modDados.cdShortcuts do
+  begin
     IndexDefs.Clear;
 
     with IndexDefs.AddIndexDef do
     begin
-      Name   := 'ShortcutsDefaultIndex';
+      Name := 'ShortcutsDefaultIndex';
       Fields := 'Index';
-      Options:= [ixPrimary, ixUnique];
+      Options := [ixPrimary, ixUnique];
     end;
 
-    IndexName:= 'ShortcutsDefaultIndex';
+    IndexName := 'ShortcutsDefaultIndex';
   end;
   ActualizeGroups;
 end;
 
 procedure TfrmShortcuts.FormShow(Sender: TObject);
 begin
-  AlphaBlendValue:= frmTinnMain.iAlphaBlendValue;
+  AlphaBlendValue := frmTinnMain.iAlphaBlendValue;
 end;
 
-procedure TfrmShortcuts.jvhkShortcutKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TfrmShortcuts.jvhkShortcutKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  if (Key = VK_BACK)   or
-     (Key = VK_DELETE) or 
-     (Key = VK_SPACE) then begin
-    Key:= 0;
-    bNothing:= True
+  if (Key = VK_BACK) or (Key = VK_DELETE) or (Key = VK_SPACE) then
+  begin
+    Key := 0;
+    bNothing := True
   end;
 end;
 
-procedure TfrmShortcuts.jvhkShortcutKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TfrmShortcuts.jvhkShortcutKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 var
-  pTmp:  pointer;
-  
+  pTmp: pointer;
+
 begin
-  if bNothing then begin
-    bNothing:= False;
+  if bNothing then
+  begin
+    bNothing := False;
     Exit;
   end;
 
-  if (Key = VK_CONTROL) or
-     (Key = VK_MENU) or
-     (Key = VK_SHIFT) or
-     (Key = VK_SPACE) then begin
-    jvhkShortcut.HotKey:= TextToShortcut(modDados.cdShortcuts.FieldByName('Shortcut').Value);
+  if (Key = VK_CONTROL) or (Key = VK_MENU) or (Key = VK_SHIFT) or
+    (Key = VK_SPACE) then
+  begin
+    jvhkShortcut.HotKey :=
+      TextToShortcut(modDados.cdShortcuts.FieldByName('Shortcut').Value);
     Exit;
   end;
 
-  bShortcutInUse:= False;
-  with modDados.cdShortcuts do begin
-    pTmp:= GetBookmark;
+  bShortcutInUse := False;
+  with modDados.cdShortcuts do
+  begin
+    pTmp := GetBookmark;
   end;
 
-  bLocating:= True;
+  bLocating := True;
   if (modDados.cdShortcuts.Locate('Shortcut',
-                                   StringReplace(ShortcutToText(jvhkShortcut.Hotkey), ' ', '', []),
-                                   []) = True) then begin
-    
-    bShortcutInUse:= True;
+    StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []), []) = True)
+  then
+  begin
 
-    with modDados.cdShortcuts do begin
-      if BookmarkValid(pTmp) then begin
+    bShortcutInUse := True;
+
+    with modDados.cdShortcuts do
+    begin
+      if BookmarkValid(pTmp) then
+      begin
         GoToBookmark(pTmp);
         FreeBookmark(pTmp);
-      end;  
+      end;
       Cancel;
       Edit;
     end;
 
-    stbShortcuts.Panels[3].Text:= 'Keyboard shortcut already in use';
-    stbShortcuts.Panels[4].Text:= '<' + 
-                                  StringReplace(ShortcutToText(jvhkShortcut.Hotkey), ' ', '', []) +
-                                  '>';
-    bLocating:= False;
+    stbShortcuts.Panels[3].Text := 'Keyboard shortcut already in use';
+    stbShortcuts.Panels[4].Text := '<' +
+      StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []) + '>';
+    bLocating := False;
   end
-  else begin
+  else
+  begin
     ClearWarnings;
-    bLocating:= False;
+    bLocating := False;
 
-    with modDados.cdShortcuts do begin
+    with modDados.cdShortcuts do
+    begin
       Edit;
-      if (Key = VK_ESCAPE) then FieldByName('Shortcut').Value:= 'None'
-                           else FieldByName('Shortcut').Value:= ShortcutToText(jvhkShortcut.HotKey);
+      if (Key = VK_ESCAPE) then
+        FieldByName('Shortcut').Value := 'None'
+      else
+        FieldByName('Shortcut').Value := ShortcutToText(jvhkShortcut.HotKey);
     end;
   end;
 end;
@@ -392,27 +423,29 @@ var
 
 begin
   ClearWarnings;
-  with jvhkShortcutSearch do begin
-    sTmp:= StringReplace(ShortcutToText(Hotkey), ' ', '', []);
+  with jvhkShortcutSearch do
+  begin
+    sTmp := StringReplace(ShortcutToText(HotKey), ' ', '', []);
 
-    if (sTmp = '') then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      //Font.Style:= [];
+    if (sTmp = '') then
+    begin
+      Color := clWindow;
+      Font.Color := clBlack;
+      // Font.Style:= [];
       Exit;
     end;
 
-    if (modDados.cdShortcuts.Locate('Shortcut',
-                                     sTmp,
-                                     []) = True) then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      //Font.Style:= [];
+    if (modDados.cdShortcuts.Locate('Shortcut', sTmp, []) = True) then
+    begin
+      Color := clWindow;
+      Font.Color := clBlack;
+      // Font.Style:= [];
     end
-    else begin
-      Color     := clRed;
-      Font.Color:= clWhite;
-      //Font.Style:= [fsBold];
+    else
+    begin
+      Color := clRed;
+      Font.Color := clWhite;
+      // Font.Style:= [fsBold];
     end;
   end;
 end;
@@ -429,65 +462,65 @@ begin
     Edit;
   dbeGroup.SetFocus;
   with stbShortcuts do
-    Panels[0].Text:= 'Edit mode';
+    Panels[0].Text := 'Edit mode';
 end;
 
 procedure TfrmShortcuts.bbtShortcutsLoadClick(Sender: TObject);
 var
-  od       : TOpenDialog;
-  sFile,
-   sOldFile: string;
+  od: TOpenDialog;
+  sFile, sOldFile: string;
 
 begin
   ClearWarnings;
   bbtShortcutsCancelAllClick(nil);
-  od:= TOpenDialog.Create(Self);
+  od := TOpenDialog.Create(Self);
 
   try
-    with od do begin
-      InitialDir:= frmTinnMain.sPathData;
-      Filter    := 'XML (*.xml)|*.xml';
+    with od do
+    begin
+      InitialDir := frmTinnMain.sPathData;
+      Filter := 'XML (*.xml)|*.xml';
 
-      if Execute then begin
-        sFile:= od.FileName;
+      if Execute then
+      begin
+        sFile := od.FileName;
 
         try
-          with modDados.cdShortcuts do begin
-            sOldFile:= FileName;
-            Active  := False;
-            FileName:= sFile;
-            Active  := True;
+          with modDados.cdShortcuts do
+          begin
+            sOldFile := FileName;
+            Active := False;
+            FileName := sFile;
+            Active := True;
           end;
         except
-          on EDatabaseError do begin
+          on EDatabaseError do
+          begin
             MessageDlg(sFile + #13 + #13 +
-                       'The above is not a valid file with Tinn-R shortcuts!',
-                       mtError,
-                       [MBOK],
-                       0);
-            with modDados.cdShortcuts do begin
-              Active  := False;
-              FileName:= sOldFile;
-              Active  := True;
+              'The above is not a valid file with Tinn-R shortcuts!', mtError,
+              [MBOK], 0);
+            with modDados.cdShortcuts do
+            begin
+              Active := False;
+              FileName := sOldFile;
+              Active := True;
             end;
             Exit;
           end;
-        end; 
+        end;
 
-        with frmTinnMain do begin
-          iShortcutsBeforeChanges:= modDados.cdShortcuts.SavePoint;
-          sShortcutsInUse        := sFile;
+        with frmTinnMain do
+        begin
+          iShortcutsBeforeChanges := modDados.cdShortcuts.SavePoint;
+          sShortcutsInUse := sFile;
         end;
 
         with stbShortcuts do
-          Panels[2].Text:= ExtractFileName(frmTinnMain.sShortcutsInUse);
-          
-        MessageDlg(sFile + #13 + #13 +
-                   'The file above was successfully loaded.' + #13 +
-                   'It will be, from now, the default shortcuts!',
-                   mtInformation,
-                   [MBOK],
-                   0);
+          Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
+
+        MessageDlg(sFile + #13 + #13 + 'The file above was successfully loaded.'
+          + #13 + 'It will be, from now, the default shortcuts!', mtInformation,
+          [MBOK], 0);
       end;
     end;
   finally
@@ -499,25 +532,27 @@ procedure TfrmShortcuts.bbtShortcutsCancelClick(Sender: TObject);
 begin
   ClearWarnings;
 
-  with modDados do begin
+  with modDados do
+  begin
     cdShortcuts.Cancel;
     cdShortcutsAfterScroll(nil);
   end;
   with stbShortcuts do
-    Panels[0].Text:= 'Browse mode';
+    Panels[0].Text := 'Browse mode';
 end;
 
 procedure TfrmShortcuts.bbtShortcutsSaveClick(Sender: TObject);
 begin
   ClearWarnings;
 
-  with modDados.cdShortcuts do begin
+  with modDados.cdShortcuts do
+  begin
     Edit;
     try
       Post;
       MergeChangeLog;
       SaveToFile();
-      frmTinnMain.iShortcutsBeforeChanges:= SavePoint;
+      frmTinnMain.iShortcutsBeforeChanges := SavePoint;
     except
     end;
   end;
@@ -526,29 +561,31 @@ end;
 procedure TfrmShortcuts.bbtShortcutsSaveDefaultClick(Sender: TObject);
 var
   sFile: string;
-  sd   : TSaveDialog;
+  sd: TSaveDialog;
 
 begin
   ClearWarnings;
   bbtShortcutsSaveClick(nil);
-  sd:= TSaveDialog.Create(Self);
+  sd := TSaveDialog.Create(Self);
   try
-    with sd do begin
-      InitialDir:= frmTinnMain.sPathData;
-      Filter    := 'XML (*.xml)|*.xml';
-      DefaultExt:= '*.xml';
+    with sd do
+    begin
+      InitialDir := frmTinnMain.sPathData;
+      Filter := 'XML (*.xml)|*.xml';
+      DefaultExt := '*.xml';
 
-      if Execute then begin
-        sFile:= FileName;
+      if Execute then
+      begin
+        sFile := FileName;
         if FileExists(sFile) then
           if (MessageDlg(sFile + #13 + #13 +
-                         'Do you want to overwrite this file?',
-                         mtConfirmation,
-                         [mbYES, mbCANCEL],
-                         0) <> idYES) then Exit;
-          DeleteFile(sFile);               
+            'Do you want to overwrite this file?', mtConfirmation,
+            [mbYES, mbCANCEL], 0) <> idYES) then
+            Exit;
+        DeleteFile(sFile);
 
-        with modDados.cdShortcuts do begin
+        with modDados.cdShortcuts do
+        begin
           Edit;
           Post;
           MergeChangeLog;
@@ -556,12 +593,13 @@ begin
           bbtShortcutsSaveClick(nil);
         end;
 
-        with frmTinnMain do begin
-          sdMain.Filter  := slFilters.Text;
-          sShortcutsInUse:= sFile;
+        with frmTinnMain do
+        begin
+          ReLoadDialogFileExtension(sdMain.FileTypes);
+          sShortcutsInUse := sFile;
         end;
         with stbShortcuts do
-          Panels[2].Text:= ExtractFileName(frmTinnMain.sShortcutsInUse);
+          Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
       end;
     end;
   finally
@@ -572,7 +610,7 @@ end;
 procedure TfrmShortcuts.bbtShortcutsCloseClick(Sender: TObject);
 begin
   with modDados.cdShortcuts do
-    SavePoint:= frmTinnMain.iShortcutsBeforeChanges;
+    SavePoint := frmTinnMain.iShortcutsBeforeChanges;
 
   Close;
   frmTinnMain.Refresh;
@@ -602,8 +640,9 @@ procedure TfrmShortcuts.dbgShortcutsTitleClick(Column: TColumn);
 begin
   ClearWarnings;
 
-  with modDados do begin
-    cdShortcuts.IndexFieldNames:= Column.FieldName;
+  with modDados do
+  begin
+    cdShortcuts.IndexFieldNames := Column.FieldName;
     cdShortcutsAfterScroll(nil);
   end;
 end;
@@ -613,7 +652,8 @@ begin
   ClearWarnings;
 end;
 
-procedure TfrmShortcuts.DBNavigator1Click(Sender: TObject; Button: TNavigateBtn);
+procedure TfrmShortcuts.DBNavigator1Click(Sender: TObject;
+  Button: TNavigateBtn);
 begin
   ClearWarnings;
 end;
@@ -627,8 +667,9 @@ procedure TfrmShortcuts.bbtShortcutsCancelAllClick(Sender: TObject);
 begin
   ClearWarnings;
 
-  with modDados do begin
-    cdShortcuts.SavePoint:= frmTinnMain.iShortcutsBeforeChanges;
+  with modDados do
+  begin
+    cdShortcuts.SavePoint := frmTinnMain.iShortcutsBeforeChanges;
     cdShortcutsAfterScroll(nil);
   end;
 end;
@@ -637,37 +678,39 @@ procedure TfrmShortcuts.bbtShortcutsRestoreDefaultClick(Sender: TObject);
 begin
   ClearWarnings;
   bbtShortcutsCancelAllClick(nil);
-  if not FileExists(frmTinnMain.sFileDataOrigin) then Exit;
+  if not FileExists(frmTinnMain.sFileDataOrigin) then
+    Exit;
 
   try
     with modDados.cdShortcuts do
-      Active:= False;
+      Active := False;
 
-    with frmTinnMain.zipKit do begin
-      FileName     := frmTinnMain.sFileDataOrigin;
-      BaseDirectory:= frmTinnMain.sPathData;
+    with frmTinnMain.zipKit do
+    begin
+      FileName := frmTinnMain.sFileDataOrigin;
+      BaseDirectory := frmTinnMain.sPathData;
       ExtractFiles('Shortcuts.xml');
       CloseArchive;
     end;
 
-    with modDados.cdShortcuts do begin
-      FileName:= frmTinnMain.sPathData + '\Shortcuts.xml';
-      Active  := True;
+    with modDados.cdShortcuts do
+    begin
+      FileName := frmTinnMain.sPathData + '\Shortcuts.xml';
+      Active := True;
     end;
 
-    with frmTinnMain do begin
-      iShortcutsBeforeChanges:= modDados.cdShortcuts.SavePoint;
-      sShortcutsInUse        := frmTinnMain.sPathData + '\Shortcuts.xml';
+    with frmTinnMain do
+    begin
+      iShortcutsBeforeChanges := modDados.cdShortcuts.SavePoint;
+      sShortcutsInUse := frmTinnMain.sPathData + '\Shortcuts.xml';
     end;
 
     with stbShortcuts do
-      Panels[2].Text:= ExtractFileName(frmTinnMain.sShortcutsInUse);
+      Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
 
-    MessageDlg('The original ''Shortcuts.xml'' was successfully restored.' + #13 + #13 +
-               'It will be, from now, the default shortcuts!',
-               mtInformation,
-               [MBOK],
-               0);
+    MessageDlg('The original ''Shortcuts.xml'' was successfully restored.' + #13
+      + #13 + 'It will be, from now, the default shortcuts!', mtInformation,
+      [MBOK], 0);
   except
     // todo!
   end;

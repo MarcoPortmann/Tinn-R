@@ -21,15 +21,6 @@ object frmPrintPreview: TfrmPrintPreview
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object synPP: TSynEditPrintPreview
-    Left = 0
-    Top = 30
-    Width = 576
-    Height = 208
-    BorderStyle = bsNone
-    ScalePercent = 90
-    OnPreviewPage = synPPPreviewPage
-  end
   object ControlBar1: TControlBar
     Left = 0
     Top = 0
@@ -37,7 +28,7 @@ object frmPrintPreview: TfrmPrintPreview
     Height = 30
     Align = alTop
     AutoSize = True
-    TabOrder = 1
+    TabOrder = 0
     object tbPrintPreview: TToolBar
       Left = 11
       Top = 2

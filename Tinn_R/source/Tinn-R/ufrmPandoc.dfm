@@ -5,7 +5,7 @@ object frmPandoc: TfrmPandoc
   AlphaBlendValue = 200
   BorderStyle = bsDialog
   Caption = 'Pandoc (document converter)'
-  ClientHeight = 554
+  ClientHeight = 584
   ClientWidth = 535
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -28,7 +28,6 @@ object frmPandoc: TfrmPandoc
     Align = alTop
     Caption = ' From '
     Columns = 2
-    Ctl3D = False
     Items.Strings = (
       'docbook (DocBook XML)'
       'html (HTML)'
@@ -38,7 +37,6 @@ object frmPandoc: TfrmPandoc
       'native (native Haskell)'
       'rst (reStructuredText)'
       'textile (Textile)')
-    ParentCtl3D = False
     TabOrder = 0
     OnClick = rdgFromClick
   end
@@ -50,7 +48,6 @@ object frmPandoc: TfrmPandoc
     Align = alTop
     Caption = ' To '
     Columns = 2
-    Ctl3D = False
     Items.Strings = (
       'asciidoc (AsciiDoc)'
       'beamer (LaTeX beamer slide show)'
@@ -78,108 +75,80 @@ object frmPandoc: TfrmPandoc
       'slidy (Slidy HTML and javascript slide show)'
       'texinfo (GNU Texinfo)'
       'textile (Textile)')
-    ParentCtl3D = False
     TabOrder = 1
     OnClick = rdgToClick
   end
   object bbtOK: TBitBtn
-    Left = 353
-    Top = 521
+    Left = 350
+    Top = 554
     Width = 89
     Height = 25
     Caption = 'OK'
     Default = True
     ModalResult = 1
-    TabOrder = 2
     NumGlyphs = 2
+    ParentDoubleBuffered = True
+    TabOrder = 2
   end
   object bbtCancel: TBitBtn
-    Left = 441
-    Top = 521
+    Left = 438
+    Top = 554
     Width = 89
     Height = 25
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
-    TabOrder = 3
     NumGlyphs = 2
+    ParentDoubleBuffered = True
+    TabOrder = 3
   end
   object gpbInstruction: TGroupBox
     Left = 0
     Top = 344
     Width = 535
-    Height = 92
+    Height = 101
     Align = alTop
     Caption = ' Instruction (will be send to pandoc.exe) '
-    Ctl3D = False
-    ParentCtl3D = False
     TabOrder = 4
     object Label1: TLabel
       Left = 5
-      Top = 52
+      Top = 56
       Width = 37
       Height = 13
       Caption = '%from:'
     end
     object Label2: TLabel
       Left = 17
-      Top = 69
+      Top = 82
       Width = 25
       Height = 13
       Caption = '%to:'
     end
-    object edInstruction: TEditAlign
-      Left = 5
-      Top = 16
-      Width = 525
-      Height = 32
-      MultiLine = True
-      WordWrap = True
-      BorderStyle = bsNone
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
+    object edFrom: TEdit
+      Left = 48
+      Top = 48
+      Width = 484
+      Height = 21
       TabOrder = 0
     end
-    object edFrom: TEditAlign
-      Left = 47
-      Top = 50
-      Width = 483
-      Height = 15
-      MultiLine = True
-      WordWrap = True
-      BorderStyle = bsNone
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
+    object edInstruction: TEdit
+      Left = 4
+      Top = 21
+      Width = 528
+      Height = 21
       TabOrder = 1
     end
-    object edTo: TEditAlign
-      Left = 47
-      Top = 67
-      Width = 483
-      Height = 15
-      MultiLine = True
-      WordWrap = True
-      BorderStyle = bsNone
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
+    object edTo: TEdit
+      Left = 48
+      Top = 75
+      Width = 484
+      Height = 21
       TabOrder = 2
     end
   end
   object bbtPandocRestoreDefault: TButton
-    Left = 264
-    Top = 521
+    Left = 261
+    Top = 554
     Width = 90
     Height = 25
     Caption = 'Restore default'
@@ -194,9 +163,9 @@ object frmPandoc: TfrmPandoc
   end
   object GroupBox1: TGroupBox
     Left = 0
-    Top = 436
+    Top = 445
     Width = 535
-    Height = 79
+    Height = 100
     Align = alTop
     Caption = ' Instruction (history) '
     Ctl3D = False
@@ -204,14 +173,14 @@ object frmPandoc: TfrmPandoc
     TabOrder = 6
     object Label3: TLabel
       Left = 5
-      Top = 39
+      Top = 50
       Width = 37
       Height = 13
       Caption = '%from:'
     end
     object Label4: TLabel
       Left = 17
-      Top = 56
+      Top = 76
       Width = 25
       Height = 13
       Caption = '%to:'
@@ -221,40 +190,21 @@ object frmPandoc: TfrmPandoc
       Top = 15
       Width = 528
       Height = 21
-      ItemHeight = 13
       TabOrder = 0
       OnSelect = cbPandocHistorySelect
     end
-    object edHistoryFrom: TEditAlign
-      Left = 47
-      Top = 37
-      Width = 483
-      Height = 15
-      MultiLine = True
-      WordWrap = True
-      BorderStyle = bsNone
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
+    object edHistoryFrom: TEdit
+      Left = 48
+      Top = 42
+      Width = 484
+      Height = 21
       TabOrder = 1
     end
-    object edHistoryTo: TEditAlign
-      Left = 47
-      Top = 54
-      Width = 483
-      Height = 15
-      MultiLine = True
-      WordWrap = True
-      BorderStyle = bsNone
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
+    object edHistoryTo: TEdit
+      Left = 48
+      Top = 69
+      Width = 484
+      Height = 21
       TabOrder = 2
     end
   end

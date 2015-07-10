@@ -79,7 +79,7 @@ object frmCount: TfrmCount
     Caption = 'OK'
     Default = True
     ModalResult = 1
-    TabOrder = 0
     NumGlyphs = 2
+    TabOrder = 0
   end
 end

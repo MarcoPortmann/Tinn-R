@@ -1,0 +1,13 @@
+{TODO : Diff.execute fails!!}
+{TODO : R Navigator: send may better copy the text from Syn2}
+{TODO : R Navigator: When sending text to R there is always an unwanted character  at the end of the text.}
+{TODO : Save additional editor properties to the backup file (blocks etc.)}
+{TODO : -1 higlighter issues}
+{TODO :
+Application options should be saved right after they are changed.
+Other wise back up might be turned off if a crash occurs before the
+app is closed correctly the first time}
+{TODO :
+Why is the Editor.xml file not deleted when the application closed?
+This might be still a CanClose.... order issue. However, the records
+shown looks ok. Therefore, there might bbe another problem}

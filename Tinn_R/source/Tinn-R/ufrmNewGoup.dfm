@@ -34,8 +34,8 @@ object frmNewGroup: TfrmNewGroup
     Caption = 'OK'
     Default = True
     ModalResult = 1
-    TabOrder = 1
     NumGlyphs = 2
+    TabOrder = 1
   end
   object bbtCancel: TBitBtn
     Left = 173
@@ -45,8 +45,8 @@ object frmNewGroup: TfrmNewGroup
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
-    TabOrder = 2
     NumGlyphs = 2
+    TabOrder = 2
   end
   object edtNewGroup: TEdit
     Left = 77

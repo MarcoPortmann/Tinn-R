@@ -34,7 +34,6 @@ object frmSearchInFiles: TfrmSearchInFiles
     Height = 21
     BevelInner = bvNone
     BevelOuter = bvNone
-    ItemHeight = 13
     TabOrder = 0
   end
   object gbSearchOptions: TGroupBox
@@ -150,7 +149,6 @@ object frmSearchInFiles: TfrmSearchInFiles
       BevelInner = bvNone
       BevelOuter = bvNone
       Enabled = False
-      ItemHeight = 13
       TabOrder = 0
     end
     object comboFileMasks: TComboBox
@@ -161,7 +159,6 @@ object frmSearchInFiles: TfrmSearchInFiles
       BevelInner = bvNone
       BevelOuter = bvNone
       Enabled = False
-      ItemHeight = 13
       TabOrder = 1
       Items.Strings = (
         '*.*')
@@ -184,8 +181,8 @@ object frmSearchInFiles: TfrmSearchInFiles
     Caption = 'OK'
     Default = True
     ModalResult = 1
-    TabOrder = 4
     NumGlyphs = 2
+    TabOrder = 4
   end
   object BitBtn2: TBitBtn
     Left = 250
@@ -195,8 +192,8 @@ object frmSearchInFiles: TfrmSearchInFiles
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
-    TabOrder = 5
     NumGlyphs = 2
+    TabOrder = 5
   end
   object JvBrowseForFolder: TJvBrowseForFolderDialog
     Left = 24

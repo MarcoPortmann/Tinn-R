@@ -8,7 +8,11 @@ object frmAppOptions: TfrmAppOptions
   ClientHeight = 525
   ClientWidth = 524
   Color = clBtnFace
-  ParentFont = True
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
@@ -45,6 +49,8 @@ object frmAppOptions: TfrmAppOptions
     Width = 524
     Height = 489
     Align = alTop
+    Color = clWindow
+    ParentBackground = False
     TabOrder = 2
     object jtvAppOptions: TJvTreeView
       Left = 1
@@ -52,6 +58,9 @@ object frmAppOptions: TfrmAppOptions
       Width = 182
       Height = 487
       Align = alLeft
+      BevelInner = bvNone
+      BevelOuter = bvNone
+      BorderStyle = bsNone
       Indent = 19
       ReadOnly = True
       TabOrder = 0
@@ -116,13 +125,15 @@ object frmAppOptions: TfrmAppOptions
         00200028006C0061007400650078002900}
       LineColor = clScrollBar
       PageControl = pgApp
+      ExplicitLeft = -39
+      ExplicitTop = -109
     end
     object pgApp: TJvgPageControl
       Left = 183
       Top = 1
       Width = 340
       Height = 487
-      ActivePage = tbsEditorAdvanced
+      ActivePage = tbsEditorKeystrokes
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -133,8 +144,8 @@ object frmAppOptions: TfrmAppOptions
       TabOrder = 1
       TabStop = False
       TabStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
-      TabStyle.BevelInner = bvNone
-      TabStyle.BevelOuter = bvNone
+      TabStyle.BevelInner = bvSpace
+      TabStyle.BevelOuter = bvRaised
       TabStyle.Bold = False
       TabStyle.BackgrColor = clBtnFace
       TabStyle.Font.Charset = DEFAULT_CHARSET
@@ -146,8 +157,8 @@ object frmAppOptions: TfrmAppOptions
       TabStyle.Gradient.Active = False
       TabStyle.Gradient.Orientation = fgdHorizontal
       TabSelectedStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
-      TabSelectedStyle.BevelInner = bvNone
-      TabSelectedStyle.BevelOuter = bvNone
+      TabSelectedStyle.BevelInner = bvRaised
+      TabSelectedStyle.BevelOuter = bvLowered
       TabSelectedStyle.Bold = False
       TabSelectedStyle.BackgrColor = clActiveCaption
       TabSelectedStyle.Font.Charset = DEFAULT_CHARSET
@@ -158,15 +169,14 @@ object frmAppOptions: TfrmAppOptions
       TabSelectedStyle.CaptionHAlign = fhaCenter
       TabSelectedStyle.Gradient.Active = False
       TabSelectedStyle.Gradient.Orientation = fgdHorizontal
+      Wallpaper.FillCaptions = False
+      Wallpaper.IncludeBevels = False
+      LookLikeButtons = True
       Options = [ftoAutoFontDirection, ftoExcludeGlyphs]
       object tbsAppGeneral: TTabSheet
         Caption = 'General'
         ImageIndex = 3
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GroupBox4: TGroupBox
           Left = 0
           Top = 0
@@ -330,7 +340,7 @@ object frmAppOptions: TfrmAppOptions
         end
         object GroupBox3: TGroupBox
           Left = 0
-          Top = 198
+          Top = 301
           Width = 332
           Height = 62
           Align = alTop
@@ -363,7 +373,7 @@ object frmAppOptions: TfrmAppOptions
         end
         object rdgConnectionBeepOnError: TRadioGroup
           Left = 0
-          Top = 260
+          Top = 363
           Width = 332
           Height = 41
           Align = alTop
@@ -379,9 +389,9 @@ object frmAppOptions: TfrmAppOptions
         end
         object gpbDelay: TGroupBox
           Left = 0
-          Top = 301
+          Top = 404
           Width = 332
-          Height = 70
+          Height = 68
           Align = alTop
           Caption = ' Computational synchronization (delay) '
           Ctl3D = False
@@ -409,15 +419,73 @@ object frmAppOptions: TfrmAppOptions
             OnPosChange = tbDelayPosChange
           end
         end
+        object GroupBox22: TGroupBox
+          Left = 0
+          Top = 198
+          Width = 332
+          Height = 103
+          Align = alTop
+          Caption = 'Auto save and reopen behavior'
+          Ctl3D = False
+          ParentCtl3D = False
+          TabOrder = 5
+          object lbBackup: TLabel
+            Left = 271
+            Top = 46
+            Width = 5
+            Height = 13
+            Caption = 's'
+          end
+          object tbBackup: TJvColorTrackBar
+            Left = 36
+            Top = 36
+            Width = 229
+            Height = 30
+            Hint = 'Backup interval in seconds'
+            ArrowColor = clNavy
+            BorderStyle = bsNone
+            ColorFrom = clGreen
+            ColorTo = clRed
+            Min = 10
+            Max = 350
+            Position = 50
+            OnPosChange = tbBackupPosChange
+          end
+          object cbBackupOn: TCheckBox
+            Left = 23
+            Top = 16
+            Width = 118
+            Height = 18
+            Caption = 'Enable recovery'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+          end
+          object cbReopenFiles: TCheckBox
+            Left = 23
+            Top = 70
+            Width = 218
+            Height = 18
+            Caption = 'Reopen editor windows from last session'
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 1
+          end
+        end
       end
       object tbsAppearance: TTabSheet
         Caption = 'Appearance'
         ImageIndex = 24
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GroupBox20: TGroupBox
           Left = 0
           Top = 0
@@ -437,31 +505,105 @@ object frmAppOptions: TfrmAppOptions
             Ctl3D = False
             ParentCtl3D = False
             TabOrder = 0
-            object shFGApplication: TtrShape
+            object Label27: TLabel
               Left = 16
-              Top = 22
-              Width = 125
-              Height = 23
-              Shape = stRoundRect
-              OnMouseUp = shFGApplicationMouseUp
-              Caption = 'FG (choice)'
+              Top = 27
+              Width = 82
+              Height = 13
+              Caption = 'Foreground color'
             end
-            object shBGApplication: TtrShape
+            object Label28: TLabel
               Left = 16
-              Top = 47
-              Width = 125
-              Height = 23
-              Shape = stRoundRect
-              OnMouseUp = shBGApplicationMouseUp
-              Caption = 'BG (choice)'
+              Top = 51
+              Width = 82
+              Height = 13
+              Caption = 'Background color'
             end
-            object shSampleApplication: TtrShape
-              Left = 165
-              Top = 22
-              Width = 135
-              Height = 48
-              Shape = stRoundRect
+            object cbForeground: TJvOfficeColorButton
+              Left = 104
+              Top = 23
+              Width = 35
+              Height = 22
+              TabOrder = 0
+              SelectedColor = clDefault
+              HotTrackFont.Charset = DEFAULT_CHARSET
+              HotTrackFont.Color = clWindowText
+              HotTrackFont.Height = -11
+              HotTrackFont.Name = 'Tahoma'
+              HotTrackFont.Style = []
+              Properties.ShowSystemColors = True
+              Properties.NoneColorCaption = 'No Color'
+              Properties.DefaultColorCaption = 'Automatic'
+              Properties.CustomColorCaption = 'Other Colors...'
+              Properties.NoneColorHint = 'No Color'
+              Properties.DefaultColorHint = 'Automatic'
+              Properties.CustomColorHint = 'Other Colors...'
+              Properties.NoneColorFont.Charset = DEFAULT_CHARSET
+              Properties.NoneColorFont.Color = clWindowText
+              Properties.NoneColorFont.Height = -11
+              Properties.NoneColorFont.Name = 'Tahoma'
+              Properties.NoneColorFont.Style = []
+              Properties.DefaultColorFont.Charset = DEFAULT_CHARSET
+              Properties.DefaultColorFont.Color = clWindowText
+              Properties.DefaultColorFont.Height = -11
+              Properties.DefaultColorFont.Name = 'Tahoma'
+              Properties.DefaultColorFont.Style = []
+              Properties.CustomColorFont.Charset = DEFAULT_CHARSET
+              Properties.CustomColorFont.Color = clWindowText
+              Properties.CustomColorFont.Height = -11
+              Properties.CustomColorFont.Name = 'Tahoma'
+              Properties.CustomColorFont.Style = []
+              Properties.FloatWindowCaption = 'Color Window'
+              Properties.DragBarHint = 'Drag to float'
+              OnColorChange = cbForegroundColorChange
+            end
+            object cbBackground: TJvOfficeColorButton
+              Left = 104
+              Top = 46
+              Width = 35
+              Height = 22
+              TabOrder = 1
+              SelectedColor = clDefault
+              HotTrackFont.Charset = DEFAULT_CHARSET
+              HotTrackFont.Color = clWindowText
+              HotTrackFont.Height = -11
+              HotTrackFont.Name = 'Tahoma'
+              HotTrackFont.Style = []
+              Properties.ShowSystemColors = True
+              Properties.NoneColorCaption = 'No Color'
+              Properties.DefaultColorCaption = 'Automatic'
+              Properties.CustomColorCaption = 'Other Colors...'
+              Properties.NoneColorHint = 'No Color'
+              Properties.DefaultColorHint = 'Automatic'
+              Properties.CustomColorHint = 'Other Colors...'
+              Properties.NoneColorFont.Charset = DEFAULT_CHARSET
+              Properties.NoneColorFont.Color = clWindowText
+              Properties.NoneColorFont.Height = -11
+              Properties.NoneColorFont.Name = 'Tahoma'
+              Properties.NoneColorFont.Style = []
+              Properties.DefaultColorFont.Charset = DEFAULT_CHARSET
+              Properties.DefaultColorFont.Color = clWindowText
+              Properties.DefaultColorFont.Height = -11
+              Properties.DefaultColorFont.Name = 'Tahoma'
+              Properties.DefaultColorFont.Style = []
+              Properties.CustomColorFont.Charset = DEFAULT_CHARSET
+              Properties.CustomColorFont.Color = clWindowText
+              Properties.CustomColorFont.Height = -11
+              Properties.CustomColorFont.Name = 'Tahoma'
+              Properties.CustomColorFont.Style = []
+              Properties.FloatWindowCaption = 'Color Window'
+              Properties.DragBarHint = 'Drag to float'
+              OnColorChange = cbBackgroundColorChange
+            end
+            object shFGApplication: TPanel
+              Left = 168
+              Top = 23
+              Width = 129
+              Height = 42
+              BevelKind = bkFlat
+              BevelOuter = bvNone
               Caption = 'Sample'
+              TabOrder = 2
             end
           end
           object GroupBox2: TGroupBox
@@ -473,14 +615,50 @@ object frmAppOptions: TfrmAppOptions
             Ctl3D = False
             ParentCtl3D = False
             TabOrder = 1
-            object shBGTabSelected: TtrShape
+            object Label29: TLabel
               Left = 16
-              Top = 21
-              Width = 125
-              Height = 23
-              Shape = stRoundRect
-              OnMouseUp = shBGTabSelectedMouseUp
-              Caption = 'BG (choice)'
+              Top = 26
+              Width = 44
+              Height = 13
+              Caption = 'Tab color'
+            end
+            object cbTab: TJvOfficeColorButton
+              Left = 104
+              Top = 25
+              Width = 35
+              Height = 22
+              TabOrder = 0
+              SelectedColor = clDefault
+              HotTrackFont.Charset = DEFAULT_CHARSET
+              HotTrackFont.Color = clWindowText
+              HotTrackFont.Height = -11
+              HotTrackFont.Name = 'Tahoma'
+              HotTrackFont.Style = []
+              Properties.ShowSystemColors = True
+              Properties.NoneColorCaption = 'No Color'
+              Properties.DefaultColorCaption = 'Automatic'
+              Properties.CustomColorCaption = 'Other Colors...'
+              Properties.NoneColorHint = 'No Color'
+              Properties.DefaultColorHint = 'Automatic'
+              Properties.CustomColorHint = 'Other Colors...'
+              Properties.NoneColorFont.Charset = DEFAULT_CHARSET
+              Properties.NoneColorFont.Color = clWindowText
+              Properties.NoneColorFont.Height = -11
+              Properties.NoneColorFont.Name = 'Tahoma'
+              Properties.NoneColorFont.Style = []
+              Properties.DefaultColorFont.Charset = DEFAULT_CHARSET
+              Properties.DefaultColorFont.Color = clWindowText
+              Properties.DefaultColorFont.Height = -11
+              Properties.DefaultColorFont.Name = 'Tahoma'
+              Properties.DefaultColorFont.Style = []
+              Properties.CustomColorFont.Charset = DEFAULT_CHARSET
+              Properties.CustomColorFont.Color = clWindowText
+              Properties.CustomColorFont.Height = -11
+              Properties.CustomColorFont.Name = 'Tahoma'
+              Properties.CustomColorFont.Style = []
+              Properties.FloatWindowCaption = 'Color Window'
+              Properties.DragBarHint = 'Drag to float'
+              OnColorChange = cbTabColorChange
             end
           end
         end
@@ -519,10 +697,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Dock'
         ImageIndex = 5
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GroupBox8: TGroupBox
           Left = 0
           Top = 0
@@ -552,7 +726,6 @@ object frmAppOptions: TfrmAppOptions
           BevelInner = bvNone
           BevelOuter = bvNone
           BorderStyle = bsNone
-          Color = clBtnFace
           Lines.Strings = (
             ''
             'Mark this option to restore the default configuration of'
@@ -570,6 +743,7 @@ object frmAppOptions: TfrmAppOptions
             '(dock/hide and place).'
             ''
             'Remember: Tinn-R needs to be restarted manually!')
+          ParentColor = True
           ReadOnly = True
           TabOrder = 1
         end
@@ -578,10 +752,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Files (extensions)'
         ImageIndex = 21
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GroupBox18: TGroupBox
           Left = 0
           Top = 0
@@ -608,10 +778,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Display'
         ImageIndex = 21
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gbRightEdge: TGroupBox
           Left = 0
           Top = 0
@@ -619,8 +785,6 @@ object frmAppOptions: TfrmAppOptions
           Height = 170
           Align = alTop
           Caption = ' General '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 0
           object Label11: TLabel
             Left = 141
@@ -642,6 +806,7 @@ object frmAppOptions: TfrmAppOptions
             Width = 54
             Height = 13
             Caption = 'Extra lines:'
+            Enabled = False
           end
           object Label16: TLabel
             Left = 24
@@ -693,10 +858,10 @@ object frmAppOptions: TfrmAppOptions
             Left = 80
             Top = 27
             Width = 28
-            Height = 14
-            BevelInner = bvNone
-            BevelOuter = bvNone
-            BorderStyle = bsNone
+            Height = 21
+            BevelInner = bvSpace
+            Ctl3D = True
+            ParentCtl3D = False
             TabOrder = 0
             Text = '0'
           end
@@ -706,6 +871,7 @@ object frmAppOptions: TfrmAppOptions
             Width = 28
             Height = 14
             BorderStyle = bsNone
+            Enabled = False
             TabOrder = 3
             Text = '0'
           end
@@ -713,15 +879,14 @@ object frmAppOptions: TfrmAppOptions
             Left = 80
             Top = 56
             Width = 28
-            Height = 14
-            BorderStyle = bsNone
+            Height = 21
             TabOrder = 2
             Text = '8'
           end
           object btnFont: TButton
-            Left = 1
-            Top = 84
-            Width = 330
+            Left = 2
+            Top = 83
+            Width = 328
             Height = 25
             Align = alBottom
             Caption = 'Select editor font'
@@ -729,9 +894,9 @@ object frmAppOptions: TfrmAppOptions
             OnClick = btnFontClick
           end
           object panLabFont: TPanel
-            Left = 1
-            Top = 109
-            Width = 330
+            Left = 2
+            Top = 108
+            Width = 328
             Height = 60
             Align = alBottom
             BevelOuter = bvLowered
@@ -777,6 +942,7 @@ object frmAppOptions: TfrmAppOptions
             Width = 118
             Height = 17
             Caption = 'Autosize'
+            Enabled = False
             TabOrder = 1
           end
           object ckGutterShowLineNumbers: TCheckBox
@@ -793,6 +959,7 @@ object frmAppOptions: TfrmAppOptions
             Width = 118
             Height = 17
             Caption = 'Show leading zeros'
+            Enabled = False
             TabOrder = 4
           end
           object ckGutterStartAtZero: TCheckBox
@@ -801,6 +968,7 @@ object frmAppOptions: TfrmAppOptions
             Width = 118
             Height = 17
             Caption = 'Start at zero'
+            Enabled = False
             TabOrder = 3
           end
           object ckGutterVisible: TCheckBox
@@ -829,6 +997,7 @@ object frmAppOptions: TfrmAppOptions
             Align = alBottom
             Caption = 'Select gutter font'
             TabOrder = 7
+            Visible = False
             OnClick = btnGutterFontClick
           end
           object pGutterBack: TPanel
@@ -878,6 +1047,7 @@ object frmAppOptions: TfrmAppOptions
             Align = alBottom
             BevelOuter = bvLowered
             TabOrder = 8
+            Visible = False
             object lblGutterFont: TLabel
               Left = 107
               Top = 24
@@ -909,6 +1079,7 @@ object frmAppOptions: TfrmAppOptions
             'No')
           ParentCtl3D = False
           TabOrder = 2
+          Visible = False
         end
       end
       object tbsEditorAdvanced: TTabSheet
@@ -1224,23 +1395,12 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Keystrokes'
         ImageIndex = 23
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label20: TLabel
-          Left = 3
-          Top = 363
-          Width = 127
+          Left = 50
+          Top = 56
+          Width = 52
           Height = 13
-          Caption = '*   ec = execute command'
-        end
-        object Label24: TLabel
-          Left = 4
-          Top = 379
-          Width = 226
-          Height = 13
-          Caption = '** Some may be overlaid by the main program!'
+          Caption = 'Keystroke:'
         end
         object pnlCommands: TPanel
           Left = 0
@@ -1262,11 +1422,11 @@ object frmAppOptions: TfrmAppOptions
             BorderStyle = bsNone
             Columns = <
               item
-                Caption = 'Command*'
+                Caption = 'Command'
                 Width = 160
               end
               item
-                Caption = 'Keystroke**'
+                Caption = 'Keystroke'
                 Width = 152
               end>
             ColumnClick = False
@@ -1280,270 +1440,182 @@ object frmAppOptions: TfrmAppOptions
             OnSelectItem = lvKeystrokesSelectItem
           end
         end
-        object btnUpdateKey: TButton
-          Left = 262
-          Top = 367
-          Width = 68
-          Height = 25
-          Caption = 'Update'
-          TabOrder = 1
-          OnClick = btnUpdateKeyClick
-        end
         object gbKeyStrokes: TGroupBox
-          Left = 1
-          Top = 399
-          Width = 329
-          Height = 76
-          Caption = ' Options '
+          Left = 2
+          Top = 366
+          Width = 327
+          Height = 51
+          Caption = 'Keystroke'
           Ctl3D = False
           ParentCtl3D = False
-          TabOrder = 2
-          object Label21: TLabel
-            Left = 43
-            Top = 20
-            Width = 51
-            Height = 13
-            Caption = 'Command:'
-          end
-          object Label22: TLabel
-            Left = 42
-            Top = 48
-            Width = 52
-            Height = 13
-            Caption = 'Keystroke:'
-          end
-          object cbCommands: TComboBox
-            Left = 100
-            Top = 17
-            Width = 185
-            Height = 21
-            BevelInner = bvNone
-            BevelOuter = bvNone
-            Sorted = True
+          TabOrder = 1
+          object jvHotKey: TJvHotKey
+            Left = 11
+            Top = 19
+            Width = 222
+            Height = 19
+            HotKey = 57409
+            InvalidKeys = [hcNone]
+            Modifiers = [hkShift, hkCtrl, hkAlt, hkExt]
             TabOrder = 0
-            OnExit = cbCommandsExit
-            OnKeyPress = cbCommandsKeyPress
-            OnKeyUp = cbCommandsKeyUp
+            ParentColor = False
           end
+          object btnUpdateKey: TButton
+            Left = 249
+            Top = 16
+            Width = 68
+            Height = 25
+            Caption = 'Update'
+            TabOrder = 1
+            OnClick = btnUpdateKeyClick
+          end
+        end
+        object btnResetDefault: TButton
+          Left = 13
+          Top = 423
+          Width = 144
+          Height = 25
+          Caption = 'Reset to default '
+          TabOrder = 2
+          OnClick = btnResetDefaultClick
+        end
+        object Memo2: TMemo
+          Left = 163
+          Top = 423
+          Width = 158
+          Height = 49
+          Lines.Strings = (
+            'Todo:'
+            'The hotkey field shows weird '
+            'stuff. Switch to the non-JVC '
+            'component?'
+            'How to deal with ESCAPE and '
+            'other special keys?')
+          TabOrder = 3
         end
       end
       object tbsAppPathR: TTabSheet
         Caption = 'Path (R)'
         ImageIndex = 8
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbPathRTerm: TGroupBox
           Left = 0
           Top = 0
           Width = 332
-          Height = 117
+          Height = 89
           Align = alTop
           Caption = ' Parameters and path (Rterm.exe) '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 0
-          object edPathRTerm: TEditAlign
+          object edParRTerm: TButtonedEdit
+            Left = 13
+            Top = 25
+            Width = 307
+            Height = 21
+            Images = frmTinnMain.imlTinnR
+            ParentColor = True
+            ParentShowHint = False
+            RightButton.Hint = 'Restore default'
+            RightButton.ImageIndex = 254
+            RightButton.Visible = True
+            ShowHint = True
+            TabOrder = 0
+            OnRightButtonClick = bbtRTermDefaultClick
+          end
+          object edPathRTerm: TButtonedEdit
             Left = 13
             Top = 52
-            Width = 306
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 2
-          end
-          object bbtRTermPath: TBitBtn
-            Left = 13
-            Top = 83
-            Width = 307
-            Height = 25
-            Caption = 'Search path'
-            Glyph.Data = {
-              F6000000424DF600000000000000760000002800000010000000100000000100
-              0400000000008000000000000000000000001000000010000000000000000000
-              8000008000000080800080000000800080008080000080808000C0C0C0000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00880888800088
-              8888880888800088888888088007B08000008808808777888888880880888888
-              8888880800088888888888007F08000008888808777888888888880888888888
-              8888880800088888888888007B08000008888808777888888888880888888888
-              8888800088888888888807F08000008888888777888888888888}
-            TabOrder = 3
-            OnClick = bbtRTermPathClick
-          end
-          object edParRTerm: TEditAlign
-            Left = 13
-            Top = 21
-            Width = 178
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-          end
-          object bbtRTermDefault: TButton
-            Left = 194
-            Top = 21
-            Width = 125
-            Height = 29
-            Caption = 'Restore default'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            Width = 308
+            Height = 21
+            Images = frmTinnMain.imlTinnR
+            ParentShowHint = False
+            RightButton.Hint = 'Search path'
+            RightButton.ImageIndex = 65
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 1
-            OnClick = bbtRTermDefaultClick
+            OnRightButtonClick = bbtRTermPathClick
           end
         end
         object gpbPathRGui: TGroupBox
           Left = 0
-          Top = 117
+          Top = 89
           Width = 332
-          Height = 117
+          Height = 88
           Align = alTop
           Caption = ' Parameters and path (Rgui.exe) '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 1
-          object edPathRGui: TEditAlign
+          object edParRGui: TButtonedEdit
             Left = 13
-            Top = 52
-            Width = 306
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 2
-          end
-          object bbtRGuiPath: TBitBtn
-            Left = 13
-            Top = 83
+            Top = 25
             Width = 307
-            Height = 25
-            Caption = 'Search path'
-            Glyph.Data = {
-              F6000000424DF600000000000000760000002800000010000000100000000100
-              0400000000008000000000000000000000001000000010000000000000000000
-              8000008000000080800080000000800080008080000080808000C0C0C0000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00880888800088
-              8888880888800088888888088007B08000008808808777888888880880888888
-              8888880800088888888888007F08000008888808777888888888880888888888
-              8888880800088888888888007B08000008888808777888888888880888888888
-              8888800088888888888807F08000008888888777888888888888}
-            TabOrder = 3
-            OnClick = bbtRGuiPathClick
-          end
-          object edParRGui: TEditAlign
-            Left = 13
-            Top = 21
-            Width = 178
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            Height = 21
+            Images = frmTinnMain.imlTinnR
+            ParentColor = True
+            ParentShowHint = False
+            RightButton.Hint = 'Restore default'
+            RightButton.ImageIndex = 254
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 0
+            OnRightButtonClick = bbtRGuiDefaultClick
           end
-          object bbtRGuiDefault: TButton
-            Left = 194
-            Top = 21
-            Width = 125
-            Height = 29
-            Caption = 'Restore default'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+          object edPathRGui: TButtonedEdit
+            Left = 13
+            Top = 56
+            Width = 308
+            Height = 21
+            Images = frmTinnMain.imlTinnR
+            ParentShowHint = False
+            RightButton.Hint = 'Search path'
+            RightButton.ImageIndex = 65
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 1
-            OnClick = bbtRGuiDefaultClick
+            OnRightButtonClick = bbtRGuiPathClick
           end
         end
         object rdgRUseLatest: TRadioGroup
           Left = 0
-          Top = 234
+          Top = 177
           Width = 332
           Height = 41
           Align = alTop
           Caption = ' Use latest installed version (always) '
           Columns = 2
-          Ctl3D = False
           Items.Strings = (
             'Yes'
             'No')
-          ParentCtl3D = False
           TabOrder = 2
           OnClick = rdgRUseLatestClick
         end
         object rdgRArchitecture: TRadioGroup
           Left = 0
-          Top = 275
+          Top = 218
           Width = 332
           Height = 41
           Align = alTop
           Caption = ' Architecture (bit) '
           Columns = 2
-          Ctl3D = False
           Items.Strings = (
             'i386 (32)'
             'x64 (64)')
-          ParentCtl3D = False
           TabOrder = 3
           OnClick = rdgRArchitectureClick
         end
         object GroupBox16: TGroupBox
           Left = 0
-          Top = 316
+          Top = 259
           Width = 332
           Height = 55
           Align = alTop
           Caption = ' R (connected) '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 4
-          object edPathR_Connected: TEditAlign
+          object edPathR_Connected: TEdit
             Left = 13
-            Top = 17
+            Top = 24
             Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Enabled = False
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            Height = 21
+            ParentColor = True
             TabOrder = 0
           end
         end
@@ -1552,10 +1624,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Basic (R)'
         ImageIndex = 9
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label10: TLabel
           Left = 0
           Top = 395
@@ -1611,7 +1679,7 @@ object frmAppOptions: TfrmAppOptions
           object edMaxDeparseLength: TEdit
             Left = 11
             Top = 20
-            Width = 102
+            Width = 310
             Height = 19
             TabOrder = 0
             OnKeyPress = edMaxDeparseLengthKeyPress
@@ -1797,10 +1865,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Resources (R)'
         ImageIndex = 10
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gbSendR: TGroupBox
           Left = 0
           Top = 0
@@ -1946,6 +2010,14 @@ object frmAppOptions: TfrmAppOptions
             Height = 17
             Caption = 'Knitr'
             TabOrder = 16
+          end
+          object cbRSendNavigator: TCheckBox
+            Left = 164
+            Top = 105
+            Width = 43
+            Height = 17
+            Caption = 'Line'
+            TabOrder = 17
           end
         end
         object gbControlling: TGroupBox
@@ -2124,10 +2196,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Packages (R)'
         ImageIndex = 7
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label5: TLabel
           Left = 1
           Top = 355
@@ -2151,7 +2219,7 @@ object frmAppOptions: TfrmAppOptions
           Height = 150
           Align = alTop
           Caption = ' TinnRcom (package) '
-          Ctl3D = False
+          Ctl3D = True
           ParentCtl3D = False
           TabOrder = 0
           object rdgRTinnRcomInstall: TRadioGroup
@@ -2161,7 +2229,7 @@ object frmAppOptions: TfrmAppOptions
             Height = 39
             Caption = ' Install (automatically)* '
             Columns = 2
-            Ctl3D = False
+            Ctl3D = True
             Items.Strings = (
               'Yes'
               'No')
@@ -2176,7 +2244,7 @@ object frmAppOptions: TfrmAppOptions
             Height = 39
             Caption = ' Load (automatically)* '
             Columns = 2
-            Ctl3D = False
+            Ctl3D = True
             Items.Strings = (
               'Yes'
               'No')
@@ -2190,30 +2258,22 @@ object frmAppOptions: TfrmAppOptions
             Width = 320
             Height = 77
             Caption = ' Path and version* '
+            Ctl3D = True
+            ParentCtl3D = False
             TabOrder = 2
             object edVersion_TinnRcomInstalled: TEdit
               Left = 11
-              Top = 51
+              Top = 46
               Width = 87
-              Height = 19
+              Height = 21
               Enabled = False
               TabOrder = 0
             end
-            object edPathTinnRcom_Installed: TEditAlign
+            object edPathTinnRcom_Installed: TMemo
               Left = 11
-              Top = 20
-              Width = 297
-              Height = 28
-              MultiLine = True
-              WordWrap = True
-              BorderStyle = bsNone
-              Enabled = False
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
+              Top = 19
+              Width = 306
+              Height = 21
               TabOrder = 1
             end
           end
@@ -2225,7 +2285,7 @@ object frmAppOptions: TfrmAppOptions
           Height = 69
           Align = alTop
           Caption = ' svSocket (package)** '
-          Ctl3D = False
+          Ctl3D = True
           ParentCtl3D = False
           TabOrder = 1
           object rdgRsvSocketConnect: TRadioGroup
@@ -2235,7 +2295,7 @@ object frmAppOptions: TfrmAppOptions
             Height = 42
             Caption = ' Connect (automatically)* '
             Columns = 2
-            Ctl3D = False
+            Ctl3D = True
             Items.Strings = (
               'Yes'
               'No')
@@ -2259,6 +2319,8 @@ object frmAppOptions: TfrmAppOptions
             Width = 317
             Height = 105
             BorderStyle = bsNone
+            Ctl3D = True
+            ParentCtl3D = False
             ReadOnly = True
             ScrollBars = ssBoth
             TabOrder = 0
@@ -2269,10 +2331,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Options (Rgui)'
         ImageIndex = 12
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbRguiReturnFocus: TGroupBox
           Left = 0
           Top = 0
@@ -2407,10 +2465,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Recognition (Rgui)'
         ImageIndex = 11
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label9: TLabel
           Left = 3
           Top = 160
@@ -2464,10 +2518,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Options (Rterm)'
         ImageIndex = 14
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gbpRtermDisposition: TGroupBox
           Left = 0
           Top = 0
@@ -2571,10 +2621,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Error (Rterm)'
         ImageIndex = 13
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label1: TLabel
           Left = 3
           Top = 89
@@ -2619,10 +2665,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'R (reformat)'
         ImageIndex = 6
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GroupBox13: TGroupBox
           Left = 0
           Top = 0
@@ -2633,20 +2675,14 @@ object frmAppOptions: TfrmAppOptions
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 0
-          object edReformatR: TEditAlign
-            Left = 7
-            Top = 18
-            Width = 318
-            Height = 65
-            MultiLine = True
-            WordWrap = True
+          object edReformatR: TMemo
+            Left = 1
+            Top = 14
+            Width = 330
+            Height = 76
+            Align = alClient
             BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            ParentColor = True
             TabOrder = 0
           end
         end
@@ -2666,7 +2702,6 @@ object frmAppOptions: TfrmAppOptions
             Width = 319
             Height = 117
             BorderStyle = bsNone
-            Ctl3D = False
             Lines.Strings = (
               'keep.comment=TRUE, '
               'keep.blank.line=TRUE, '
@@ -2676,7 +2711,7 @@ object frmAppOptions: TfrmAppOptions
               'reindent.spaces=4, '
               'width.cutoff=getOption('#39'width'#39'),'
               '...')
-            ParentCtl3D = False
+            ParentColor = True
             ReadOnly = True
             TabOrder = 0
           end
@@ -2688,8 +2723,6 @@ object frmAppOptions: TfrmAppOptions
           Height = 68
           Align = alTop
           Caption = ' Option '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 2
           object rdgReformatRSplit: TRadioGroup
             Left = 7
@@ -2698,13 +2731,11 @@ object frmAppOptions: TfrmAppOptions
             Height = 43
             Caption = ' Split the editor after reformatting (to compare) '
             Columns = 3
-            Ctl3D = False
             ItemIndex = 1
             Items.Strings = (
               'Not split'
               'Vertical'
               'Horizontal')
-            ParentCtl3D = False
             TabOrder = 0
           end
         end
@@ -2713,10 +2744,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Rd (reformat)'
         ImageIndex = 7
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GroupBox12: TGroupBox
           Left = 0
           Top = 0
@@ -2724,26 +2751,21 @@ object frmAppOptions: TfrmAppOptions
           Height = 120
           Align = alTop
           Caption = ' Argument(s) no default (Rd2roxygen package) '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 0
-          object edReformatRd: TEditAlign
-            Left = 7
-            Top = 18
-            Width = 318
-            Height = 94
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Enabled = False
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+          object Label32: TLabel
+            Left = 16
+            Top = 24
+            Width = 155
+            Height = 13
+            Caption = 'This feature is not available yet!'
+          end
+          object edReformatRd: TEdit
+            Left = 16
+            Top = 43
+            Width = 121
+            Height = 21
             TabOrder = 0
-            Text = 'This feature is not available yet!'
+            Visible = False
           end
         end
       end
@@ -2751,10 +2773,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'R server'
         ImageIndex = 15
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbRServerTCPIP: TGroupBox
           Left = 0
           Top = 0
@@ -2762,8 +2780,6 @@ object frmAppOptions: TfrmAppOptions
           Height = 176
           Align = alTop
           Caption = ' TCP/IP '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 0
           object gpbRTCPIPParameter: TGroupBox
             Left = 125
@@ -2773,21 +2789,22 @@ object frmAppOptions: TfrmAppOptions
             Caption = ' Parameters (to connection) '
             TabOrder = 1
             object pgIP: TJvgPageControl
-              Left = 1
-              Top = 14
-              Width = 193
-              Height = 66
-              ActivePage = tbsIPRemote
+              Left = 2
+              Top = 15
+              Width = 191
+              Height = 64
+              ActivePage = tbsIPLocal
               Align = alClient
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
-              Font.Name = 'MS Sans Serif'
+              Font.Name = 'Tahoma'
               Font.Style = []
-              ParentFont = False
+              Style = tsFlatButtons
               TabOrder = 0
               TabStop = False
-              TabStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
+              StyleElements = [seFont, seClient]
+              TabStyle.Borders = []
               TabStyle.BevelInner = bvNone
               TabStyle.BevelOuter = bvNone
               TabStyle.Bold = False
@@ -2800,7 +2817,7 @@ object frmAppOptions: TfrmAppOptions
               TabStyle.CaptionHAlign = fhaCenter
               TabStyle.Gradient.Active = False
               TabStyle.Gradient.Orientation = fgdHorizontal
-              TabSelectedStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
+              TabSelectedStyle.Borders = []
               TabSelectedStyle.BevelInner = bvNone
               TabSelectedStyle.BevelOuter = bvNone
               TabSelectedStyle.Bold = False
@@ -2816,21 +2833,17 @@ object frmAppOptions: TfrmAppOptions
               Options = [ftoAutoFontDirection, ftoExcludeGlyphs]
               object tbsIPLocal: TTabSheet
                 Caption = 'Local'
-                ExplicitLeft = 0
-                ExplicitTop = 0
-                ExplicitWidth = 0
-                ExplicitHeight = 0
                 object Label2: TLabel
                   Left = 5
                   Top = 3
-                  Width = 38
+                  Width = 39
                   Height = 13
                   Caption = 'Host IP:'
                 end
                 object Label7: TLabel
                   Left = 22
                   Top = 18
-                  Width = 22
+                  Width = 24
                   Height = 13
                   Caption = 'Port:'
                 end
@@ -2842,6 +2855,7 @@ object frmAppOptions: TfrmAppOptions
                   BevelInner = bvNone
                   BevelOuter = bvNone
                   BorderStyle = bsNone
+                  ParentColor = True
                   TabOrder = 0
                 end
                 object edtIPPortLocal: TEdit
@@ -2858,21 +2872,17 @@ object frmAppOptions: TfrmAppOptions
               object tbsIPRemote: TTabSheet
                 Caption = 'Remote'
                 ImageIndex = 1
-                ExplicitLeft = 0
-                ExplicitTop = 0
-                ExplicitWidth = 0
-                ExplicitHeight = 0
                 object Label14: TLabel
                   Left = 5
                   Top = 3
-                  Width = 38
+                  Width = 39
                   Height = 13
                   Caption = 'Host IP:'
                 end
                 object Label15: TLabel
                   Left = 22
                   Top = 18
-                  Width = 22
+                  Width = 24
                   Height = 13
                   Caption = 'Port:'
                 end
@@ -2941,81 +2951,47 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Deplate'
         ImageIndex = 15
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbParDeplate: TGroupBox
           Left = 0
           Top = 0
           Width = 332
-          Height = 92
+          Height = 57
           Align = alTop
           Caption = ' Parameters (options) '
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 0
-          object edParDeplate: TEditAlign
+          object edParDeplate: TButtonedEdit
             Left = 12
-            Top = 22
+            Top = 20
             Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            Height = 21
+            Ctl3D = True
+            Images = frmTinnMain.imlTinnR
+            ParentColor = True
+            ParentCtl3D = False
+            ParentShowHint = False
+            RightButton.Hint = 'Restore default'
+            RightButton.ImageIndex = 254
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 0
-          end
-          object bbtParDeplate: TButton
-            Left = 12
-            Top = 52
-            Width = 307
-            Height = 28
-            Caption = 'Restore default'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 1
-            OnClick = bbtParDeplateClick
+            OnRightButtonClick = bbtParDeplateClick
           end
         end
         object gpbIntPathDeplate: TGroupBox
           Left = 0
-          Top = 92
+          Top = 57
           Width = 332
-          Height = 92
+          Height = 86
           Align = alTop
           Caption = ' Interpreter (ruby.exe) '
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 1
-          object edPathDeplate_Interpreter: TEditAlign
-            Left = 12
-            Top = 22
-            Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-          end
           object bbtIntPathDeplate: TBitBtn
             Left = 12
-            Top = 52
+            Top = 47
             Width = 307
             Height = 28
             Caption = 'Search path'
@@ -3028,39 +3004,30 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
-            TabOrder = 1
+            TabOrder = 0
             OnClick = bbtIntPathDeplateClick
+          end
+          object edPathDeplate_Interpreter: TEdit
+            Left = 12
+            Top = 22
+            Width = 307
+            Height = 19
+            TabOrder = 1
           end
         end
         object gpbConPathDeplate: TGroupBox
           Left = 0
-          Top = 184
+          Top = 143
           Width = 332
-          Height = 92
+          Height = 82
           Align = alTop
           Caption = ' Conversor (deplate ruby script) '
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 2
-          object edPathDeplate_Converter: TEditAlign
-            Left = 12
-            Top = 22
-            Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-          end
           object bbtConPathDeplate: TBitBtn
             Left = 12
-            Top = 52
+            Top = 44
             Width = 307
             Height = 28
             Caption = 'Search path'
@@ -3073,8 +3040,15 @@ object frmAppOptions: TfrmAppOptions
               8888880800088888888888007F08000008888808777888888888880888888888
               8888880800088888888888007B08000008888808777888888888880888888888
               8888800088888888888807F08000008888888777888888888888}
-            TabOrder = 1
+            TabOrder = 0
             OnClick = bbtConPathDeplateClick
+          end
+          object edPathDeplate_Converter: TEdit
+            Left = 12
+            Top = 19
+            Width = 307
+            Height = 19
+            TabOrder = 1
           end
         end
       end
@@ -3082,10 +3056,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Pandoc'
         ImageIndex = 19
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbPathPandoc: TGroupBox
           Left = 0
           Top = 0
@@ -3093,42 +3063,20 @@ object frmAppOptions: TfrmAppOptions
           Height = 92
           Align = alTop
           Caption = ' Conversor (pandoc.exe) '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 0
-          object edPath_Pandoc: TEditAlign
+          object edPath_Pandoc: TButtonedEdit
             Left = 12
-            Top = 22
-            Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            Top = 25
+            Width = 308
+            Height = 21
+            Images = frmTinnMain.imlTinnR
+            ParentShowHint = False
+            RightButton.Hint = 'Search path'
+            RightButton.ImageIndex = 65
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 0
-          end
-          object bbtPathPandoc: TBitBtn
-            Left = 12
-            Top = 52
-            Width = 307
-            Height = 28
-            Caption = 'Search path'
-            Glyph.Data = {
-              F6000000424DF600000000000000760000002800000010000000100000000100
-              0400000000008000000000000000000000001000000010000000000000000000
-              8000008000000080800080000000800080008080000080808000C0C0C0000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00880888800088
-              8888880888800088888888088007B08000008808808777888888880880888888
-              8888880800088888888888007F08000008888808777888888888880888888888
-              8888880800088888888888007B08000008888808777888888888880888888888
-              8888800088888888888807F08000008888888777888888888888}
-            TabOrder = 1
-            OnClick = bbtPathPandocClick
+            OnRightButtonClick = edPath_PandocRightButtonClick
           end
         end
       end
@@ -3136,151 +3084,87 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'Txt2tags'
         ImageIndex = 14
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbParTxt2tags: TGroupBox
           Left = 0
           Top = 0
           Width = 332
-          Height = 92
+          Height = 57
           Align = alTop
           Caption = ' Parameters (options) '
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 0
-          object edParTxt2tags: TEditAlign
+          object edParTxt2tags: TButtonedEdit
             Left = 12
-            Top = 22
+            Top = 21
             Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            Height = 19
+            Images = frmTinnMain.imlTinnR
+            ParentColor = True
+            ParentShowHint = False
+            RightButton.Hint = 'Restore default'
+            RightButton.ImageIndex = 254
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 0
-          end
-          object bbtParTxt2tags: TButton
-            Left = 12
-            Top = 52
-            Width = 307
-            Height = 28
-            Caption = 'Restore default'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 1
-            OnClick = bbtParTxt2tagsClick
+            OnRightButtonClick = bbtParTxt2tagsClick
           end
         end
         object gpbIntPathTxt2tags: TGroupBox
           Left = 0
-          Top = 92
+          Top = 57
           Width = 332
-          Height = 92
+          Height = 64
           Align = alTop
           Caption = ' Interpreter (python.exe) '
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 1
-          object edPathTxt2tags_Interpreter: TEditAlign
+          object edPathTxt2tags_Interpreter: TButtonedEdit
             Left = 12
-            Top = 22
-            Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+            Top = 25
+            Width = 308
+            Height = 19
+            Images = frmTinnMain.imlTinnR
+            ParentShowHint = False
+            RightButton.Hint = 'Search path'
+            RightButton.ImageIndex = 65
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 0
-          end
-          object bbtIntPathTxt2tags: TBitBtn
-            Left = 12
-            Top = 52
-            Width = 307
-            Height = 28
-            Caption = 'Search path'
-            Glyph.Data = {
-              F6000000424DF600000000000000760000002800000010000000100000000100
-              0400000000008000000000000000000000001000000010000000000000000000
-              8000008000000080800080000000800080008080000080808000C0C0C0000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00880888800088
-              8888880888800088888888088007B08000008808808777888888880880888888
-              8888880800088888888888007F08000008888808777888888888880888888888
-              8888880800088888888888007B08000008888808777888888888880888888888
-              8888800088888888888807F08000008888888777888888888888}
-            TabOrder = 1
-            OnClick = bbtIntPathTxt2tagsClick
+            OnRightButtonClick = bbtIntPathTxt2tagsClick
           end
         end
         object gpbConPathTxt2tags: TGroupBox
           Left = 0
-          Top = 184
+          Top = 121
           Width = 332
-          Height = 92
+          Height = 64
           Align = alTop
           Caption = ' Conversor (txt2tags python script) '
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 2
-          object edPathTxt2tags_Converter: TEditAlign
-            Left = 12
-            Top = 22
-            Width = 307
-            Height = 28
-            MultiLine = True
-            WordWrap = True
-            BorderStyle = bsNone
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+          object edPathTxt2tags_Converter: TButtonedEdit
+            Left = 13
+            Top = 25
+            Width = 308
+            Height = 19
+            Images = frmTinnMain.imlTinnR
+            ParentShowHint = False
+            RightButton.Hint = 'Search path'
+            RightButton.ImageIndex = 65
+            RightButton.Visible = True
+            ShowHint = True
             TabOrder = 0
-          end
-          object bbtConPathTxt2tags: TBitBtn
-            Left = 12
-            Top = 52
-            Width = 307
-            Height = 28
-            Caption = 'Search path'
-            Glyph.Data = {
-              F6000000424DF600000000000000760000002800000010000000100000000100
-              0400000000008000000000000000000000001000000010000000000000000000
-              8000008000000080800080000000800080008080000080808000C0C0C0000000
-              FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00880888800088
-              8888880888800088888888088007B08000008808808777888888880880888888
-              8888880800088888888888007F08000008888808777888888888880888888888
-              8888880800088888888888007B08000008888808777888888888880888888888
-              8888800088888888888807F08000008888888777888888888888}
-            TabOrder = 1
-            OnClick = bbtConPathTxt2tagsClick
+            OnRightButtonClick = bbtConPathTxt2tagsClick
           end
         end
       end
-      object tbsAppMoreConversion: TTabSheet
+      object l: TTabSheet
         Caption = 'More (conversion)'
         ImageIndex = 16
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbConversionMore: TGroupBox
           Left = 0
           Top = 0
@@ -3309,195 +3193,111 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'DVI (latex)'
         ImageIndex = 18
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbDVIParameters: TGroupBox
           Left = 0
           Top = 0
           Width = 332
-          Height = 192
+          Height = 113
           Align = alTop
           Caption = ' Parameters (options) '
           Ctl3D = False
           ParentCtl3D = False
           TabOrder = 0
-          object gpbDVIParametersSingle: TGroupBox
+          object Label30: TLabel
             Left = 10
-            Top = 14
-            Width = 313
-            Height = 83
-            Caption = ' Single compilation '
-            TabOrder = 0
-            object edParDVISingle: TEditAlign
-              Left = 8
-              Top = 18
-              Width = 297
-              Height = 28
-              MultiLine = True
-              WordWrap = True
-              BorderStyle = bsNone
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 0
-            end
-            object bbtDVIParametersSingle: TButton
-              Left = 8
-              Top = 48
-              Width = 297
-              Height = 28
-              Caption = 'Restore default'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 1
-              OnClick = bbtDVIParametersSingleClick
-            end
+            Top = 16
+            Width = 87
+            Height = 13
+            Caption = 'Single compilation '
           end
-          object gpbDVIParametersBibtex: TGroupBox
+          object Label31: TLabel
             Left = 10
-            Top = 99
-            Width = 313
-            Height = 83
+            Top = 62
+            Width = 92
+            Height = 13
             Caption = ' Bibtex compilation '
-            TabOrder = 1
-            object edParDVIBibtex: TEditAlign
-              Left = 8
-              Top = 19
-              Width = 297
-              Height = 28
-              MultiLine = True
-              WordWrap = True
-              BorderStyle = bsNone
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 0
-            end
-            object bbtDVIParametersBibtex: TButton
-              Left = 8
-              Top = 49
-              Width = 297
-              Height = 28
-              Caption = 'Restore default'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 1
-              OnClick = bbtDVIParametersBibtexClick
-            end
           end
+        end
+        object edParDVISingle: TButtonedEdit
+          Left = 10
+          Top = 35
+          Width = 311
+          Height = 21
+          Images = frmTinnMain.imlTinnR
+          ParentShowHint = False
+          RightButton.Hint = 'Restore default'
+          RightButton.ImageIndex = 155
+          RightButton.Visible = True
+          ShowHint = True
+          TabOrder = 1
+          OnRightButtonClick = bbtDVIParametersSingleClick
+        end
+        object edParDVIBibtex: TButtonedEdit
+          Left = 10
+          Top = 81
+          Width = 311
+          Height = 21
+          Images = frmTinnMain.imlTinnR
+          ParentShowHint = False
+          RightButton.Hint = 'Restore default'
+          RightButton.ImageIndex = 155
+          RightButton.Visible = True
+          ShowHint = True
+          TabOrder = 2
+          OnRightButtonClick = bbtDVIParametersBibtexClick
         end
       end
       object tbsAppPdfLatex: TTabSheet
         Caption = 'PDF (latex)'
         ImageIndex = 17
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbPDFParameters: TGroupBox
           Left = 0
           Top = 0
           Width = 332
-          Height = 192
+          Height = 129
           Align = alTop
           Caption = ' Parameters (options) '
-          Ctl3D = False
-          ParentCtl3D = False
           TabOrder = 0
-          object gpbPDFParametersSingle: TGroupBox
-            Left = 10
-            Top = 14
-            Width = 313
-            Height = 83
+          object Label33: TLabel
+            Left = 11
+            Top = 24
+            Width = 90
+            Height = 13
             Caption = ' Single compilation '
-            TabOrder = 0
-            object edParPDFSingle: TEditAlign
-              Left = 8
-              Top = 18
-              Width = 297
-              Height = 28
-              MultiLine = True
-              WordWrap = True
-              BorderStyle = bsNone
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 0
-            end
-            object bbtPDFParSingle: TButton
-              Left = 8
-              Top = 48
-              Width = 297
-              Height = 28
-              Caption = 'Restore default'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 1
-              OnClick = bbtPDFParSingleClick
-            end
           end
-          object gpbPDFParametersBibtex: TGroupBox
-            Left = 10
-            Top = 99
-            Width = 313
-            Height = 83
-            Caption = ' Bibtex compilation '
+          object Label34: TLabel
+            Left = 11
+            Top = 70
+            Width = 89
+            Height = 13
+            Caption = 'Bibtex compilation '
+          end
+          object edParPDFSingle: TButtonedEdit
+            Left = 11
+            Top = 43
+            Width = 297
+            Height = 21
+            Images = frmTinnMain.imlTinnR
+            ParentColor = True
+            RightButton.Hint = 'Restore default'
+            RightButton.ImageIndex = 254
+            RightButton.Visible = True
+            TabOrder = 0
+            OnRightButtonClick = bbtPDFParSingleClick
+          end
+          object edParPDFBibtex: TButtonedEdit
+            Left = 11
+            Top = 89
+            Width = 297
+            Height = 21
+            Images = frmTinnMain.imlTinnR
+            ParentColor = True
+            RightButton.Hint = 'Restore default'
+            RightButton.ImageIndex = 254
+            RightButton.Visible = True
             TabOrder = 1
-            object edParPDFBibtex: TEditAlign
-              Left = 8
-              Top = 19
-              Width = 297
-              Height = 28
-              MultiLine = True
-              WordWrap = True
-              BorderStyle = bsNone
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 0
-            end
-            object bbtPDFParBibtex: TButton
-              Left = 8
-              Top = 49
-              Width = 297
-              Height = 28
-              Caption = 'Restore default'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 1
-              OnClick = bbtPDFParBibtexClick
-            end
+            OnRightButtonClick = bbtPDFParBibtexClick
           end
         end
       end
@@ -3505,10 +3305,6 @@ object frmAppOptions: TfrmAppOptions
         Caption = 'More (latex)'
         ImageIndex = 19
         TabVisible = False
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object gpbLatexOptions: TGroupBox
           Left = 0
           Top = 0

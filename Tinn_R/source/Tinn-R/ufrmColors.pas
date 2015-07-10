@@ -1,45 +1,45 @@
 (*
- Tinn is a ASCII file editor primarily intended as a better replacement
- of the default Notepad.exe under Windows.
+  Tinn is a ASCII file editor primarily intended as a better replacement
+  of the default Notepad.exe under Windows.
 
- This software is distributed under the terms of the GNU General
- Public License, either Version 2, June 1991 or Version 3, June 2007.
- The terms of version 2 and of the license are in a folder called
- doc (licence_gpl2.txt and licence_gpl2.txt)
- which you should have received with this software.
+  This software is distributed under the terms of the GNU General
+  Public License, either Version 2, June 1991 or Version 3, June 2007.
+  The terms of version 2 and of the license are in a folder called
+  doc (licence_gpl2.txt and licence_gpl2.txt)
+  which you should have received with this software.
 
- See http://www.opensource.org/licenses/gpl-license.html or
- http://www.fsf.org/copyleft/gpl.html for further information.
+  See http://www.opensource.org/licenses/gpl-license.html or
+  http://www.fsf.org/copyleft/gpl.html for further information.
 
- Copyright
+  Copyright
   Russell May - http://www.solarvoid.com
 
- Tinn-R is an extension of Tinn that provides additional tools to control R
- (http://cran.r-project.org). The project is coordened by José Cláudio Faria
- (joseclaudio.faria@gmail.com).
+  Tinn-R is an extension of Tinn that provides additional tools to control R
+  (http://cran.r-project.org). The project is coordened by José Cláudio Faria
+  (joseclaudio.faria@gmail.com).
 
- As such, Tinn-R is a feature-rich replacement of the basic script editor
- provided with Rgui. It provides syntax-highlighting, submission of code in
- whole, or line-by-line, and many other useful tools to ease writting and
- debugging of R code.
+  As such, Tinn-R is a feature-rich replacement of the basic script editor
+  provided with Rgui. It provides syntax-highlighting, submission of code in
+  whole, or line-by-line, and many other useful tools to ease writting and
+  debugging of R code.
 
- Copyright
+  Copyright
   Tinn-R team October/2005
   Tinn-R team October/2013
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 and 3 of the License, or
- (at your option) any later version.
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 and 3 of the License, or
+  (at your option) any later version.
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *)
 
 unit ufrmColors;
@@ -48,146 +48,137 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ExtCtrls, Buttons, ComCtrls, SynEdit, ColorGrd,
-  SynEditHighlighter, SynHighlighterMulti, SynHighlighterPas,
-  ActnList, AbArcTyp, AbUtils, AbZipper,
-  AbZipKit, AbZipTyp, AbZBrows, AbMeter, AbDlgDir, AbView, AbZView, AbBrowse,
-  AbBase, AbUnzper, DBCtrls, trShape, StrUtils;
+  StdCtrls, ExtCtrls, Buttons, ComCtrls, ActnList,
+
+  DBCtrls, StrUtils, System.Actions, JvExExtCtrls,
+  JvExtComponent, JvOfficeColorButton, Vcl.Grids, Vcl.DBGrids, Vcl.DBLookup,
+  Vcl.Menus, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnPopup, Data.DB,
+  DScintillaCustom, DScintilla, Vcl.Samples.Spin, JvExStdCtrls, JvCombobox,
+  JvColorCombo;
 
 type
   TfrmColors = class(TForm)
     actTextAttributes: TAction;
     alAttributes: TActionList;
     bbHelp: TBitBtn;
-    bbtCancel: TBitBtn;
     bbtOK: TBitBtn;
-    bbtSetBGForAllIdentifiers: TBitBtn;
-    bbtSetBGForAllIHighlighters: TBitBtn;
-    cbActiveLineBG: TCheckBox;
     cbBold: TCheckBox;
     cbItalic: TCheckBox;
     cbUnderline: TCheckBox;
-    cgColors: TColorGrid;
     gpbAttributes: TGroupBox;
-    gpbHighlighters: TGroupBox;
     gpbIdentifiers: TGroupBox;
     gpbMorColors: TGroupBox;
     gpbSample: TGroupBox;
     gpbText: TGroupBox;
-    GroupBox2: TGroupBox;
-    GroupBox3: TGroupBox;
     GroupBox4: TGroupBox;
-    GroupBox6: TGroupBox;
-    lbHighlighters: TListBox;
-    lbIdentifiers: TListBox;
-    shActiveLine: TtrShape;
-    shBG: TtrShape;
-    shBGAllHighlighters: TtrShape;
-    shBGPreferred: TtrShape;
-    shBrackets: TtrShape;
-    shFG: TtrShape;
-    synSample: TSynEdit;
-    Bevel1: TBevel;
-    lWarning_1: TLabel;
     lHighlighters: TLabel;
-    lWarning_3: TLabel;
-    lWarning_2: TLabel;
+    Label1: TLabel;
+    cbFG: TJvOfficeColorButton;
+    Label2: TLabel;
+    cbBG: TJvOfficeColorButton;
+    Label3: TLabel;
+    cbBGPreferred: TJvOfficeColorButton;
+    cbActiveLineBG: TCheckBox;
+    cbActiveLine: TJvOfficeColorButton;
+    bbtSetBGForAllIHighlighters: TBitBtn;
+    Label5: TLabel;
+    dbgLexers: TDBGrid;
+    dbgIdentifiers: TDBGrid;
+    actClone: TAction;
+    pabLexers: TPopupActionBar;
+    actClone1: TMenuItem;
+    Button1: TButton;
+    sciPreview: TDScintilla;
+    Button2: TButton;
+    fbFont: TJvFontComboBox;
+    seSize: TSpinEdit;
+    GroupBox1: TGroupBox;
+    edExtensions: TEdit;
 
     procedure actTextAttributesExecute(Sender: TObject);
     procedure bbHelpClick(Sender: TObject);
     procedure bbtOKClick(Sender: TObject);
     procedure bbtSetBGForAllIdentifiersClick(Sender: TObject);
     procedure bbtSetBGForAllIHighlightersClick(Sender: TObject);
-    procedure cbActiveLineBGMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure cgColorsMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure lbHighlightersClick(Sender: TObject);
     procedure lbIdentifiersClick(Sender: TObject);
-    procedure panBackgroundColorClick(Sender: TObject);
-    procedure shActiveLineMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shBGAllHighlightersMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shBGMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shBGPreferredMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shBracketsMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shFGMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure synSampleChange(Sender: TObject);
     procedure synSampleClick(Sender: TObject);
-
+    procedure cbFGColorChange(Sender: TObject);
+    procedure cbActiveLineColorChange(Sender: TObject);
+    procedure actCloneExecute(Sender: TObject);
+    procedure AdjustColumnWidths(DBGrid: TDBGrid);
+    procedure dbgLexersKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure Button1Click(Sender: TObject);
+    procedure SelectIdentifier;
+    procedure cbActiveLineBGClick(Sender: TObject);
   private
     { Private declarations }
     procedure SavePreferences;
-    procedure SetAttr_SavePreferences(var AttrStyle: TFontStyles; att: TSynHighlighterAttributes);
     procedure ShowAttributes;
     procedure StructureIniSyntaxFiles(clPreferred: TColor);
     procedure UpdateActiveLine;
-    procedure UpdateColors(shTemp: TtrShape; clTemp: TColor);
-
+    procedure UdateIdentifier;
   public
     { Public declarations }
   end;
 
-type
-  TMySynEdit = class(TSynEdit) end;
 
 var
   frmColors: TfrmColors;
-  sFriendlyName: WideString;
 
+  bIdentifierLoaded: Boolean = false;
 implementation
 
-uses uDMSyn, ufrmMain, trUtils;
+uses ufrmMain, umodDados, ufrmCloneLexer, uLexerCommands;
 
 {$R *.DFM}
-
-procedure TfrmColors.UpdateColors(shTemp: TtrShape;
-                                  clTemp: TColor);
-begin
-  with shTemp do begin
-    Brush.Color:= clTemp;
-    Font.Color := ContrastColor(clTemp);
-  end
-end;
 
 
 procedure TfrmColors.StructureIniSyntaxFiles(clPreferred: TColor);
 var
-  att            : TSynHighlighterAttributes;
-  clFG,
-   clBG          : TColor;
-  i,
-   j,
-   k,
-   iHighlighterID: integer;
-  oldAttrStyle,
-   attrStyle     : TFontStyles;
-  sName,
-   sHighlighter  : string;
+ // att: TSynHighlighterAttributes;
+  clFG, clBG: TColor;
+  i, j, k, iHighlighterID: integer;
+  oldAttrStyle, AttrStyle: TFontStyles;
+  sName, sHighlighter: string;
 
 begin
-  lbHighlighters.Items.BeginUpdate;
+{  lbHighlighters.Items.BeginUpdate;
   lbIdentifiers.Items.BeginUpdate;
-  lbHighlighters.ItemIndex:= 0;
-  lbIdentifiers.ItemIndex:= 0;
+  lbHighlighters.ItemIndex := 0;
+  lbIdentifiers.ItemIndex := 0;
 
-  for i:= 0 to (lbHighlighters.Items.Count - 1) do begin
-    sHighlighter:= lbHighlighters.Items.Strings[i];
+  for i := 0 to (lbHighlighters.Items.Count - 1) do
+  begin
+    sHighlighter := lbHighlighters.Items.Strings[i];
 
     // Will show the attribute of the selected highlighter
-    iHighlighterID:= -1;
-    for j:= 0 to (dmSyn.iHigCount - 1) do begin
-      sName:= (dmSyn.Components[j] as TSynCustomHighlighter).GetFriendlyLanguageName;
+    iHighlighterID := -1;
+    for j := 0 to (dmSyn.iHigCount - 1) do
+    begin
+      sName := (dmSyn.Components[j] as TSynCustomHighlighter)
+        .GetFriendlyLanguageName;
 
-      if (sName = 'General_Multi-Highlighter') then sName:= (dmSyn.Components[j] as TSynMultiSyn).DefaultLanguageName;
+      if (sName = 'General_Multi-Highlighter') then
+        sName := (dmSyn.Components[j] as TSynMultiSyn).DefaultLanguageName;
 
-      if (sName = sHighlighter) then begin
-        iHighlighterID:= j;
+      if (sName = sHighlighter) then
+      begin
+        iHighlighterID := j;
         lbIdentifiers.Clear;
 
-        for k:= 0 to ((dmSyn.Components[j] as TSynCustomHighlighter).AttrCount - 1) do begin
-          if ((dmSyn.Components[j] as TSynCustomHighlighter).Attribute[k].Name <> '') then
-            lbIdentifiers.Items.Add((dmSyn.Components[j] as TSynCustomHighlighter).Attribute[k].Name);
+        for k := 0 to ((dmSyn.Components[j] as TSynCustomHighlighter)
+          .AttrCount - 1) do
+        begin
+          if ((dmSyn.Components[j] as TSynCustomHighlighter).Attribute[k].Name
+            <> '') then
+            lbIdentifiers.Items.Add
+              ((dmSyn.Components[j] as TSynCustomHighlighter)
+              .Attribute[k].Name);
         end;
         Break;
       end;
@@ -195,58 +186,64 @@ begin
 
     // Show the sample of the selected highlighter
     if (iHighlighterID > -1) then
-      //if ((dmSyn.Components[iHighlighterID] as TSynCustomHighlighter).GetLanguageName = 'General_Multi-Highlighter') then
-      if ((dmSyn.Components[iHighlighterID] as TSynCustomHighlighter).GetFriendlyLanguageName = 'General_Multi-Highlighter') then
-        synSample.Highlighter:= (dmSyn.Components[iHighlighterID] as TSynMultiSyn)
-      else  // not 'General_Multi-Highlighter'
-        synSample.Highlighter:= (dmSyn.Components[iHighlighterID] as TSynCustomHighlighter);
-    lbIdentifiers.ItemIndex:= 0;
+      // if ((dmSyn.Components[iHighlighterID] as TSynCustomHighlighter).GetLanguageName = 'General_Multi-Highlighter') then
+      if ((dmSyn.Components[iHighlighterID] as TSynCustomHighlighter)
+        .GetFriendlyLanguageName = 'General_Multi-Highlighter') then
+        synSample.Highlighter :=
+          (dmSyn.Components[iHighlighterID] as TSynMultiSyn)
+      else // not 'General_Multi-Highlighter'
+        synSample.Highlighter :=
+          (dmSyn.Components[iHighlighterID] as TSynCustomHighlighter);
+    lbIdentifiers.ItemIndex := 0;
 
-    for j:= 0 to (lbIdentifiers.Items.Count-1) do begin
-      if (lbHighlighters.ItemIndex >= 0) then begin
+    for j := 0 to (lbIdentifiers.Items.Count - 1) do
+    begin
+      if (lbHighlighters.ItemIndex >= 0) then
+      begin
 
-        with synSample.Highlighter do begin
-          clFG:= Attribute[lbIdentifiers.ItemIndex].Foreground;
-          if (clFG = clNone) then clFG:= clBlack;
-          clBG:= clPreferred;
+        with synSample.Highlighter do
+        begin
+          clFG := Attribute[lbIdentifiers.ItemIndex].Foreground;
+          if (clFG = clNone) then
+            clFG := clBlack;
+          clBG := clPreferred;
         end;
 
-        att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
-                                               sFriendlyName);
-        oldAttrStyle:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Style;
+        att := TSynHighlighterAttributes.Create
+          (lbIdentifiers.Items[lbIdentifiers.ItemIndex], sFriendlyName);
+        oldAttrStyle := synSample.Highlighter.Attribute
+          [lbIdentifiers.ItemIndex].Style;
         try
-          attrStyle:= [];
-          att.ForegRound:= clFG;
-          att.Background:= clBG;
-          att.Style:= oldAttrStyle;
+          AttrStyle := [];
+          att.Foreground := clFG;
+          att.Background := clBG;
+          att.Style := oldAttrStyle;
           synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Assign(att);
         finally
           FreeAndNil(att);
         end;
       end;
-      lbIdentifiers.ItemIndex:= (j + 1)
+      lbIdentifiers.ItemIndex := (j + 1)
     end;
     SavePreferences;
 
-    lbHighlighters.ItemIndex:= (i + 1);
+    lbHighlighters.ItemIndex := (i + 1);
   end;
   lbHighlighters.Items.EndUpdate;
 
-  lbIdentifiers.Items.EndUpdate;
+  lbIdentifiers.Items.EndUpdate;     }
 end;
 
 procedure TfrmColors.FormCreate(Sender: TObject);
 
   function CountFiles(pathToSearch: string): integer;
   var
-    rec       : TSearchRec;
+    rec: TSearchRec;
     iFileCount: integer;
 
   begin
-    iFileCount:= 0;
-    if (FindFirst(pathToSearch,
-                  faAnyFile,
-                  rec) = 0) then
+    iFileCount := 0;
+    if (FindFirst(pathToSearch, faAnyFile, rec) = 0) then
     begin
       repeat
         // Exclude directories from the list of files.
@@ -255,257 +252,280 @@ procedure TfrmColors.FormCreate(Sender: TObject);
       until FindNext(rec) <> 0;
       FindClose(rec);
     end;
-    Result:= iFileCount;
+    Result := iFileCount;
   end;
 
 var
-  i,
-   j,
-   iIniSyntaxFiles: integer;
-  sName,
-   sSyntaxBKP     : string;
+  i, j, iIniSyntaxFiles: integer;
+  sName, sSyntaxBKP: string;
 
 begin
-  // Update the appearance of some components based in public variables (frmTinnMain)
-  with frmTinnMain do begin
-    UpdateColors(shActiveLine,
-                 clActiveLine);
+ if dbgLexers.DataSource.DataSet.RecordCount > 0 then
+   dbgLexers.DataSource.DataSet.First;
 
-    UpdateColors(shBrackets,
-                 clBrackets);
+ if dbgIdentifiers.DataSource.DataSet.RecordCount > 0 then
+   dbgIdentifiers.DataSource.DataSet.First;
 
-    UpdateColors(shBGPreferred,
-                 clBGPreferred);
+ AdjustColumnWidths(dbgLexers);
+ AdjustColumnWidths(dbgIdentifiers);
 
-    UpdateColors(shBGAllHighlighters,
-                 clBGForAllHighlighters);
+ with frmTinnMain do
+ begin
+   cbActiveLineBG.Checked := bHighlightActiveLine;
+   cbActiveLine.Enabled := bHighlightActiveLine;
+   cbActiveLine.SelectedColor := iHighlightActiveLineColor;
+ end;
 
-    cbActiveLineBG.Checked:= bActiveLine;
-    with synSample do begin
-      OnPaintTransient:= synPaintTransient;
-      if bActiveLine then ActiveLineColor:= TColor(clActiveLine)
-                     else ActiveLineColor:= TColor(clNone);
+ { // Update the appearance of some components based in public variables (frmTinnMain)
+  with frmTinnMain do
+  begin
+    cbActiveLine.SelectedColor := clActiveLine;
+
+    cbBrackets.SelectedColor := clBrackets;
+
+    cbBGPreferred.SelectedColor := clBGPreferred;
+
+    cbBGAllHighlighters.SelectedColor := clBGForAllHighlighters;
+
+    cbActiveLineBG.Checked := bActiveLine;
+    with synSample do
+    begin
+      OnPaintTransient := synPaintTransient;
+      if bActiveLine then
+        ActiveLineColor := TColor(clActiveLine)
+      else
+        ActiveLineColor := TColor(clNone);
     end;
   end;
 
   // Do a prior backup of all syntax files of ini
-  sSyntaxBKP:= frmTinnMain.sPathSyntaxBKP +
-               '\syntax_bkp.zip';
+  sSyntaxBKP := frmTinnMain.sPathSyntaxBKP + '\syntax_bkp.zip';
   try
-    if FileExists(sSyntaxBKP) then DeleteFile(sSyntaxBKP);
+    if FileExists(sSyntaxBKP) then
+      DeleteFile(sSyntaxBKP);
   except
-    //todo
+    // todo
   end;
-  with frmTinnMain do begin
-    zipKit.StoreOptions:= [soRecurse];  // soRecurse: will include all files of all folders and sub-folders
-    with zipKit do begin
-      FileName:= sSyntaxBKP;
+  with frmTinnMain do
+  begin
+    zipKit.StoreOptions := [soRecurse];
+    // soRecurse: will include all files of all folders and sub-folders
+    with zipKit do
+    begin
+      FileName := sSyntaxBKP;
       AddFiles(sPathSyntax + '\*.*', 0);
       CloseArchive;
     end;
   end;
 
   // Load the highlighters names into the listbox
-  for j:= 0 to (dmSyn.iHigCount - 1) do begin
-    sName:= (dmSyn.Components[j] as TSynCustomHighlighter).GetFriendlyLanguageName;
+  for j := 0 to (dmSyn.iHigCount - 1) do
+  begin
+    sName := (dmSyn.Components[j] as TSynCustomHighlighter)
+      .GetFriendlyLanguageName;
 
-    if (sName <> 'General_Multi-Highlighter') then begin
-      if (sName <> 'R term') and
-         (sName <> 'Text term') then
+    if (sName <> 'General_Multi-Highlighter') then
+    begin
+      if (sName <> 'R term') and (sName <> 'Text term') then
         lbHighlighters.Items.Add(sName)
     end
-    else begin
-      sName:= (dmSyn.Components[j] as TSynMultiSyn).DefaultLanguageName;
+    else
+    begin
+      sName := (dmSyn.Components[j] as TSynMultiSyn).DefaultLanguageName;
       lbHighlighters.Items.Add(sName)
     end;
   end;
 
-  iIniSyntaxFiles:= CountFiles(frmTinnMain.sPathSyntax +
-                               '\*.*');
+  iIniSyntaxFiles := CountFiles(frmTinnMain.sPathSyntax + '\*.*');
 
-  if (iIniSyntaxFiles <= 1) then StructureIniSyntaxFiles(clWhite);
+  if (iIniSyntaxFiles <= 1) then
+    StructureIniSyntaxFiles(clWhite);
 
   // Try to find the language used in the main editor
-  sName:= frmTinnMain.cbSyntax.Items[frmTinnMain.cbSyntax.ItemIndex];
-  if (sName <> '') then begin
-    for i:= 0 to (lbHighlighters.Items.Count - 1) do
-      if (sName = lbHighlighters.Items.Strings[i]) then begin
-        lbHighlighters.ItemIndex:= i;
+  sName := frmTinnMain.cbSyntax.Items[frmTinnMain.cbSyntax.ItemIndex];
+  if (sName <> '') then
+  begin
+    for i := 0 to (lbHighlighters.Items.Count - 1) do
+      if (sName = lbHighlighters.Items.Strings[i]) then
+      begin
+        lbHighlighters.ItemIndex := i;
         Break;
       end;
   end
-  else lbHighlighters.ItemIndex:= 0;  // All Syntax!
+  else
+    lbHighlighters.ItemIndex := 0; // All Syntax!
 
-  lbHighlightersClick(Self);
+  lbHighlightersClick(Self);    }
 end;
 
 procedure TfrmColors.lbHighlightersClick(Sender: TObject);
-
-  // Get all schemes from any TSynMultiSyn
+  {
+// Get all schemes from any TSynMultiSyn
   procedure ShowStructure(synmTmp: TSynMultiSyn);
   var
-    i   : integer;
+    i: integer;
     sTmp: string;
 
   begin
-    sTmp:= synmTmp.DefaultHighlighter.GetFriendlyLanguageName;
+    sTmp := synmTmp.DefaultHighlighter.GetFriendlyLanguageName;
 
-    i:= 0;
-    while (i < synmTmp.Schemes.Count - 1) do begin
-      sTmp:= sTmp +
-             ', ' +
-             synmTmp.Schemes.Items[i].DisplayName;
-      inc(i)
+    i := 0;
+    while (i < synmTmp.Schemes.Count - 1) do
+    begin
+      sTmp := sTmp + ', ' + synmTmp.Schemes.Items[i].DisplayName;
+      Inc(i)
     end;
 
-    sTmp:= sTmp +
-           ' and ' +
-           synmTmp.Schemes.Items[i].DisplayName;
+    sTmp := sTmp + ' and ' + synmTmp.Schemes.Items[i].DisplayName;
 
-    lHighlighters.Caption:= sTmp;
+    lHighlighters.Caption := sTmp;
   end;
 
 var
-  i,
-   j,
-   k,
-   iHighlighterID: integer;
-  sTemp,
-   sHighlighter  : string;
+  i, j, k, iHighlighterID: integer;
+  sTemp, sHighlighter: string;
+        }
+begin  {
+  iHighlighterID := -1;
 
-begin
-  iHighlighterID:= -1;
-
-  for i:= 0 to (lbHighlighters.Items.Count - 1) do
-    if lbHighlighters.Selected[i] then begin
-       sHighlighter:= lbHighlighters.Items.Strings[i];
-       Break;
+  for i := 0 to (lbHighlighters.Items.Count - 1) do
+    if lbHighlighters.Selected[i] then
+    begin
+      sHighlighter := lbHighlighters.Items.Strings[i];
+      Break;
     end;
 
   // Will show the attribute of the selected highlighter
   lbIdentifiers.Clear;
-  for j:= 0 to (dmSyn.iHigCount - 1) do begin
-    sTemp:= (dmSyn.Components[j] as TSynCustomHighlighter).GetFriendlyLanguageName;
+  for j := 0 to (dmSyn.iHigCount - 1) do
+  begin
+    sTemp := (dmSyn.Components[j] as TSynCustomHighlighter)
+      .GetFriendlyLanguageName;
 
-    if (sTemp = 'General_Multi-Highlighter') then begin
-      sTemp:= (dmSyn.Components[j] as TSynMultiSyn).DefaultLanguageName;
+    if (sTemp = 'General_Multi-Highlighter') then
+    begin
+      sTemp := (dmSyn.Components[j] as TSynMultiSyn).DefaultLanguageName;
     end;
 
-    if (sTemp = sHighlighter) then begin
-      iHighlighterID:= j;
-      for k:= 0 to ((dmSyn.Components[j] as TSynCustomHighlighter).AttrCount - 1) do begin
-        if ((dmSyn.Components[j] as TSynCustomHighlighter).Attribute[k].Name <> '') then
-          lbIdentifiers.Items.Add((dmSyn.Components[j] as TSynCustomHighlighter).Attribute[k].Name);
+    if (sTemp = sHighlighter) then
+    begin
+      iHighlighterID := j;
+      for k := 0 to ((dmSyn.Components[j] as TSynCustomHighlighter)
+        .AttrCount - 1) do
+      begin
+        if ((dmSyn.Components[j] as TSynCustomHighlighter).Attribute[k].Name
+          <> '') then
+          lbIdentifiers.Items.Add((dmSyn.Components[j] as TSynCustomHighlighter)
+            .Attribute[k].Name);
       end;
 
-      if MatchStr(sHighlighter,
-                  aSynMultiSyn) then begin
-        //gpbAttributes.Enabled:= False;  // This is so invasive
-        lWarning_1.Visible   := True;
-        lWarning_2.Visible   := True;
-        lWarning_3.Visible   := True;
-        lHighlighters.Visible:= True;
+      if MatchStr(sHighlighter, aSynMultiSyn) then
+      begin
+        // gpbAttributes.Enabled:= False;  // This is so invasive
+        lWarning_1.Visible := True;
+        lWarning_2.Visible := True;
+        lWarning_3.Visible := True;
+        lHighlighters.Visible := True;
         ShowStructure(dmSyn.Components[j] as TSynMultiSyn)
       end
-      else begin
-        //gpbAttributes.Enabled:= True;  // This is so invasive
-        lWarning_1.Visible   := False;
-        lWarning_2.Visible   := False;
-        lWarning_3.Visible   := False;
-        lHighlighters.Visible:= False;
+      else
+      begin
+        // gpbAttributes.Enabled:= True;  // This is so invasive
+        lWarning_1.Visible := False;
+        lWarning_2.Visible := False;
+        lWarning_3.Visible := False;
+        lHighlighters.Visible := False;
       end;
       Break;
     end;
   end;
 
   // Will show the sample of the selected highlighter
-  if (iHighlighterID > -1) then begin
-    if ((dmSyn.Components[iHighlighterID] as TSynCustomHighlighter).GetFriendlyLanguageName = 'General_Multi-Highlighter') then begin
-      if (sHighlighter = 'HTML complex')         then synSample.Lines.Text:= sSampleHTMLcomplex
-      else if (sHighlighter = 'PHP complex')     then synSample.Lines.Text:= sSamplePHPcomplex
-      else if (sHighlighter = 'R complex')       then synSample.Lines.Text:= sSampleRcomplex
-      else if (sHighlighter = 'R doc')           then synSample.Lines.Text:= sSampleRdoc
-      else if (sHighlighter = 'R html')          then synSample.Lines.Text:= sSampleRhtml
-      else if (sHighlighter = 'R markdown')      then synSample.Lines.Text:= sSampleRmarkdown
-      else if (sHighlighter = 'R noweb')         then synSample.Lines.Text:= sSampleRnoweb;
-      if (synSample.Lines.Count = 0)             then synSample.Lines.Text:= sSampleUnknowed;
+  if (iHighlighterID > -1) then
+  begin
+    if ((dmSyn.Components[iHighlighterID] as TSynCustomHighlighter)
+      .GetFriendlyLanguageName = 'General_Multi-Highlighter') then
+    begin
+      if (sHighlighter = 'HTML complex') then
+        synSample.Lines.Text := sSampleHTMLcomplex
+      else if (sHighlighter = 'PHP complex') then
+        synSample.Lines.Text := sSamplePHPcomplex
+      else if (sHighlighter = 'R complex') then
+        synSample.Lines.Text := sSampleRcomplex
+      else if (sHighlighter = 'R doc') then
+        synSample.Lines.Text := sSampleRdoc
+      else if (sHighlighter = 'R html') then
+        synSample.Lines.Text := sSampleRhtml
+      else if (sHighlighter = 'R markdown') then
+        synSample.Lines.Text := sSampleRmarkdown
+      else if (sHighlighter = 'R noweb') then
+        synSample.Lines.Text := sSampleRnoweb;
+      if (synSample.Lines.Count = 0) then
+        synSample.Lines.Text := sSampleUnknowed;
 
-      synSample.Highlighter:= (dmSyn.Components[iHighlighterID] as TSynMultiSyn);
+      synSample.Highlighter :=
+        (dmSyn.Components[iHighlighterID] as TSynMultiSyn);
     end
-    else begin  // If not 'General_Multi-Highlighter'
-      synSample.Highlighter:= nil;
-      synSample.Lines.Text := (dmSyn.Components[iHighlighterID] as TSynCustomHighlighter).SampleSource;
+    else
+    begin // If not 'General_Multi-Highlighter'
+      synSample.Highlighter := nil;
+      synSample.Lines.Text :=
+        (dmSyn.Components[iHighlighterID] as TSynCustomHighlighter)
+        .SampleSource;
 
-      //if (synSample.Lines.Count = 0) then begin
-        if (sHighlighter = 'C#')                   then synSample.Lines.Text:= sSampleCSharp
-        else if (sHighlighter = 'CSS')             then synSample.Lines.Text:= sSampleCSS
-        else if (sHighlighter = 'Fortran')         then synSample.Lines.Text:= sSampleFortran
-        else if (sHighlighter = 'Structured Text') then synSample.Lines.Text:= sSampleST;
-        //else synSample.Lines.Text:= sSampleUnknowed;
-      //end;
+      // if (synSample.Lines.Count = 0) then begin
+      if (sHighlighter = 'C#') then
+        synSample.Lines.Text := sSampleCSharp
+      else if (sHighlighter = 'CSS') then
+        synSample.Lines.Text := sSampleCSS
+      else if (sHighlighter = 'Fortran') then
+        synSample.Lines.Text := sSampleFortran
+      else if (sHighlighter = 'Structured Text') then
+        synSample.Lines.Text := sSampleST;
+      // else synSample.Lines.Text:= sSampleUnknowed;
+      // end;
 
-      if (synSample.Lines.Count = 0) then synSample.Lines.Text:= sSampleUnknowed;
-      synSample.Highlighter:= (dmSyn.Components[iHighlighterID] as TSynCustomHighlighter);
+      if (synSample.Lines.Count = 0) then
+        synSample.Lines.Text := sSampleUnknowed;
+      synSample.Highlighter :=
+        (dmSyn.Components[iHighlighterID] as TSynCustomHighlighter);
 
     end;
-    lbIdentifiers.ItemIndex:= 0;
+    lbIdentifiers.ItemIndex := 0;
 
     ShowAttributes;
-  end;
+  end;    }
 end;
 
 procedure TfrmColors.ShowAttributes;
 var
-  clFG,
-   clBG: TColor;
+  clFG, clBG: TColor;
 
 begin
-  with synSample.Highlighter do begin
-    //Foreground
-    clFG:= Attribute[lbIdentifiers.ItemIndex].Foreground;
-    if (clFG = clNone) then begin
-      with shFG do begin
-        Brush.Color:= clBlack;
-        Font.Color := clWhite;
-        Refresh;
-      end;
-      cgColors.ForegroundIndex:= 0 //clBlack
-    end
-    else begin
-      with shFG do begin
-        Brush.Color:= clFG;
-        Font.Color := ContrastColor(clFG);
-        Refresh;
-      end;
-      cgColors.ForegroundIndex:= cgColors.ColorToIndex(clFG);
-    end;
+ { with synSample.Highlighter do
+  begin
+    // Foreground
+    clFG := Attribute[lbIdentifiers.ItemIndex].Foreground;
+    if (clFG = clNone) then
+      cbFG.SelectedColor := clWhite
+    else
+      cbFG.SelectedColor := clFG;
 
-    //Background
-    clBG:= Attribute[lbIdentifiers.ItemIndex].Background;
-    if (clBG = clNone) then begin
-      with shBG do begin
-        Brush.Color:= clWhite;
-        Font.Color := clBlack;
-        Refresh;
-      end;
-      cgColors.BackgroundIndex:= 15 //clWhite
-    end
-    else begin
-      with shBG do begin
-        Brush.Color:= clBG;
-        Font.Color := ContrastColor(clBG);
-        Refresh;
-      end;
-      cgColors.BackgroundIndex:= cgColors.ColorToIndex(clBG);
-    end;
+    // Background
+    clBG := Attribute[lbIdentifiers.ItemIndex].Background;
+    if (clBG = clNone) then
+      cbBG.SelectedColor := clWhite
+    else
+      cbBG.SelectedColor := clBG;
 
-    actTextAttributes.Enabled:= False;  // Do not remove!
-    cbBold.Checked     := (fsBold in Attribute[lbIdentifiers.ItemIndex].Style);
-    cbItalic.Checked   := (fsItalic in Attribute[lbIdentifiers.ItemIndex].Style);
-    cbUnderline.Checked:= (fsUnderline in Attribute[lbIdentifiers.ItemIndex].Style);
-    actTextAttributes.Enabled:= True;  // Do not remove!
-  end;
-  shBGPreferred.Font.Color:= ContrastColor(shBGPreferred.Brush.Color);
+    actTextAttributes.Enabled := False; // Do not remove!
+    cbBold.Checked := (fsBold in Attribute[lbIdentifiers.ItemIndex].Style);
+    cbItalic.Checked := (fsItalic in Attribute[lbIdentifiers.ItemIndex].Style);
+    cbUnderline.Checked :=
+      (fsUnderline in Attribute[lbIdentifiers.ItemIndex].Style);
+    actTextAttributes.Enabled := True; // Do not remove!
+  end;        }
+  // m.p. shBGPreferred.Font.Color:= ContrastColor(shBGPreferred.Brush.Color);
 end;
 
 procedure TfrmColors.lbIdentifiersClick(Sender: TObject);
@@ -515,328 +535,116 @@ end;
 
 procedure TfrmColors.bbHelpClick(Sender: TObject);
 begin
-  frmTinnMain.OpenUserGuidePDF('"Highlighters (settings)"');
+//  frmTinnMain.OpenUserGuidePDF('"Highlighters (settings)"');
 end;
 
 procedure TfrmColors.bbtOKClick(Sender: TObject);
-var
-  syntaxBackupFile: string;
-
 begin
-  syntaxBackupFile:= frmTinnMain.sPathSyntaxBKP +
-                     '\syntax_bkp.zip';
-  try
-    frmTinnMain.zipKit.CloseArchive;
-    if FileExists(syntaxBackupFile) then DeleteFile(syntaxBackupFile);
-  except
-    //todo
-  end;
-  SavePreferences;
+  close;
 end;
 
 procedure TfrmColors.SavePreferences;
-var
-  LanguageName: string;
-
 begin
-  //LanguageName:= synSample.Highlighter.GetLanguageName;
-  LanguageName:= synSample.Highlighter.GetFriendlyLanguageName;
 
-  if (LanguageName = 'C/C++') then LanguageName:= 'C++';
-  synSample.Highlighter.SaveToFile(frmTinnMain.sPathSyntax +
-                                   '\' +
-                                   LanguageName +
-                                   '.ini');
 end;
 
-procedure TfrmColors.SetAttr_SavePreferences(var AttrStyle: TFontStyles;
-                                             att: TSynHighlighterAttributes);
+procedure TfrmColors.actCloneExecute(Sender: TObject);
+var dlg: TfrmCloneDialog;
 begin
-  if cbBold.Checked      then Include(AttrStyle,
-                                      FsBold);
+  if dbgLexers.SelectedIndex > -1 then
+  begin
+    dlg := TfrmCloneDialog.Create(Self);
+    dlg.Caption := 'Clone '+ ansiquotedstr(dbgLexers.SelectedField.AsString, '''');
+    if dlg.ShowModal = mrOK then
+    begin
+      ModDados.sqlLexerConnection.ExecuteDirect('INSERT INTO  Lexers (LexerId, LexerName) VALUES ('+inttostr(dlg.seLexerId.Value)+' , "'+trim(dlg.leLexerName.Text)+'")');
+      //ModDados.sqldsLexers.Refresh;
+      ModDados.cdLexers.Refresh;
+      ModDados.cdLexers2.Refresh;
+      ModDados.cdLexers.Locate('LexerName', 'trim(dlg.leLexerName.Text)', [loCaseInsensitive]);
 
-  if cbItalic.Checked    then Include(AttrStyle,
-                                      FsItalic);
-
-  if cbUnderLine.Checked then Include(AttrStyle,
-                                      FsUnderLine);
-  att.Style:= AttrStyle;
-
-  with synSample.Highlighter do begin
-    BeginUpdate;
-    Attribute[lbIdentifiers.ItemIndex].Assign(att);
-    EndUpdate;
+ //     ModDados.cdLexers.Last;
+    end;
   end;
-
-  if (synSample.Highlighter.GetFriendlyLanguageName = 'R') then
-    // SynR_term has no multline
-    with dmSyn.synR_term do begin
-      BeginUpdate;
-      Attribute[lbIdentifiers.ItemIndex].Assign(att);
-      EndUpdate;
-    end;
-
-  if (synSample.Highlighter.GetFriendlyLanguageName = 'Text') then
-    // SynText_term has no multline
-    with dmSyn.synText_term do begin
-      BeginUpdate;
-      Attribute[lbIdentifiers.ItemIndex].Assign(att);
-      EndUpdate;
-    end;
-
-  SavePreferences;
 end;
 
 procedure TfrmColors.actTextAttributesExecute(Sender: TObject);
-var
+begin
+
+end;
+{
+  procedure TfrmColors.cgColorsMouseUp(Sender: TObject;
+  Button: TMouseButton;
+  Shift: TShiftState;
+  X, Y: Integer);
+  var
   att      : TSynHighlighterAttributes;
   AttrStyle: TFontStyles;
   clOldFG,
-   clOldBG : TColor;
+  clOldBG : TColor;
 
-begin
+  begin
   if (lbHighlighters.ItemIndex >= 0) then begin
-    att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
-                                           sFriendlyName);
-    clOldFG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
-    clOldBG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Background;
-    try
-      AttrStyle:= [];
-      att.Foreground:= clOldFG;
-      att.Background:= clOldBG;
-
-      SetAttr_SavePreferences(AttrStyle,
-                              att);
-    finally
-      ShowAttributes;
-      FreeAndNil(att);
-    end;
-  end;
-end;
-
-procedure TfrmColors.cgColorsMouseUp(Sender: TObject;
-                                     Button: TMouseButton;
-                                     Shift: TShiftState;
-                                     X, Y: Integer);
-var
-  att      : TSynHighlighterAttributes;
-  AttrStyle: TFontStyles;
-  clOldFG,
-   clOldBG : TColor;
-
-begin
-  if (lbHighlighters.ItemIndex >= 0) then begin
-    att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
-                                           sFriendlyName);
-    clOldFG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
-    clOldBG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Background;
-    try
-      AttrStyle:= [];
-      if (Button = mbLeft)  then begin  //Left button
-        att.Foreground:= cgColors.ForegroundColor;
-        att.Background:= clOldBG;
-      end;
-
-      if (Button = mbRight) then begin  //Right button
-        att.Background:= cgColors.BackgroundColor;
-        att.Foreground:= clOldFG;
-      end;
-
-      SetAttr_SavePreferences(AttrStyle, att);
-    finally
-      with shFG.Brush do begin
-        Color:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
-        Color:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Background;
-      end;
-      FreeAndNil(att);
-    end;
-    ShowAttributes;
-  end;
-end;
-
-procedure TfrmColors.shFGMouseUp(Sender: TObject;
-                                 Button: TMouseButton;
-                                 Shift: TShiftState;
-                                 X, Y: Integer);
-var
-  att      : TSynHighlighterAttributes;
-  AttrStyle: TFontStyles;
-  clOldBG  : TColor;
-
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shFG.Brush.Color;
-
-    if (cdMain.Execute) then UpdateColors(shFG,
-                                          cdMain.Color)
-                        else Exit;
+  att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
+  sFriendlyName);
+  clOldFG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
+  clOldBG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Background;
+  try
+  AttrStyle:= [];
+  if (Button = mbLeft)  then begin  //Left button
+  att.Foreground:= cgColors.ForegroundColor;
+  att.Background:= clOldBG;
   end;
 
-  if (lbHighlighters.ItemIndex >= 0) then begin
-    att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
-                                           sFriendlyName);
-    clOldBG:=synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Background;
-
-    try
-      AttrStyle:= [];
-      att.Foreground:= shFG.Brush.Color;
-      att.Background:= clOldBG;
-
-      SetAttr_SavePreferences(AttrStyle,
-                              att);
-    finally
-      FreeAndNil(att);
-      ShowAttributes;
-    end;
-  end;
-end;
-
-procedure TfrmColors.shBGMouseUp(Sender: TObject;
-                                 Button: TMouseButton;
-                                 Shift: TShiftState;
-                                 X, Y: Integer);
-var
-  att      : TSynHighlighterAttributes;
-  attrStyle: TFontStyles;
-  clOldFG  : TColor;
-
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shBG.Brush.Color;
-
-    if (cdMain.Execute) then UpdateColors(shBG,
-                                          cdMain.Color)
-                        else Exit;
+  if (Button = mbRight) then begin  //Right button
+  att.Background:= cgColors.BackgroundColor;
+  att.Foreground:= clOldFG;
   end;
 
-  if (lbHighlighters.ItemIndex >= 0) then begin
-    att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
-                                           sFriendlyName);
-
-    clOldFG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
-
-    try
-      attrStyle:= [];
-      att.Background:= shBG.Brush.Color;
-      att.ForegRound:= clOldFG;
-
-      SetAttr_SavePreferences(AttrStyle, att);
-    finally
-      FreeAndNil(att);
-      ShowAttributes;
-    end;
+  SetAttr_SavePreferences(AttrStyle, att);
+  finally
+  with shFG.Brush do begin
+  Color:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
+  Color:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Background;
   end;
-end;
-
-procedure TfrmColors.shBGPreferredMouseUp(Sender: TObject;
-                                          Button: TMouseButton;
-                                          Shift: TShiftState;
-                                          X, Y: Integer);
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shBGPreferred.Brush.Color;
-
-    if (cdMain.Execute) then UpdateColors(shBGPreferred,
-                                          cdMain.Color)
-                        else Exit;
+  FreeAndNil(att);
   end;
-end;
-
-procedure TfrmColors.shActiveLineMouseUp(Sender: TObject;
-                                         Button: TMouseButton;
-                                         Shift: TShiftState;
-                                         X, Y: Integer);
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shActiveLine.Brush.Color;
-
-    if (cdMain.Execute) then UpdateColors(shActiveLine,
-                                          cdMain.Color)
-                        else Exit;
+  ShowAttributes;
   end;
-
-  UpdateActiveLine;
-end;
-
-procedure TfrmColors.shBGAllHighlightersMouseUp(Sender: TObject;
-                                                Button: TMouseButton;
-                                                Shift: TShiftState;
-                                                X, Y: Integer);
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shBGAllHighlighters.Brush.Color;
-
-  if (cdMain.Execute) then UpdateColors(shBGAllHighlighters,
-                                        cdMain.Color)
-                      else Exit;
-  end;
-end;
-
-procedure TfrmColors.panBackgroundColorClick(Sender: TObject);
-var
-  att        : TSynHighlighterAttributes;
-  AttrStyle  : TFontStyles;
-  clBGChoice,
-   clOldFG   : TColor;
-
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shBG.Brush.Color;
-
-    if (cdMain.Execute) then begin
-      clBGChoice      := cdMain.Color;
-      shBG.Brush.Color:= clBGChoice;
-    end
-    else Exit;
-  end;
-
-  if (lbHighlighters.ItemIndex >= 0) then begin
-    att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
-                                           sFriendlyName);
-    clOldFG:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
-
-    try
-      AttrStyle:= [];
-      att.Background:= shBG.Brush.Color;
-      att.ForegRound:= clOldFG;
-
-      SetAttr_SavePreferences(AttrStyle, att);
-    finally
-      FreeAndNil(att);
-      ShowAttributes;
-    end;
-  end;
-end;
+  end; }
 
 procedure TfrmColors.bbtSetBGForAllIdentifiersClick(Sender: TObject);
 var
-  att          : TSynHighlighterAttributes;
-  i,
-   iOldIndex   : integer;
-  oldAttrStyle,
-   attrStyle   : TFontStyles;
-  clOldFG      : TColor;
+//  att: TSynHighlighterAttributes;
+//  i, iOldIndex: integer;
+  oldAttrStyle, AttrStyle: TFontStyles;
+  clOldFG: TColor;
 
 begin
-  iOldIndex:= lbIdentifiers.ItemIndex;
+{  iOldIndex := lbIdentifiers.ItemIndex;
   lbIdentifiers.Items.BeginUpdate;
-  lbIdentifiers.Visible  := False;
-  lbIdentifiers.ItemIndex:= 0;
+  lbIdentifiers.Visible := False;
+  lbIdentifiers.ItemIndex := 0;
 
-  for i:= 0 to (lbIdentifiers.Items.Count-1) do begin
-    if (lbHighlighters.ItemIndex >= 0) then begin
-      att:= TSynHighlighterAttributes.Create(lbIdentifiers.Items[lbIdentifiers.ItemIndex],
-                                             sFriendlyName);
-      clOldFG     := synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Foreground;
-      oldAttrStyle:= synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex].Style;
+  for i := 0 to (lbIdentifiers.Items.Count - 1) do
+  begin
+    if (lbHighlighters.ItemIndex >= 0) then
+    begin
+      att := TSynHighlighterAttributes.Create
+        (lbIdentifiers.Items[lbIdentifiers.ItemIndex], sFriendlyName);
+      clOldFG := synSample.Highlighter.Attribute[lbIdentifiers.ItemIndex]
+        .Foreground;
+      oldAttrStyle := synSample.Highlighter.Attribute
+        [lbIdentifiers.ItemIndex].Style;
 
       try
-        attrStyle:= [];
-        att.Background:= shBGPreferred.Brush.Color;
-        att.ForegRound:= clOldFG;
-        att.Style:= oldAttrStyle;
+        AttrStyle := [];
+        att.Background := cbBGPreferred.SelectedColor;
+        att.Foreground := clOldFG;
+        att.Style := oldAttrStyle;
 
-        with synSample.Highlighter do begin
+        with synSample.Highlighter do
+        begin
           BeginUpdate;
           Attribute[lbIdentifiers.ItemIndex].Assign(att);
           EndUpdate;
@@ -844,7 +652,8 @@ begin
 
         if (synSample.Highlighter.GetFriendlyLanguageName = 'R') then
           // SynR_term has no multline
-          with dmSyn.synR_term do begin
+          with dmSyn.synR_term do
+          begin
             BeginUpdate;
             Attribute[lbIdentifiers.ItemIndex].Assign(att);
             EndUpdate;
@@ -852,7 +661,8 @@ begin
 
         if (synSample.Highlighter.GetFriendlyLanguageName = 'Text') then
           // SynText_term has no multline
-          with dmSyn.synR_term do begin
+          with dmSyn.synR_term do
+          begin
             BeginUpdate;
             Attribute[lbIdentifiers.ItemIndex].Assign(att);
             EndUpdate;
@@ -862,27 +672,79 @@ begin
         FreeAndNil(att);
       end;
     end;
-    lbIdentifiers.ItemIndex:= (i + 1)
+    lbIdentifiers.ItemIndex := (i + 1)
   end;
 
-  with lbIdentifiers do begin
-    ItemIndex:= iOldIndex;
-    Visible  := True;
+  with lbIdentifiers do
+  begin
+    ItemIndex := iOldIndex;
+    Visible := True;
     Items.EndUpdate;
   end;
 
   SavePreferences;
-  ShowAttributes;
+  ShowAttributes;   }
 end;
+
+procedure TFrmColors.AdjustColumnWidths(DBGrid: TDBGrid);
+var
+  TotalColumnWidth, ColumnCount, GridClientWidth, Filler, i: Integer;
+begin
+  // http://edn.embarcadero.com/article/27548
+
+
+  ColumnCount := DBGrid.Columns.Count;
+  if ColumnCount = 0 then
+    Exit;
+
+  // compute total width used by grid columns and vertical lines if any
+  TotalColumnWidth := 0;
+  for i := 0 to ColumnCount-1 do
+    TotalColumnWidth := TotalColumnWidth + DBGrid.Columns[i].Width;
+  if dgColLines in DBGrid.Options then
+    // include vertical lines in total (one per column)
+    TotalColumnWidth := TotalColumnWidth + ColumnCount;
+
+  // compute grid client width by excluding vertical scroll bar, grid indicator,
+  // and grid border
+  GridClientWidth := DBGrid.Width - GetSystemMetrics(SM_CXVSCROLL);
+  if dgIndicator in DBGrid.Options then begin
+    GridClientWidth := GridClientWidth - IndicatorWidth;
+    if dgColLines in DBGrid.Options then
+      Dec(GridClientWidth);
+  end;
+  if DBGrid.BorderStyle = bsSingle then begin
+    if DBGrid.Ctl3D then // border is sunken (vertical border is 2 pixels wide)
+      GridClientWidth := GridClientWidth - 4
+    else // border is one-dimensional (vertical border is one pixel wide)
+      GridClientWidth := GridClientWidth - 2;
+  end;
+
+  // adjust column widths
+  if TotalColumnWidth < GridClientWidth then begin
+    Filler := (GridClientWidth - TotalColumnWidth) div ColumnCount;
+    for i := 0 to ColumnCount-1 do
+      DBGrid.Columns[i].Width := DBGrid.Columns[i].Width + Filler;
+  end
+  else if TotalColumnWidth > GridClientWidth then begin
+    Filler := (TotalColumnWidth - GridClientWidth) div ColumnCount;
+    if (TotalColumnWidth - GridClientWidth) mod ColumnCount <> 0 then
+      Inc(Filler);
+    for i := 0 to ColumnCount-1 do
+      DBGrid.Columns[i].Width := DBGrid.Columns[i].Width - Filler;
+  end;
+end;
+
+
 
 procedure TfrmColors.synSampleClick(Sender: TObject);
 begin
-  frmTinnMain.synURIOpener.Editor:= synSample;
+//  frmTinnMain.synURIOpener.Editor := synSample;
 end;
 
 procedure TfrmColors.synSampleChange(Sender: TObject);
 begin
-  frmTinnMain.synURIOpener.Editor:= synSample;
+//  frmTinnMain.synURIOpener.Editor := synSample;
 end;
 
 procedure TfrmColors.bbtSetBGForAllIHighlightersClick(Sender: TObject);
@@ -890,67 +752,153 @@ var
   iPos: integer;
 
 begin
-  // Set background color for all identifires of all highlighters
-  iPos:= lbHighlighters.ItemIndex;
+{  // Set background color for all identifires of all highlighters
+  iPos := lbHighlighters.ItemIndex;
 
-  StructureIniSyntaxFiles(shBGAllHighlighters.Brush.Color);
+  StructureIniSyntaxFiles(cbBGAllHighlighters.SelectedColor);
 
-  lbHighlighters.ItemIndex:= iPos;
+  lbHighlighters.ItemIndex := iPos;
 
-  lbHighlightersClick(nil);
+  lbHighlightersClick(nil);    }
 end;
 
-procedure TfrmColors.FormActivate(Sender: TObject);
+procedure TfrmColors.Button1Click(Sender: TObject);
+var col: TColumn;
 begin
-  with frmTinnMain do begin
-    with lbHighlighters do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
-    end;
+ col := dbgIdentifiers.columns.Add;
+ col.FieldName := 'HighlighterId';
+ col.Title.Caption :='HId';
+ dbgIdentifiers.columns[0].Width :=50;
 
-    with lbIdentifiers do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
-    end;
-  end;
+ dbgIdentifiers.Options :=   dbgIdentifiers.Options + [dgAlwaysShowEditor, dgEditing, dgTitles, dgIndicator, dgColumnResize];
+
+
+//  sciPreview.SetSelFore();
 end;
 
 procedure TfrmColors.UpdateActiveLine;
 begin
-  with synSample do
-    if cbActiveLineBG.Checked then ActiveLineColor:= TColor(shActiveLine.Brush.Color)
-                              else ActiveLineColor:= TColor(clNone);
+
+ { with synSample do
+    if cbActiveLineBG.Checked then
+      ActiveLineColor := TColor(cbActiveLine.SelectedColor)
+    else
+      ActiveLineColor := TColor(clNone);   }
 end;
 
-
-procedure TfrmColors.cbActiveLineBGMouseUp(Sender: TObject;
-                                          Button: TMouseButton;
-                                          Shift: TShiftState;
-                                          X, Y: Integer);
+procedure TfrmColors.cbFGColorChange(Sender: TObject);
 begin
-  UpdateActiveLine;
+  UdateIdentifier;
+end;
+
+procedure TfrmColors.dbgLexersKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+ if Key = VK_DELETE then
+    if dbgLexers.SelectedIndex <> -1 then
+      if dbgLexers.Fields[0].AsString <> 'Unspecified highlighter' then
+      begin
+        ModDados.sqlLexerConnection.ExecuteDirect('DELETE FROM Lexers WHERE LexerName = "'+trim(dbgLexers.Fields[0].AsString )+'"');
+        ModDados.cdLexers.Refresh;
+        ModDados.cdLexers2.Refresh;
+      end;
 end;
 
 procedure TfrmColors.FormShow(Sender: TObject);
 begin
-  lbIdentifiers.SetFocus;
+  ApplyLexer(ModDados.cdLexers.FieldByName('LexerId').AsInteger, frmColors.sciPreview);
 
-  AlphaBlendValue:= frmTinnMain.iAlphaBlendValue;
+
+
+ { lbIdentifiers.SetFocus;         }
+
+//  AlphaBlendValue := frmTinnMain.iAlphaBlendValue;
 end;
 
-procedure TfrmColors.shBracketsMouseUp(Sender: TObject;
-                                       Button: TMouseButton;
-                                       Shift: TShiftState;
-                                       X, Y: Integer);
+procedure TfrmColors.cbActiveLineBGClick(Sender: TObject);
 begin
-  with frmTinnMain do begin
-    cdMain.Color:= shBrackets.Brush.Color;
+  cbActiveLine.Enabled := cbActiveLineBG.Checked;
+  frmTinnMain.bHighlightActiveLine := cbActiveLineBG.Checked;
+end;
 
-    if (cdMain.Execute) then UpdateColors(shBrackets,
-                                          cdMain.Color)
-                        else Exit;
+procedure TfrmColors.cbActiveLineColorChange(Sender: TObject);
+begin
+  frmTinnMain.iHighlightActiveLineColor := cbActiveLine.SelectedColor;
+end;
+
+procedure TfrmColors.UdateIdentifier;
+begin
+  if (dbgLexers.SelectedIndex = -1) or (dbgIdentifiers.SelectedIndex = -1) or (not bIdentifierLoaded) then
+    exit;
+
+  with ModDados.sqlLexerConnection do
+  begin
+     bIdentifierLoaded := false;
+
+     ExecuteDirect('UPDATE Identifiers SET    FGColor = ' +inttostr(cbFG.SelectedColor)+
+                                         ',   BGColor = ' +inttostr(cbBG.SelectedColor)+
+                                         ',     Bold  = ' + inttostr(-strtoint(booltostr( cbBold.Checked)))+
+                                         ',    Italic = ' + inttostr(-strtoint(booltostr( cbItalic.Checked)))+
+                                         ', Underline = ' + inttostr(-strtoint(booltostr( cbUnderline.Checked)))+
+                                         ', FontName = "' + fbFont.FontName + '"'+
+                                         ', FontSize = ' +inttostr(seSize.Value)+
+                                         ' WHERE IdentifierId = ' + ModDados.cdIdentifiers.FieldByName('IdentifierId').AsString +
+                                         ' AND   LexerId = ' + ModDados.cdLexers.FieldByName('LexerId').AsString);
+
+
+
+     ModDados.cdIdentifiers.Refresh;
+     ApplyLexer(ModDados.cdLexers.FieldByName('LexerId').AsInteger, sciPreview);
   end;
 end;
 
-end.
+procedure TfrmColors.SelectIdentifier;
+var bEnabled: Boolean;
+begin
+with modDados.cdIdentifiers do
+begin
+  bIdentifierLoaded := false;
 
+
+  if (State in [dsEdit, dsInsert]) then
+    exit;
+
+  bEnabled := not (Fields = nil);
+
+  cbFG.Enabled := bEnabled;
+  cbBG.Enabled := bEnabled;
+  cbBold.Checked := bEnabled;
+  cbItalic.Checked := bEnabled;
+  cbUnderline.Checked := bEnabled;
+  seSize.Enabled := bEnabled;
+  fbFont.Enabled := bEnabled;
+
+  if not bEnabled then
+  begin
+    cbFG.SelectedColor := clblack;
+    cbBG.SelectedColor := clblack;
+    seSize.value := 10;
+    fbFont.FontName := 'Courier New';
+    Exit;
+  end;
+
+  AdjustColumnWidths(frmColors.dbgIdentifiers);
+
+  cbFG.SelectedColor := FieldByName('FGColor').AsInteger;
+  cbBG.SelectedColor := FieldByName('BGColor').AsInteger;
+
+  cbBold.Checked :=  FieldByName('Bold').AsInteger = 1;
+  cbItalic.Checked :=  FieldByName('Italic').AsInteger = 1;
+  cbUnderline.Checked := FieldByName('Underline').AsInteger = 1;
+
+
+  seSize.value := FieldByName('FontSize').AsInteger;
+  fbFont.FontName := FieldByName('FontName').AsString;
+
+  bIdentifierLoaded := true;
+  ApplyLexer(ModDados.cdLexers.FieldByName('LexerId').AsInteger, sciPreview);
+end;
+end;
+
+
+end.

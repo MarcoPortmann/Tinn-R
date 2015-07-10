@@ -1,0 +1,101 @@
+object frmRterm: TfrmRterm
+  Left = 0
+  Top = 0
+  AlphaBlend = True
+  AlphaBlendValue = 200
+  Caption = 'Rterm'
+  ClientHeight = 488
+  ClientWidth = 622
+  Color = clWindow
+  Ctl3D = False
+  DefaultMonitor = dmDesktop
+  DockSite = True
+  DragKind = dkDock
+  DragMode = dmAutomatic
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  Visible = True
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pgRterm: TPageControl
+    Left = 0
+    Top = 0
+    Width = 622
+    Height = 488
+    ActivePage = tbsIO
+    Align = alClient
+    MultiLine = True
+    TabOrder = 0
+    OnResize = pgRtermResize
+    object tbsIO: TTabSheet
+      Caption = 'IO'
+      object Splitter1: TSplitter
+        Left = 0
+        Top = 457
+        Width = 614
+        Height = 3
+        Cursor = crVSplit
+        Align = alBottom
+        ExplicitTop = 0
+        ExplicitWidth = 282
+      end
+      object sciIO: TDScintilla
+        Left = 0
+        Top = 0
+        Width = 614
+        Height = 457
+        DllModule = 'SciLexer.dll'
+        PopupMenu = frmTinnMain.pmenIO
+        Align = alClient
+        OnMouseUp = sciIOMouseUp
+        OnEnter = sciIOEnter
+        OnKeyDown = sciIOKeyDown
+        OnKeyUp = sciIOKeyUp
+        OnUserListSelection = sciIOUserListSelection
+        ExplicitLeft = -3
+        ExplicitTop = 3
+      end
+    end
+    object tbsLog: TTabSheet
+      Caption = 'Log'
+      ImageIndex = 1
+      object sciLog: TDScintilla
+        Left = 0
+        Top = 0
+        Width = 614
+        Height = 460
+        DllModule = 'SciLexer.dll'
+        PopupMenu = frmTinnMain.pmenLog
+        Align = alClient
+        OnMouseUp = sciLogMouseUp
+        OnEnter = sciLogEnter
+        OnKeyDown = sciLogKeyDown
+        OnKeyUp = sciLogKeyUp
+      end
+    end
+  end
+  object JvDockClientRterm: TJvDockClient
+    DirectDrag = False
+    Left = 63
+    Top = 104
+  end
+  object cRTerm: TConsoleIO
+    OnError = cRTermError
+    OnProcessStatusChange = cRTermProcessStatusChange
+    OnReceiveError = cRTermReceiveError
+    OnReceiveOutput = cRTermReceiveOutput
+    SplitSend = False
+    TerminateCommand = 'quit'
+    Left = 46
+    Top = 32
+  end
+end

@@ -1,119 +1,112 @@
 {$WARN UNSAFE_TYPE OFF}
 {$WARN UNSAFE_CAST OFF}
 {$WARN UNSAFE_CODE OFF}
-
 unit ConsoleIO platform;
 
 interface
 
-uses Messages, Windows, SysUtils, Classes, Forms,
-     Controls{J.C.Faria};
+uses Messages, Windows, SysUtils, Classes, Forms, vcl.dialogs,
+  Controls {J.C.Faria};
 
 const
-  MIO_OFFSET             = $1911;
-  MIO_RECEIVE_OUTPUT     = WM_USER + MIO_OFFSET + 0;
-  MIO_RECEIVE_ERROR      = WM_USER + MIO_OFFSET + 1;
-  MIO_ERROR              = WM_USER + MIO_OFFSET + 2;
+  MIO_OFFSET = $1911;
+  MIO_RECEIVE_OUTPUT = WM_USER + MIO_OFFSET + 0;
+  MIO_RECEIVE_ERROR = WM_USER + MIO_OFFSET + 1;
+  MIO_ERROR = WM_USER + MIO_OFFSET + 2;
   MIO_PROCESS_TERMINATED = WM_USER + MIO_OFFSET + 3;
 
 type
-  TReceiveEvent             = procedure(Sender: TObject; const Cmd: string) of object;
-  TProcessStatusChangeEvent = procedure(Sender: TObject; IsRunning: Boolean) of object;
-  TSplitMode                = (smNone, sm0D0A, smSplitchar);
+  TReceiveEvent = procedure(Sender: TObject; const Cmd: String) of object;
+  TProcessStatusChangeEvent = procedure(Sender: TObject; IsRunning: Boolean)
+    of object;
+  TSplitMode = (smNone, sm0D0A, smSplitchar);
 
   TConsoleIO = class(TComponent)
   private
-    ErrorReadPipe,
-     ErrorWritePipe: THandle;
+    ErrorReadPipe, ErrorWritePipe: THandle;
     FEnableKill: Boolean;
     FOnError: TReceiveEvent;
     FOnProcessStatusChange: TProcessStatusChangeEvent;
     FOnReceiveError: TReceiveEvent;
     FOnReceiveOutput: TReceiveEvent;
-    FOutputBuffer: string;
+    FOutputBuffer: String;
     FProcessHandle: THandle;
     FSplitChar: Char;
     FSplitMode: TSplitMode;
     FSplitReceive: Boolean;
     FSplitSend: Boolean;
     FStopProcessOnFree: Boolean;
-    FTerminateCommand: string;
+    FTerminateCommand: String;
     FWaitTimeout: Integer;
     FWindowHandle: HWND;
-    InputReadPipe,
-     InputWritePipe: THandle;
-    OutputReadPipe,
-     OutputWritePipe: THandle;
+    InputReadPipe, InputWritePipe: THandle;
+    OutputReadPipe, OutputWritePipe: THandle;
 
     function GetIsRunning: Boolean;
-    function SplitSendAvail: string;
+    function SplitSendAvail: AnsiString;
 
     procedure CloseProcessHandle;
-    procedure Error(const Msg: string);
+    procedure Error(const Msg: AnsiString);
     procedure ProcessTerminated;
     procedure ReaderProc(Handle: THandle; MessageCode: Integer);
     procedure ReceiveError(Buf: Pointer; Size: Integer);
     procedure ReceiveOutput(Buf: Pointer; Size: Integer);
     procedure SetProcessHandle(const Value: THandle);
 
-    property OutputBuffer: string read FOutputBuffer
-                                  write FOutputBuffer;
+    property OutputBuffer: String read FOutputBuffer write FOutputBuffer;
 
-    property ProcessHandle: THandle read FProcessHAndle
-                                    write SetProcessHandle;
+    property ProcessHandle: THandle read FProcessHandle write SetProcessHandle;
 
   protected
     procedure WndProc(var Msg: TMessage);
 
   public
-    bRterm_Ready: boolean;
+    bRterm_Ready: Boolean;
 
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
     procedure ClosePipes;
-    procedure RunProcess(const CmdLine: string; CurrentDir: string = ''; ShowWindow: Boolean = False);
-    procedure SendInput(Msg: string);
+    procedure RunProcess(const CmdLine: String; CurrentDir: String = '';
+      ShowWindow: Boolean = False);
+    procedure SendInput(Msg: String);
     procedure StopProcess;
 
   published
-    property EnableKill: Boolean read FEnableKill
-                                 write FEnableKill default False;
+    property EnableKill: Boolean read FEnableKill write FEnableKill
+      default False;
 
     property IsRunning: Boolean read GetIsRunning;
 
-    property OnError: TReceiveEvent read FOnError
-                                    write FOnError;
+    property OnError: TReceiveEvent read FOnError write FOnError;
 
-    property OnProcessStatusChange: TProcessStatusChangeEvent read FOnProcessStatusChange
-                                                              write FOnProcessStatusChange;
+    property OnProcessStatusChange: TProcessStatusChangeEvent
+      read FOnProcessStatusChange write FOnProcessStatusChange;
 
     property OnReceiveError: TReceiveEvent read FOnReceiveError
-                                           write FOnReceiveError;
+      write FOnReceiveError;
 
     property OnReceiveOutput: TReceiveEvent read FOnReceiveOutput
-                                            write FOnReceiveOutput;
+      write FOnReceiveOutput;
 
-    property SplitChar: Char read FSplitChar
-                             write FSplitChar default #10;
+    property SplitChar: Char read FSplitChar write FSplitChar default #10;
 
-    property SplitMode: TSplitMode read FSplitMode
-                                   write FSplitMode default sm0D0A;
+    property SplitMode: TSplitMode read FSplitMode write FSplitMode
+      default sm0D0A;
 
-    property SplitReceive: Boolean read FSplitReceive
-                                   write FSplitReceive default True;
+    property SplitReceive: Boolean read FSplitReceive write FSplitReceive
+      default True;
 
-    property SplitSend: Boolean read FSplitSend
-                                write FSplitSend default True;
+    property SplitSend: Boolean read FSplitSend write FSplitSend default True;
 
     property StopProcessOnFree: Boolean read FStopProcessOnFree
-                                        write FStopProcessOnFree default True;
+      write FStopProcessOnFree default True;
 
     property TerminateCommand: string read FTerminateCommand
-                                      write FTerminateCommand;
+      write FTerminateCommand;
 
-    property WaitTimeout: Integer read FWaitTimeout
-                                  write FWaitTimeout default 1000;
+    property WaitTimeout: Integer read FWaitTimeout write FWaitTimeout
+      default 1000;
   end;
 
 procedure Register;
@@ -122,31 +115,25 @@ implementation
 
 procedure Register;
 begin
-  RegisterComponents('Mustits',
-                     [TConsoleIO]);
+  RegisterComponents('Mustits', [TConsoleIO]);
 end;
 
 { Win API wrappers }
 procedure WinCheck(Result: Boolean);
 begin
-  if not Result then RaiseLastOSError;
+  if not Result then
+    RaiseLastOSError;
 end;
 
-procedure InprocessDuplicateHandle(Source: THandle;
-                                   var Destination: THandle);
+procedure InprocessDuplicateHandle(Source: THandle; var Destination: THandle);
 var
   CurrentProcess: THandle;
 
 begin
-  CurrentProcess:= GetCurrentProcess;
+  CurrentProcess := GetCurrentProcess;
 
-  WinCheck(DuplicateHandle(CurrentProcess,
-                           Source,
-                           CurrentProcess,
-                           @Destination,
-                           0,
-                           False,
-                           DUPLICATE_SAME_ACCESS));
+  WinCheck(DuplicateHandle(CurrentProcess, Source, CurrentProcess, @Destination,
+    0, False, DUPLICATE_SAME_ACCESS));
 end;
 
 procedure CloseAndZeroHandle(var Handle: THandle);
@@ -154,44 +141,42 @@ var
   SaveHandle: THandle;
 
 begin
-  SaveHandle:= Handle;
-  Handle:= 0;
+  SaveHandle := Handle;
+  Handle := 0;
   WinCheck(CloseHandle(SaveHandle));
 end;
 
 function ToPChar(const St: string): PChar;
 begin
-  if (St = '') then Result:= nil
-               else Result:= PChar(St);
+  if (St = '') then
+    Result := nil
+  else
+    Result := PChar(St);
 end;
 
 function ToShowWindowArg(ShowWindow: Boolean): Integer;
 begin
-  if ShowWindow then Result:= SW_SHOW
-                else Result:= SW_HIDE
+  if ShowWindow then
+    Result := SW_SHOW
+  else
+    Result := SW_HIDE
 end;
 
 { Thread functions }
 procedure IOReadOutput(Handler: TConsoleIO);
 begin
-  Handler.ReaderProc(Handler.OutputReadPipe,
-                     MIO_RECEIVE_OUTPUT);
+  Handler.ReaderProc(Handler.OutputReadPipe, MIO_RECEIVE_OUTPUT);
 end;
 
 procedure IOReadError(Handler: TConsoleIO);
 begin
-  Handler.ReaderProc(Handler.ErrorReadPipe,
-                     MIO_RECEIVE_ERROR);
+  Handler.ReaderProc(Handler.ErrorReadPipe, MIO_RECEIVE_ERROR);
 end;
 
 procedure WaitProcess(Handler: TConsoleIO);
 begin
-  if WaitForSingleObject(Handler.ProcessHandle,
-                        INFINITE) = WAIT_OBJECT_0 then
-    SendMessage(Handler.FWindowHandle,
-                MIO_PROCESS_TERMINATED,
-                0,
-                0);
+  if WaitForSingleObject(Handler.ProcessHandle, INFINITE) = WAIT_OBJECT_0 then
+    SendMessage(Handler.FWindowHandle, MIO_PROCESS_TERMINATED, 0, 0);
 end;
 
 { TConsoleIO }
@@ -204,39 +189,40 @@ begin
   CloseAndZeroHandle(OutputReadPipe);
   CloseAndZeroHandle(ErrorReadPipe);
 
-  Screen.Cursor:= crDefault;  // J.C.Faria
+  Screen.Cursor := crDefault; // J.C.Faria
 end;
 
 constructor TConsoleIO.Create(AOwner: TComponent);
 begin
   inherited;
   FTerminateCommand := 'quit';
-  FSplitChar        := #10;
-  FSplitMode        := sm0D0A;
-  FSplitReceive     := True;
-  FSplitSend        := True;
-  FStopProcessOnFree:= True;
-  FWaitTimeout      := 1000;
-  FWindowHandle     := Classes.AllocateHWnd(WndProc);
+  FSplitChar := #10;
+  FSplitMode := sm0D0A;
+  FSplitReceive := True;
+  FSplitSend := True;
+  FStopProcessOnFree := True;
+  FWaitTimeout := 1000;
+  FWindowHandle := Classes.AllocateHWnd(WndProc);
 end;
 
 destructor TConsoleIO.Destroy;
 begin
-  if StopProcessOnFree then StopProcess;
+  if StopProcessOnFree then
+    StopProcess;
 
   CloseProcessHandle;
   Classes.DeallocateHWnd(FWindowHandle);
-  FWindowHandle:= 0;
+  FWindowHandle := 0;
 
   inherited;
 end;
 
 (* //Original
-procedure TConsoleIO.ReceiveOutput(Buf: Pointer; Size: Integer);
-var
+  procedure TConsoleIO.ReceiveOutput(Buf: Pointer; Size: Integer);
+  var
   Cmd: string;
   TastyStrPos: Integer;
-begin
+  begin
   if (Size <= 0) then Exit;
   SetLength(Cmd, Size);
   Move(Buf^, Cmd[1], Size);
@@ -245,252 +231,229 @@ begin
 
   if not SplitReceive or (SplitMode = smNone) then
   begin
-    FOnReceiveOutput(Self, OutputBuffer);
-    OutputBuffer := '';
+  FOnReceiveOutput(Self, OutputBuffer);
+  OutputBuffer := '';
   end
   else if SplitMode = sm0D0A then
-    repeat
-      TastyStrPos := Pos(#13#10, OutputBuffer);
-      if TastyStrPos = 0 then Break;
-      FOnReceiveOutput(Self, Copy(OutputBuffer, 1, TastyStrPos-1));
-      OutputBuffer := Copy(OutputBuffer, TastyStrPos+2, Length(OutputBuffer));
-    until False
+  repeat
+  TastyStrPos := Pos(#13#10, OutputBuffer);
+  if TastyStrPos = 0 then Break;
+  FOnReceiveOutput(Self, Copy(OutputBuffer, 1, TastyStrPos-1));
+  OutputBuffer := Copy(OutputBuffer, TastyStrPos+2, Length(OutputBuffer));
+  until False
   else if SplitMode = smSplitChar then
-    repeat
-      TastyStrPos := Pos(SplitChar, OutputBuffer);
-      if TastyStrPos = 0 then Break;
-      FOnReceiveOutput(Self, Copy(OutputBuffer, 1, TastyStrPos-1));
-      OutputBuffer := Copy(OutputBuffer, TastyStrPos+1, Length(OutputBuffer));
-    until False;
-end;
+  repeat
+  TastyStrPos := Pos(SplitChar, OutputBuffer);
+  if TastyStrPos = 0 then Break;
+  FOnReceiveOutput(Self, Copy(OutputBuffer, 1, TastyStrPos-1));
+  OutputBuffer := Copy(OutputBuffer, TastyStrPos+1, Length(OutputBuffer));
+  until False;
+  end;
 *)
 
 // Adapted by J.C.Faria To Tinn-R project
 // It is now very fast (Tinn-R version 3.0.2.9)!
-procedure TConsoleIO.ReceiveOutput(Buf: Pointer;
-                                   Size: Integer);
+procedure TConsoleIO.ReceiveOutput(Buf: Pointer; Size: Integer);
 
-  function IsInteger(sTmp: string): boolean;
+  function IsInteger(sTmp: string): Boolean;
+  var ii: Integer;
   begin
     try
-      result:= True;
-
-      StrToInt(Trim(sTmp));
+      Result := TryStrToInt(Trim(sTmp), ii);
     except
-      On EConvertError do result:= False;
+      On EConvertError do
+        Result := False;
     end;
   end;
 
   procedure Tinn_R_Check;
   var
-    iPos: integer;
+    iPos: Integer;
 
   begin
-    iPos:= Pos(']:',
-               OutputBuffer);
+    iPos := Pos(']:', OutputBuffer);
 
-    if (iPos <> 0) then  begin
-      OutputBuffer:= '';
+    if (iPos <> 0) then
+    begin
+      OutputBuffer := '';
 
       FOnReceiveOutput(Self,
-                       'Please, stop the process from ''Rterm (close)'' option!');
+        'Please, stop the process from ''Rterm (close)'' option!');
 
       SendInput('' + #10);
     end;
 
-    if (Length(Trim(OutputBuffer)) >= 1) then // Imcomplete intructions
+    if (Length(Trim(OutputBuffer)) >= 1) then // Incomplete intructions
       if (OutputBuffer[Length(OutputBuffer) - 1] = '+') then
-        OutputBuffer:= OutputBuffer + #10;
+        OutputBuffer := OutputBuffer + #10;
 
-{
-    if (Length(Trim(OutputBuffer)) > 1) and   // 'cat' intructions
+    {
+      if (Length(Trim(OutputBuffer)) > 1) and   // 'cat' intructions
       (OutputBuffer[Length(OutputBuffer) - 1] = '>') then OutputBuffer:= OutputBuffer + #10;
-}
+    }
 
-
-    if (Length(Trim(OutputBuffer)) > 1) then begin
-{
-      if (OutputBuffer[Length(OutputBuffer) - 1] = '>') then
+    if (Length(Trim(OutputBuffer)) > 1) then
+    begin
+      {
+        if (OutputBuffer[Length(OutputBuffer) - 1] = '>') then
         OutputBuffer:= OutputBuffer + #10;   // 'cat' intructions
-}
+      }
 
       if (OutputBuffer[Length(OutputBuffer) - 1] = ':') then
-        if IsInteger(Copy(OutputBuffer,
-                          0,
-                          Pos(':',
-                              OutputBuffer) - 1))  then
-          OutputBuffer:= OutputBuffer + #10;   // sem package
+        if IsInteger(Copy(OutputBuffer, 0, Pos(':', OutputBuffer) - 1)) then
+          OutputBuffer := OutputBuffer + #10; // sem package
     end;
   end;
 
 var
-  Cmd,
-   sOutput: string;
+  sOutput: String;
 
   iPos: Integer;
 
-  bUnderDebug: boolean;
-
+  bUnderDebug: Boolean;
+  Cmd: AnsiString;
 begin
-  bUnderDebug:= False;
+  bUnderDebug := False;
 
-  if (Size <= 0) then Exit;
-  Screen.Cursor:= crHourglass;  // J.C.Faria
+  if (Size <= 0) then
+    Exit;
+//  Screen.Cursor := crHourglass; // J.C.Faria
 
-  sOutput:= '';
+  sOutput := '';
 
-  SetLength(Cmd,
-            Size);
+  SetLength(Cmd, Size);
+  Move(Buf^, Cmd[1], Size);
 
-  Move(Buf^,
-       Cmd[1],
-       Size);
+  // Outputbuffer: Text received but not printed yet (e.g. incomplete commands)
+  OutputBuffer := OutputBuffer + (Cmd);
 
-  OutputBuffer:= OutputBuffer +
-                 Cmd;
 
-  if not Assigned(FOnReceiveOutput) or
-     (OutputBuffer = '') or
-     (OutputBuffer = ' ') then Exit;
+
+  if not Assigned(FOnReceiveOutput) or (OutputBuffer = '') or
+    (OutputBuffer = ' ') then
+    Exit;
 
   (*
-  J.C.Faria
-  The below it is important due that some times,
-  according with the packages loaded,
-  R changes all messages received:
-  - from the default Windows -> string#13#10
-  - to default Linux         -> string#10
+    J.C.Faria
+    The below it is important due that some times,
+    according with the packages loaded,
+    R changes all messages received:
+    - from the default Windows -> string#13#10
+    - to default Linux         -> string#10
   *)
 
-  if (Pos(#13#10,
-          OutputBuffer) > 0) then SplitMode:= sm0D0A
-                             else SplitMode:= smSplitChar;
+  if (Pos(#13#10, OutputBuffer) > 0) then
+    SplitMode := sm0D0A
+  else
+    SplitMode := smSplitchar;
 
-  if not SplitReceive or
-     (SplitMode = smNone) then begin
-    FOnReceiveOutput(Self,
-                     OutputBuffer);
+  if not SplitReceive or (SplitMode = smNone) then
+  begin
+    FOnReceiveOutput(Self, OutputBuffer);
 
     OutputBuffer := '';
   end
-  else if (SplitMode = sm0D0A) then begin
+  else if (SplitMode = sm0D0A) then
+  begin
     Tinn_R_Check;
 
     repeat
-      iPos:= Pos(#13#10,
-                 OutputBuffer);
+      iPos := Pos(#13#10, OutputBuffer);
 
-      if (iPos = 0) then Break;
+      if (iPos = 0) then
+        Break;
 
-      sOutput:= sOutput +
-                Copy(OutputBuffer,
-                     1,
-                     iPos+1);
+      sOutput := sOutput + Copy(OutputBuffer, 1, iPos + 1);
+      OutputBuffer := Copy(OutputBuffer, iPos + 2, Length(OutputBuffer));
 
-      OutputBuffer:= Copy(OutputBuffer,
-                          iPos + 2,
-                          Length(OutputBuffer));
-    until False
-  end
-  else if (SplitMode = smSplitChar) then begin
+    until False end
+  else if (SplitMode = smSplitchar) then
+  begin
     Tinn_R_Check;
-
     repeat
-      iPos:= Pos(SplitChar,
-                 OutputBuffer);
+      iPos := Pos(SplitChar, OutputBuffer);
 
-      if (iPos = 0) then Break;
+      if (iPos = 0) then
+        Break;
 
-      sOutput:= sOutput +
-                Copy(OutputBuffer,
-                     1,
-                     iPos+1);
-
-      OutputBuffer:= Copy(OutputBuffer,
-                          iPos + 1,
-                          Length(OutputBuffer));
+      sOutput := sOutput + Copy(OutputBuffer, 1, iPos + 1);
+      OutputBuffer := Copy(OutputBuffer, iPos + 1, Length(OutputBuffer));
     until False;
   end;
 
-  FOnReceiveOutput(Self,
-                   TrimRight(sOutput));
+  FOnReceiveOutput(Self, TrimRight(sOutput));
 
   // Checks if the request finished
-     // Function debug
-  if (Pos('Browse[',
-              OutputBuffer) > 0) or
-     // Package debug
-     (Pos('D(',
-              OutputBuffer) > 0) then bUnderDebug:= True;
+  // Function debug
+  if (Pos('Browse[', OutputBuffer) > 0) or
+  // Package debug
+    (Pos('D(', OutputBuffer) > 0) then
+    bUnderDebug := True;
 
-  if (OutputBuffer = '> ') or
-     bUnderDebug then begin
-    FOnReceiveOutput(Self,
-                     OutputBuffer);
 
-    OutputBuffer:= '';
+  if (OutputBuffer = '> ') or bUnderDebug then
+  begin
+    FOnReceiveOutput(Self, OutputBuffer);
 
-    bRterm_Ready:= True;
+    OutputBuffer := '';
 
-    Screen.Cursor:= crDefault
+    bRterm_Ready := True;
+
+    Screen.Cursor := crDefault
   end;
 end;
 
 (* //Original
-procedure TConsoleIO.ReceiveError(Buf: Pointer; Size: Integer);
-var
+  procedure TConsoleIO.ReceiveError(Buf: Pointer; Size: Integer);
+  var
   Cmd: string;
-begin
+  begin
   if (Size <= 0) then Exit;
   if not Assigned(FOnReceiveOutput) then Exit;
   SetLength(Cmd, Size);
   Move(Buf^, Cmd[1], Size);
   FOnReceiveError(Self, Cmd);
-end;
+  end;
 *)
 
 // Adapted by J.C.Faria To Tinn-R project
-procedure TConsoleIO.ReceiveError(Buf: Pointer;
-                                  Size: Integer);
+procedure TConsoleIO.ReceiveError(Buf: Pointer; Size: Integer);
 var
-  iPos: integer;
+  iPos: Integer;
 
-  Cmd,
-   sSplit : string;
+  Cmd, sSplit: AnsiString;
 
 begin
-  if (Size <= 0) then Exit;
 
-  if not Assigned(FOnReceiveOutput) then Exit;
+  if (Size <= 0) then
+    Exit;
 
-  SetLength(Cmd, Size);
+  if not Assigned(FOnReceiveOutput) then
+    Exit;
+   SetLength(Cmd, Size);
   Move(Buf^, Cmd[1], Size);
 
-  if (Pos(#13#10, Cmd) > 0) then sSplit:= #13#10
-                            else sSplit:= #10;
+  if (Pos(#13#10, Cmd) > 0) then
+    sSplit := #13#10
+  else
+    sSplit := #10;
   repeat
-    Cmd:= OutputBuffer + Cmd;
-    OutputBuffer:= '';
+    Cmd := OutputBuffer + Cmd;
+    OutputBuffer := '';
 
-    iPos:= Pos(sSplit,
-               Cmd);
+    iPos := Pos(sSplit, Cmd);
 
-    if (iPos = 0) then Break;
+    if (iPos = 0) then
+      Break;
 
-    FOnReceiveError(Self,
-                    Copy(Cmd,
-                         1,
-                         iPos - 1));
+    FOnReceiveError(Self, Copy(Cmd, 1, iPos - 1));
 
-    Cmd:= Copy(Cmd,
-               iPos + 2,
-               Length(Cmd));
+    Cmd := Copy(Cmd, iPos + 2, Length(Cmd));
   until False;
 end;
 
-procedure TConsoleIO.RunProcess(const CmdLine: string;
-                                CurrentDir: string = '';
-                                ShowWindow: Boolean = False);
+procedure TConsoleIO.RunProcess(const CmdLine: String; CurrentDir: String = '';
+  ShowWindow: Boolean = False);
 var
   SA: TSecurityAttributes;
   SI: TStartupInfo;
@@ -498,38 +461,26 @@ var
 
   InputWriteTmp: THandle;
   OutputReadTmp: THandle;
-  ErrorReadTmp:  THandle;
+  ErrorReadTmp: THandle;
 
   ThreadId: Cardinal;
-
 begin
-  SA.nLength             := SizeOf(SA);
-  SA.lpSecurityDescriptor:= nil;
-  SA.bInheritHandle      := True;
 
-  WinCheck(CreatePipe(InputReadPipe,
-                      InputWriteTmp,
-                      @SA,
-                      0));
+  SA.nLength := SizeOf(SA);
+  SA.lpSecurityDescriptor := nil;
+  SA.bInheritHandle := True;
 
-  WinCheck(CreatePipe(OutputReadTmp,
-                      OutputWritePipe,
-                      @SA,
-                      0));
+  WinCheck(CreatePipe(InputReadPipe, InputWriteTmp, @SA, 0));
 
-  WinCheck(CreatePipe(ErrorReadTmp,
-                      ErrorWritePipe,
-                      @SA,
-                      0));
+  WinCheck(CreatePipe(OutputReadTmp, OutputWritePipe, @SA, 0));
 
-  InprocessDuplicateHandle(InputWriteTmp,
-                           InputWritePipe);
+  WinCheck(CreatePipe(ErrorReadTmp, ErrorWritePipe, @SA, 0));
 
-  InprocessDuplicateHandle(OutputReadTmp,
-                           OutputReadPipe);
+  InprocessDuplicateHandle(InputWriteTmp, InputWritePipe);
 
-  InprocessDuplicateHandle(ErrorReadTmp,
-                           ErrorReadPipe);
+  InprocessDuplicateHandle(OutputReadTmp, OutputReadPipe);
+
+  InprocessDuplicateHandle(ErrorReadTmp, ErrorReadPipe);
 
   CloseAndZeroHandle(InputWriteTmp);
 
@@ -537,72 +488,44 @@ begin
 
   CloseAndZeroHandle(ErrorReadTmp);
 
-  FillChar(SI,
-           SizeOf(SI),
-           $00);
+  FillChar(SI, SizeOf(SI), $00);
 
-  SI.cb         := SizeOf(SI);
+  SI.cb := SizeOf(SI);
 
-  SI.dwFlags    := STARTF_USESTDHANDLES or
-                   STARTF_USESHOWWINDOW;
+  SI.dwFlags := STARTF_USESTDHANDLES or STARTF_USESHOWWINDOW;
 
-  SI.hStdInput  := InputReadPipe;
+  SI.hStdInput := InputReadPipe;
 
   SI.hStdOutput := OutputWritePipe;
 
-  SI.hStdError  := ErrorWritePipe;
+  SI.hStdError := ErrorWritePipe;
 
-  SI.wShowWindow:= ToShowWindowArg(ShowWindow);
+  SI.wShowWindow := ToShowWindowArg(ShowWindow);
 
-  WinCheck(CreateProcess(nil,
-                         PChar(CmdLine),
-                         @SA,
-                         nil,
-                         True,
-                         CREATE_NEW_CONSOLE,
-                         nil,
-                         ToPChar(CurrentDir),
-                         SI,
-                         PI));
+  WinCheck(CreateProcess(nil, PChar(CmdLine), @SA, nil, True,
+    CREATE_NEW_CONSOLE, nil, ToPChar(CurrentDir), SI, PI));
 
   CloseAndZeroHandle(PI.hThread);
 
-  ProcessHandle:= PI.hProcess;
+  ProcessHandle := PI.hProcess;
 
-  BeginThread(nil,
-              0,
-              @IOReadOutput,
-              Self,
-              0,
-              ThreadId);
 
-  BeginThread(nil,
-              0,
-              @IOReadError,
-              Self,
-              0,
-              ThreadId);
-
-  BeginThread(nil,
-              0,
-              @WaitProcess,
-              Self,
-              0,
-              ThreadId);
+  BeginThread(nil, 0, @IOReadOutput, Self, 0, ThreadId);
+  BeginThread(nil, 0, @IOReadError, Self, 0, ThreadId);
+  BeginThread(nil, 0, @WaitProcess, Self, 0, ThreadId);
 end;
 
-procedure TConsoleIO.SendInput(Msg: string);
+procedure TConsoleIO.SendInput(Msg: String);
 var
   BytesWritten: Cardinal;
-
+  MsgA: AnsiString;
 begin
-  Msg:= Msg + SplitSendAvail;
+  // m.p. Check whether this conversion causes any problems!
+  MsgA := (Msg);
+  //showmessage(MsgA);
+  MsgA := MsgA + SplitSendAvail;
 
-  WinCheck(WriteFile(InputWritePipe,
-                     Msg[1],
-                     Length(Msg),
-                     BytesWritten,
-                     nil));
+  WinCheck(WriteFile(InputWritePipe, MsgA[1], Length(MsgA), BytesWritten, nil));
 end;
 
 procedure TConsoleIO.WndProc(var Msg: TMessage);
@@ -610,48 +533,49 @@ var
   Unhandled: Boolean;
 
 begin
-  with Msg do begin
-    Unhandled:= False;
+  with Msg do
+  begin
+    Unhandled := False;
 
     try
       case Msg of
-        MIO_RECEIVE_OUTPUT: ReceiveOutput(Pointer(wParam),
-                                          LParam);
+        MIO_RECEIVE_OUTPUT:
+          ReceiveOutput(Pointer(wParam), LParam);
 
-        MIO_RECEIVE_ERROR: ReceiveError(Pointer(wParam),
-                                        LParam);
+        MIO_RECEIVE_ERROR:
+          ReceiveError(Pointer(wParam), LParam);
 
-        MIO_PROCESS_TERMINATED: ProcessTerminated;
+        MIO_PROCESS_TERMINATED:
+          ProcessTerminated;
 
-        MIO_ERROR: Error(AnsiString(Pointer(wParam)))
-        else Unhandled:= True;
+        MIO_ERROR:
+          Error(AnsiString(Pointer(wParam)))
+      else
+        Unhandled := True;
       end;
     except
       Application.HandleException(Self);
     end;
 
     if Unhandled then
-      Result:= DefWindowProc(FWindowHandle,
-                             Msg,
-                             wParam,
-                             lParam);
+      Result := DefWindowProc(FWindowHandle, Msg, wParam, LParam);
   end;
 end;
 
-procedure TConsoleIO.Error(const Msg: string);
+procedure TConsoleIO.Error(const Msg: AnsiString);
 begin
-  if Assigned(FOnError) then FOnError(Self, Msg);
+  if Assigned(FOnError) then
+    FOnError(Self, Msg);
 end;
 
-procedure TConsoleIO.ReaderProc(Handle: THandle;
-                                MessageCode: Integer);
+procedure TConsoleIO.ReaderProc(Handle: THandle; MessageCode: Integer);
 const
-  //CBytesToRead = 1024;
-  //CBytesToRead = 2048;
+  // CBytesToRead = 1024;
+  // CBytesToRead = 2048;
   CBytesToRead = 4096;
 
 var
-  Buf: array[0..CBytesToRead] of Char;
+  Buf: array [0 .. CBytesToRead] of Char;
 
   BytesRead: Cardinal;
 
@@ -659,37 +583,31 @@ var
 
 begin
   repeat
-    if not ReadFile(Handle,
-                    Buf,
-                    SizeOf(Buf),
-                    BytesRead,
-                    nil) then
+    if not ReadFile(Handle, Buf, SizeOf(Buf), BytesRead, nil) then
       try
-        if not IsRunning then Exit;
+        if not IsRunning then
+          Exit;
         RaiseLastOSError;
       except
-        on E: Exception do begin
-          Err:= E.Message;
+        on E: Exception do
+        begin
+          Err := E.Message;
 
-          Windows.SendMessage(FWindowHandle,
-                              MIO_ERROR,
-                              Integer(PChar(Err)),
-                              Length(Err) + 1);
+          Windows.SendMessage(FWindowHandle, MIO_ERROR, Integer(PChar(Err)),
+            Length(Err) + 1);
         end;
       end;
-    if (BytesRead > 0) then Windows.SendMessage(FWindowHandle,
-                                                MessageCode,
-                                                Integer(@Buf),
-                                                BytesRead);
+    if (BytesRead > 0) then
+      Windows.SendMessage(FWindowHandle, MessageCode, Integer(@Buf), BytesRead);
   until False;
 end;
 
 procedure TConsoleIO.ProcessTerminated;
 begin
-  if Assigned(FOnReceiveOutput) then FOnReceiveOutput(Self,
-                                                      OutputBuffer);
-  bRterm_Ready:= False;
-  OutputBuffer:= '';
+  if Assigned(FOnReceiveOutput) then
+    FOnReceiveOutput(Self, OutputBuffer);
+  bRterm_Ready := False;
+  OutputBuffer := '';
 
   CloseProcessHandle;
   ClosePipes;
@@ -697,58 +615,66 @@ end;
 
 function TConsoleIO.GetIsRunning: Boolean;
 begin
-  Result:= (ProcessHandle <> 0);
+  Result := (ProcessHandle <> 0);
 end;
 
 procedure TConsoleIO.SetProcessHandle(const Value: THandle);
 begin
-  if (FProcessHandle = Value) then Exit;
+  if (FProcessHandle = Value) then
+    Exit;
 
   Assert((ProcessHandle = 0) or (Value = 0));
 
-  FProcessHandle:= Value;
+  FProcessHandle := Value;
 
-  if Assigned(FOnProcessStatusChange) then FOnProcessStatusChange(Self,
-                                                                  IsRunning);
+  if Assigned(FOnProcessStatusChange) then
+    FOnProcessStatusChange(Self, IsRunning);
 end;
 
 procedure TConsoleIO.CloseProcessHandle;
 begin
-  if (ProcessHandle = 0) then Exit;
+  if (ProcessHandle = 0) then
+    Exit;
 
   WinCheck(CloseHandle(ProcessHandle));
-  ProcessHandle:= 0;
+  ProcessHandle := 0;
 end;
 
 procedure TConsoleIO.StopProcess;
 begin
-  if not IsRunning then Exit;
-
-  if (TerminateCommand <> '') then SendInput(TerminateCommand{, False});
-
-  Windows.TerminateProcess(ProcessHandle,
-                           4);  // J.C.Faria
-
-  if not EnableKill then Exit;
+  if not IsRunning then
+    Exit;
 
   if (TerminateCommand <> '') then
-    if (WaitForSingleObject(ProcessHandle,
-                            WaitTimeout) = WAIT_OBJECT_0) then Exit;
+    SendInput(TerminateCommand { , False } );
 
-  //Windows.TerminateProcess(ProcessHandle, 4);  // J.C.Faria
-  Screen.Cursor:= crDefault;  // J.C.Faria
+  Windows.TerminateProcess(ProcessHandle, 4); // J.C.Faria
+
+  if not EnableKill then
+    Exit;
+
+  if (TerminateCommand <> '') then
+    if (WaitForSingleObject(ProcessHandle, WaitTimeout) = WAIT_OBJECT_0) then
+      Exit;
+
+  // Windows.TerminateProcess(ProcessHandle, 4);  // J.C.Faria
+  Screen.Cursor := crDefault; // J.C.Faria
 end;
 
-function TConsoleIO.SplitSendAvail: string;
+function TConsoleIO.SplitSendAvail: AnsiString;
 begin
-  Result:= '';
+  Result := '';
 
-  if not SplitSend then Exit;
+  if not SplitSend then
+    Exit;
 
-  if (SplitMode = smNone) then Exit;
+  if (SplitMode = smNone) then
+    Exit;
 
-  if (SplitMode = sm0D0A) then Result:= #$0D#$0A
-                          else Result:= SplitChar
+  if (SplitMode = sm0D0A) then
+    Result := #$0D#$0A
+  else
+    Result := SplitChar
 end;
 
 end.

@@ -17,7 +17,6 @@ object frmCompletion: TfrmCompletion
   OldCreateOrder = False
   Position = poMainFormCenter
   OnActivate = FormActivate
-  OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnShow = FormShow
   PixelsPerInch = 96

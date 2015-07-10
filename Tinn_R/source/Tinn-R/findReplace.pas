@@ -1,16 +1,15 @@
 unit findReplace;
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // Module:           FindReplace                                               .
 // Version:          1.0                                                       .
 // Date:             16 March 2003                                             .
 // Compilers:        Delphi 3 - Delphi 7                                       .
 // Author:           Angus Johnson - angusj-AT-myrealbox-DOT-com               .
 // Copyright:        © 2001 -2003  Angus Johnson                               .
-//                                                                             .
+// .
 // Description:      Dialogs to aid find & replace text                        .
-//------------------------------------------------------------------------------
-
+// ------------------------------------------------------------------------------
 
 interface
 
@@ -31,18 +30,18 @@ type
     replaceAll: boolean;
   end;
 
-//find dialog ( text to find can be passed via fi.findStr ) ...
+  // find dialog ( text to find can be passed via fi.findStr ) ...
 function GetFindInfo(aOwner: TCustomForm; var fi: TFindInfo): boolean;
 
-//find replace dialog ( text to find can be passed via fi.findStr ) ...
+// find replace dialog ( text to find can be passed via fi.findStr ) ...
 function GetReplaceInfo(aOwner: TCustomForm; var fi: TFindInfo): boolean;
 
-//replace prompt dialog ( requires a previous call to GetReplaceInfo() ) ...
-function ReplacePrompt(aOwner: TCustomForm; Point: TPoint): TReplaceType;
+// replace prompt dialog ( requires a previous call to GetReplaceInfo() ) ...
+function replacePrompt(aOwner: TCustomForm; Point: TPoint): TReplaceType;
 
-procedure FindFree; //forcibly free resources
-                    //nb:resources will automatically be freed on app close
-                    //as FindForm is owned by application.mainform.
+procedure FindFree; // forcibly free resources
+// nb:resources will automatically be freed on app close
+// as FindForm is owned by application.mainform.
 
 implementation
 
@@ -57,7 +56,7 @@ type
     ReplaceText: TEdit;
     GroupBox1: TGroupBox;
     CaseSensitive: TCheckBox;
-    WholeWords: TCheckBox;
+    wholeWords: TCheckBox;
     Prompt: TCheckBox;
     GroupBox2: TGroupBox;
     Forwards: TRadioButton;
@@ -68,7 +67,7 @@ type
     procedure FindTextChange(Sender: TObject);
     procedure CenterForm;
   public
-    constructor create(AOwner: TComponent); override;
+    constructor create(aOwner: TComponent); override;
   end;
 
   TReplaceForm = class(TForm)
@@ -83,154 +82,157 @@ type
     AllBtn: TButton;
     CancelBtn: TButton;
   public
-    constructor create(AOwner: TComponent); override;
+    constructor create(aOwner: TComponent); override;
   end;
 
-//------------------------------------------------------------------------------
-// TFindForm methods ...
-//------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------
+  // TFindForm methods ...
+  // ------------------------------------------------------------------------------
 
-constructor TFindForm.create(AOwner: TComponent);
+constructor TFindForm.create(aOwner: TComponent);
 begin
-  inherited CreateNew(AOwner);
+  inherited CreateNew(aOwner);
   width := 304;
   height := 231;
   caption := 'Replace text';
   BorderIcons := [biSystemMenu];
   BorderStyle := bsDialog;
-  Font.Assign(TCustomForm(AOwner).Font);
+  Font.Assign(TCustomForm(aOwner).Font);
 
-  FindText := TEdit.Create(self);
+  FindText := TEdit.create(self);
   FindText.parent := self;
   FindText.left := 88;
   FindText.top := 14;
   FindText.width := 190;
   FindText.OnChange := FindTextChange;
 
-  FindLabel := TLabel.Create(self);
+  FindLabel := TLabel.create(self);
   FindLabel.parent := self;
   FindLabel.left := 15;
   FindLabel.top := 17;
   FindLabel.caption := '&Text to Find:';
   FindLabel.focusControl := FindText;
 
-  ReplaceText := TEdit.Create(self);
+  ReplaceText := TEdit.create(self);
   ReplaceText.parent := self;
   ReplaceText.left := 88;
   ReplaceText.top := 41;
   ReplaceText.width := 190;
 
-  ReplaceLabel := TLabel.Create(self);
+  ReplaceLabel := TLabel.create(self);
   ReplaceLabel.parent := self;
   ReplaceLabel.left := 15;
   ReplaceLabel.top := 44;
   ReplaceLabel.caption := '&Replace with:';
   ReplaceLabel.focusControl := ReplaceText;
 
-  GroupBox1 := TGroupBox.Create(self);
-  GroupBox1.Parent := self;
-  GroupBox1.Caption := 'Options';
-  GroupBox1.setbounds(15,72,148,84);
+  GroupBox1 := TGroupBox.create(self);
+  GroupBox1.parent := self;
+  GroupBox1.caption := 'Options';
+  GroupBox1.setbounds(15, 72, 148, 84);
 
-  CaseSensitive := TCheckBox.Create(self);
-  CaseSensitive.Parent := GroupBox1;
-  CaseSensitive.Caption := '&Case Sensitive';
-  CaseSensitive.setbounds(12,19,120,18);
+  CaseSensitive := TCheckBox.create(self);
+  CaseSensitive.parent := GroupBox1;
+  CaseSensitive.caption := '&Case Sensitive';
+  CaseSensitive.setbounds(12, 19, 120, 18);
 
-  WholeWords := TCheckBox.Create(self);
-  WholeWords.Parent := GroupBox1;
-  WholeWords.Caption := '&Whole Words Only';
-  WholeWords.setbounds(12,39,120,18);
+  wholeWords := TCheckBox.create(self);
+  wholeWords.parent := GroupBox1;
+  wholeWords.caption := '&Whole Words Only';
+  wholeWords.setbounds(12, 39, 120, 18);
 
-  Prompt := TCheckBox.Create(self);
-  Prompt.Parent := GroupBox1;
-  Prompt.Caption := '&Prompt on Replace';
-  Prompt.setbounds(12,59,120,18);
+  Prompt := TCheckBox.create(self);
+  Prompt.parent := GroupBox1;
+  Prompt.caption := '&Prompt on Replace';
+  Prompt.setbounds(12, 59, 120, 18);
   Prompt.Checked := true;
 
-  GroupBox2 := TGroupBox.Create(self);
-  GroupBox2.Parent := self;
-  GroupBox2.Caption := 'Direction';
-  GroupBox2.setbounds(176,72,102,84);
+  GroupBox2 := TGroupBox.create(self);
+  GroupBox2.parent := self;
+  GroupBox2.caption := 'Direction';
+  GroupBox2.setbounds(176, 72, 102, 84);
 
-  Forwards := TRadioButton.Create(self);
-  Forwards.Parent := GroupBox2;
-  Forwards.Caption := '&Forwards';
-  Forwards.setbounds(12,26,80,18);
+  Forwards := TRadioButton.create(self);
+  Forwards.parent := GroupBox2;
+  Forwards.caption := '&Forwards';
+  Forwards.setbounds(12, 26, 80, 18);
   Forwards.Checked := true;
-  //Forwards.Enabled := false;
+  // Forwards.Enabled := false;
 
-  Backwards := TRadioButton.Create(self);
-  Backwards.Parent := GroupBox2;
-  Backwards.Caption := '&Backwards';
-  Backwards.setbounds(12,47,80,18);
-  //Backwards.Enabled := false;
+  Backwards := TRadioButton.create(self);
+  Backwards.parent := GroupBox2;
+  Backwards.caption := '&Backwards';
+  Backwards.setbounds(12, 47, 80, 18);
+  // Backwards.Enabled := false;
 
   OKBtn := TButton.create(self);
-  OKBtn.Parent := self;
+  OKBtn.parent := self;
   OKBtn.Default := true;
   OKBtn.caption := 'Replace &One';
   OKBtn.Enabled := false;
   OKBtn.ModalResult := mrOK;
-  OKBtn.SetBounds(15,165,75,25);
+  OKBtn.setbounds(15, 165, 75, 25);
 
   AllBtn := TButton.create(self);
-  AllBtn.Parent := self;
+  AllBtn.parent := self;
   AllBtn.Enabled := false;
   AllBtn.caption := 'Replace &All';
   AllBtn.ModalResult := mrYes;
-  AllBtn.SetBounds(111,165,75,25);
+  AllBtn.setbounds(111, 165, 75, 25);
 
   CancelBtn := TButton.create(self);
-  CancelBtn.Parent := self;
+  CancelBtn.parent := self;
   CancelBtn.Cancel := true;
   CancelBtn.Enabled := true;
   CancelBtn.caption := 'Cancel';
   CancelBtn.ModalResult := mrCancel;
-  CancelBtn.SetBounds(204,165,75,25);
+  CancelBtn.setbounds(204, 165, 75, 25);
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 procedure TFindForm.FindTextChange(Sender: TObject);
 begin
-  if FindText.text = '' then begin
-    OKBtn.enabled := false;
-    AllBtn.enabled := false;
-    end
-  else begin
-    OKBtn.enabled := true;
-    AllBtn.enabled := true;
+  if FindText.text = '' then
+  begin
+    OKBtn.Enabled := false;
+    AllBtn.Enabled := false;
+  end
+  else
+  begin
+    OKBtn.Enabled := true;
+    AllBtn.Enabled := true;
   end;
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 procedure TFindForm.CenterForm;
 var
-  l,t: integer;
+  l, t: integer;
 begin
-  if not assigned(fOwner) then exit;
-  l := fOwner.left + (fOwner.width-width) div 2;
-  t := fOwner.top + (fOwner.height-height) div 2;
-  setbounds(l,t,width,height);
+  if not assigned(fOwner) then
+    exit;
+  l := fOwner.left + (fOwner.width - width) div 2;
+  t := fOwner.top + (fOwner.height - height) div 2;
+  setbounds(l, t, width, height);
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // TReplaceForm methods ...
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
-constructor TReplaceForm.create(AOwner: TComponent);
+constructor TReplaceForm.create(aOwner: TComponent);
 begin
-  inherited CreateNew(AOwner);
+  inherited CreateNew(aOwner);
   width := 313;
   height := 126;
   caption := 'Replace ...';
   BorderIcons := [biSystemMenu];
   BorderStyle := bsDialog;
-  Font.Assign(TCustomForm(AOwner).Font);
+  Font.Assign(TCustomForm(aOwner).Font);
 
-  FindText := TEdit.Create(self);
+  FindText := TEdit.create(self);
   FindText.parent := self;
   FindText.left := 69;
   FindText.top := 10;
@@ -239,14 +241,14 @@ begin
   FindText.ReadOnly := true;
   FindText.TabStop := false;
 
-  FindLabel := TLabel.Create(self);
+  FindLabel := TLabel.create(self);
   FindLabel.parent := self;
   FindLabel.left := 15;
   FindLabel.top := 14;
   FindLabel.caption := 'Replace:';
   FindLabel.focusControl := FindText;
 
-  ReplaceText := TEdit.Create(self);
+  ReplaceText := TEdit.create(self);
   ReplaceText.parent := self;
   ReplaceText.left := 69;
   ReplaceText.top := 34;
@@ -255,7 +257,7 @@ begin
   ReplaceText.ReadOnly := true;
   ReplaceText.TabStop := false;
 
-  ReplaceLabel := TLabel.Create(self);
+  ReplaceLabel := TLabel.create(self);
   ReplaceLabel.parent := self;
   ReplaceLabel.left := 15;
   ReplaceLabel.top := 37;
@@ -263,35 +265,33 @@ begin
   ReplaceLabel.focusControl := ReplaceText;
 
   OKBtn := TButton.create(self);
-  OKBtn.Parent := self;
+  OKBtn.parent := self;
   OKBtn.Default := true;
   OKBtn.caption := '&OK';
   OKBtn.ModalResult := mrOK;
-  OKBtn.SetBounds(15,68,64,22);
+  OKBtn.setbounds(15, 68, 64, 22);
 
   SkipBtn := TButton.create(self);
-  SkipBtn.Parent := self;
+  SkipBtn.parent := self;
   SkipBtn.caption := '&Skip';
   SkipBtn.ModalResult := mrNo;
-  SkipBtn.SetBounds(84,68,64,22);
+  SkipBtn.setbounds(84, 68, 64, 22);
 
   AllBtn := TButton.create(self);
-  AllBtn.Parent := self;
+  AllBtn.parent := self;
   AllBtn.caption := '&All';
   AllBtn.ModalResult := mrYes;
-  AllBtn.SetBounds(154,68,64,22);
+  AllBtn.setbounds(154, 68, 64, 22);
 
   CancelBtn := TButton.create(self);
-  CancelBtn.Parent := self;
+  CancelBtn.parent := self;
   CancelBtn.Cancel := true;
   CancelBtn.caption := '&Cancel';
   CancelBtn.ModalResult := mrCancel;
-  CancelBtn.SetBounds(225,68,64,22);
+  CancelBtn.setbounds(225, 68, 64, 22);
 
 end;
-//------------------------------------------------------------------------------
-
-
+// ------------------------------------------------------------------------------
 
 var
   FindForm: TFindForm;
@@ -299,26 +299,30 @@ var
 
 procedure FindCreate;
 begin
-  if assigned(FindForm) then exit;
+  if assigned(FindForm) then
+    exit;
   FindForm := TFindForm.create(application.MainForm);
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 procedure ReplaceCreate;
 begin
-  if assigned(ReplaceForm) then exit;
+  if assigned(ReplaceForm) then
+    exit;
   ReplaceForm := TReplaceForm.create(application.MainForm);
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 procedure FindFree;
 begin
-  if assigned(FindForm) then FindForm.free;
+  if assigned(FindForm) then
+    FindForm.free;
   FindForm := nil;
-  if assigned(ReplaceForm) then ReplaceForm.free;
+  if assigned(ReplaceForm) then
+    ReplaceForm.free;
   ReplaceForm := nil;
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 function GetFindInfo(aOwner: TCustomForm; var fi: TFindInfo): boolean;
 begin
@@ -328,13 +332,14 @@ begin
   begin
     fOwner := aOwner;
     caption := 'Find text';
-    if fi.findStr <> '' then findText.Text := fi.findStr;
-    findText.SelectAll;
-    Groupbox1.height := 65;
-    Groupbox1.top := 41;
-    Groupbox2.height := 65;
-    Groupbox2.top := 41;
-    Forwards.Top := 19;
+    if fi.findStr <> '' then
+      FindText.text := fi.findStr;
+    FindText.SelectAll;
+    GroupBox1.height := 65;
+    GroupBox1.top := 41;
+    GroupBox2.height := 65;
+    GroupBox2.top := 41;
+    Forwards.top := 19;
     Backwards.top := 39;
     OKBtn.top := 119;
     OKBtn.caption := '&OK';
@@ -342,21 +347,22 @@ begin
     AllBtn.visible := false;
     CancelBtn.top := 119;
     CancelBtn.left := 156;
-    prompt.visible := false;
+    Prompt.visible := false;
     ReplaceLabel.visible := false;
-    replacetext.visible := false;
+    ReplaceText.visible := false;
     height := 182;
     ActiveControl := FindText;
     CenterForm;
-    if showmodal <> mrOK then exit;
-    fi.findStr := FindText.Text;
+    if showmodal <> mrOK then
+      exit;
+    fi.findStr := FindText.text;
     fi.ignoreCase := not CaseSensitive.Checked;
-    fi.wholeWords := WholeWords.Checked;
+    fi.wholeWords := wholeWords.Checked;
     fi.directionDown := Forwards.Checked;
   end;
   Result := true;
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 function GetReplaceInfo(aOwner: TCustomForm; var fi: TFindInfo): boolean;
 var
@@ -368,33 +374,35 @@ begin
   begin
     fOwner := aOwner;
     caption := 'Replace text';
-    if fi.findStr <> '' then findText.Text := fi.findStr;
-    findText.SelectAll;
-    Groupbox1.height := 84;
-    Groupbox1.top := 72;
-    Groupbox2.height := 84;
-    Groupbox2.top := 72;
-    Forwards.Top := 26;
+    if fi.findStr <> '' then
+      FindText.text := fi.findStr;
+    FindText.SelectAll;
+    GroupBox1.height := 84;
+    GroupBox1.top := 72;
+    GroupBox2.height := 84;
+    GroupBox2.top := 72;
+    Forwards.top := 26;
     Backwards.top := 47;
     OKBtn.top := 165;
-    OKBtn.caption :=  'Replace &One';
+    OKBtn.caption := 'Replace &One';
     OKBtn.left := 15;
     AllBtn.visible := true;
     CancelBtn.top := 165;
     CancelBtn.left := 204;
-    prompt.visible := true;
+    Prompt.visible := true;
     ReplaceLabel.visible := true;
-    replacetext.visible := true;
+    ReplaceText.visible := true;
     height := 231;
     ActiveControl := FindText;
 
     CenterForm;
     mr := showmodal;
-    if not (mr in [mrOK,mrYes]) then exit;
-    fi.findStr := FindText.Text;
-    fi.replaceStr := ReplaceText.Text;
+    if not(mr in [mrOK, mrYes]) then
+      exit;
+    fi.findStr := FindText.text;
+    fi.replaceStr := ReplaceText.text;
     fi.ignoreCase := not CaseSensitive.Checked;
-    fi.wholeWords := WholeWords.Checked;
+    fi.wholeWords := wholeWords.Checked;
     fi.directionDown := Forwards.Checked;
     fi.replacePrompt := Prompt.Checked;
     fi.replaceAll := (mr = mrYes);
@@ -402,41 +410,46 @@ begin
   end;
   Result := true;
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
-function ReplacePrompt(aOwner: TCustomForm; Point: TPoint): TReplaceType;
+function replacePrompt(aOwner: TCustomForm; Point: TPoint): TReplaceType;
 var
   mr: TModalResult;
 begin
   Result := rtCancel;
-  if not assigned(FindForm) or (aOwner = nil) then exit;
+  if not assigned(FindForm) or (aOwner = nil) then
+    exit;
   Point := aOwner.ClientToScreen(Point);
   ReplaceCreate;
   with ReplaceForm do
   begin
     fOwner := aOwner;
-    FindText.Text := FindForm.FindText.Text;
-    findText.SelectAll;
-    ReplaceText.Text := FindForm.ReplaceText.Text;
+    FindText.text := FindForm.FindText.text;
+    FindText.SelectAll;
+    ReplaceText.text := FindForm.ReplaceText.text;
     if Point.x + width > screen.width then
       Point.x := screen.width - width - 4;
-    Left := Point.x;
-    if Point.y - height -8 > 0 then
-      Top := Point.y - height -8 else
-      Top := Point.y + 30; //30 = guess at lineheight with some margin
-    ActiveControl := OkBtn;
+    left := Point.x;
+    if Point.y - height - 8 > 0 then
+      top := Point.y - height - 8
+    else
+      top := Point.y + 30; // 30 = guess at lineheight with some margin
+    ActiveControl := OKBtn;
     SkipBtn.Enabled := FindForm.fReplaceAll;
     AllBtn.Enabled := FindForm.fReplaceAll;
-    mr := ShowModal;
+    mr := showmodal;
     case mr of
-      mrOK: Result := rtOK;
-      mrNo: Result := rtSkip;
-      mrYes: Result := rtAll;
-      else Result := rtCancel;
+      mrOK:
+        Result := rtOK;
+      mrNo:
+        Result := rtSkip;
+      mrYes:
+        Result := rtAll;
+    else
+      Result := rtCancel;
     end;
   end;
 end;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 end.
-

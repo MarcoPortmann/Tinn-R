@@ -43,8 +43,8 @@ object frmGroupRename: TfrmGroupRename
     Caption = 'OK'
     Default = True
     ModalResult = 1
-    TabOrder = 1
     NumGlyphs = 2
+    TabOrder = 1
   end
   object bbtCancel: TBitBtn
     Left = 170
@@ -54,8 +54,8 @@ object frmGroupRename: TfrmGroupRename
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
-    TabOrder = 2
     NumGlyphs = 2
+    TabOrder = 2
   end
   object edtNewGroupName: TEdit
     Left = 74

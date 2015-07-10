@@ -1,12 +1,12 @@
 object frmTinnMain: TfrmTinnMain
   Left = 0
   Top = 0
-  Width = 1026
-  Height = 1062
+  Width = 1288
+  Height = 770
   AlphaBlend = True
   AlphaBlendValue = 200
   AutoScroll = True
-  Caption = 'Tinn-R'
+  Caption = 'Tinn-R (Beta)'
   Color = clBtnFace
   DefaultMonitor = dmDesktop
   Font.Charset = DEFAULT_CHARSET
@@ -150,24 +150,23 @@ object frmTinnMain: TfrmTinnMain
     0607800003FF800001FFC00000FFC000007FC000007FC000003FE000001FE000
     000FF8000007FC000003FE000001FF000000FF800000FFC00000FFF00000FFF8
     0000FFFC0000FFFE0000FFFF0000FFFF8000FFFFC000FFFFF001FFFFF803}
-  Menu = jvmenMain
+  Menu = jvMenMain
   OldCreateOrder = False
   Position = poDesigned
   ShowHint = True
-  Visible = True
-  WindowMenu = menWindow
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDragDrop = FormDragDrop
   OnDragOver = FormDragOver
+  OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object panProjectDockSite: TPanel
     Left = 0
-    Top = 100
+    Top = 79
     Width = 1
-    Height = 874
+    Height = 606
     Align = alLeft
     BevelOuter = bvNone
     DockSite = True
@@ -175,1090 +174,324 @@ object frmTinnMain: TfrmTinnMain
     OnDockDrop = panProjectDockSiteDockDrop
     OnUnDock = panProjectDockSiteUnDock
   end
-  object Panel1: TPanel
-    Left = 0
-    Top = 0
-    Width = 1010
-    Height = 80
-    Align = alTop
-    AutoSize = True
-    BevelOuter = bvNone
-    TabOrder = 1
-    object ctbMain: TControlBar
-      Left = 0
-      Top = 0
-      Width = 1010
-      Height = 52
-      Align = alTop
-      AutoDock = False
-      AutoDrag = False
-      AutoSize = True
-      BevelEdges = []
-      BevelInner = bvNone
-      BevelOuter = bvNone
-      BevelKind = bkNone
-      DockSite = False
-      PopupMenu = pmenViewToolbars
-      RowSnap = False
-      TabOrder = 0
-      object tobFile: TToolBar
-        Left = 11
-        Top = 2
-        Width = 177
-        Height = 22
-        Align = alNone
-        Ctl3D = False
-        EdgeInner = esLowered
-        Images = imlTinnR
-        TabOrder = 0
-        Transparent = True
-        Wrapable = False
-        object tbNew: TToolButton
-          Left = 0
-          Top = 0
-          Action = actFileNew
-        end
-        object tbOpen: TToolButton
-          Left = 23
-          Top = 0
-          Hint = 'File: open'
-          Caption = 'Recent Files'
-          DropdownMenu = pmenMainMRU
-          ImageIndex = 66
-          Style = tbsDropDown
-          OnClick = actFileOpenExecute
-        end
-        object ToolButton6: TToolButton
-          Left = 61
-          Top = 0
-          Width = 8
-          Caption = 'ToolButton6'
-          ImageIndex = 4
-          Style = tbsSeparator
-        end
-        object tbSave: TToolButton
-          Left = 69
-          Top = 0
-          Action = actFileSave
-        end
-        object tbSaveAll: TToolButton
-          Left = 92
-          Top = 0
-          Hint = 'File: save all'
-          Action = actFileSaveAll
-        end
-        object ToolButton5: TToolButton
-          Left = 115
-          Top = 0
-          Width = 8
-          Caption = 'ToolButton5'
-          ImageIndex = 4
-          Style = tbsSeparator
-        end
-        object tbReload: TToolButton
-          Left = 123
-          Top = 0
-          Action = actReload
-        end
-        object ToolButton1: TToolButton
-          Left = 146
-          Top = 0
-          Width = 8
-          Caption = 'ToolButton1'
-          ImageIndex = 4
-          Style = tbsSeparator
-        end
-        object tbPrint: TToolButton
-          Left = 154
-          Top = 0
-          Action = actPrint
-        end
-      end
-      object tobSearch: TToolBar
-        Left = 262
-        Top = 2
-        Width = 94
-        Height = 22
-        Align = alNone
-        Ctl3D = False
-        EdgeInner = esLowered
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        Images = imlTinnR
-        ParentFont = False
-        TabOrder = 1
-        Transparent = True
-        Wrapable = False
-        object tbFind: TToolButton
-          Left = 0
-          Top = 0
-          Action = actFind
-        end
-        object tbFindInFiles: TToolButton
-          Left = 23
-          Top = 0
-          Action = actSearchInFiles
-        end
-        object tbReplace: TToolButton
-          Left = 46
-          Top = 0
-          Action = actReplace
-        end
-        object tbGoto: TToolButton
-          Left = 69
-          Top = 0
-          Action = actGotoLine
-        end
-      end
-      object tobSyntax: TToolBar
-        Left = 860
-        Top = 2
-        Width = 102
-        Height = 22
-        Align = alNone
-        ButtonHeight = 21
-        DragMode = dmAutomatic
-        EdgeInner = esLowered
-        TabOrder = 5
-        Transparent = True
-        Wrapable = False
-        object cbSyntax: TComboBox
-          Left = 0
-          Top = 0
-          Width = 100
-          Height = 21
-          Hint = 'Syntax: set syntax'
-          BevelInner = bvSpace
-          BevelKind = bkSoft
-          BevelOuter = bvRaised
-          Style = csDropDownList
-          Ctl3D = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Pitch = fpFixed
-          Font.Style = []
-          ParentCtl3D = False
-          ParentFont = False
-          Sorted = True
-          TabOrder = 0
-          OnChange = HighlighterSelection
-        end
-      end
-      object tobMacro: TToolBar
-        Left = 304
-        Top = 28
-        Width = 48
-        Height = 22
-        Align = alNone
-        Ctl3D = False
-        EdgeInner = esLowered
-        Images = imlTinnR
-        TabOrder = 4
-        Transparent = True
-        Wrapable = False
-        object tbRecord: TToolButton
-          Left = 0
-          Top = 0
-          Action = actMacroRecord
-        end
-        object tbPlay: TToolButton
-          Left = 23
-          Top = 0
-          Action = actMacroPlay
-        end
-      end
-      object tobFilter: TToolBar
-        Left = 198
-        Top = 28
-        Width = 93
-        Height = 22
-        Align = alNone
-        Ctl3D = False
-        EdgeInner = esLowered
-        Images = imlTinnR
-        TabOrder = 10
-        Transparent = True
-        Wrapable = False
-        object tbFilter: TToolButton
-          Left = 0
-          Top = 0
-          Hint = 'Filter: apply'
-          Caption = 'Filter'
-          Enabled = False
-          ImageIndex = 166
-          OnClick = tbFilterClick
-        end
-        object ToolButton8: TToolButton
-          Left = 23
-          Top = 0
-          Width = 8
-          Caption = 'ToolButton1'
-          ImageIndex = 26
-          Style = tbsSeparator
-        end
-        object edFilter: TEdit
-          Left = 31
-          Top = 0
-          Width = 60
-          Height = 22
-          Hint = 'Filter: type'
-          AutoSize = False
-          BevelInner = bvNone
-          BevelOuter = bvNone
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Pitch = fpFixed
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-          OnKeyDown = edFilterKeyDown
-        end
-      end
-      object tobMisc: TToolBar
-        Left = 369
-        Top = 2
-        Width = 123
-        Height = 22
-        Align = alNone
-        AutoSize = True
-        DragMode = dmAutomatic
-        EdgeInner = esLowered
-        Images = imlTinnR
-        TabOrder = 2
-        Transparent = True
-        Wrapable = False
-        object tbOnTop: TToolButton
-          Left = 0
-          Top = 0
-          Action = actOnTop
-          Style = tbsCheck
-        end
-        object tbReturnFocus: TToolButton
-          Left = 23
-          Top = 0
-          Action = actRguiReturnFocus
-          Style = tbsCheck
-        end
-        object ToolButton11: TToolButton
-          Left = 46
-          Top = 0
-          Width = 8
-          Caption = 'ToolButton11'
-          ImageIndex = 2
-          Style = tbsSeparator
-        end
-        object tbsMarkBlock: TToolButton
-          Left = 54
-          Top = 0
-          Action = actBlockMark
-        end
-        object tbsUnmarkBlock: TToolButton
-          Left = 77
-          Top = 0
-          Action = actBlockUnmark
-        end
-        object tbsUnmarkAll: TToolButton
-          Left = 100
-          Top = 0
-          Action = actUnmarkAll
-        end
-      end
-      object tobProcessing: TTBToolbar
-        Left = 779
-        Top = 2
-        Width = 68
-        Height = 22
-        AutoResize = False
-        BorderStyle = bsNone
-        CloseButton = False
-        DockMode = dmCannotFloatOrChangeDocks
-        FullSize = True
-        HideWhenInactive = False
-        Images = imlTinnR
-        Resizable = False
-        ShrinkMode = tbsmNone
-        SmoothDrag = False
-        TabOrder = 3
-        object TBSConvertion: TTBSubmenuItem
-          Caption = 'Conversion'
-          Hint = 'Processing: conversion'
-          ImageIndex = 129
-          Images = imlTinnR
-          object TBSubmenuItem8: TTBSubmenuItem
-            Caption = 'Deplate to'
-            ImageIndex = 172
-            Images = imlTinnR
-            object TBItem41: TTBItem
-              Action = actDeplateToLaTeX
-            end
-            object TBItem42: TTBItem
-              Action = actDeplateToLaTeXDramatist
-            end
-            object TBItem43: TTBItem
-              Action = actDeplateToSweave
-            end
-            object TBItem15: TTBItem
-              Action = actDeplateToPlain
-            end
-            object TBSeparatorItem18: TTBSeparatorItem
-            end
-            object TBItem22: TTBItem
-              Action = actDeplateToHtml
-            end
-            object TBItem20: TTBItem
-              Action = actDeplateToHtmlSite
-            end
-            object TBItem19: TTBItem
-              Action = actDeplateToHtmlSlides
-            end
-            object TBItem18: TTBItem
-              Action = actDeplateToXhtmlTransitional
-            end
-            object TBItem17: TTBItem
-              Action = actDeplateToXhtmlMathMl
-            end
-            object TBItem16: TTBItem
-              Action = actDeplateToPhp
-            end
-            object TBSeparatorItem19: TTBSeparatorItem
-            end
-            object TBItem25: TTBItem
-              Action = actDeplateToDocbookArticle
-            end
-            object TBItem24: TTBItem
-              Action = actDeplateToDocbookBook
-            end
-            object TBItem23: TTBItem
-              Action = actDeplateToDocbookReference
-            end
-          end
-          object tbiPandoc: TTBItem
-            Caption = 'Pandoc'
-            Enabled = False
-            ImageIndex = 280
-            ShortCut = 24656
-            OnClick = tbiPandocClick
-          end
-          object TBSubmenuItem9: TTBSubmenuItem
-            Caption = 'Txt2tags to'
-            ImageIndex = 174
-            Images = imlTinnR
-            object TBItem32: TTBItem
-              Action = actTxt2tagsToLatex
-              Images = imlTinnR
-            end
-            object TBItem33: TTBItem
-              Action = actTxt2tagsToSweave
-              Images = imlTinnR
-            end
-            object TBItem2: TTBItem
-              Action = actTxt2tagsToTxt
-            end
-            object TBSeparatorItem9: TTBSeparatorItem
-            end
-            object TBItem34: TTBItem
-              Action = actTxt2tagsToHtml
-              Images = imlTinnR
-            end
-            object TBItem6: TTBItem
-              Action = actTxt2tagsToXhtml
-            end
-            object TBItem5: TTBItem
-              Action = actTxt2tagsToSgml
-            end
-            object TBItem4: TTBItem
-              Action = actTxt2tagsToLout
-            end
-            object TBItem3: TTBItem
-              Action = actTxt2tagsToMan
-            end
-            object TBSeparatorItem14: TTBSeparatorItem
-            end
-            object TBItem12: TTBItem
-              Action = actTxt2tagsToWiki
-            end
-            object TBItem11: TTBItem
-              Action = actTxt2tagsToGwiki
-            end
-            object TBItem10: TTBItem
-              Action = actTxt2tagsToDoku
-            end
-            object TBItem7: TTBItem
-              Action = actTxt2tagsToMoin
-            end
-            object TBSeparatorItem15: TTBSeparatorItem
-            end
-            object TBItem14: TTBItem
-              Action = actTxt2tagsToMgp
-            end
-            object TBItem13: TTBItem
-              Action = actTxt2tagsToPm6
-            end
-          end
-        end
-        object TBSMiktex: TTBSubmenuItem
-          Caption = 'LaTeX'
-          Hint = 'Processing: compilation'
-          ImageIndex = 128
-          Images = imlTinnR
-          object TBItem45: TTBItem
-            Action = actDOSMinimizedAlways
-            Images = imlTinnR
-          end
-          object TBSeparatorItem23: TTBSeparatorItem
-          end
-          object TBItem30: TTBItem
-            Action = actLatexToDVISingle
-            Images = imlTinnR
-          end
-          object TBItem49: TTBItem
-            Action = actLatexToDVIBibtex
-          end
-          object TBSeparatorItem28: TTBSeparatorItem
-          end
-          object TBItem31: TTBItem
-            Action = actLatexToPDFSingle
-            Images = imlTinnR
-          end
-          object TBItem58: TTBItem
-            Action = actLatexToPDFBibtex
-          end
-          object TBSeparatorItem29: TTBSeparatorItem
-          end
-          object TBItem66: TTBItem
-            Action = actLatexMakeIndex
-          end
-        end
-        object TBSViewer: TTBSubmenuItem
-          Caption = 'Viewer'
-          Hint = 'Processing: viewer'
-          ImageIndex = 170
-          Images = imlTinnR
-          object TBSubmenuItem6: TTBSubmenuItem
-            Caption = 'DVI'
-            Hint = 'DVI viewer'
-            Images = imlTinnR
-            object TBItem35: TTBItem
-              Action = actDVIOpenAlways
-            end
-            object TBSeparatorItem16: TTBSeparatorItem
-            end
-            object TBItem44: TTBItem
-              Action = actDVIOpenFile
-            end
-          end
-          object TBSubmenuItem7: TTBSubmenuItem
-            Caption = 'PDF'
-            Hint = 'PDF viewer'
-            ImageIndex = 46
-            Images = imlTinnR
-            object TBItem37: TTBItem
-              Action = actPDFOpenAlways
-            end
-            object TBSeparatorItem17: TTBSeparatorItem
-            end
-            object TBItem36: TTBItem
-              Action = actPDFOpenFile
-            end
-          end
-          object TBSubmenuItem3: TTBSubmenuItem
-            Caption = 'HTML'
-            Hint = 'Browser viewer'
-            Images = imlTinnR
-            object TBItem38: TTBItem
-              Action = actHTMLOpenAlways
-            end
-            object TBSeparatorItem22: TTBSeparatorItem
-            end
-            object TBItem39: TTBItem
-              Action = actHTMLOpenCurrentFile
-            end
-            object TBItem40: TTBItem
-              Action = actHTMLOpenFile
-            end
-          end
-        end
-      end
-      object tobSpell: TToolBar
-        Left = 11
-        Top = 28
-        Width = 174
-        Height = 22
-        Align = alNone
-        Ctl3D = False
-        EdgeInner = esLowered
-        Images = imlTinnR
-        TabOrder = 9
-        Transparent = True
-        Wrapable = False
-        object ToolButton7: TToolButton
-          Left = 0
-          Top = 0
-          Width = 8
-          Caption = 'ToolButton1'
-          ImageIndex = 26
-          Style = tbsSeparator
-        end
-        object tbSpell: TToolButton
-          Left = 8
-          Top = 0
-          Action = actSpell
-        end
-      end
-      object tobView: TTBToolbar
-        Left = 505
-        Top = 2
-        Width = 179
-        Height = 22
-        BorderStyle = bsNone
-        Caption = 'tbProcessing'
-        CloseButton = False
-        DockMode = dmCannotFloatOrChangeDocks
-        FullSize = True
-        HideWhenInactive = False
-        Images = imlTinnR
-        Resizable = False
-        ShrinkMode = tbsmNone
-        SmoothDrag = False
-        TabOrder = 6
-        object TBItem92: TTBItem
-          Action = actOrganizeScreen
-        end
-        object TBSeparatorItem33: TTBSeparatorItem
-        end
-        object TBItem91: TTBItem
-          Action = actToolsVisible
-        end
-        object TBSToolsWidth: TTBSubmenuItem
-          Caption = 'Interface (tools)'
-          Hint = 'Visualization: size (tools)'
-          ImageIndex = 248
-          object TBItem96: TTBItem
-            Action = actToolsMaximize
-          end
-          object TBItem95: TTBItem
-            Action = actToolsDivide
-          end
-          object TBItem94: TTBItem
-            Action = actToolsMinimize
-          end
-        end
-        object TBSeparatorItem13: TTBSeparatorItem
-        end
-        object TBIRtermShowHide: TTBItem
-          Action = actRtermVisible
-          Caption = 'R_Interface (show/hide)'
-        end
-        object TBSRtermHeight: TTBSubmenuItem
-          Caption = 'Interface (Rterm)'
-          Hint = 'Visualization: size (Rterm)'
-          ImageIndex = 248
-          object TBItem8: TTBItem
-            Action = actRtermMaximize
-          end
-          object TBItem9: TTBItem
-            Action = actRtermDivide
-          end
-          object TBItem93: TTBItem
-            Action = actRtermMinimize
-          end
-        end
-        object TBSRtermOptions: TTBSubmenuItem
-          Caption = 'IO and Log'
-          Hint = 'Visualization: IO and Log (Rterm)'
-          ImageIndex = 255
-          object TBItem103: TTBItem
-            Action = actRtermIOSplitHorizontal
-          end
-          object TBItem102: TTBItem
-            Action = actRtermIOSplitVertical
-          end
-          object TBSeparatorItem37: TTBSeparatorItem
-          end
-          object TBItem101: TTBItem
-            Action = actRtermIOSplitRemove
-          end
-        end
-        object TBSeparatorItem36: TTBSeparatorItem
-        end
-        object TBSRtermLineWrap: TTBSubmenuItem
-          Caption = 'Line wrap'
-          Hint = 'Visualization: line wrap (show/hide)'
-          ImageIndex = 101
-          object TBItem61: TTBItem
-            Action = actEditorLineWrap
-          end
-          object TBItem60: TTBItem
-            Action = actRtermIOLineWrap
-          end
-          object TBItem59: TTBItem
-            Action = actRtermLogLineWrap
-          end
-        end
-      end
-      object tobEdit: TToolBar
-        Left = 201
-        Top = 2
-        Width = 48
-        Height = 22
-        Align = alNone
-        Ctl3D = False
-        EdgeInner = esLowered
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        Images = imlTinnR
-        ParentFont = False
-        TabOrder = 7
-        Transparent = True
-        Wrapable = False
-        object ToolButton2: TToolButton
-          Left = 0
-          Top = 0
-          Action = actEditUndo
-        end
-        object ToolButton3: TToolButton
-          Left = 23
-          Top = 0
-          Action = actEditRedo
-        end
-      end
-      object tobFormat: TTBToolbar
-        Left = 697
-        Top = 2
-        Width = 69
-        Height = 22
-        AutoResize = False
-        BorderStyle = bsNone
-        CloseButton = False
-        DockMode = dmCannotFloatOrChangeDocks
-        FullSize = True
-        HideWhenInactive = False
-        Images = imlTinnR
-        Resizable = False
-        ShrinkMode = tbsmNone
-        SmoothDrag = False
-        TabOrder = 8
-        object TBSubmenuItem2: TTBSubmenuItem
-          Caption = 'Selection'
-          Hint = 'Format: selection'
-          ImageIndex = 3
-          Images = imlTinnR
-          object TBItem73: TTBItem
-            Action = actIndentBlock
-          end
-          object TBItem72: TTBItem
-            Action = actUnindentBlock
-          end
-          object TBSeparatorItem26: TTBSeparatorItem
-          end
-          object TBItem65: TTBItem
-            Action = actUpperCaseSelection
-          end
-          object TBItem64: TTBItem
-            Action = actLowercaseSelection
-          end
-          object TBSeparatorItem31: TTBSeparatorItem
-          end
-          object TBItem63: TTBItem
-            Action = actInvertSelection
-          end
-        end
-        object TBSubmenuItem10: TTBSubmenuItem
-          Caption = 'Word'
-          Hint = 'Format: word'
-          ImageIndex = 59
-          Images = imlTinnR
-          object TBItem98: TTBItem
-            Action = actUpperCaseWord
-            Images = imlTinnR
-          end
-          object TBItem99: TTBItem
-            Action = actLowerCaseWord
-          end
-          object TBSeparatorItem39: TTBSeparatorItem
-          end
-          object TBItem100: TTBItem
-            Action = actInvertCaseWord
-            Images = imlTinnR
-          end
-        end
-        object TBSReformatR: TTBSubmenuItem
-          Caption = 'Reformat'
-          Hint = 'Format: reformat'
-          ImageIndex = 279
-          Images = imlTinnR
-          object TBItem74: TTBItem
-            Action = actReformatR
-          end
-        end
-      end
-    end
-    object TBRDockTop: TTBDock
-      Left = 0
-      Top = 52
-      Width = 1010
-      Height = 28
-      BoundLines = [blTop, blBottom, blLeft, blRight]
-      PopupMenu = pmenRRes
-      object TBRMain: TTBToolbar
-        Left = 0
-        Top = 0
-        Caption = 'R toolbar'
-        CloseButton = False
-        DockPos = 0
-        FloatingMode = fmOnTopOfAllForms
-        HideWhenInactive = False
-        Images = imlTinnR
-        PopupMenu = pmenRRes
-        ShowCaption = False
-        SmoothDrag = False
-        TabOrder = 0
-        Visible = False
-        OnMove = TBRMainMove
-        object TBItem29: TTBItem
-          Action = actRSendSourceFile
-        end
-        object TBRSendAll: TTBItem
-          Action = actRSendFile
-        end
-        object TBSeparatorItem10: TTBSeparatorItem
-        end
-        object TBRSendSourceSelection: TTBItem
-          Action = actRSendSourceSelection
-        end
-        object TBRSendSelection: TTBItem
-          Action = actRSendSelection
-        end
-        object TBSeparatorItem20: TTBSeparatorItem
-        end
-        object TBItem27: TTBItem
-          Action = actRSendSourceClipboard
-        end
-        object TBItem26: TTBItem
-          Action = actRSendClipboard
-        end
-        object TBSeparatorItem1: TTBSeparatorItem
-        end
-        object TBRSendSourceBlockMarked: TTBItem
-          Action = actRSendSourceBlockMarked
-        end
-        object TBRSendBlockMarked: TTBItem
-          Action = actRSendBlockMarked
-        end
-        object TBSeparatorItem21: TTBSeparatorItem
-        end
-        object TBItem47: TTBItem
-          Action = actRSendSourceContiguous
-        end
-        object TBItem46: TTBItem
-          Action = actRSendContiguous
-        end
-        object TBSeparatorItem11: TTBSeparatorItem
-        end
-        object TBRSendLine: TTBItem
-          Action = actRSendLine
-        end
-        object TBSeparatorItem6: TTBSeparatorItem
-        end
-        object TBRCurrentLineToTop: TTBItem
-          Action = actRCurrentLineToTop
-        end
-        object TBRSendLineToEndPage: TTBItem
-          Action = actRSendLinesToEndPage
-        end
-        object TBSeparatorItem5: TTBSeparatorItem
-        end
-        object TBRSendCursorToBeginningLine: TTBItem
-          Action = actRSendCursorToBeginningLine
-          Options = [tboShowHint]
-        end
-        object TBRSendCursorToEndLine: TTBItem
-          Action = actRSendCursorToEndLine
-        end
-        object TBSeparatorItem8: TTBSeparatorItem
-        end
-        object TBItem1: TTBItem
-          Action = actRSendSweave
-        end
-        object tbKnitr: TTBSubmenuItem
-          Caption = 'Knitr'
-          Hint = 'R send: Knit (file)'
-          ImageIndex = 277
-          object TBItem62: TTBItem
-            Action = actRSendKnitPdf
-          end
-          object TBItem51: TTBItem
-            Action = actRSendKnitHtml
-          end
-        end
-        object TBSeparatorItem2: TTBSeparatorItem
-        end
-        object TBRSetWorkDir: TTBItem
-          Action = actRContSetWorkDirectory
-        end
-        object TBSeparatorItem12: TTBSeparatorItem
-        end
-        object TBRListAllObjects: TTBItem
-          Action = actRContListAllObjects
-        end
-        object TBRRPrintVariableContent: TTBItem
-          Action = actRContPrintVariableContent
-        end
-        object TBItem90: TTBItem
-          Action = actRContPlotVariable
-        end
-        object TBRRListVariableNames: TTBItem
-          Action = actRContListVariableNames
-        end
-        object TBRRListVariableStructure: TTBItem
-          Action = actRContListVariableStructure
-        end
-        object TBItem28: TTBItem
-          Action = actRContEditVariable
-        end
-        object TBItem21: TTBItem
-          Action = actRContFixVariable
-        end
-        object TBSeparatorItem3: TTBSeparatorItem
-        end
-        object TBRClearConsole: TTBItem
-          Action = actRContClearConsole
-        end
-        object TBRCloseAllGraphics: TTBItem
-          Action = actRContCloseAllGraphics
-        end
-        object TBRRemoveAllObjects: TTBItem
-          Action = actRContRemoveAllObjects
-        end
-        object TBSeparatorItem24: TTBSeparatorItem
-        end
-        object TBRClearAll: TTBItem
-          Action = actRContClearAll
-        end
-        object TBSeparatorItem7: TTBSeparatorItem
-        end
-        object TBRREscape: TTBItem
-          Action = actRContEscape
-        end
-        object TBSeparatorItem4: TTBSeparatorItem
-        end
-        object TBRRHelpSelectedWord: TTBItem
-          Action = actRContHelpSelectedWord
-        end
-        object TBRRExampleSelectedWord: TTBItem
-          Action = actRContExampleSelectedWord
-        end
-        object TBRRHelp: TTBItem
-          Action = actRContHelp
-        end
-        object TBSeparatorItem25: TTBSeparatorItem
-        end
-        object TBRRGuiStartToogle: TTBItem
-          Action = actRContGuiStartClose
-        end
-        object TBRRTermStartToogle: TTBItem
-          Action = actRContTermStartClose
-        end
-        object TBSeparatorItem35: TTBSeparatorItem
-        end
-        object TBRRPackages: TTBSubmenuItem
-          Action = actRContPackages
-          object TBItem48: TTBItem
-            Action = actRContPacInstall
-          end
-          object TBItem57: TTBItem
-            Action = actRContPacInstallZip
-          end
-          object TBSeparatorItem34: TTBSeparatorItem
-          end
-          object TBItem75: TTBItem
-            Action = actRContPacInstTinnRcom
-          end
-          object TBItem76: TTBItem
-            Action = actRContPacLoadTinnRcom
-          end
-          object TBSeparatorItem38: TTBSeparatorItem
-          end
-          object TBItem55: TTBItem
-            Action = actRContPacInstalled
-          end
-          object TBItem56: TTBItem
-            Action = actRContPacLoad
-          end
-          object TBItem50: TTBItem
-            Action = actRContPacNew
-          end
-          object TBItem54: TTBItem
-            Action = actRContPacRemove
-          end
-          object TBItem52: TTBItem
-            Action = actRContPacUpdate
-          end
-          object TBItem53: TTBItem
-            Action = actRContPacStatus
-          end
-        end
-        object TBSeparatorItem27: TTBSeparatorItem
-        end
-        object TBRRTCPIP: TTBItem
-          Action = actRContTCPConnection
-        end
-        object TBSeparatorItem32: TTBSeparatorItem
-        end
-        object TBRRWarningsErrror: TTBItem
-          Action = actRtermWarningError
-        end
-      end
-    end
-  end
-  object TBDockLeft: TTBDock
-    Left = 1
-    Top = 100
-    Width = 9
-    Height = 874
-    BoundLines = [blTop, blBottom, blLeft, blRight]
-    FixAlign = True
-    LimitToOneRow = True
-    PopupMenu = pmenRRes
-    Position = dpLeft
-  end
   object panInvisibleParent: TPanel
-    Left = 47
-    Top = 112
+    Left = 406
+    Top = 246
     Width = 93
     Height = 28
     Caption = 'panInvisibleParent'
-    TabOrder = 3
+    TabOrder = 1
     Visible = False
   end
-  object stbMain: TStatusBar
+  object ctbMain: TControlBar
     Left = 0
-    Top = 983
-    Width = 1010
-    Height = 20
-    Anchors = [akLeft, akBottom]
-    Constraints.MaxHeight = 21
-    Constraints.MinHeight = 20
-    Panels = <
-      item
-        Bevel = pbRaised
-        Style = psOwnerDraw
-        Width = 90
-      end
-      item
-        Bevel = pbRaised
-        Style = psOwnerDraw
-        Width = 40
-      end
-      item
-        Width = 120
-      end
-      item
-        Width = 60
-      end
-      item
-        Width = 50
-      end
-      item
-        Width = 90
-      end
-      item
-        Style = psOwnerDraw
-        Width = 105
-      end
-      item
-        Alignment = taCenter
-        Bevel = pbRaised
-        Style = psOwnerDraw
-        Width = 160
-      end
-      item
-        Bevel = pbRaised
-        Style = psOwnerDraw
-        Width = 1000
-      end>
-    SizeGrip = False
-    OnClick = stbMainClick
-    OnDrawPanel = stbMainDrawPanel
-  end
-  object TBDockRight: TTBDock
-    Left = 1001
-    Top = 100
-    Width = 9
-    Height = 874
-    BoundLines = [blTop, blBottom, blLeft, blRight]
-    FixAlign = True
-    LimitToOneRow = True
-    PopupMenu = pmenRRes
-    Position = dpRight
-  end
-  object TBDockBottom: TTBDock
-    Left = 0
-    Top = 974
-    Width = 1010
-    Height = 9
-    BoundLines = [blTop, blBottom, blLeft, blRight]
-    FixAlign = True
-    LimitToOneRow = True
-    PopupMenu = pmenRRes
-    Position = dpBottom
-  end
-  object pgFiles: TJvgPageControl
-    Left = 0
-    Top = 80
-    Width = 1010
-    Height = 20
+    Top = 0
+    Width = 1272
+    Height = 58
     Align = alTop
+    AutoDock = False
+    AutoDrag = False
+    AutoSize = True
+    BevelEdges = []
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BevelKind = bkNone
+    DockSite = False
+    PopupMenu = pmenViewToolbars
+    RowSnap = False
+    TabOrder = 2
+    object Label1: TLabel
+      Left = 1076
+      Top = 2
+      Width = 32
+      Height = 13
+      Caption = 'Label1'
+      Visible = False
+    end
+    object Label2: TLabel
+      Left = 986
+      Top = 2
+      Width = 32
+      Height = 13
+      Caption = 'Label2'
+      Visible = False
+    end
+    object Label3: TLabel
+      Left = 1121
+      Top = 2
+      Width = 32
+      Height = 13
+      Caption = 'Label3'
+      Visible = False
+    end
+    object Label4: TLabel
+      Left = 1031
+      Top = 2
+      Width = 32
+      Height = 13
+      Caption = 'Label4'
+      Visible = False
+    end
+    object atbRSend: TActionToolBar
+      Left = 11
+      Top = 31
+      Width = 390
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'RSendTest'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object atbRContent: TActionToolBar
+      Left = 414
+      Top = 31
+      Width = 338
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'R content'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object atbRConsole: TActionToolBar
+      Left = 431
+      Top = 2
+      Width = 90
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'R console'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object atbFiles: TActionToolBar
+      Left = 11
+      Top = 2
+      Width = 166
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'atbFiles'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object edFilter: TButtonedEdit
+      AlignWithMargins = True
+      Left = 606
+      Top = 2
+      Width = 65
+      Height = 21
+      Hint = 'Apply filter'
+      Images = imlTinnR
+      RightButton.ImageIndex = 166
+      RightButton.Visible = True
+      TabOrder = 4
+      OnKeyDown = edFilterKeyDown
+      OnKeyPress = edFilterKeyPress
+      OnRightButtonClick = edFilterRightButtonClick
+    end
+    object atbFind: TActionToolBar
+      Left = 190
+      Top = 2
+      Width = 108
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'atbFind'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object atbMacro: TActionToolBar
+      Left = 534
+      Top = 2
+      Width = 59
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'atbMacro'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object atbView: TActionToolBar
+      Left = 765
+      Top = 31
+      Width = 229
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      AllowHiding = False
+      Caption = 'atbView'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object atBookmark: TActionToolBar
+      Left = 684
+      Top = 2
+      Width = 130
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'atBookmark'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object atbFormat: TActionToolBar
+      Left = 311
+      Top = 2
+      Width = 107
+      Height = 25
+      ActionManager = amMain
+      Align = alNone
+      Caption = 'atbFormat'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+    end
+    object cbLexers: TComboBox
+      Left = 827
+      Top = 2
+      Width = 146
+      Height = 21
+      Style = csDropDownList
+      TabOrder = 10
+      OnSelect = cbLexersSelect
+    end
+    object Button1: TButton
+      Left = 1024
+      Top = 31
+      Width = 75
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 11
+      Visible = False
+      OnClick = Button1Click
+    end
+  end
+  object atbStatus: TActionToolBar
+    Left = 0
+    Top = 685
+    Width = 1272
+    Height = 26
+    ActionManager = amMain
+    Align = alBottom
+    Caption = 'atbStatus'
+    Color = clMenuBar
+    ColorMap.DisabledFontColor = 7171437
+    ColorMap.HighlightColor = clWhite
+    ColorMap.BtnSelectedFont = clBlack
+    ColorMap.UnusedColor = clWhite
     Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
+    Font.Color = clBlack
+    Font.Height = -12
+    Font.Name = 'Tahoma'
     Font.Style = []
-    Images = imlTinnR
-    PopupMenu = pmenPgFiles
-    TabOrder = 7
-    TabStop = False
+    ParentFont = False
+    Spacing = 0
+    Visible = False
+  end
+  object pgFiles: TPageControl
+    Left = 0
+    Top = 58
+    Width = 1272
+    Height = 21
+    Align = alTop
+    PopupMenu = pabPgFiles
+    TabOrder = 4
+    StyleElements = [seFont, seBorder]
     OnChange = pgFilesChange
     OnDragDrop = pgFilesDragDrop
     OnDragOver = pgFilesDragOver
     OnMouseDown = pgFilesMouseDown
-    TabStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
-    TabStyle.BevelInner = bvNone
-    TabStyle.BevelOuter = bvNone
-    TabStyle.Bold = False
-    TabStyle.BackgrColor = clBtnFace
-    TabStyle.Font.Charset = DEFAULT_CHARSET
-    TabStyle.Font.Color = clBlack
-    TabStyle.Font.Height = -11
-    TabStyle.Font.Name = 'Arial'
-    TabStyle.Font.Style = []
-    TabStyle.CaptionHAlign = fhaCenter
-    TabStyle.Gradient.Active = False
-    TabStyle.Gradient.Orientation = fgdHorizontal
-    TabSelectedStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
-    TabSelectedStyle.BevelInner = bvNone
-    TabSelectedStyle.BevelOuter = bvNone
-    TabSelectedStyle.Bold = False
-    TabSelectedStyle.BackgrColor = clBtnFace
-    TabSelectedStyle.Font.Charset = DEFAULT_CHARSET
-    TabSelectedStyle.Font.Color = clBtnText
-    TabSelectedStyle.Font.Height = -11
-    TabSelectedStyle.Font.Name = 'Arial'
-    TabSelectedStyle.Font.Style = []
-    TabSelectedStyle.CaptionHAlign = fhaCenter
-    TabSelectedStyle.Gradient.Active = False
-    TabSelectedStyle.Gradient.Orientation = fgdHorizontal
-    Options = [ftoAutoFontDirection, ftoExcludeGlyphs]
   end
   object pmenViewToolbars: TJvPopupMenu
     Images = imlTinnR
@@ -1270,8 +503,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 80
-    Top = 144
+    Left = 632
+    Top = 528
     object pmenViewToolbarsShowall: TMenuItem
       Action = actShowAllBars
     end
@@ -1279,140 +512,70 @@ object frmTinnMain: TfrmTinnMain
       Caption = '-'
     end
     object pmenViewToolbarsEdit: TMenuItem
-      Action = actTobEditVisible
+      Caption = 'Edit (show/hide)'
+      Checked = True
+      Hint = 'Visualization: edit bar (show/hide)'
     end
     object pmenViewToolbarsFile: TMenuItem
-      Action = actTobFilesVisible
+      Caption = 'File (show/hide)'
+      Checked = True
+      Hint = 'Visualization: file bar (show/hide)'
     end
     object pmenViewToolbarsFilter: TMenuItem
-      Action = actTobFilterVisible
+      Caption = 'Filter (show/hide)'
+      Checked = True
+      Hint = 'Visualization: filter bar (show/hide)'
     end
     object pmenViewToolbarsFormat: TMenuItem
-      Action = actTobFormatVisible
+      Caption = 'Format (show/hide)'
       Checked = True
+      Hint = 'Visualization: format bar (show/hide)'
     end
     object pmenViewToolbarsMacro: TMenuItem
-      Action = actTobMacroVisible
+      Caption = 'Macro (show/hide)'
+      Checked = True
+      Hint = 'Visualization: macro bar (show/hide)'
     end
     object pmenViewToolbarsMisc: TMenuItem
-      Action = actTobMiscVisible
+      Caption = 'Misc (show/hide)'
+      Checked = True
+      Hint = 'Visualization: misc bar (show/hide)'
     end
     object pmenViewToolbarsProcessing: TMenuItem
-      Action = actTobProcessingVisible
+      Caption = 'Processing (show/hide)'
+      Checked = True
+      Hint = 'Visualization: processing bar (show/hide)'
     end
     object pmenViewToolbarsR: TMenuItem
-      Action = actTobRVisible
+      Caption = 'R (show/hide)'
+      Checked = True
+      Hint = 'Visualization: R bar (show/hide)'
     end
     object pmenViewToolbarsSearch: TMenuItem
-      Action = actTobSearchVisible
+      Caption = 'Search (show/hide)'
+      Checked = True
+      Hint = 'Visualization: search bar (show/hide)'
     end
     object pmenViewToolbarsSpell: TMenuItem
-      Action = actTobSpellVisible
+      Caption = 'Spell (show/hide)'
+      Checked = True
+      Hint = 'Visualization: spell bar (show/hide)'
     end
     object pmenViewToolbarsSyntax: TMenuItem
-      Action = actTobSyntaxVisible
+      Caption = 'Syntax (show/hide)'
+      Checked = True
+      Hint = 'Visualization: syntax bar (show/hide)'
     end
     object pmenViewToolbarsView: TMenuItem
-      Action = actTobViewVisible
+      Caption = 'View (show/hide)'
+      Checked = True
+      Hint = 'Visualization: tools bar (show/hide)'
     end
   end
   object prDialog: TPrintDialog
     Options = [poPageNums, poSelection]
-    Left = 208
-    Top = 208
-  end
-  object synEditPrint: TSynEditPrint
-    Copies = 1
-    Header.FrameTypes = [ftLine, ftBox]
-    Header.DefaultFont.Charset = DEFAULT_CHARSET
-    Header.DefaultFont.Color = clBlack
-    Header.DefaultFont.Height = -13
-    Header.DefaultFont.Name = 'Arial'
-    Header.DefaultFont.Style = []
-    Footer.DefaultFont.Charset = DEFAULT_CHARSET
-    Footer.DefaultFont.Color = clBlack
-    Footer.DefaultFont.Height = -13
-    Footer.DefaultFont.Name = 'Arial'
-    Footer.DefaultFont.Style = []
-    Margins.Left = 25.000000000000000000
-    Margins.Right = 15.000000000000000000
-    Margins.Top = 25.000000000000000000
-    Margins.Bottom = 25.000000000000000000
-    Margins.Header = 30.000000000000000000
-    Margins.Footer = 15.000000000000000000
-    Margins.LeftHFTextIndent = 2.000000000000000000
-    Margins.RightHFTextIndent = 2.000000000000000000
-    Margins.HFInternalMargin = 0.500000000000000000
-    Margins.MirrorMargins = False
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    Colors = True
-    TabWidth = 8
-    Color = clWhite
-    Left = 208
-    Top = 176
-  end
-  object synMR: TSynMacroRecorder
-    RecordShortCut = 24658
-    PlaybackShortCut = 24656
-    OnStateChange = synMRStateChange
-    Left = 272
-    Top = 112
-  end
-  object synExporterRTF: TSynExporterRTF
-    Color = clWindow
-    DefaultFilter = 'Rich Text Format (*.rtf)|*.rtf'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Font.Style = []
-    Title = 'Untitled'
-    UseBackground = True
-    Left = 272
-    Top = 144
-  end
-  object synExporterHTML: TSynExporterHTML
-    Color = clWindow
-    CreateHTMLFragment = True
-    DefaultFilter = 'HTML Document (*.htm,*.html)|*.htm;*.html'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Font.Style = []
-    Title = 'Untitled'
-    UseBackground = True
-    Left = 272
-    Top = 176
-  end
-  object synExporterTeX: TSynExporterTeX
-    Color = clWindow
-    CreateTeXFragment = True
-    DefaultFilter = 'TeX Files (*.tex)|*.tex'
-    Encoding = seAnsi
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Font.Style = []
-    Title = 'Untitled'
-    UseBackground = True
-    Left = 272
-    Top = 208
-  end
-  object odMain: TOpenDialog
-    Left = 208
-    Top = 112
-  end
-  object sdMain: TSaveDialog
-    OnShow = sdMainShow
-    OnTypeChange = sdMainTypeChange
-    Left = 208
-    Top = 144
+    Left = 104
+    Top = 264
   end
   object pmenProjects: TJvPopupMenu
     Images = imlTinnR
@@ -1424,8 +587,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 16
-    Top = 240
+    Left = 408
+    Top = 512
     object pmenGroup_OLD: TMenuItem
       Caption = 'Group'
       SubMenuImages = imlTinnR
@@ -1573,19 +736,6 @@ object frmTinnMain: TfrmTinnMain
         OnClick = pmenProjRSetWorkDirClick
       end
     end
-    object N156: TMenuItem
-      Caption = '-'
-    end
-    object pmenProjFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenProjFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenProjFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
   end
   object pmenRcard: TJvPopupMenu
     Images = imlTinnR
@@ -1597,8 +747,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 48
-    Top = 304
+    Left = 120
+    Top = 464
     object Help5: TMenuItem
       Action = actRCardHelp
     end
@@ -1617,8 +767,8 @@ object frmTinnMain: TfrmTinnMain
     object pmenRCardCopyFunction: TMenuItem
       Action = actRCardCopyFunction
     end
-    object pmenRCardCopyDescrition: TMenuItem
-      Action = actRCardCopyDescrition
+    object pmenRCardCopyDescription: TMenuItem
+      Action = actRCardCopyDescription
     end
     object N72: TMenuItem
       Caption = '-'
@@ -1632,48 +782,6 @@ object frmTinnMain: TfrmTinnMain
     object Insert1: TMenuItem
       Action = actRcardInsert
     end
-    object N161: TMenuItem
-      Caption = '-'
-    end
-    object pmenRCardFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenRCardFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenRCardFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object pmenRCardMemo: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 80
-    Top = 304
-    object pmenRCardMemoCopy: TMenuItem
-      Action = actRCardCopyDescrition
-    end
-    object N160: TMenuItem
-      Caption = '-'
-    end
-    object pmenRCardMemoFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenRCardMemoFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenRCardMemoFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
   end
   object csREnvironment: TClientSocket
     Active = False
@@ -1681,400 +789,402 @@ object frmTinnMain: TfrmTinnMain
     Port = 0
     OnRead = csREnvironmentRead
     OnError = csREnvironmentError
-    Left = 304
-    Top = 208
+    Left = 232
+    Top = 264
   end
   object imlRexplorer: TImageList
-    Left = 176
-    Top = 144
+    BlendColor = clHighlight
+    BkColor = clWhite
+    Left = 56
+    Top = 200
     Bitmap = {
-      494C01010A002806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A0028066C0910001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
+      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      80000000800000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF00000080000000
       80000000800000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00000000000000000000000000000000000000000000FFFF0000FF
-      FF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FF
-      FF0000FFFF000000000000000000000000000000000000000000000000000000
+      FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000000FFFF0000FF
-      FF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FF
-      FF0000FFFF000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      80000000800000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
       FF00FFFFFF000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF00FFFFFF0000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF00000080000000
+      80000000800000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF000000000000FFFF0000FF
+      FF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FF
+      FF0000FFFF0000000000FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF00FFFFFF000000000000FFFF0000FF
+      FF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FFFF0000FF
+      FF0000FFFF0000000000FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF00000080000000
+      80000000800000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000080808000FFFFFF0080E0E00000C0
-      E000FFFFFF0080E0E00000C0E000FFFFFF0080E0E00000C0E000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000000000000FFFFFF00FFFFFF00FFFF
+      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF0080E0E00000C0
+      E000FFFFFF0080E0E00000C0E000FFFFFF0080E0E00000C0E00000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000008080800080E0E000FFFFFF0000C0
+      00000000000000000000FFFFFF00FFFFFF008080800080E0E000FFFFFF0000C0
       E00080E0E000FFFFFF0000C0E00080E0E000FFFFFF0000C0E000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000000000000FFFFFF0000000000FFFF
-      FF0000000000FFFFFF0000000000FFFFFF0000000000FFFFFF00000000000000
-      000000000000000000000000000000000000000000000000000000000000FFFF
+      0000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF000000000000000000000000008080800000C0E00000C0E00000C0
-      E00000C0E00000C0E00000C0E000FFFFFF0080E0E00000C0E0000000000000C0
-      E000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000000000000FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
-      000000000000000000000000000000000000000000000000000000000000FFFF
-      FF000000000000000000FFFFFF000000000000000000FFFFFF00000000000000
-      0000FFFFFF0000000000000000000000000080808000FFFFFF0080E0E00000C0
-      E000FFFFFF0080E0E00000C0E0000000000000000000000000000000000000C0
-      E000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000000000000FFFFFF0000000000FFFF
-      FF00000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000000000000FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF000000000000000000000000008080800080E0E000FFFFFF0000C0
-      E00080E0E000FFFFFF0000C0E0000000000000C0E00000C0E0000000000000C0
-      E000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000000000000FFFFFF00FFFFFF00FFFF
-      FF0000000000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000000000FFFF
-      FF00FFFFFF00FFFFFF000000000000000000000000000000000000000000FFFF
-      FF000000000000000000FFFFFF000000000000000000FFFFFF00000000000000
-      0000FFFFFF000000000000000000000000008080800000C0E00000C0E0000000
-      000000C0E000FFFFFF0000C0E0000000000080E0E00000C0E000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000000000000FFFFFF0000000000FFFF
-      FF0000000000C0C0C00000000000C0C0C00000000000C0C0C00000000000FFFF
-      FF0000000000FFFFFF000000000000000000000000000000000000000000FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF0000000000000000000000000080808000FFFFFF0080E0E00000C0
-      E00000000000000000000000000000000000FFFFFF0000C0E0000000000000C0
-      E00000000000000000000000000000000000000000000000000000000000FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00000000000000000000000000FFFFFF00FFFFFF00FFFF
-      FF0000000000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000000000FFFF
-      FF00FFFFFF00FFFFFF000000000000000000000000000000000000000000FFFF
-      FF000000000000000000FFFFFF000000000000000000FFFFFF00000000000000
-      0000FFFFFF000000000000000000000000008080800080E0E000FFFFFF0000C0
-      E0000000000000C0E00000C0E00000C0E00000000000000000000000000000C0
-      E00000000000000000000000000000000000000000000000000000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF0000000000FFFF
       FF0000000000FFFFFF0000000000FFFFFF0000000000FFFFFF0000000000FFFF
-      FF0000000000FFFFFF0000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000000000000FFFF
-      FF0000000000FFFFFF000000000000000000000000000000000000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00000000000000000000000000000000008080800080E0E000FFFF
-      FF000000000080E0E000FFFFFF0000C0E0000000000000C0E0000000000000C0
-      E00000000000000000000000000000000000000000000000000000000000FFFF
+      FF00FFFFFF0000000000FFFFFF00FFFFFF008080800000C0E00000C0E00000C0
+      E00000C0E00000C0E00000C0E000FFFFFF0080E0E00000C0E0000000000000C0
+      E00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF0000000000000000000000000000000000000000000000
-      000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF000000000000000000000000000000000000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFF
       FF000000000000000000FFFFFF000000000000000000FFFFFF00000000000000
-      0000FFFFFF0000000000000000000000000000000000000000008080800000C0
-      E00000C0E000FFFFFF00FFFFFF0000C0E0000000000000C0E000808080000000
-      00008080800000C0E00000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000FFFFFF0000000000FFFFFF0000000000FFFFFF0000000000FFFF
-      FF0000000000FFFFFF000000000000000000000000000000000000000000FFFF
+      0000FFFFFF0000000000FFFFFF00FFFFFF0080808000FFFFFF0080E0E00000C0
+      E000FFFFFF0080E0E00000C0E0000000000000000000000000000000000000C0
+      E00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF000000000000000000000000000000000000000000000000008080
-      8000808080008080800080808000808080008080800000000000000000008080
-      800000C0E00080E0E00000C0E000000000000000000000000000000000000000
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF0000000000FFFF
+      FF00000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000000000FFFFFF00FFFFFF008080800080E0E000FFFFFF0000C0
+      E00080E0E000FFFFFF0000C0E0000000000000C0E00000C0E0000000000000C0
+      E00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFF
+      FF0000000000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000000000FFFF
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF000000000000000000FFFFFF000000000000000000FFFFFF00000000000000
+      0000FFFFFF0000000000FFFFFF00FFFFFF008080800000C0E00000C0E0000000
+      000000C0E000FFFFFF0000C0E0000000000080E0E00000C0E000000000000000
+      000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000FFFFFF0000000000FFFFFF0000000000FFFF
+      FF0000000000C0C0C00000000000C0C0C00000000000C0C0C00000000000FFFF
+      FF0000000000FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000000000FFFFFF00FFFFFF0080808000FFFFFF0080E0E00000C0
+      E00000000000000000000000000000000000FFFFFF0000C0E0000000000000C0
+      E00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0000000000FFFFFF0000000000FFFFFF00FFFFFF00FFFF
+      FF0000000000C0C0C000C0C0C000C0C0C000C0C0C000C0C0C00000000000FFFF
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF000000000000000000FFFFFF000000000000000000FFFFFF00000000000000
+      0000FFFFFF0000000000FFFFFF00FFFFFF008080800080E0E000FFFFFF0000C0
+      E0000000000000C0E00000C0E00000C0E00000000000000000000000000000C0
+      E00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF0000000000FFFFFF0000000000FFFFFF0000000000FFFFFF0000000000FFFF
+      FF0000000000FFFFFF0000000000FFFFFF000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000FFFF
+      FF0000000000FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF008080800080E0E000FFFF
+      FF000000000080E0E000FFFFFF0000C0E0000000000000C0E0000000000000C0
+      E0000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF000000000000000000FFFFFF000000000000000000FFFFFF00000000000000
+      0000FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF008080800000C0
+      E00000C0E000FFFFFF00FFFFFF0000C0E0000000000000C0E000808080000000
+      00008080800000C0E00000000000FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF0000000000000000000000000000000000000000000000
+      0000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF0000000000FFFFFF0000000000FFFFFF0000000000FFFFFF0000000000FFFF
+      FF0000000000FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008080
+      8000808080008080800080808000808080008080800000000000FFFFFF008080
+      800000C0E00080E0E00000C0E00000000000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008080800000C0E00000000000FFFF
+      FF0080808000FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF008080800000C0E00080E0E00000C0E0000000
+      0000FFFFFF0080808000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF0000000000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0080808000FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00145D
+      9500105A9200FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00145D
+      9500105A9200FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0022669E001B62
+      9A0022679D00115B9300FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0022669E001B62
+      9A0022679D00115B9300FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000
+      800000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000008080800000C0E000000000000000
-      000080808000FFFFFF0000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000008080800000C0E00080E0E00000C0E0000000
-      0000000000008080800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000080808000FFFFFF00000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000080808000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000000000000145D
-      9500105A92000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000000000000145D
-      9500105A92000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000022669E001B62
-      9A0022679D00115B930000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000000000000022669E001B62
-      9A0022679D00115B930000000000000000000000000000000000000000000000
-      8000000080000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000003272AA002B6DA500558D
-      BC0089B5DD00185F970000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000000000003272AA002B6DA500558D
-      BC0089B5DD00185F970000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000C0C0C000C0C0
+      0000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003272AA002B6DA500558D
+      BC0089B5DD00185F9700FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF003272AA002B6DA500558D
+      BC0089B5DD00185F9700FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000C0C0C000C0C0
       C00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF0000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000447FB7003C79B1006497C5009DC1
-      E4006699C7001F659D0000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000447FB7003C79B1006497C5009DC1
-      E4006699C7001F659D0000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000800000008000
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00447FB7003C79B1006497C5009DC1
+      E4006699C7001F659D00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00447FB7003C79B1006497C5009DC1
+      E4006699C7001F659D00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000800000008000
       000000000000FFFFFF0000000000FFFFFF0000000000FFFFFF0000000000FFFF
-      FF0000000000FFFFFF0000000000000000000000000000000000DDB28F00D9AE
+      FF0000000000FFFFFF0000000000FFFFFF00FFFFFF00FFFFFF00DDB28F00D9AE
       8A00D6A98500D3A57F00D0A07B00CD9C7600A2938A0075A2CC00ABCBE80076A4
-      CE003070A800286BA30000000000000000000000000000000000DDB28F00D9AE
+      CE003070A800286BA300FFFFFF00FFFFFF00FFFFFF00FFFFFF00DDB28F00D9AE
       8A00D6A98500D3A57F00D0A07B00CD9C7600A2938A0075A2CC00ABCBE80076A4
-      CE003070A800286BA30000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000C0C0C000C0C0
+      CE003070A800286BA300FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000C0C0C000C0C0
       C00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00000000000000000000000000E4BD9B00E1B89600E8C9
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00E4BD9B00E1B89600E8C9
       AE00F5E1CD00F7E5D300F7E5D100F3DDC800DFBA9C00C7A8910086AED500417D
-      B5003977AF0000000000000000000000000000000000E4BD9B00E1B89600E8C9
+      B5003977AF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00E4BD9B00E1B89600E8C9
       AE00F5E1CD00F7E5D300F7E5D100F3DDC800DFBA9C00C7A8910086AED500417D
-      B5003977AF000000000000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000008000000000000000
-      8000000000000000000000000000000000000000000000000000800000008000
+      B5003977AF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF0000008000FFFFFF000000
+      8000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000800000008000
       000000000000FFFFFF0000000000FFFFFF0000000000FFFFFF0000000000FFFF
-      FF0000000000FFFFFF00000000000000000000000000E8C3A200EDD0B700F8E8
+      FF0000000000FFFFFF0000000000FFFFFF00FFFFFF00E8C3A200EDD0B700F8E8
       D900F5DEC800F3D8BD00F3D6BB00F4DBC200F7E4D200DFBB9D009D9492004B84
-      BC000000000000000000000000000000000000000000E8C3A200EDD0B700F8E8
+      BC00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00E8C3A200EDD0B700F8E8
       D900F5DEC800F3D8BD00F3D6BB00F4DBC200F7E4D200DFBB9D009D9492004B84
-      BC00000000000000000000000000000000000000000000000000000000000000
-      8000000080000000800000008000000000000000000000000000000080000000
-      0000000000000000000000000000000000000000000000000000C0C0C000C0C0
+      BC00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000000
+      8000000080000000800000008000FFFFFF00FFFFFF00FFFFFF0000008000FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000C0C0C000C0C0
       C00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00000000000000000000000000ECC8A800F7E7D700F6E1
-      CC00F4DBC200F4DAC000F3D8BD00F3D7BB00F4DBC200F3DEC900CD9F7B000000
-      00000000000000000000000000000000000000000000ECC8A800F7E7D700F6E1
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00ECC8A800F7E7D700F6E1
+      CC00F4DBC200F4DAC000F3D8BD00F3D7BB00F4DBC200F3DEC900CD9F7B00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00ECC8A800F7E7D700F6E1
       CC00F4DBC200F4DAC000F3D8BD007371F3005654F7004845F4003A35F1002E26
-      EE00231AEC001C11EA0000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000008000000000000000
-      8000000000000000000000000000000000000000000000000000800000008000
+      EE00231AEC001C11EA00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF0000008000FFFFFF000000
+      8000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000800000008000
       000000000000FFFFFF0000000000FFFFFF0000000000FFFFFF0000000000FFFF
-      FF0000000000FFFFFF00000000000000000000000000F0CEAE00F9ECDF00F5DF
-      C800F5DDC600F4DCC300F4DAC100F3D9BE00F3D7BD00F8E6D300D3A57F000000
-      00000000000000000000000000000000000000000000F0CEAE00F9ECDF00F5DF
+      FF0000000000FFFFFF0000000000FFFFFF00FFFFFF00F0CEAE00F9ECDF00F5DF
+      C800F5DDC600F4DCC300F4DAC100F3D9BE00F3D7BD00F8E6D300D3A57F00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F0CEAE00F9ECDF00F5DF
       C800F5DDC600F4DCC300F4DAC1006D6FFC0095A7F20091A1F0008D9BED008793
-      EB00828CE800231AEC0000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000C0C0C000C0C0
+      EB00828CE800231AEC00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000C0C0C000C0C0
       C00000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00000000000000000000000000F4D3B400F9EDE100F6E1
-      CC00F5DFC900F5DEC700F4DCC400F4DBC200F4DAC000F8E7D600D7AA86000000
-      00000000000000000000000000000000000000000000F4D3B400F9EDE100F6E1
+      FF00FFFFFF00FFFFFF0000000000FFFFFF00FFFFFF00F4D3B400F9EDE100F6E1
+      CC00F5DFC900F5DEC700F4DCC400F4DBC200F4DAC000F8E7D600D7AA8600FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F4D3B400F9EDE100F6E1
       CC00F5DFC900F5DEC700F4DCC4007E80F9006D6FFC006263FA005654F7004845
-      F4003A35F1002E26EE0000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000800000008000
+      F4003A35F1002E26EE00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000800000008000
       0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000000000000000F7D7B900F9EBDE00F7E7
-      D600F6E1CC00F5E0CA00F5DEC800F5DDC500F6E1CB00F5E2D000DBB08C000000
-      00000000000000000000000000000000000000000000F7D7B900F9EBDE00F7E7
-      D600F6E1CC00F5E0CA00F5DEC800F5DDC500F6E1CB00F5E2D000DBB08C000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000800000008000
+      0000000000000000000000000000FFFFFF00FFFFFF00F7D7B900F9EBDE00F7E7
+      D600F6E1CC00F5E0CA00F5DEC800F5DDC500F6E1CB00F5E2D000DBB08C00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F7D7B900F9EBDE00F7E7
+      D600F6E1CC00F5E0CA00F5DEC800F5DDC500F6E1CB00F5E2D000DBB08C00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000800000008000
       000080000000C0C0C00080000000C0C0C00080000000C0C0C00080000000C0C0
-      C00080000000C0C0C000000000000000000000000000FADBBD00F8E2CC00FAEE
-      E300F7E7D600F6E2CE00F6E1CB00F6E3D000F9EADD00ECCFB500DFB693000000
-      00000000000000000000000000000000000000000000FADBBD00F8E2CC00FAEE
-      E300F7E7D600F6E2CE00F6E1CB00F6E3D000F9EADD00ECCFB500DFB693000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000800000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000800000008000
+      C00080000000C0C0C00000000000FFFFFF00FFFFFF00FADBBD00F8E2CC00FAEE
+      E300F7E7D600F6E2CE00F6E1CB00F6E3D000F9EADD00ECCFB500DFB69300FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FADBBD00F8E2CC00FAEE
+      E300F7E7D600F6E2CE00F6E1CB00F6E3D000F9EADD00ECCFB500DFB69300FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF0000008000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000800000008000
       000080000000C0C0C00080000000C0C0C00080000000C0C0C00080000000C0C0
-      C00080000000C0C0C000000000000000000000000000FCDEC000FADBBE00F9E2
-      CD00FAECDE00F9EEE200F9EDE200F8E9DA00F0D5BD00E7C09F00E3BC9A000000
-      00000000000000000000000000000000000000000000FCDEC000FADBBE00F9E2
-      CD00FAECDE00F9EEE200F9EDE200F8E9DA00F0D5BD00E7C09F00E3BC9A000000
+      C00080000000C0C0C00000000000FFFFFF00FFFFFF00FCDEC000FADBBE00F9E2
+      CD00FAECDE00F9EEE200F9EDE200F8E9DA00F0D5BD00E7C09F00E3BC9A00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FCDEC000FADBBE00F9E2
+      CD00FAECDE00F9EEE200F9EDE200F8E9DA00F0D5BD00E7C09F00E3BC9A00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF000000800000008000FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF0000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000008000000080000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000FCDEC100FADC
-      BF00F9D9BB00F6D6B800F4D3B400F1CFAF00EECBAB00EBC6A600000000000000
-      0000000000000000000000000000000000000000000000000000FCDEC100FADC
-      BF00F9D9BB00F6D6B800F4D3B400F1CFAF00EECBAB00EBC6A600000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      000000000000000000000000000000000000424D3E000000000000003E000000
+      0000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FCDEC100FADC
+      BF00F9D9BB00F6D6B800F4D3B400F1CFAF00EECBAB00EBC6A600FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FCDEC100FADC
+      BF00F9D9BB00F6D6B800F4D3B400F1CFAF00EECBAB00EBC6A600FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00424D3E000000000000003E000000
       2800000040000000300000000100010000000000800100000000000000000000
       000000000000000000000000FFFFFF00FFFFFFFF00000000FFFFFFFF00000000
       F803FFFF00000000C003FFFF00000000D803FFFF00000000DFFFFEFF00000000
@@ -2091,124 +1201,16 @@ object frmTinnMain: TfrmTinnMain
       C03FC03FFFFFFFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object pmenRExplorer: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 16
-    Top = 304
-    object act1: TMenuItem
-      Action = actRExplorerHelp
-    end
-    object N195: TMenuItem
-      Caption = '-'
-    end
-    object pmenRexplorerHelp: TMenuItem
-      Action = actRExplorerHelpSelected
-    end
-    object pmenRexplorerExample: TMenuItem
-      Action = actRExplorerExampleSelected
-    end
-    object N57: TMenuItem
-      Caption = '-'
-    end
-    object pmenRexplorerBasic: TMenuItem
-      Action = actRExplorerBasic
-      object pmenRexplorerSummary: TMenuItem
-        Action = actRExplorerSummary
-      end
-      object N69: TMenuItem
-        Caption = '-'
-      end
-      object pmenRexplorerRemove: TMenuItem
-        Action = actRExplorerRemove
-      end
-      object pmenRexplorerRemoveAllObjects: TMenuItem
-        Action = actRExplorerRemoveAllObjects
-      end
-    end
-    object pmenRexplorerNameSendToR: TMenuItem
-      Action = actRExplorerContent
-    end
-    object pmenRexplorerPlot: TMenuItem
-      Action = actRExplorerPlot
-    end
-    object pmenRexplorerNames: TMenuItem
-      Action = actRExplorerNames
-    end
-    object pmenRexplorerStructure: TMenuItem
-      Action = actRExplorerStructure
-    end
-    object pmenRexplorerEdit: TMenuItem
-      Action = actRExplorerEdit
-    end
-    object pmenRexplorerFix: TMenuItem
-      Action = actRExplorerFix
-    end
-    object N64: TMenuItem
-      Caption = '-'
-    end
-    object pmenRexplorerName: TMenuItem
-      Caption = 'Name'
-      Hint = 'Name'
-      ImageIndex = 195
-      object pmenRexplorerNameSendToEditor: TMenuItem
-        Action = actRExplorerSendNameToEditor
-      end
-      object pmenRexplorerNameSendToClipboard: TMenuItem
-        Action = actRExplorerSendNameToClipboard
-      end
-    end
-    object pmenRexplorerContent: TMenuItem
-      Caption = 'Content'
-      Hint = 'Content'
-      ImageIndex = 196
-      object pmenRexplorerContentCopyRaw: TMenuItem
-        Action = actRExplorerExpRaw
-      end
-      object pmenRexplorerContentCopyASCII: TMenuItem
-        Action = actRExplorerExpASCII
-      end
-      object pmenRexplorerContentCopyHTML: TMenuItem
-        Action = actRExplorerExpHTML
-      end
-      object pmenRexplorerContentCopyTeX: TMenuItem
-        Action = actRExplorerExpTeX
-      end
-    end
-    object N61: TMenuItem
-      Caption = '-'
-    end
-    object pmenRexplorerStyle: TMenuItem
-      Action = actRExplorerStyle
-    end
-    object N159: TMenuItem
-      Caption = '-'
-    end
-    object pmenRexplorerFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenRexplorerFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenRexplorerFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
   object csRExplorer: TClientSocket
     Active = False
     ClientType = ctNonBlocking
     Port = 0
+    OnConnect = csRExplorerConnect
+    OnRead = csRExplorerRead
+    OnWrite = csRExplorerWrite
     OnError = csRExplorerError
-    Left = 304
-    Top = 176
+    Left = 232
+    Top = 208
   end
   object csRGeneral: TClientSocket
     Active = False
@@ -2218,55 +1220,24 @@ object frmTinnMain: TfrmTinnMain
     OnDisconnect = csRGeneralDisconnect
     OnRead = csRGeneralRead
     OnError = csRGeneralError
-    Left = 304
-    Top = 112
+    Left = 232
+    Top = 104
   end
   object csRTip: TClientSocket
     Active = False
     ClientType = ctNonBlocking
     Port = 0
     OnError = csRTipError
-    Left = 304
-    Top = 144
-  end
-  object pmenWinExplorerFiles: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 48
-    Top = 208
-    object pmenWinExplorerFilesRefresh: TMenuItem
-      Caption = 'Refresh'
-      ImageIndex = 86
-      OnClick = pmenWinExplorerFilesRefreshClick
-    end
-    object N67: TMenuItem
-      Caption = '-'
-    end
-    object pmenWinExplorerFilesFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenWinExplorerFilesFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenWinExplorerFilesFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
+    Left = 232
+    Top = 152
   end
   object zipKit: TAbZipKit
     AutoSave = False
     DOSMode = False
     ExtractOptions = []
     StoreOptions = []
-    Left = 336
-    Top = 208
+    Left = 440
+    Top = 104
   end
   object pmenSearch: TJvPopupMenu
     Images = imlTinnR
@@ -2278,8 +1249,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 48
-    Top = 240
+    Left = 40
+    Top = 416
     object pmenResultsOpenLink: TMenuItem
       Caption = 'Locate link'
       OnClick = pmenResultsOpenLinkClick
@@ -2291,353 +1262,127 @@ object frmTinnMain: TfrmTinnMain
     object pmenResultsNewSearch: TMenuItem
       Action = actSearchInFiles
     end
-    object N157: TMenuItem
-      Caption = '-'
-    end
-    object pmenResultsFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenResultsFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenResultsFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object pmenRRes: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 112
-    Top = 144
-    object pmenRResSend: TMenuItem
-      Caption = 'Send to R'
-      ImageIndex = 0
-      object pmemRResSendSourceFile: TMenuItem
-        Caption = 'File'
-        ImageIndex = 1
-        OnClick = pmemRResSendSourceFileClick
-      end
-      object pmemRResSendFile: TMenuItem
-        Caption = 'File (echo=TRUE)'
-        ImageIndex = 2
-        OnClick = pmemRResSendFileClick
-      end
-      object N78: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResSendSourceSelection: TMenuItem
-        Caption = 'Selection'
-        ImageIndex = 3
-        OnClick = pmemRResSendSourceSelectionClick
-      end
-      object pmemRResSendSelection: TMenuItem
-        Caption = 'Selection (echo=TRUE)'
-        ImageIndex = 4
-        OnClick = pmemRResSendSelectionClick
-      end
-      object N172: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResSendSourceClipboard: TMenuItem
-        Caption = 'Clipboard'
-        ImageIndex = 268
-        OnClick = pmemRResSendSourceClipboardClick
-      end
-      object pmemRResSendClipboard: TMenuItem
-        Caption = 'Clipboard (echo=TRUE)'
-        ImageIndex = 269
-        OnClick = pmemRResSendClipboardClick
-      end
-      object N79: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResSendSourceBlockMarked: TMenuItem
-        Caption = 'Marked block'
-        ImageIndex = 5
-        OnClick = pmemRResSendSourceBlockMarkedClick
-      end
-      object pmemRResSendBlockMarked: TMenuItem
-        Caption = 'Marked block (echo=TRUE)'
-        ImageIndex = 6
-        OnClick = pmemRResSendBlockMarkedClick
-      end
-      object N143: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResSendSourceContiguous: TMenuItem
-        Caption = 'Contiguous'
-        ImageIndex = 270
-        OnClick = pmemRResSendSourceContiguousClick
-      end
-      object pmemRResSendContiguous: TMenuItem
-        Caption = 'Contiguous (echo=TRUE)'
-        ImageIndex = 271
-        OnClick = pmemRResSendContiguousClick
-      end
-      object N80: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResSendLine: TMenuItem
-        Caption = 'Line'
-        ImageIndex = 7
-        OnClick = pmemRResSendLineClick
-      end
-      object N174: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResCurrentLineToTop: TMenuItem
-        Caption = 'Current line to top'
-        ImageIndex = 9
-        OnClick = pmemRResCurrentLineToTopClick
-      end
-      object pmemRResSendLinesToEndPage: TMenuItem
-        Caption = 'Lines to end page (echo=TRUE)'
-        ImageIndex = 8
-        OnClick = pmemRResSendLinesToEndPageClick
-      end
-      object N81: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResSendCursorToBeginningLine: TMenuItem
-        Caption = 'Cursor to beginning line'
-        ImageIndex = 10
-        OnClick = pmemRResSendCursorToBeginningLineClick
-      end
-      object pmemRResSendCursorToEndLine: TMenuItem
-        Caption = 'Cursor to end line'
-        ImageIndex = 11
-        OnClick = pmemRResSendCursorToEndLineClick
-      end
-      object N164: TMenuItem
-        Caption = '-'
-      end
-      object pmemRResSendSweave: TMenuItem
-        Caption = 'Sweave'
-        ImageIndex = 266
-        OnClick = pmemRResSendSweaveClick
-      end
-      object pmemRResSendKnitr: TMenuItem
-        Caption = 'Knitr'
-        ImageIndex = 277
-        OnClick = pmemRResSendKnitrClick
-      end
-    end
-    object N83: TMenuItem
-      Caption = '-'
-    end
-    object pmenRResCont: TMenuItem
-      Caption = 'Control R'
-      ImageIndex = 12
-      object pmenRResContSetWorkDirectory: TMenuItem
-        Caption = 'Set work directory (current file path)'
-        ImageIndex = 13
-        OnClick = pmenRResContSetWorkDirectoryClick
-      end
-      object N89: TMenuItem
-        Caption = '-'
-      end
-      object pmenRResContListAllObjects: TMenuItem
-        Caption = 'List all objects'
-        ImageIndex = 14
-        OnClick = pmenRResContListAllObjectsClick
-      end
-      object pmenRResContPrintVariableContent: TMenuItem
-        Caption = 'Print content (selected)'
-        ImageIndex = 15
-        OnClick = pmenRResContPrintVariableContentClick
-      end
-      object pmenRResContPlotVariable: TMenuItem
-        Caption = 'Plot (selected)'
-        ImageIndex = 253
-        OnClick = pmenRResContPlotVariableClick
-      end
-      object pmenRResContListVariableNames: TMenuItem
-        Caption = 'List names (selected)'
-        ImageIndex = 16
-        OnClick = pmenRResContListVariableNamesClick
-      end
-      object pmenRResContListVariableStructure: TMenuItem
-        Caption = 'List structure (selected)'
-        ImageIndex = 17
-        OnClick = pmenRResContListVariableStructureClick
-      end
-      object pmenRResContEditVariable: TMenuItem
-        Caption = 'Edit (selected)'
-        ImageIndex = 18
-        OnClick = pmenRResContEditVariableClick
-      end
-      object pmenRResContFixVariable: TMenuItem
-        Caption = 'Fix (selected)'
-        ImageIndex = 19
-        OnClick = pmenRResContFixVariableClick
-      end
-      object N76: TMenuItem
-        Caption = '-'
-      end
-      object pmenRResContClearConsole: TMenuItem
-        Caption = 'Clear console'
-        ImageIndex = 20
-        OnClick = pmenRResContClearConsoleClick
-      end
-      object pmenRResContCloseAllGraphics: TMenuItem
-        Caption = 'Close all graphic devices'
-        ImageIndex = 21
-        OnClick = pmenRResContCloseAllGraphicsClick
-      end
-      object pmenRResContRemoveAllObjects: TMenuItem
-        Caption = 'Remove all objects'
-        ImageIndex = 22
-        OnClick = pmenRResContRemoveAllObjectsClick
-      end
-      object N85: TMenuItem
-        Caption = '-'
-      end
-      object pmenRResContClearAll: TMenuItem
-        Caption = 'Clear all'
-        ImageIndex = 23
-        OnClick = pmenRResContClearAllClick
-      end
-      object N82: TMenuItem
-        Caption = '-'
-      end
-      object pmenRResContEscape: TMenuItem
-        Caption = 'Stop'
-        ImageIndex = 24
-        OnClick = pmenRResContEscapeClick
-      end
-      object N77: TMenuItem
-        Caption = '-'
-      end
-      object pmenRResContHelpSelectedWord: TMenuItem
-        Caption = 'Help (selected)'
-        ImageIndex = 27
-        OnClick = pmenRResContHelpSelectedWordClick
-      end
-      object pmenRResContExampleSelectedWord: TMenuItem
-        Caption = 'Example (selected)'
-        ImageIndex = 26
-        OnClick = pmenRResContExampleSelectedWordClick
-      end
-      object pmenRResContHelp: TMenuItem
-        Caption = 'Help'
-        ImageIndex = 290
-        OnClick = pmenRResContHelpClick
-      end
-      object N113: TMenuItem
-        Caption = '-'
-      end
-      object pmenRResContGuiStartClose: TMenuItem
-        Caption = 'Rgui (start/close)'
-        ImageIndex = 80
-        OnClick = pmenRResContGuiStartCloseClick
-      end
-      object pmenRResContTermStartClose: TMenuItem
-        Caption = 'Rterm (start/close)'
-        ImageIndex = 244
-        OnClick = pmenRResContTermStartCloseClick
-      end
-      object pmenRResContPackages: TMenuItem
-        Caption = 'Packages'
-        Hint = 'R packages'
-        ImageIndex = 212
-        OnClick = pmenRResContPackagesClick
-      end
-      object N125: TMenuItem
-        Caption = '-'
-      end
-      object pmenRResContTCPConnection: TMenuItem
-        Caption = 'TCP/IP connection'
-        ImageIndex = 168
-        OnClick = pmenRResContTCPConnectionClick
-      end
-    end
   end
   object imlTinnR: TImageList
-    Left = 176
-    Top = 112
+    Left = 56
+    Top = 160
     Bitmap = {
-      494C010124012806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010125012806780910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000A0040000010020000000000000A0
-      0400000000000000000000000000000000000000000000000000000000000000
+      04000000000000000000000000000000000000000000369DD9003199D8002C94
+      D7002890D600238CD5001E88D4001A84D3001580D200117CD1000E79D1000A76
+      D0000773CF000470CF00016ECE00000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000003DA3DA00BCEBFA00BCEB
+      FC00BFEEFE00C6F4FF00CEF8FF00D3FAFF00D0F8FF00C7F2FF00BAE9FC00B3E4
+      F900B0E2F800B0E2F8000571CF00000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000043A8DB00BFECFB0059CF
+      F50041B0EC004EBAEF005AC2EF0060C6EF005CC4EF004CB6EF0037A5E6002A9A
+      E10038B8EE00B1E3F8000975D000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000049ADDC00C1EEFB005FD3
+      F7006CDBFC007FE5FF008FEDFF0097F2FF0093EDFF007CDFFF005BCCF80046BE
+      EF003CBAEE00B3E3F9000E79D100000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000004EB2DD00C3EFFB0065D6
+      F8004CB6EC005ABDEF0095EBFF003097DD004D82AB0084E1FF0041A9E900329F
+      E10042BEEF00B4E5F900137ED200000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000053B7DE00C6F0FC006AD9
+      F8007CE2FD0090E8FF0099E9FF00329FDF00548BB2008AE2FF006AD0F90050C5
+      F10046C1F000B6E7F9001883D300000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000058BBDF00C7F1FC006FDC
+      F90056BBED0061BDEF009BE7FF0035A6E2004BA4E10090E2FF0049ADE90038A4
+      E30049C4F000B8E8F9001E88D400000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000005CBFE000C8F3FC0075DF
+      F90089E6FD0095E7FF009AE5FF00AAEEFF00A8EDFF0099E3FF0074D5F90059CC
+      F3004FC8F100BBE9FA00248DD500000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000060C2E100C9F3FC00CBF3
+      FD00D4F6FE00D7F6FF00D8F4FF00E0F8FF00DFF8FF00DAF5FF00369AD500369A
+      D500369AD500BDEBFA002B93D600000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000061C3E100909395009191
+      91008E8E8E005AB9DC0055B8DF0051B5DE004DB1DD0049ADDC0080C3E400B4D9
+      EF0070B7E100359AD6003199D800000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000097979700B9B9
+      B9009A9A9A000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000098989800BCBC
+      BC00999999000000000000000000000000000000000098989800939393009A9A
+      9A00000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      00000000000000000000000000000000000000000000000000009B9B9B00C0C0
+      C000ACACAC00D8D8D8000000000000000000D2D2D2008F8F8F00A2A2A2008D8D
+      8D00000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000F0F0F000B1B1
+      B100C7C7C700AAAAAA0092929200929292009F9F9F00B4B4B40098989800B7B7
+      B700000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000000000000D9D9
+      D900AEAEAE00C8C8C800CACACA00CACACA00BEBEBE009B9B9B00CECECE000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -2645,49 +1390,7 @@ object frmTinnMain: TfrmTinnMain
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
+      0000E7E7E700BEBEBE00A2A2A2009E9E9E00B6B6B600E3E3E300000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -12040,11 +10743,11 @@ object frmTinnMain: TfrmTinnMain
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000000000000000000000000000424D3E000000000000003E000000
       2800000040000000A00400000100010000000000002500000000000000000000
-      000000000000000000000000FFFFFF0000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      00000000000000000000000000000000EFCFFFFFFFFFFFC7DFCFF00FFFFF0000
+      000000000000000000000000FFFFFF0080010000000000008001000000000000
+      8001000000000000800100000000000080010000000000008001000000000000
+      8001000000000000800100000000000080010000000000008001000000000000
+      C7FF000000000000C78F000000000000C30F000000000000C00F000000000000
+      E01F000000000000F03F000000000000EFCFFFFFFFFFFFC7DFCFF00FFFFF0000
       DFEFE00700000000BFE8C00300000000AFEF80010000E0006FA380010000E000
       4EAF800100008001AA9F800100000000EA7F800100000000E9C7800100000000
       EBFF800100008001EBFF80010000C0038803C0030000E007D557E007FFFFF00F
@@ -12339,138 +11042,58 @@ object frmTinnMain: TfrmTinnMain
       FFFF80078007FFFFFFFFFFFFFFFDFFFF00000000000000000000000000000000
       000000000000}
   end
-  object pmenSpell: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 80
-    Top = 240
-    object pmemSpellClearAll: TMenuItem
-      Caption = 'Clear all'
-      OnClick = pmemSpellClearAllClick
-    end
-    object pmemSpellSelectAll: TMenuItem
-      Caption = 'Select all'
-      OnClick = pmemSpellSelectAllClick
-    end
-    object N86: TMenuItem
-      Caption = '-'
-    end
-    object pmemSpellCut: TMenuItem
-      Caption = 'Cut'
-      ImageIndex = 47
-      OnClick = pmemSpellCutClick
-    end
-    object pmemSpellCopy: TMenuItem
-      Caption = 'Copy'
-      ImageIndex = 50
-      OnClick = pmemSpellCopyClick
-    end
-    object pmemSpellPaste: TMenuItem
-      Caption = 'Paste'
-      ImageIndex = 53
-      OnClick = pmemSpellPasteClick
-    end
-    object pmemSpellDelete: TMenuItem
-      Caption = 'Delete'
-      ImageIndex = 43
-      OnClick = pmemSpellDeleteClick
-    end
-    object N155: TMenuItem
-      Caption = '-'
-    end
-    object pmemSpellFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmemSpellFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmemSpellFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object pmenPgFiles: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 16
-    Top = 144
-    object pmenPgFilesCloseActive: TMenuItem
-      Action = actFileClose
-    end
-    object pmenPgFilesCloseOthers: TMenuItem
-      Action = actFileCloseOthers
-      SubMenuImages = imlTinnR
-    end
-    object pmenPgFilesCloseAll: TMenuItem
-      Action = actFileCloseAll
-    end
-    object N112: TMenuItem
-      Caption = '-'
-    end
-    object pmenPgFilesCloseRight: TMenuItem
-      Action = actFileCloseRight
-    end
-    object pmenPgFilesCloseLeft: TMenuItem
-      Action = actFileCloseLeft
-    end
-  end
   object alMain: TActionList
     Images = imlTinnR
-    Left = 144
-    Top = 112
-    object actCompletionHelp: TAction
-      Category = 'dtb Completion'
-      Caption = 'Help'
-      Hint = 'Completion: help'
-      ImageIndex = 25
-      OnExecute = actCompletionHelpExecute
+    Left = 648
+    Top = 272
+    object actShowMenuCompletion: TAction
+      Caption = 'actShowMenuShortcuts'
+    end
+    object actRcardInsert: TAction
+      Category = 'R library'
+      Caption = 'Insert'
+      Enabled = False
+      Hint = 'Card (R): insert'
+      ImageIndex = 267
+      ShortCut = 16455
+      OnExecute = actRcardInsertExecute
     end
     object actCompletionHelpSelected: TAction
       Category = 'dtb Completion'
       Caption = 'Help'
       Hint = 'Completion: help (current)'
       ImageIndex = 27
-      OnExecute = actCompletionHelpSelectedExecute
     end
     object actCompletionExampleSelected: TAction
       Category = 'dtb Completion'
       Caption = 'Example'
       Hint = 'Completion: example (current)'
       ImageIndex = 26
-      OnExecute = actCompletionExampleSelectedExecute
     end
     object actCompletionCopyFunction: TAction
       Category = 'dtb Completion'
       Caption = 'Copy function'
       Hint = 'Completion: copy function'
-      OnExecute = actCompletionCopyFunctionExecute
     end
     object actCompletionCopyDescrition: TAction
       Category = 'dtb Completion'
       Caption = 'Copy descrition'
       Hint = 'Completion: copy descrition'
-      OnExecute = actCompletionCopyDescritionExecute
     end
     object actCompletionEdit: TAction
       Category = 'dtb Completion'
       Caption = 'Edit'
       Hint = 'Completion: edit'
       ImageIndex = 18
-      OnExecute = actCompletionEditExecute
+    end
+    object actRcardInsertNoArgs: TAction
+      Category = 'R library'
+      Caption = 'Insert without arguments'
+      Enabled = False
+      Hint = 'Card (R): insert'
+      ImageIndex = 267
+      ShortCut = 16456
+      OnExecute = actRcardInsertNoArgsExecute
     end
     object actCompletionInsert: TAction
       Category = 'dtb Completion'
@@ -12478,55 +11101,45 @@ object frmTinnMain: TfrmTinnMain
       Enabled = False
       Hint = 'Completion: insert'
       ImageIndex = 267
-      OnExecute = actCompletionInsertExecute
     end
     object actRCardHelp: TAction
-      Category = 'dtb Card (R)'
+      Category = 'R library'
       Caption = 'Help'
       Hint = 'Card (R): help'
       ImageIndex = 25
       OnExecute = actRCardHelpExecute
     end
     object actRCardHelpSelected: TAction
-      Category = 'dtb Card (R)'
+      Category = 'R library'
       Caption = 'Help'
       Hint = 'Card (R): help (current)'
       ImageIndex = 27
       OnExecute = actRCardHelpSelectedExecute
     end
     object actRCardExampleSelected: TAction
-      Category = 'dtb Card (R)'
+      Category = 'R library'
       Caption = 'Example'
       Hint = 'Card (R): example (current)'
       ImageIndex = 26
       OnExecute = actRCardExampleSelectedExecute
     end
     object actRCardCopyFunction: TAction
-      Category = 'dtb Card (R)'
+      Category = 'R library'
       Caption = 'Copy function'
       Hint = 'Card (R): copy function'
       OnExecute = actRCardCopyFunctionExecute
     end
-    object actRCardCopyDescrition: TAction
-      Category = 'dtb Card (R)'
-      Caption = 'Copy descrition'
-      Hint = 'Card (R): copy descrition'
-      OnExecute = actRCardCopyDescritionExecute
+    object actRCardCopyDescription: TAction
+      Category = 'R library'
+      Caption = 'Copy description'
+      Hint = 'Card (R): copy description'
     end
     object actRCardEdit: TAction
-      Category = 'dtb Card (R)'
+      Category = 'R library'
       Caption = 'Edit'
       Hint = 'Card (R): edit'
       ImageIndex = 18
       OnExecute = actRCardEditExecute
-    end
-    object actRcardInsert: TAction
-      Category = 'dtb Card (R)'
-      Caption = 'Insert'
-      Enabled = False
-      Hint = 'Card (R): insert'
-      ImageIndex = 267
-      OnExecute = actRcardInsertExecute
     end
     object actShortcutsHelp: TAction
       Category = 'dtb Shortcuts'
@@ -12763,15 +11376,6 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 32835
       OnExecute = actCommentExecute
     end
-    object actUncommentFirst: TAction
-      Category = 'Edit'
-      Caption = 'Uncomment first(s)'
-      Enabled = False
-      Hint = 'Edit: uncomment first(s)'
-      ImageIndex = 140
-      ShortCut = 32846
-      OnExecute = actUncommentFirstExecute
-    end
     object actUncomment: TAction
       Category = 'Edit'
       Caption = 'Uncomment all'
@@ -12781,44 +11385,29 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 32858
       OnExecute = actUncommentExecute
     end
-    object actUpperCaseWord: TAction
+    object actUpperCase: TAction
       Category = 'Format'
-      Caption = 'Uppercase word'
+      Caption = 'Uppercase'
       Enabled = False
-      Hint = 'Format: uppercase (word)'
-      ImageIndex = 59
-      OnExecute = actUpperCaseWordExecute
-    end
-    object actLowerCaseWord: TAction
-      Category = 'Format'
-      Caption = 'Lowercase word'
-      Enabled = False
-      Hint = 'Format: lowercase (word)'
+      Hint = 'Format: uppercase'
       ImageIndex = 60
-      OnExecute = actLowerCaseWordExecute
+      OnExecute = actUpperCaseExecute
     end
-    object actInvertCaseWord: TAction
+    object actLowerCase: TAction
+      Category = 'Format'
+      Caption = 'Lowercase'
+      Enabled = False
+      Hint = 'Format: lowercase'
+      ImageIndex = 60
+      OnExecute = actLowerCaseExecute
+    end
+    object actInvertCase: TAction
       Category = 'Format'
       Caption = 'Invert case'
       Enabled = False
-      Hint = 'Format: invert case (word)'
-      OnExecute = actInvertCaseWordExecute
-    end
-    object actUpperCaseSelection: TAction
-      Category = 'Format'
-      Caption = 'Uppercase selection'
-      Enabled = False
-      Hint = 'Format: uppercase (selection)'
-      ImageIndex = 59
-      OnExecute = actUpperCaseSelectionExecute
-    end
-    object actLowercaseSelection: TAction
-      Category = 'Format'
-      Caption = 'Lowercase selection'
-      Enabled = False
-      Hint = 'Format: lowercase (selection)'
+      Hint = 'Format: invert case'
       ImageIndex = 60
-      OnExecute = actLowercaseSelectionExecute
+      OnExecute = actInvertCaseExecute
     end
     object actInvertSelection: TAction
       Category = 'Format'
@@ -13109,7 +11698,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = LatexFontSize
     end
     object actBlockMark: TAction
-      Category = 'Marks'
+      Category = 'Code visualization'
       Caption = 'Mark'
       Enabled = False
       Hint = 'Marks: block mark'
@@ -13118,7 +11707,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actBlockMarkExecute
     end
     object actBlockUnmark: TAction
-      Category = 'Marks'
+      Category = 'Code visualization'
       Caption = 'Unmark'
       Enabled = False
       Hint = 'Marks: block unmark'
@@ -13127,7 +11716,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actBlockUnmarkExecute
     end
     object actUnmarkAll: TAction
-      Category = 'Marks'
+      Category = 'Code visualization'
       Caption = 'Unmark all'
       Enabled = False
       Hint = 'Marks: unmark all'
@@ -13135,12 +11724,12 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 49240
       OnExecute = actUnmarkAllExecute
     end
-    object actAbout: TAction
-      Category = 'Misc'
+    object actHelpAbout: TAction
+      Category = 'Help'
       Caption = 'About'
       Hint = 'Misc: about'
       ImageIndex = 154
-      OnExecute = actAboutExecute
+      OnExecute = actHelpAboutExecute
     end
     object actAplicationExit: TAction
       Category = 'Misc'
@@ -13159,7 +11748,7 @@ object frmTinnMain: TfrmTinnMain
     end
     object actColorsPreference: TAction
       Category = 'Options'
-      Caption = 'Highlighters (settings)'
+      Caption = 'Highlighter settings'
       Hint = 'Options: color preferences'
       ImageIndex = 163
       OnExecute = actColorsPreferenceExecute
@@ -13183,7 +11772,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Text'
       GroupIndex = 2
       Hint = 'Options: Text as default'
-      OnExecute = actTextDefaultExecute
     end
     object actOpenMaximized: TAction
       Category = 'Options'
@@ -13210,7 +11798,7 @@ object frmTinnMain: TfrmTinnMain
       Category = 'Options'
       Caption = 'Read only'
       Hint = 'Options: read only (toogle)'
-      ImageIndex = 169
+      ImageIndex = 292
       OnExecute = actReadOnlyExecute
     end
     object actDOSMinimizedAlways: TAction
@@ -13238,34 +11826,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Open always after conversion (option)'
       Hint = 'Options: HTML open (always)'
       OnExecute = actHTMLOpenAlwaysExecute
-    end
-    object actNormalSelect: TAction
-      Category = 'Options'
-      Caption = 'Normal'
-      Checked = True
-      Enabled = False
-      Hint = 'Options: normal selection'
-      ImageIndex = 282
-      ShortCut = 24654
-      OnExecute = actNormalSelectExecute
-    end
-    object actLineSelect: TAction
-      Category = 'Options'
-      Caption = 'Line'
-      Enabled = False
-      Hint = 'Options: line selection'
-      ImageIndex = 283
-      ShortCut = 24652
-      OnExecute = actLineSelectExecute
-    end
-    object actColumnSelect: TAction
-      Category = 'Options'
-      Caption = 'Column'
-      Enabled = False
-      Hint = 'Options: column selection'
-      ImageIndex = 284
-      ShortCut = 24643
-      OnExecute = actColumnSelectExecute
     end
     object actProjectNew: TAction
       Category = 'Project'
@@ -13778,14 +12338,14 @@ object frmTinnMain: TfrmTinnMain
     end
     object actRExplorerSendNameToEditor: TAction
       Category = 'R explorer'
-      Caption = 'Editor (send)'
-      Hint = 'Explorer (R): editor (send to)'
+      Caption = 'Insert name into editor'
+      Hint = 'R Explorer: Insert name into editor'
       OnExecute = actRExplorerSendNameToEditorExecute
     end
     object actRExplorerSendNameToClipboard: TAction
       Category = 'R explorer'
-      Caption = 'Clipboard (send)'
-      Hint = 'Explorer (R): clipboard (send to)'
+      Caption = 'Copy name to clipboard'
+      Hint = 'R Explorer: Copy name to clipboard'
       OnExecute = actRExplorerSendNameToClipboardExecute
     end
     object actRExplorerExpRaw: TAction
@@ -13841,127 +12401,87 @@ object frmTinnMain: TfrmTinnMain
       Hint = 'Explorer (R): refresh filter'
       ImageIndex = 86
       ShortCut = 24645
-      OnExecute = actRFilterRefreshExecute
-    end
-    object actRSendSourceFile: TAction
-      Category = 'R send'
-      Caption = 'File'
-      Enabled = False
-      Hint = 'R send: file'
-      ImageIndex = 1
-      OnExecute = actRSendSourceFileExecute
     end
     object actRSendFile: TAction
       Category = 'R send'
-      Caption = 'File (echo=TRUE)'
+      Caption = 'Send File to R'
       Enabled = False
-      Hint = 'R send: file (echo=TRUE)'
-      ImageIndex = 2
+      Hint = 'Send File to R'
+      ImageIndex = 1
       OnExecute = actRSendFileExecute
-    end
-    object actRSendSourceSelection: TAction
-      Category = 'R send'
-      Caption = 'Selection'
-      Enabled = False
-      Hint = 'R send: selection'
-      ImageIndex = 3
-      OnExecute = actRSendSourceSelectionExecute
     end
     object actRSendSelection: TAction
       Category = 'R send'
-      Caption = 'Selection (echo=TRUE)'
+      Caption = 'Send selection to R'
       Enabled = False
-      Hint = 'R send: selection (echo=TRUE)'
-      ImageIndex = 4
+      Hint = 'Send selection to R'
+      ImageIndex = 3
+      ShortCut = 16468
       OnExecute = actRSendSelectionExecute
-    end
-    object actRSendSourceClipboard: TAction
-      Category = 'R send'
-      Caption = 'Clipboard'
-      Enabled = False
-      Hint = 'R send: clipboard'
-      ImageIndex = 268
-      ShortCut = 16465
-      OnExecute = actRSendSourceClipboardExecute
     end
     object actRSendClipboard: TAction
       Category = 'R send'
-      Caption = 'Clipboard (echo=TRUE)'
+      Caption = 'Send clipboard content to R'
       Enabled = False
-      Hint = 'R send: clipboard (echo=TRUE)'
-      ImageIndex = 269
+      Hint = 'Send clipboard content to R'
+      ImageIndex = 268
       ShortCut = 24657
       OnExecute = actRSendClipboardExecute
     end
-    object actRSendSourceBlockMarked: TAction
-      Category = 'R send'
-      Caption = 'Marked block'
-      Enabled = False
-      Hint = 'R send: marked block'
-      ImageIndex = 5
-      OnExecute = actRSendSourceBlockMarkedExecute
-    end
     object actRSendBlockMarked: TAction
       Category = 'R send'
-      Caption = 'Marked block (echo=TRUE)'
+      Caption = 'Send marked block to R'
       Enabled = False
-      Hint = 'R send: marked block (echo=TRUE)'
-      ImageIndex = 6
+      Hint = 'Send marked block to R'
+      ImageIndex = 5
       OnExecute = actRSendBlockMarkedExecute
-    end
-    object actRSendSourceContiguous: TAction
-      Category = 'R send'
-      Caption = 'Contiguous'
-      Enabled = False
-      Hint = 'R send: contiguous'
-      ImageIndex = 270
-      OnExecute = actRSendSourceContiguousExecute
     end
     object actRSendContiguous: TAction
       Category = 'R send'
-      Caption = 'Contiguous (echo=TRUE)'
+      Caption = 'Send contiguous content to R'
       Enabled = False
-      Hint = 'R send: contiguous (echo=TRUE)'
-      ImageIndex = 271
+      Hint = 'Send contiguous content to R'
+      ImageIndex = 270
       OnExecute = actRSendContiguousExecute
     end
     object actRSendLine: TAction
       Category = 'R send'
       Caption = 'Line'
       Enabled = False
-      Hint = 'R send: line'
+      Hint = 'Send  line to R'
       ImageIndex = 7
+      ShortCut = 16452
       OnExecute = actRSendLineExecute
     end
     object actRSendLinesToEndPage: TAction
       Category = 'R send'
-      Caption = 'Lines to end page (echo=TRUE)'
+      Caption = 'Send lines to end of the file to R'
       Enabled = False
-      Hint = 'R send: lines to end page (echo=TRUE)'
-      ImageIndex = 8
+      Hint = 'Send lines to end of the file to R'
+      ImageIndex = 282
       OnExecute = actRSendLinesToEndPageExecute
     end
     object actRSendCursorToBeginningLine: TAction
       Category = 'R send'
-      Caption = 'Cursor to beginning line'
+      Caption = 'Send content from beggining line to the cursor to R'
       Enabled = False
-      Hint = 'R send: cursor to beggining line'
+      Hint = 'Send content from beggining line to the cursor to R'
       ImageIndex = 10
       OnExecute = actRSendCursorToBeginningLineExecute
     end
     object actRSendCursorToEndLine: TAction
       Category = 'R send'
-      Caption = 'Cursor to end line'
+      Caption = 'Send content from cursor to end line to R'
       Enabled = False
-      Hint = 'R send: cursor to end line'
+      Hint = 'Send content from cursor to end line to R'
       ImageIndex = 11
       OnExecute = actRSendCursorToEndLineExecute
     end
     object actRCurrentLineToTop: TAction
       Category = 'R send'
-      Caption = 'Editor: current line to top'
+      Caption = 'Send content from current line to top to R'
       Enabled = False
-      Hint = 'Editor: current line to top'
+      Hint = 'Send content from current line to top to R'
       ImageIndex = 9
       OnExecute = actRCurrentLineToTopExecute
     end
@@ -14181,7 +12701,6 @@ object frmTinnMain: TfrmTinnMain
     object actFindAgain: TAction
       Category = 'Search'
       Caption = 'Find again'
-      Enabled = False
       Hint = 'Search: again'
       ShortCut = 114
       OnExecute = actFindAgainExecute
@@ -14197,7 +12716,6 @@ object frmTinnMain: TfrmTinnMain
     object actReplace: TAction
       Category = 'Search'
       Caption = 'Replace'
-      Enabled = False
       Hint = 'Search: replace'
       ImageIndex = 61
       ShortCut = 16466
@@ -14209,7 +12727,7 @@ object frmTinnMain: TfrmTinnMain
       Enabled = False
       Hint = 'Search: go to line'
       ImageIndex = 33
-      ShortCut = 16455
+      ShortCut = 32839
       OnExecute = actGotoLineExecute
     end
     object actSearchExpandAll: TAction
@@ -14583,7 +13101,6 @@ object frmTinnMain: TfrmTinnMain
       Enabled = False
       Hint = 'Tools: spell'
       ImageIndex = 183
-      OnExecute = actSpellExecute
     end
     object actSortString: TAction
       Category = 'Tools'
@@ -14696,7 +13213,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Windows expl. (show/hide)'
       Checked = True
       Hint = 'Visualization: tools windows expl. (show/hide)'
-      OnExecute = actWinExplVisibleExecute
     end
     object actFontIncrease: TAction
       Category = 'Visualization'
@@ -14704,7 +13220,6 @@ object frmTinnMain: TfrmTinnMain
       Hint = 'Visualization: font (+)'
       ImageIndex = 261
       ShortCut = 24614
-      OnExecute = actFontIncreaseExecute
     end
     object actFontDecrease: TAction
       Category = 'Visualization'
@@ -14712,87 +13227,6 @@ object frmTinnMain: TfrmTinnMain
       Hint = 'Visualization: font (-)'
       ImageIndex = 262
       ShortCut = 24616
-      OnExecute = actFontDecreaseExecute
-    end
-    object actFilesTabsTop: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Top'
-      GroupIndex = 7
-      Hint = 'Visualization: top (files)'
-      OnExecute = actFilesTabsTopExecute
-    end
-    object actFilesTabsBottom: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Bottom'
-      GroupIndex = 7
-      Hint = 'Visualization: bottom (files)'
-      OnExecute = actFilesTabsBottomExecute
-    end
-    object actToolsTabsLeft: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Left'
-      GroupIndex = 8
-      Hint = 'Visualization: left tabs (tools)'
-      OnExecute = actToolsTabsLeftExecute
-    end
-    object actToolsTabsTop: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Top'
-      GroupIndex = 8
-      Hint = 'Visualization: top tabs (tools)'
-      OnExecute = actToolsTabsTopExecute
-    end
-    object actToolsTabsRight: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Right'
-      GroupIndex = 8
-      Hint = 'Visualization: right tabs (tools)'
-      OnExecute = actToolsTabsRightExecute
-    end
-    object actToolsTabsBottom: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Bottom'
-      GroupIndex = 8
-      Hint = 'Visualization: bottom tabs (tools)'
-      OnExecute = actToolsTabsBottomExecute
-    end
-    object actRtermTabsLeft: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Left'
-      GroupIndex = 9
-      Hint = 'Visualization: left tabs (Rterm)'
-      OnExecute = actRtermTabsLeftExecute
-    end
-    object actRtermTabsTop: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Top'
-      GroupIndex = 9
-      Hint = 'Visualization: top tabs (Rterm)'
-      OnExecute = actRtermTabsTopExecute
-    end
-    object actRtermTabsRight: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Right'
-      GroupIndex = 9
-      Hint = 'Visualization: right tabs (Rterm)'
-      OnExecute = actRtermTabsRightExecute
-    end
-    object actRtermTabsBottom: TAction
-      Category = 'Visualization'
-      AutoCheck = True
-      Caption = 'Bottom'
-      GroupIndex = 9
-      Hint = 'Visualization: bottom tabs (Rterm)'
-      OnExecute = actRtermTabsBottomExecute
     end
     object actShowAllBars: TAction
       Category = 'Visualization'
@@ -14801,89 +13235,6 @@ object frmTinnMain: TfrmTinnMain
       Hint = 'Visualization: all bars (show/hide)'
       ShortCut = 49238
       OnExecute = actShowAllBarsExecute
-    end
-    object actTobFilesVisible: TAction
-      Category = 'Visualization'
-      Caption = 'File (show/hide)'
-      Checked = True
-      Hint = 'Visualization: file bar (show/hide)'
-      OnExecute = actTobFilesVisibleExecute
-    end
-    object actTobEditVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Edit (show/hide)'
-      Checked = True
-      Hint = 'Visualization: edit bar (show/hide)'
-      OnExecute = actTobEditVisibleExecute
-    end
-    object actTobFilterVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Filter (show/hide)'
-      Checked = True
-      Hint = 'Visualization: filter bar (show/hide)'
-      OnExecute = actTobFilterVisibleExecute
-    end
-    object actTobMacroVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Macro (show/hide)'
-      Checked = True
-      Hint = 'Visualization: macro bar (show/hide)'
-      OnExecute = actTobMacroVisibleExecute
-    end
-    object actTobMiscVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Misc (show/hide)'
-      Checked = True
-      Hint = 'Visualization: misc bar (show/hide)'
-      OnExecute = actTobMiscVisibleExecute
-    end
-    object actTobProcessingVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Processing (show/hide)'
-      Checked = True
-      Hint = 'Visualization: processing bar (show/hide)'
-      OnExecute = actTobProcessingVisibleExecute
-    end
-    object actTobFormatVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Format (show/hide)'
-      Hint = 'Visualization: format bar (show/hide)'
-      OnExecute = actTobFormatVisibleExecute
-    end
-    object actTobRVisible: TAction
-      Category = 'Visualization'
-      Caption = 'R (show/hide)'
-      Checked = True
-      Hint = 'Visualization: R bar (show/hide)'
-      OnExecute = actTobRVisibleExecute
-    end
-    object actTobSearchVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Search (show/hide)'
-      Checked = True
-      Hint = 'Visualization: search bar (show/hide)'
-      OnExecute = actTobSearchVisibleExecute
-    end
-    object actTobSyntaxVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Syntax (show/hide)'
-      Checked = True
-      Hint = 'Visualization: syntax bar (show/hide)'
-      OnExecute = actTobSyntaxVisibleExecute
-    end
-    object actTobSpellVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Spell (show/hide)'
-      Checked = True
-      Hint = 'Visualization: spell bar (show/hide)'
-      OnExecute = actTobSpellVisibleExecute
-    end
-    object actTobViewVisible: TAction
-      Category = 'Visualization'
-      Caption = 'View (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools bar (show/hide)'
-      OnExecute = actTobViewVisibleExecute
     end
     object actEditorLineWrap: TAction
       Category = 'Visualization'
@@ -14911,7 +13262,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Tabs (show/hide)'
       Checked = True
       Hint = 'Visualization: files view tabs (show/hide)'
-      OnExecute = actPgFilesVisibleExecute
     end
     object actStatusBarVisible: TAction
       Category = 'Visualization'
@@ -14919,13 +13269,13 @@ object frmTinnMain: TfrmTinnMain
       Hint = 'Visualization: status bar (show/hide)'
       OnExecute = actStatusBarVisibleExecute
     end
-    object actGutterVisible: TAction
+    object actMarkersVisible: TAction
       Category = 'Visualization'
-      Caption = 'Gutter (show/hide)'
-      Hint = 'Visualization: Gutter (show/hide)'
+      Caption = 'Markers (show/hide)'
+      Hint = 'Visualization: Markers (show/hide)'
       ImageIndex = 285
       ShortCut = 49223
-      OnExecute = actGutterVisibleExecute
+      OnExecute = actMarkersVisibleExecute
     end
     object actLineNumbersVisible: TAction
       Category = 'Visualization'
@@ -14971,112 +13321,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Project (show/hide)'
       Checked = True
       Hint = 'Visualization: tools project (show/hide)'
-      OnExecute = actProjectVisibleExecute
-    end
-    object actMiscVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Misc (show/hide)'
-      Checked = True
-      Hint = 'Visualization: misc (show/hide)'
-      OnExecute = actMiscVisibleExecute
-    end
-    object actSpellVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Spell (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools spell (show/hide)'
-      OnExecute = actSpellVisibleExecute
-    end
-    object actLatexVisible: TAction
-      Category = 'Visualization'
-      Caption = 'LaTeX (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools LaTeX (show/hide)'
-      OnExecute = actLatexVisibleExecute
-    end
-    object actTxt2tagsVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Txt2tags (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools txt2tags (show/hide)'
-      OnExecute = actTxt2tagsVisibleExecute
-    end
-    object actSearchVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Search (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools search (show/hide)'
-      OnExecute = actSearchVisibleExecute
-    end
-    object actWorkExplVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Work expl. (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools work expl. (show/hide)'
-      OnExecute = actWorkExplVisibleExecute
-    end
-    object actRExplorerVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Explorer (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools R explorer (show/hide)'
-      OnExecute = actRExplorerVisibleExecute
-    end
-    object actResultsVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Results (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools results (show/hide)'
-      OnExecute = actResultsVisibleExecute
-    end
-    object actDatabaseVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Database (show/hide)'
-      Checked = True
-      Hint = 'Visualization: database (show/hide)'
-      OnExecute = actDatabaseVisibleExecute
-    end
-    object actDataShortcutsVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Shortcuts (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools shortcuts (show/hide)'
-      OnExecute = actDataShortcutsVisibleExecute
-    end
-    object actDataCompletionVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Completion (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools completion (show/hide)'
-      OnExecute = actDataCompletionVisibleExecute
-    end
-    object actDataCommentsVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Comments (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools comments (show/hide)'
-      OnExecute = actDataCommentsVisibleExecute
-    end
-    object actDataRcardVisible: TAction
-      Category = 'Visualization'
-      Caption = 'R card (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools R card (show/hide)'
-      OnExecute = actDataRcardVisibleExecute
-    end
-    object actDataRmirrorsVisible: TAction
-      Category = 'Visualization'
-      Caption = 'R mirrors (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools R mirrors (show/hide)'
-      OnExecute = actDataRmirrorsVisibleExecute
-    end
-    object actRVisible: TAction
-      Category = 'Visualization'
-      Caption = 'R (show/hide)'
-      Checked = True
-      Hint = 'Visualization: R (show/hide)'
-      OnExecute = actRVisibleExecute
     end
     object actOrganizeScreen: TAction
       Category = 'Visualization'
@@ -15090,14 +13334,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Ini log (show/hide)'
       Checked = True
       Hint = 'Visualization: tools ini log (show/hide)'
-      OnExecute = actIniLogVisibleExecute
-    end
-    object actMarkupVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Markup (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools markup (show/hide)'
-      OnExecute = actMarkupVisibleExecute
     end
     object actWindowTileVertical: TWindowTileVertical
       Category = 'Window'
@@ -15137,7 +13373,6 @@ object frmTinnMain: TfrmTinnMain
     object actFind: TAction
       Category = 'Search'
       Caption = 'Find'
-      Enabled = False
       Hint = 'Search: text'
       ImageIndex = 57
       ShortCut = 16454
@@ -15259,12 +13494,318 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 24651
       OnExecute = actRSendKnitHtmlExecute
     end
+    object actRSendNavigator: TAction
+      Category = 'R send'
+      Caption = 'Send selected navigator tree to R'
+      Enabled = False
+      Hint = 'Send selected navigator tree to R'
+      ImageIndex = 227
+      OnExecute = actRSendNavigatorExecute
+    end
+    object actRsendEchoOn: TAction
+      Category = 'R send'
+      AutoCheck = True
+      Caption = 'Echo on'
+      Hint = 'Turn echo on'
+      ImageIndex = 140
+      OnExecute = actRsendEchoOnExecute
+    end
+    object actChaLinEndWIN: TAction
+      Category = 'Encoding'
+      Caption = 'WIN (CR+LF)'
+      OnExecute = actChaLinEndWINExecute
+    end
+    object actSetANSI: TAction
+      Category = 'Encoding'
+      Caption = 'ANSI'
+      OnExecute = actSetANSIExecute
+    end
+    object actSetUTF8: TAction
+      Category = 'Encoding'
+      Caption = 'UTF-8'
+      OnExecute = actSetUTF8Execute
+    end
+    object actSetUTF16LE: TAction
+      Category = 'Encoding'
+      Caption = 'UTF16-LE'
+      OnExecute = actSetUTF16LEExecute
+    end
+    object actSetUTF16BE: TAction
+      Category = 'Encoding'
+      Caption = 'UTF16-BE'
+      OnExecute = actSetUTF16BEExecute
+    end
+    object actChaLinEndMAC: TAction
+      Category = 'Encoding'
+      Caption = 'MAC (CR)'
+      OnExecute = actChaLinEndMACExecute
+    end
+    object actChaLinEndUnix: TAction
+      Category = 'Encoding'
+      Caption = 'UNIX (LF)'
+      OnExecute = actChaLinEndUnixExecute
+    end
+    object actRContObjNames: TAction
+      Category = 'R control'
+      Caption = 'actRContObjNames'
+      OnExecute = actRContObjNamesExecute
+    end
+    object actCopyFileList: TAction
+      Category = 'File Tools'
+      Caption = 'Copy file list'
+      OnExecute = actCopyFileListExecute
+    end
+    object actFoldAll: TAction
+      Category = 'Code visualization'
+      Caption = 'Fold all'
+      ImageIndex = 251
+      OnExecute = actFoldAllExecute
+    end
+    object actUnfoldAll: TAction
+      Category = 'Code visualization'
+      Caption = 'Unfold all'
+      ImageIndex = 214
+      OnExecute = actUnfoldAllExecute
+    end
+    object actQuote: TAction
+      Category = 'Edit'
+      Caption = 'Quote'
+      Enabled = False
+      OnExecute = actQuoteExecute
+    end
+    object actRemoveLineBreaks: TAction
+      Category = 'Edit'
+      Caption = 'Remove line breaks'
+      Enabled = False
+      OnExecute = actRemoveLineBreaksExecute
+    end
+    object actTemplateRScript: TAction
+      Category = 'Template'
+      Caption = 'R script'
+      OnExecute = actTemplateRScriptExecute
+    end
+    object actTemplateRFunction: TAction
+      Category = 'Template'
+      Caption = 'Function'
+      OnExecute = actTemplateRFunctionExecute
+    end
+    object actTemplateRDataset: TAction
+      Category = 'Template'
+      Caption = 'Dataset'
+      OnExecute = actTemplateRDatasetExecute
+    end
+    object actTemplateREmpty: TAction
+      Category = 'Template'
+      Caption = 'Empty'
+      OnExecute = actTemplateREmptyExecute
+    end
+    object actTemplateRMarkdown: TAction
+      Category = 'Template'
+      Caption = 'R markdown'
+      OnExecute = actTemplateRMarkdownExecute
+    end
+    object actTemplateRNoWeb: TAction
+      Category = 'Template'
+      Caption = 'R noweb'
+      OnExecute = actTemplateRNoWebExecute
+    end
+    object actTemplateRHTML: TAction
+      Category = 'Template'
+      Caption = 'R html'
+      OnExecute = actTemplateRHTMLExecute
+    end
+    object actConvertANSI: TAction
+      Category = 'Encoding'
+      Caption = 'ANSI'
+    end
+    object actConvertUTF8: TAction
+      Category = 'Encoding'
+      Caption = 'UTF-8'
+    end
+    object actConvertUTF16LE: TAction
+      Category = 'Encoding'
+      Caption = 'UTF16-LE'
+    end
+    object actConvertUTF16BE: TAction
+      Category = 'Encoding'
+      Caption = 'UTF16-BE'
+    end
+    object actShowMenuShortcuts: TAction
+      Caption = 'actShowMenuShortcuts'
+    end
+    object actDoCompletion: TAction
+      Caption = 'Completion'
+    end
+    object actDoComments: TAction
+      Caption = 'Comment'
+      OnExecute = actDoCommentsExecute
+    end
+    object actDoRCard: TAction
+      Caption = 'Card (R)'
+      OnExecute = actDoRCardExecute
+    end
+    object actDoMirrors: TAction
+      Caption = 'Mirrors (R)'
+      OnExecute = actDoMirrorsExecute
+    end
+    object actActionListToClipboard: TAction
+      Category = 'Developer'
+      Caption = 'Actionlist to clipboard'
+      Enabled = False
+      OnExecute = actActionListToClipboardExecute
+    end
+    object actActionListToDataset: TAction
+      Category = 'Developer'
+      Caption = 'Actionlist to dataset'
+      OnExecute = actActionListToDatasetExecute
+    end
+    object actDatasetToActionList: TAction
+      Category = 'Developer'
+      Caption = 'Dataset to Actionlist'
+    end
+    object actTestRegEx: TAction
+      Category = 'Developer'
+      Caption = 'Test: RegEx'
+      OnExecute = actTestRegExExecute
+    end
+    object actStringReplace: TAction
+      Category = 'Developer'
+      Caption = 'StringReplace'
+      OnExecute = actStringReplaceExecute
+    end
+    object actGetInfo: TAction
+      Caption = 'Show R Info'
+    end
+    object actShowMenuHotkeys: TAction
+      Caption = 'Hotkeys (operational system)'
+      OnExecute = actShowMenuHotkeysExecute
+    end
+    object actHelpUserGuide: TAction
+      Category = 'Help'
+      Caption = 'User guide (PDF)'
+      OnExecute = actHelpUserGuideExecute
+    end
+    object actHelpWhatsNew: TAction
+      Category = 'Help'
+      Caption = 'What is new (PDF)?'
+      OnExecute = actHelpWhatsNewExecute
+    end
+    object actHelpUserList: TAction
+      Category = 'Help'
+      Caption = 'actEfficientUse'
+    end
+    object actHelpEfficientUse: TAction
+      Category = 'Help'
+      Caption = 'actHelpEfficientUse'
+      OnExecute = actHelpEfficientUseExecute
+    end
+    object actHelpScript: TAction
+      Category = 'Help'
+      Caption = 'Example of script (R)'
+      OnExecute = actHelpScriptExecute
+    end
+    object actHelpRecognizedWords: TAction
+      Category = 'Help'
+      Caption = 'Recognized words (R)'
+      OnExecute = actHelpRecognizedWordsExecute
+    end
+    object actHelpDeplate: TAction
+      Category = 'Help'
+      Caption = 'Deplate'
+      OnExecute = actHelpDeplateExecute
+    end
+    object actHelpPandoc: TAction
+      Category = 'Help'
+      Caption = 'Pandoc'
+      OnExecute = actHelpPandocExecute
+    end
+    object actTxt2tags: TAction
+      Category = 'Help'
+      Caption = 'Txt2tags'
+      OnExecute = actTxt2tagsExecute
+    end
+    object actWebSelectedTextGoogle: TAction
+      Category = 'Web'
+      Caption = 'Google'
+      OnExecute = actWebSelectedTextGoogleExecute
+    end
+    object actWebSelectedTextSiteSearch: TAction
+      Category = 'Web'
+      Caption = 'Site search'
+      OnExecute = actWebSelectedTextSiteSearchExecute
+    end
+    object actWebRInfoCRAN: TAction
+      Category = 'Web'
+      Caption = 'CRAN'
+      OnExecute = actWebRInfoCRANExecute
+    end
+    object actWebRNews: TAction
+      Category = 'Web'
+      Caption = 'News'
+      OnExecute = actWebRNewsExecute
+    end
+    object actWebRWiki: TAction
+      Category = 'Web'
+      Caption = 'R wiki'
+      OnExecute = actWebRWikiExecute
+    end
+    object actWebWebsite: TAction
+      Category = 'Web'
+      Caption = 'Web site'
+      OnExecute = actWebWebsiteExecute
+    end
+    object actToolsPandocConversion: TAction
+      Category = 'Tools'
+      Caption = 'Pandoc'
+      OnExecute = actToolsPandocConversionExecute
+    end
+    object actFoldingVisible: TAction
+      Category = 'Visualization'
+      Caption = 'Folding (show/hide)'
+      ImageIndex = 214
+      OnExecute = actFoldingVisibleExecute
+    end
+    object actRLibAddSnippet: TAction
+      Category = 'R library'
+      Caption = 'Add code snippet to the library'
+      ImageIndex = 34
+      OnExecute = actRLibAddSnippetExecute
+    end
+    object actAlignFirstLine: TAction
+      Category = 'Format'
+      Caption = 'Align with first line'
+      Enabled = False
+      Hint = 'Format: align with first line'
+      ImageIndex = 102
+      OnExecute = actAlignFirstLineExecute
+    end
+    object actAlignEqualSign: TAction
+      Category = 'Format'
+      Caption = 'Align ='
+      Enabled = False
+      Hint = 'Format: align ='
+      ImageIndex = 102
+      OnExecute = actAlignEqualSignExecute
+    end
+    object actRLibDeleteEntry: TAction
+      Category = 'R library'
+      Caption = 'Delete entry from library'
+      ImageIndex = 155
+      OnExecute = actRLibDeleteEntryExecute
+    end
+    object acShowNotification: TAction
+      Caption = 'Show notification'
+      Enabled = False
+      ImageIndex = 25
+      Visible = False
+      OnExecute = acShowNotificationExecute
+    end
   end
   object imlProject: TImageList
-    Left = 176
-    Top = 176
+    Left = 56
+    Top = 232
     Bitmap = {
-      494C010105002806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101050028066C0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -15535,236 +14076,11 @@ object frmTinnMain: TfrmTinnMain
       F00FFFFF80078007FC3FFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object pmenEditor: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 48
-    Top = 144
-    object pmenEditorClose: TMenuItem
-      Action = actFileClose
-    end
-    object pmenEditorCloseMore: TMenuItem
-      Caption = 'Close (more)'
-      object pmenEditorCloseOthers: TMenuItem
-        Action = actFileCloseOthers
-      end
-      object pmenEditorCloseAll: TMenuItem
-        Action = actFileCloseAll
-      end
-      object N127: TMenuItem
-        Caption = '-'
-      end
-      object pmenEditorCloseRight: TMenuItem
-        Action = actFileCloseRight
-      end
-      object pmenEditorCloseLeft: TMenuItem
-        Action = actFileCloseLeft
-      end
-    end
-    object N110: TMenuItem
-      Caption = '-'
-    end
-    object pmenEditorEdit: TMenuItem
-      Caption = 'Edit'
-      ImageIndex = 276
-      object pmenEditorUndo: TMenuItem
-        Action = actEditUndo
-      end
-      object pmenEditorRedo: TMenuItem
-        Action = actEditRedo
-      end
-      object N43: TMenuItem
-        Caption = '-'
-      end
-      object pmenEditorCopy: TMenuItem
-        Action = actEditCopy
-      end
-      object pmenEditorCut: TMenuItem
-        Action = actEditCut
-      end
-      object pmenEditorPaste: TMenuItem
-        Action = actEditPaste
-      end
-      object N44: TMenuItem
-        Caption = '-'
-      end
-      object pmenEditorSelectAll: TMenuItem
-        Action = actEditSelectAll
-      end
-      object N178: TMenuItem
-        Caption = '-'
-      end
-      object pmenEditorComment: TMenuItem
-        Action = actComment
-      end
-      object pmenEditorUncommentFirsts: TMenuItem
-        Action = actUncommentFirst
-      end
-      object pmenEditorUncommentAll: TMenuItem
-        Action = actUncomment
-      end
-    end
-    object pmenEditorFormat: TMenuItem
-      Caption = 'Format'
-      object pmenEditorFormatSelection: TMenuItem
-        Caption = 'Selection'
-        object Indent1: TMenuItem
-          Action = actIndentBlock
-        end
-        object Unindent1: TMenuItem
-          Action = actUnindentBlock
-        end
-        object N153: TMenuItem
-          Caption = '-'
-        end
-        object Uppercaseselection2: TMenuItem
-          Action = actUpperCaseSelection
-        end
-        object Lowercaseselection2: TMenuItem
-          Action = actLowercaseSelection
-        end
-        object N180: TMenuItem
-          Caption = '-'
-        end
-        object Invertselection2: TMenuItem
-          Action = actInvertSelection
-        end
-      end
-      object pmenEditorFormatWord: TMenuItem
-        Caption = 'Word'
-        object Uppercaseword2: TMenuItem
-          Action = actUpperCaseWord
-        end
-        object Lowercaseword2: TMenuItem
-          Action = actLowerCaseWord
-        end
-        object N181: TMenuItem
-          Caption = '-'
-        end
-        object Invertcase2: TMenuItem
-          Action = actInvertCaseWord
-        end
-      end
-      object pmenEditorFormatReformat: TMenuItem
-        Caption = 'Reformat'
-        object ReformatRfileorselection1: TMenuItem
-          Action = actReformatR
-        end
-      end
-    end
-    object N34: TMenuItem
-      Caption = '-'
-    end
-    object pmenEditorFile: TMenuItem
-      Caption = 'File'
-      ImageIndex = 189
-      object pmenEditorSave: TMenuItem
-        Action = actFileSave
-      end
-      object pmenEditorSaveAs: TMenuItem
-        Action = actFileSaveAs
-      end
-      object pmenEditorSaveAll: TMenuItem
-        Action = actFileSaveAll
-      end
-      object N45: TMenuItem
-        Caption = '-'
-      end
-      object pmenEditorPrint: TMenuItem
-        Action = actPrint
-      end
-    end
-    object pmenEditorReload: TMenuItem
-      Action = actReload
-    end
-    object pmenFilePath: TMenuItem
-      Caption = 'Copy full path to clipboard'
-      object pmenFilePathUnix: TMenuItem
-        Action = actFullPathUnix
-      end
-      object pmenFilePathWindows: TMenuItem
-        Action = actFullPathWindows
-      end
-    end
-    object pmenEditorCopyFormatted: TMenuItem
-      Action = actCopyFormatted
-      object popEditorCopyFormattedRTF: TMenuItem
-        Action = actCopyFormattedRTF
-      end
-      object popEditorCopyFormattedHTML: TMenuItem
-        Action = actCopyFormattedHTML
-      end
-      object popEditorCopyFormattedTeX: TMenuItem
-        Action = actCopyFormattedTeX
-      end
-    end
-    object N107: TMenuItem
-      Caption = '-'
-    end
-    object pmenEditorSpell: TMenuItem
-      Action = actSpell
-    end
-    object pmenEditorSort: TMenuItem
-      Caption = 'Sort'
-      Hint = 'Sort string'
-      ImageIndex = 205
-      object pmenEditorSortString: TMenuItem
-        Action = actSortString
-      end
-      object pmenEditorSortNumber: TMenuItem
-        Action = actSortNumber
-      end
-      object pmenEditorSortDate: TMenuItem
-        Action = actSortDate
-      end
-    end
-    object pmenEditorCount: TMenuItem
-      Action = actCount
-    end
-    object pmenEditorLineWrap: TMenuItem
-      Action = actEditorLineWrap
-      Caption = 'Line wrap (show/hide)'
-    end
-    object N111: TMenuItem
-      Caption = '-'
-    end
-    object pmenEditorReadOnly: TMenuItem
-      Action = actReadOnly
-    end
-    object N144: TMenuItem
-      Caption = '-'
-    end
-    object pmenEditorFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenEditorFontInc: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenEditorFontDec: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object synURIOpener: TSynURIOpener
-    Left = 272
-    Top = 240
-  end
-  object SynEditSearch: TSynEditSearch
-    Left = 272
-    Top = 272
-  end
   object imlSearch: TImageList
-    Left = 176
-    Top = 208
+    Left = 56
+    Top = 264
     Bitmap = {
-      494C010104002806400610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101040028066C0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -16035,144 +14351,6 @@ object frmTinnMain: TfrmTinnMain
       000100038007FFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object synIOTip: TSynCompletionProposal
-    Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
-    NbLinesInWindow = 10
-    ClBackground = clInfoBk
-    Width = 200
-    EndOfTokenChr = '()[]. '
-    TriggerChars = '.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clBtnText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = [fsBold]
-    Columns = <>
-    ShortCut = 0
-    TimerInterval = 100
-    Left = 368
-    Top = 240
-  end
-  object synEditorTip: TSynCompletionProposal
-    Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
-    NbLinesInWindow = 10
-    ClBackground = clInfoBk
-    Width = 200
-    EndOfTokenChr = '()[]. '
-    TriggerChars = '.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clBtnText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = [fsBold]
-    Columns = <>
-    ShortCut = 0
-    TimerInterval = 100
-    Left = 304
-    Top = 240
-  end
-  object synEditor2Tip: TSynCompletionProposal
-    Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
-    NbLinesInWindow = 10
-    ClBackground = clInfoBk
-    Width = 200
-    EndOfTokenChr = '()[]. '
-    TriggerChars = '.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clBtnText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = [fsBold]
-    Columns = <>
-    ShortCut = 0
-    TimerInterval = 100
-    Left = 336
-    Top = 240
-  end
-  object synEditorDataCompletion: TSynCompletionProposal
-    Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
-    NbLinesInWindow = 10
-    Width = 200
-    EndOfTokenChr = '()[]. '
-    TriggerChars = '.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -8
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clBtnText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = [fsBold]
-    Columns = <>
-    Margin = 3
-    ShortCut = 0
-    TimerInterval = 100
-    Left = 304
-    Top = 272
-  end
-  object synEditor2DataCompletion: TSynCompletionProposal
-    Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
-    NbLinesInWindow = 10
-    Width = 200
-    EndOfTokenChr = '()[]. '
-    TriggerChars = '.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -8
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clBtnText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = [fsBold]
-    Columns = <>
-    Margin = 3
-    ShortCut = 0
-    TimerInterval = 100
-    Left = 336
-    Top = 272
-  end
-  object synIODataCompletion: TSynCompletionProposal
-    Options = [scoConsiderWordBreakChars, scoCompleteWithEnter]
-    NbLinesInWindow = 10
-    Width = 200
-    EndOfTokenChr = '()[]. '
-    TriggerChars = '.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -8
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    TitleFont.Charset = DEFAULT_CHARSET
-    TitleFont.Color = clBtnText
-    TitleFont.Height = -11
-    TitleFont.Name = 'MS Sans Serif'
-    TitleFont.Style = [fsBold]
-    Columns = <>
-    Margin = 3
-    ShortCut = 0
-    TimerInterval = 100
-    Left = 368
-    Top = 272
-  end
   object pmenIO: TJvPopupMenu
     Images = imlTinnR
     Style = msOffice
@@ -16183,8 +14361,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 16
-    Top = 176
+    Left = 304
+    Top = 416
     object pmemIOShowHide: TMenuItem
       Action = actRtermVisible
     end
@@ -16353,19 +14531,6 @@ object frmTinnMain: TfrmTinnMain
         Action = actRtermLoadWorkspace
       end
     end
-    object N145: TMenuItem
-      Caption = '-'
-    end
-    object pmemIOFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmemIOFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmemIOFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
   end
   object pmenLog: TJvPopupMenu
     Images = imlTinnR
@@ -16377,8 +14542,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 48
-    Top = 176
+    Left = 120
+    Top = 512
     object pmemLogShowHide: TMenuItem
       Action = actRtermVisible
     end
@@ -16515,19 +14680,6 @@ object frmTinnMain: TfrmTinnMain
       Action = actRtermLogLineWrap
       Caption = 'Line wrap (show/hide)'
     end
-    object MenuItem14: TMenuItem
-      Caption = '-'
-    end
-    object pmenLogFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenLogFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenLogFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
   end
   object JvDockServer: TJvDockServer
     LeftSplitterStyle.Color = clActiveCaption
@@ -16546,12 +14698,32 @@ object frmTinnMain: TfrmTinnMain
     BottomSplitterStyle.Cursor = crVSplit
     BottomSplitterStyle.ParentColor = False
     BottomSplitterStyle.Size = 2
+    AutoFocusDockedForm = False
     DockStyle = JvDockVSNetStyle
-    Left = 144
-    Top = 144
+    Left = 16
+    Top = 176
   end
   object JvDockVSNetStyle: TJvDockVSNetStyle
     AlwaysShowGrabber = True
+    ConjoinServerOption.GrabbersSize = 20
+    ConjoinServerOption.ActiveFont.Charset = ANSI_CHARSET
+    ConjoinServerOption.ActiveFont.Color = clBlack
+    ConjoinServerOption.ActiveFont.Height = -15
+    ConjoinServerOption.ActiveFont.Name = 'Tahoma'
+    ConjoinServerOption.ActiveFont.Style = []
+    ConjoinServerOption.InactiveFont.Charset = ANSI_CHARSET
+    ConjoinServerOption.InactiveFont.Color = clBlack
+    ConjoinServerOption.InactiveFont.Height = -15
+    ConjoinServerOption.InactiveFont.Name = 'Tahoma'
+    ConjoinServerOption.InactiveFont.Style = []
+    ConjoinServerOption.ActiveTitleStartColor = 13026246
+    ConjoinServerOption.ActiveTitleEndColor = 15725551
+    ConjoinServerOption.ActiveTitleVerticalGradient = True
+    ConjoinServerOption.InactiveTitleStartColor = 13026246
+    ConjoinServerOption.InactiveTitleEndColor = 15725551
+    ConjoinServerOption.InactiveTitleVerticalGradient = True
+    ConjoinServerOption.TextEllipsis = False
+    ConjoinServerOption.SystemInfo = False
     TabServerOption.ActiveFont.Charset = DEFAULT_CHARSET
     TabServerOption.ActiveFont.Color = clWindowText
     TabServerOption.ActiveFont.Height = -11
@@ -16563,8 +14735,8 @@ object frmTinnMain: TfrmTinnMain
     TabServerOption.InactiveFont.Name = 'Tahoma'
     TabServerOption.InactiveFont.Style = []
     TabServerOption.ShowCloseButtonOnTabs = False
-    Left = 144
-    Top = 176
+    Left = 16
+    Top = 224
   end
   object JvAppIniFileStorage: TJvAppIniFileStorage
     StorageOptions.BooleanStringTrueValues = 'TRUE, YES, Y'
@@ -16575,2389 +14747,8 @@ object frmTinnMain: TfrmTinnMain
     Location = flCustom
     SubStorages = <>
     SynchronizeFlushReload = True
-    Left = 144
-    Top = 208
-  end
-  object pmenFontGeneric: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
     Left = 16
-    Top = 336
-    object pmenGenericFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenGenericFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenGenericFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object jvmenMain: TJvMainMenu
-    AutoHotkeys = maManual
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 16
-    Top = 112
-    object menFile: TMenuItem
-      Caption = '&File'
-      GroupIndex = 1
-      object menFileNew: TMenuItem
-        Action = actFileNew
-      end
-      object menFileTemplate: TMenuItem
-        Caption = 'Template'
-        object menFileTemplateRscript: TMenuItem
-          Caption = 'R script'
-          OnClick = menFileTemplateRscriptClick
-        end
-        object menFileTemplateRdoc: TMenuItem
-          Caption = 'R doc'
-          object menFileTemplateRdocFunction: TMenuItem
-            Caption = 'Function'
-            OnClick = menFileTemplateRdocFunctionClick
-          end
-          object menFileTemplateRdocDataset: TMenuItem
-            Caption = 'Dataset'
-            OnClick = menFileTemplateRdocDatasetClick
-          end
-          object menFileTemplateRdocEmpty: TMenuItem
-            Caption = 'Empty'
-            OnClick = menFileTemplateRdocEmptyClick
-          end
-        end
-        object menFileTemplateRhtml: TMenuItem
-          Caption = 'R html'
-          OnClick = menFileTemplateRhtmlClick
-        end
-        object menFileTemplateRmarkdown: TMenuItem
-          Caption = 'R markdown'
-          OnClick = menFileTemplateRmarkdownClick
-        end
-        object menFileTemplateRsweave: TMenuItem
-          Caption = 'R noweb'
-          OnClick = menFileTemplateRsweaveClick
-        end
-      end
-      object N24: TMenuItem
-        Caption = '-'
-      end
-      object menFileOpenAllMRU: TMenuItem
-        Action = actOpenMRU
-        GroupIndex = 1
-      end
-      object menFileOpen: TMenuItem
-        Action = actFileOpen
-        GroupIndex = 1
-      end
-      object menFileRecentFiles: TMenuItem
-        Caption = 'Recent files'
-        GroupIndex = 1
-        ImageIndex = 54
-      end
-      object menFileReload: TMenuItem
-        Action = actReload
-        GroupIndex = 1
-      end
-      object N3: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileSave: TMenuItem
-        Action = actFileSave
-        GroupIndex = 1
-      end
-      object menFileSaveAs: TMenuItem
-        Action = actFileSaveAs
-        GroupIndex = 1
-      end
-      object menFileSaveAll: TMenuItem
-        Action = actFileSaveAll
-        GroupIndex = 1
-      end
-      object N95: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileClose: TMenuItem
-        Action = actFileClose
-        GroupIndex = 1
-      end
-      object menFileCloseAll: TMenuItem
-        Action = actFileCloseAll
-        GroupIndex = 1
-      end
-      object N96: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFilePrint: TMenuItem
-        Action = actPrint
-        GroupIndex = 1
-      end
-      object N97: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileCopyFullPath: TMenuItem
-        Caption = 'Copy full path to clipboard'
-        GroupIndex = 1
-        object menFileCopyFullPathUnix: TMenuItem
-          Action = actFullPathUnix
-        end
-        object menFileCopyFullPathWindows: TMenuItem
-          Action = actFullPathWindows
-        end
-      end
-      object N98: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileExit: TMenuItem
-        Action = actAplicationExit
-        GroupIndex = 1
-      end
-    end
-    object menProject: TMenuItem
-      Caption = '&Project'
-      GroupIndex = 6
-      object menProjProject: TMenuItem
-        Caption = 'Project'
-        Hint = 'Project'
-        ImageIndex = 108
-        object menProjProjectNew: TMenuItem
-          Action = actProjectNew
-        end
-        object menProjProjectOpen: TMenuItem
-          Action = actProjectOpen
-        end
-        object N39: TMenuItem
-          Caption = '-'
-        end
-        object menProjProjectSave: TMenuItem
-          Action = actProjectSave
-        end
-        object menProjProjectSaveAs: TMenuItem
-          Action = actProjectSaveAs
-        end
-        object menProjProjectClose: TMenuItem
-          Action = actProjectClose
-        end
-        object N41: TMenuItem
-          Caption = '-'
-        end
-        object menProjProjectDeleteCurrent: TMenuItem
-          Action = actProjectDeleteCurrent
-        end
-      end
-      object N8: TMenuItem
-        Caption = '-'
-      end
-      object menProjGroup: TMenuItem
-        Caption = 'Group(s)'
-        Hint = 'Group(s)'
-        ImageIndex = 70
-        object menProjGroupNew: TMenuItem
-          Action = actGrouptNew
-        end
-        object N42: TMenuItem
-          Caption = '-'
-        end
-        object menProjGroupRename: TMenuItem
-          Action = actGroupRename
-        end
-        object N40: TMenuItem
-          Caption = '-'
-        end
-        object menProjGroupDeleteCurrent: TMenuItem
-          Action = actGroupDeleteCurrent
-        end
-        object menProjGroupDeleteAll: TMenuItem
-          Action = actGroupDeleteAll
-        end
-        object N49: TMenuItem
-          Caption = '-'
-        end
-        object menProjGroupExpandAll: TMenuItem
-          Action = actGroupExpandAll
-        end
-        object menProjGroupCollapseAll: TMenuItem
-          Action = actGroupCollapseAll
-        end
-      end
-      object N25: TMenuItem
-        Caption = '-'
-      end
-      object menProjFiles: TMenuItem
-        Caption = 'File(s)'
-        ImageIndex = 49
-        object menProjFilesOpenAll: TMenuItem
-          Action = actFilesOpenAll
-        end
-        object menProjFilesCloseAll: TMenuItem
-          Action = actFilesCloseAll
-        end
-        object N48: TMenuItem
-          Caption = '-'
-        end
-        object menProjFilesOpenAllOfGroup: TMenuItem
-          Action = actFilesOpenAllOfGroup
-        end
-        object menProjFilesCloseAllOfGroup: TMenuItem
-          Action = actFilesCloseAllOfGroup
-        end
-        object N31: TMenuItem
-          Caption = '-'
-        end
-        object menProjFilesAdd: TMenuItem
-          Action = actFilesAdd
-        end
-        object menProjFilesAddCurrent: TMenuItem
-          Action = actFilesAddCurrent
-        end
-        object N9: TMenuItem
-          Caption = '-'
-        end
-        object menProjFilesRemoveAllOfProject: TMenuItem
-          Action = actFilesRemoveAllOfProject
-        end
-        object menProjFilesRemoveAllOfGroup: TMenuItem
-          Action = actFilesRemoveAllOfGroup
-        end
-        object menProjFilesRemove: TMenuItem
-          Action = actFilesRemove
-        end
-        object N117: TMenuItem
-          Caption = '-'
-        end
-        object menFilesFullPath: TMenuItem
-          Caption = 'Copy full path to clipboard'
-          object menFilesFullPathUnix: TMenuItem
-            Action = actFilesFullPathUnix
-          end
-          object menFilesFullPathWindows: TMenuItem
-            Action = actFilesFullPathWindows
-          end
-        end
-      end
-      object N10: TMenuItem
-        Caption = '-'
-      end
-      object menProjRecent: TMenuItem
-        Caption = 'Recent'
-        Hint = 'Reload project'
-        ImageIndex = 161
-      end
-      object N118: TMenuItem
-        Caption = '-'
-      end
-      object menProjEdit: TMenuItem
-        Action = actProjectEdit
-      end
-      object menProjReload: TMenuItem
-        Action = actProjectReload
-      end
-    end
-    object menEdit: TMenuItem
-      Caption = '&Edit'
-      GroupIndex = 6
-      object menEditUndo: TMenuItem
-        Action = actEditUndo
-        GroupIndex = 6
-      end
-      object menEditRedo: TMenuItem
-        Action = actEditRedo
-        GroupIndex = 6
-      end
-      object N37: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditCopy: TMenuItem
-        Action = actEditCopy
-        GroupIndex = 6
-      end
-      object menEditCut: TMenuItem
-        Action = actEditCut
-        GroupIndex = 6
-      end
-      object menEditPaste: TMenuItem
-        Action = actEditPaste
-        GroupIndex = 6
-      end
-      object N154: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditCopyFormated: TMenuItem
-        Action = actCopyFormatted
-        GroupIndex = 6
-        object menEditCopyFormatedRtf: TMenuItem
-          Action = actCopyFormattedRTF
-        end
-        object menEditCopyFormatedHtml: TMenuItem
-          Action = actCopyFormattedHTML
-        end
-        object menEditCopyFormatedTex: TMenuItem
-          Action = actCopyFormattedTeX
-        end
-      end
-      object N38: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditSelectAll: TMenuItem
-        Action = actEditSelectAll
-        GroupIndex = 6
-      end
-      object N136: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditComment: TMenuItem
-        Action = actComment
-        GroupIndex = 6
-      end
-      object menEditUncommentFirst: TMenuItem
-        Action = actUncommentFirst
-        GroupIndex = 6
-      end
-      object menEditUncommentAll: TMenuItem
-        Action = actUncomment
-        GroupIndex = 6
-      end
-    end
-    object menFormat: TMenuItem
-      Caption = 'Form&at'
-      GroupIndex = 6
-      object N100: TMenuItem
-        Caption = '-'
-      end
-      object menFormatSelection: TMenuItem
-        Caption = 'Selection'
-        object menFormatBlockIndent: TMenuItem
-          Action = actIndentBlock
-        end
-        object menFormatBlockUnident: TMenuItem
-          Action = actUnindentBlock
-        end
-        object N51: TMenuItem
-          Caption = '-'
-        end
-        object UppercaseSelection1: TMenuItem
-          Action = actUpperCaseSelection
-        end
-        object LowercaseSelection1: TMenuItem
-          Action = actLowercaseSelection
-        end
-        object N104: TMenuItem
-          Caption = '-'
-        end
-        object InvertSelection1: TMenuItem
-          Action = actInvertSelection
-        end
-      end
-      object N99: TMenuItem
-        Caption = '-'
-      end
-      object menFormatWord: TMenuItem
-        Caption = 'Word'
-        object UppercaseWord1: TMenuItem
-          Action = actUpperCaseWord
-        end
-        object LowercaseWord1: TMenuItem
-          Action = actLowerCaseWord
-        end
-        object N103: TMenuItem
-          Caption = '-'
-        end
-        object InvertCase1: TMenuItem
-          Action = actInvertCaseWord
-        end
-      end
-      object N129: TMenuItem
-        Caption = '-'
-      end
-      object menFormatReformat: TMenuItem
-        Caption = 'Reformat'
-        object R1: TMenuItem
-          Action = actReformatR
-        end
-      end
-    end
-    object menMarks: TMenuItem
-      Caption = '&Marks'
-      GroupIndex = 6
-      object menMarksBlock: TMenuItem
-        Caption = 'Block'
-        object menMarksMark: TMenuItem
-          Action = actBlockMark
-          GroupIndex = 4
-        end
-        object menMarksUnmark: TMenuItem
-          Action = actBlockUnmark
-          GroupIndex = 4
-        end
-      end
-      object N105: TMenuItem
-        Caption = '-'
-        GroupIndex = 4
-      end
-      object menMarksUnmarkAll: TMenuItem
-        Action = actUnmarkAll
-        GroupIndex = 4
-      end
-    end
-    object menInsert: TMenuItem
-      Caption = '&Insert'
-      GroupIndex = 6
-      object menInsertLatex: TMenuItem
-        Caption = 'LaTeX'
-        object menInsertLatexMath: TMenuItem
-          Caption = 'Math'
-          ImageIndex = 97
-          object menInsertLatexMathDimensional: TMenuItem
-            Action = actLatexDimensional
-          end
-          object N135: TMenuItem
-            Caption = '-'
-          end
-          object menInsertLatexMathFrac: TMenuItem
-            Action = actLatexAlgebricFrac
-          end
-          object menInsertLatexMathSqrt: TMenuItem
-            Action = actLatexAlgebricSqrt
-          end
-          object menInsertLatexMathSqrtn: TMenuItem
-            Action = actLatexAlgebricSqrtN
-          end
-        end
-        object N133: TMenuItem
-          Caption = '-'
-        end
-        object menInsertLatexHeader: TMenuItem
-          Caption = 'Header'
-          ImageIndex = 214
-          object menInsertLatexHeaderPart: TMenuItem
-            Action = actLatexHeaderPart
-          end
-          object menInsertLatexHeaderChapter: TMenuItem
-            Action = actLatexHeaderChapter
-          end
-          object menInsertLatexHeaderSection: TMenuItem
-            Action = actLatexHeaderSection
-          end
-          object menInsertLatexHeaderSubsection: TMenuItem
-            Action = actLatexHeaderSubSection
-          end
-          object menInsertLatexHeaderSubsubsection: TMenuItem
-            Action = actLatexHeaderSubSubSection
-          end
-          object menInsertLatexHeaderParagraph: TMenuItem
-            Action = actLatexHeaderParagraph
-          end
-          object menInsertLatexHeaderSubparagraph: TMenuItem
-            Action = actLatexHeaderSubParagraph
-          end
-        end
-        object menInsertLatexFormat: TMenuItem
-          Caption = 'Format'
-          ImageIndex = 215
-          object menInsertLatexFormatItemization: TMenuItem
-            Action = actLatexFormatItemization
-          end
-          object menInsertLatexFormatEnumeration: TMenuItem
-            Action = actLatexFormatEnumeration
-          end
-          object N132: TMenuItem
-            Caption = '-'
-          end
-          object menInsertLatexFormatLeft: TMenuItem
-            Action = actLatexFormatLeft
-          end
-          object menInsertLatexFormatCenter: TMenuItem
-            Action = actLatexFormatCenter
-          end
-          object menInsertLatexFormatRight: TMenuItem
-            Action = actLatexFormatRight
-          end
-        end
-        object menInsertLatexFont: TMenuItem
-          Caption = 'Font'
-          ImageIndex = 221
-          object menInsertLatexFontEnphase: TMenuItem
-            Action = actLatexFontEnphase
-          end
-          object menInsertLatexFontBold: TMenuItem
-            Action = actLatexFontBold
-          end
-          object menInsertLatexFontItalic: TMenuItem
-            Action = actLatexFontItalic
-          end
-          object menInsertLatexFontSlatend: TMenuItem
-            Action = actLatexFontSlatend
-          end
-          object menInsertLatexFontTypewriter: TMenuItem
-            Action = actLatexFontTypewriter
-          end
-          object menInsertLatexFontSmallcaps: TMenuItem
-            Action = actLatexFontSmallcaps
-          end
-          object N134: TMenuItem
-            Caption = '-'
-          end
-          object menInsertLatexFontTiny: TMenuItem
-            Action = actLatexFontTiny
-          end
-          object menInsertLatexFontScriptsize: TMenuItem
-            Action = actLatexFontScript
-          end
-          object menInsertLatexFontFootnotsize: TMenuItem
-            Action = actLatexFontFootnote
-          end
-          object menInsertLatexFontSmall: TMenuItem
-            Action = actLatexFontSmall
-          end
-          object menInsertLatexFontNormal: TMenuItem
-            Action = actLatexFontNormal
-          end
-          object menInsertLatexFontLarge: TMenuItem
-            Action = actLatexFontLarge
-          end
-          object menInsertLatexFontLarger: TMenuItem
-            Action = actLatexFontLarger
-          end
-          object menInsertLatexFontLargest: TMenuItem
-            Action = actLatexFontLargest
-          end
-          object menInsertLatexFontHuge: TMenuItem
-            Action = actLatexFontHuge
-          end
-          object menInsertLatexFontHuger: TMenuItem
-            Action = actLatexFontHuger
-          end
-        end
-      end
-      object N131: TMenuItem
-        Caption = '-'
-      end
-      object menInserCompletion: TMenuItem
-        Action = actCompletion
-      end
-      object N171: TMenuItem
-        Caption = '-'
-      end
-      object menInsertDateTime: TMenuItem
-        Action = actDateStamp
-      end
-    end
-    object menSearch: TMenuItem
-      Caption = '&Search'
-      GroupIndex = 6
-      object menSearchFind: TMenuItem
-        Action = actFind
-      end
-      object menSearchFindAgain: TMenuItem
-        Action = actFindAgain
-      end
-      object N92: TMenuItem
-        Caption = '-'
-        GroupIndex = 3
-      end
-      object menSearchInFiles: TMenuItem
-        Action = actSearchInFiles
-        GroupIndex = 3
-      end
-      object N93: TMenuItem
-        Caption = '-'
-        GroupIndex = 3
-      end
-      object menSearchReplace: TMenuItem
-        Action = actReplace
-        GroupIndex = 3
-      end
-      object N94: TMenuItem
-        Caption = '-'
-        GroupIndex = 3
-      end
-      object menSearchGoTo: TMenuItem
-        Action = actGotoLine
-        GroupIndex = 3
-      end
-    end
-    object menOptions: TMenuItem
-      Caption = '&Options'
-      GroupIndex = 7
-      object menOptionsApplication: TMenuItem
-        Action = actShowAppOptions
-      end
-      object menOptionsShortcuts: TMenuItem
-        Caption = 'Shortcuts'
-        Hint = 'Shortcuts: edit'
-        ImageIndex = 119
-        OnClick = menOptionsShortcutsClick
-      end
-      object N119: TMenuItem
-        Caption = '-'
-      end
-      object menOptionColorPreference: TMenuItem
-        Action = actColorsPreference
-        ImageIndex = 62
-      end
-      object menOptionSyntax: TMenuItem
-        Caption = 'Syntax (highlighter)'
-        object menOptionSyntaxSet: TMenuItem
-          Caption = 'Set'
-          ImageIndex = 175
-        end
-        object N115: TMenuItem
-          Caption = '-'
-        end
-        object menOptionSyntaxDefault: TMenuItem
-          Caption = 'Default (to new files)'
-          object menOptionSyntaxDefaultR: TMenuItem
-            Action = actRSimpleDefault
-          end
-          object menOptionSyntaxDefaultRComplex: TMenuItem
-            Action = actRComplexDefault
-          end
-          object menOptionSyntaxDefaultText: TMenuItem
-            Action = actTextDefault
-          end
-        end
-      end
-      object N46: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menOptionStartupFileMaximized: TMenuItem
-        Action = actOpenMaximized
-        GroupIndex = 1
-      end
-      object menOptionGoBack: TMenuItem
-        Action = actRguiReturnFocus
-        GroupIndex = 1
-      end
-      object menOptionAlwaysOnTop: TMenuItem
-        Action = actOnTop
-        GroupIndex = 1
-      end
-      object menOptionReadOnlyToggle: TMenuItem
-        Action = actReadOnly
-        GroupIndex = 1
-      end
-      object N130: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menOptionsSelection: TMenuItem
-        Caption = 'Selection mode'
-        GroupIndex = 1
-        object menOptionsSelectionNormal: TMenuItem
-          Action = actNormalSelect
-          RadioItem = True
-        end
-        object menOptionsSelectionLine: TMenuItem
-          Action = actLineSelect
-          RadioItem = True
-        end
-        object menOptionsSelectionColumn: TMenuItem
-          Action = actColumnSelect
-          RadioItem = True
-        end
-      end
-    end
-    object menEncoding: TMenuItem
-      Caption = 'Enco&ding'
-      GroupIndex = 7
-      object menEncDefault: TMenuItem
-        Caption = 'Default (creating new files)'
-        object menEncDefANSI: TMenuItem
-          Action = actANSI
-        end
-        object menEncDefUTF8: TMenuItem
-          Action = actUTF8
-        end
-        object menEncDefUTF16LE: TMenuItem
-          Action = actUTF16LE
-        end
-        object menEncDefUTF16BE: TMenuItem
-          Action = actUTF16BE
-        end
-      end
-      object menEncConvert: TMenuItem
-        Caption = 'Convert (current encoding to)'
-        object menEncConANSI: TMenuItem
-          Caption = 'ANSI'
-          Enabled = False
-          OnClick = menEncConANSIClick
-        end
-        object menEncConUTF8: TMenuItem
-          Caption = 'UTF-8'
-          Enabled = False
-          OnClick = menEncConUTF8Click
-        end
-        object menEncConUTF16LE: TMenuItem
-          Caption = 'UTF16-LE'
-          Enabled = False
-          OnClick = menEncConUTF16LEClick
-        end
-        object menEncConUTF16BE: TMenuItem
-          Caption = 'UTF16-BE'
-          Enabled = False
-          OnClick = menEncConUTF16BEClick
-        end
-      end
-      object N184: TMenuItem
-        Caption = '-'
-      end
-      object menFormatDelimiter: TMenuItem
-        Caption = 'Change line endings (delimiter)'
-        object menChaLinEndWIN: TMenuItem
-          Caption = 'WIN (CR+LF)'
-          Enabled = False
-          OnClick = menChaLinEndWINClick
-        end
-        object menChaLinEndMAC: TMenuItem
-          Caption = 'MAC (CR)'
-          Enabled = False
-          OnClick = menChaLinEndMACClick
-        end
-        object menChaLinEndUNIX: TMenuItem
-          Caption = 'UNIX (LF)'
-          Enabled = False
-          OnClick = menChaLinEndUNIXClick
-        end
-      end
-    end
-    object menTools: TMenuItem
-      Caption = '&Tools'
-      GroupIndex = 7
-      object menToolsProcessing: TMenuItem
-        Caption = 'Processing'
-        object menToolsConversion: TMenuItem
-          Caption = 'Conversion'
-          ImageIndex = 129
-          object menToolsConversionDeplateTo: TMenuItem
-            Caption = 'Deplate to'
-            ImageIndex = 172
-            object menToolsConversionDeplateToLaTeX: TMenuItem
-              Action = actDeplateToLaTeX
-            end
-            object menToolsConversionDeplateToLaTeXdramastic: TMenuItem
-              Action = actDeplateToLaTeXDramatist
-            end
-            object menToolsConversionDeplateToSweave: TMenuItem
-              Action = actDeplateToSweave
-            end
-            object menToolsConversionDeplateToPlain: TMenuItem
-              Action = actDeplateToPlain
-            end
-            object N19: TMenuItem
-              Caption = '-'
-            end
-            object menToolsConversionDeplateToHTML: TMenuItem
-              Action = actDeplateToHtml
-            end
-            object menToolsConversionDeplateToHtmlsite: TMenuItem
-              Action = actDeplateToHtmlSite
-            end
-            object menToolsConversionDeplateToHtmlslides: TMenuItem
-              Action = actDeplateToHtmlSlides
-            end
-            object menToolsConversionDeplateToXhtml10: TMenuItem
-              Action = actDeplateToXhtmlTransitional
-            end
-            object menToolsConversionDeplateToXhtml11: TMenuItem
-              Action = actDeplateToXhtmlMathMl
-            end
-            object menToolsConversionDeplateToPhp: TMenuItem
-              Action = actDeplateToPhp
-            end
-            object N22: TMenuItem
-              Caption = '-'
-            end
-            object menToolsConversionDeplateToDbkarticle: TMenuItem
-              Action = actDeplateToDocbookArticle
-            end
-            object menToolsConversionDeplateToDbkbook: TMenuItem
-              Action = actDeplateToDocbookBook
-            end
-            object menToolsConversionDeplateToDbkref: TMenuItem
-              Action = actDeplateToDocbookReference
-            end
-          end
-          object menToolsConversionPandoc: TMenuItem
-            Caption = 'Pandoc'
-            Enabled = False
-            ImageIndex = 280
-            ShortCut = 24656
-            OnClick = menToolsConversionPandocClick
-          end
-          object menToolsConversionTxt2tagsTo: TMenuItem
-            Caption = 'Txt2tags to'
-            ImageIndex = 174
-            object menToolsConversionTxt2tagsToLatex: TMenuItem
-              Action = actTxt2tagsToLatex
-            end
-            object menToolsConversionTxt2tagsToSweave: TMenuItem
-              Action = actTxt2tagsToSweave
-            end
-            object xt1: TMenuItem
-              Action = actTxt2tagsToTxt
-            end
-            object N165: TMenuItem
-              Caption = '-'
-            end
-            object menToolsConversionTxt2tagsToHTML: TMenuItem
-              Action = actTxt2tagsToHtml
-            end
-            object XHTML1: TMenuItem
-              Action = actTxt2tagsToXhtml
-            end
-            object SGML1: TMenuItem
-              Action = actTxt2tagsToSgml
-            end
-            object Lout1: TMenuItem
-              Action = actTxt2tagsToLout
-            end
-            object Manpage1: TMenuItem
-              Action = actTxt2tagsToMan
-            end
-            object N166: TMenuItem
-              Caption = '-'
-            end
-            object Wikipedia1: TMenuItem
-              Action = actTxt2tagsToWiki
-            end
-            object GoogleCodeWiki1: TMenuItem
-              Action = actTxt2tagsToGwiki
-            end
-            object DokuWiki1: TMenuItem
-              Action = actTxt2tagsToDoku
-            end
-            object MoinMoin1: TMenuItem
-              Action = actTxt2tagsToMoin
-            end
-            object N167: TMenuItem
-              Caption = '-'
-            end
-            object MagicPoint1: TMenuItem
-              Action = actTxt2tagsToMgp
-            end
-            object PageMaker1: TMenuItem
-              Action = actTxt2tagsToPm6
-            end
-          end
-        end
-        object menToolsCompilation: TMenuItem
-          Caption = 'Compilation (LaTeX)'
-          ImageIndex = 128
-          object menToolsCompilationMinimized: TMenuItem
-            Action = actDOSMinimizedAlways
-          end
-          object N4: TMenuItem
-            Caption = '-'
-          end
-          object menToolsCompilationLaTeXToDVISingle: TMenuItem
-            Action = actLatexToDVISingle
-          end
-          object menToolsCompilationLaTeXToDVIBibtex: TMenuItem
-            Action = actLatexToDVIBibtex
-          end
-          object N126: TMenuItem
-            Caption = '-'
-          end
-          object menToolsCompilationLaTeXToPDFSingle: TMenuItem
-            Action = actLatexToPDFSingle
-          end
-          object menToolsCompilationLaTeXToPDFBibtex: TMenuItem
-            Action = actLatexToPDFBibtex
-          end
-          object N198: TMenuItem
-            Caption = '-'
-          end
-          object Makeindexmakeindex1: TMenuItem
-            Action = actLatexMakeIndex
-          end
-        end
-        object menToolsViewer: TMenuItem
-          Caption = 'Viewer'
-          ImageIndex = 170
-          object menToolsViewerDVI: TMenuItem
-            Caption = 'DVI'
-            object menToolsViewerDVIOpenAlways: TMenuItem
-              Action = actDVIOpenAlways
-            end
-            object menToolsViewerDVIOpenFile: TMenuItem
-              Action = actDVIOpenFile
-            end
-          end
-          object menToolsViewerPDF: TMenuItem
-            Caption = 'PDF'
-            ImageIndex = 46
-            object menToolsViewerPDFOpenAlways: TMenuItem
-              Action = actPDFOpenAlways
-            end
-            object menToolsViewerPDFOpenFile: TMenuItem
-              Action = actPDFOpenFile
-            end
-          end
-          object menToolsViewerHTML: TMenuItem
-            Caption = 'HTML'
-            object menToolsViewerHTMLOpenAlways: TMenuItem
-              Action = actHTMLOpenAlways
-            end
-            object N70: TMenuItem
-              Caption = '-'
-            end
-            object menToolsViewerHTMLOpenCurrent: TMenuItem
-              Action = actHTMLOpenCurrentFile
-            end
-            object menToolsViewerHTMLOpenFile: TMenuItem
-              Action = actHTMLOpenFile
-            end
-          end
-        end
-      end
-      object N20: TMenuItem
-        Caption = '-'
-      end
-      object menToolsDatabase: TMenuItem
-        Caption = 'Database'
-        GroupIndex = 1
-        object menToolsDatabaseShortcuts: TMenuItem
-          Caption = 'Shortcuts'
-          ImageIndex = 119
-          OnClick = menToolsDatabaseShortcutsClick
-        end
-        object menToolsDatabaseCompletion: TMenuItem
-          Caption = 'Completion'
-          GroupIndex = 1
-          OnClick = menToolsDatabaseCompletionClick
-        end
-        object menToolsDatabaseComments: TMenuItem
-          Caption = 'Comments'
-          GroupIndex = 1
-          ImageIndex = 139
-          OnClick = menToolsDatabaseCommentsClick
-        end
-        object menToolsDatabaseCardR: TMenuItem
-          Caption = 'Card (R)'
-          GroupIndex = 1
-          OnClick = menToolsDatabaseCardRClick
-        end
-        object menToolsDatabaseMirrorsR: TMenuItem
-          Caption = 'Mirrors (R)'
-          GroupIndex = 1
-          ImageIndex = 162
-          OnClick = menToolsDatabaseMirrorsRClick
-        end
-      end
-      object N2: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsBackup: TMenuItem
-        Caption = 'Backup'
-        GroupIndex = 1
-        ImageIndex = 121
-        object menToolsBackupSystem: TMenuItem
-          Action = actBackupSystemConfiguration
-        end
-        object menToolsBackupDatabase: TMenuItem
-          Action = actBackupDatabase
-        end
-      end
-      object menToolsRestore: TMenuItem
-        Caption = 'Restore'
-        GroupIndex = 1
-        ImageIndex = 124
-        object menToolsRestoreSystem: TMenuItem
-          Action = actRestoreSystemConfiguration
-        end
-        object menToolsRestoreDatabase: TMenuItem
-          Action = actRestoreDatabase
-        end
-      end
-      object N109: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsMacro: TMenuItem
-        Caption = 'Macro'
-        GroupIndex = 1
-        object menToolsMacroRecord: TMenuItem
-          Action = actMacroRecord
-        end
-        object menToolsMacroPlay: TMenuItem
-          Action = actMacroPlay
-        end
-      end
-      object N27: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsASCIIChart: TMenuItem
-        Action = actAsciiChart
-        GroupIndex = 1
-      end
-      object menToolsDifferences: TMenuItem
-        Action = actDifferences
-        GroupIndex = 1
-      end
-      object N87: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsSpell: TMenuItem
-        Action = actSpell
-        GroupIndex = 1
-      end
-      object menToolsSort: TMenuItem
-        Caption = 'Sort'
-        GroupIndex = 1
-        Hint = 'Sort (all or selection)'
-        ImageIndex = 205
-        object menToolsSortString: TMenuItem
-          Action = actSortString
-        end
-        object menToolsSortNumber: TMenuItem
-          Action = actSortNumber
-        end
-        object menToolsSortDate: TMenuItem
-          Action = actSortDate
-        end
-      end
-      object actCount1: TMenuItem
-        Action = actCount
-        GroupIndex = 1
-      end
-      object N128: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsMatchBracket: TMenuItem
-        Action = actMatchBracket
-        GroupIndex = 1
-      end
-      object menToolsUtils: TMenuItem
-        Caption = 'Utils'
-        GroupIndex = 12
-        Visible = False
-        object menToolsUtilsActionlistToClipboard: TMenuItem
-          Caption = 'Actionlist to clipboard'
-          GroupIndex = 12
-          OnClick = menToolsUtilsActionlistToClipboardClick
-        end
-        object menToolsUtilsActionlistToDataset: TMenuItem
-          Caption = 'Actionlist to dataset'
-          GroupIndex = 12
-          OnClick = menToolsUtilsActionlistToDatasetClick
-        end
-        object menToolsUtilsDatasetToActionlist: TMenuItem
-          Caption = 'Dataset to Actionlist'
-          GroupIndex = 12
-          OnClick = menToolsUtilsDatasetToActionlistClick
-        end
-        object N182: TMenuItem
-          Caption = '-'
-          GroupIndex = 12
-        end
-        object menToolsUtilsTesteRegex: TMenuItem
-          Caption = 'Test: RegEx'
-          GroupIndex = 12
-          OnClick = menToolsUtilsTesteRegexClick
-        end
-        object N185: TMenuItem
-          Caption = '-'
-          GroupIndex = 12
-        end
-        object menToolsUtilsStringReplace: TMenuItem
-          Caption = 'StringReplace'
-          GroupIndex = 12
-          OnClick = menToolsUtilsStringReplaceClick
-        end
-        object N54: TMenuItem
-          Caption = '-'
-          GroupIndex = 12
-        end
-      end
-    end
-    object menR: TMenuItem
-      Caption = '&R'
-      GroupIndex = 8
-      object menRStartClose: TMenuItem
-        Caption = 'Start/close and connections'
-        object menRTermStartClose: TMenuItem
-          Action = actRContTermStartClose
-        end
-        object menRGuiStartClose: TMenuItem
-          Action = actRContGuiStartClose
-        end
-        object N63: TMenuItem
-          Caption = '-'
-        end
-        object menRserver: TMenuItem
-          Caption = 'Server (connections and tests)'
-          ImageIndex = 168
-          OnClick = menRserverClick
-        end
-      end
-      object N186: TMenuItem
-        Caption = '-'
-      end
-      object menRSet_trPaths: TMenuItem
-        Caption = 'Set .trPaths (temporarily)'
-        Enabled = False
-        ImageIndex = 286
-        OnClick = menRSet_trPathsClick
-      end
-      object menRGet_Info: TMenuItem
-        Caption = 'Get info (R and TinnRcom)'
-        Enabled = False
-        ImageIndex = 287
-        OnClick = menRGet_InfoClick
-      end
-      object menRmirrors_update: TMenuItem
-        Action = actRmirrorsUpdate
-      end
-      object N141: TMenuItem
-        Caption = '-'
-      end
-      object menRterm: TMenuItem
-        Caption = 'Rterm'
-        ImageIndex = 148
-        object menRtermShowHide: TMenuItem
-          Action = actRtermVisible
-        end
-        object N91: TMenuItem
-          Caption = '-'
-        end
-        object menRtermFile: TMenuItem
-          Caption = 'File'
-          ImageIndex = 32
-          object menRtermFileIO: TMenuItem
-            Caption = 'IO'
-            ImageIndex = 244
-            object menRtermFileIOSave: TMenuItem
-              Action = actRtermIOSave
-            end
-            object menRtermFileIOSaveAs: TMenuItem
-              Action = actRtermIOSaveAs
-            end
-            object menRtermFileIOPrint: TMenuItem
-              Action = actRtermIOPrint
-            end
-          end
-          object menRtermFileLog: TMenuItem
-            Caption = 'Log'
-            ImageIndex = 252
-            object menRtermFileLogSave: TMenuItem
-              Action = actRtermLogSave
-            end
-            object menRtermFileLogSaveAs: TMenuItem
-              Action = actRtermLogSaveAs
-            end
-            object menRtermFileLogPrint: TMenuItem
-              Action = actRtermLogPrint
-            end
-          end
-        end
-        object N90: TMenuItem
-          Caption = '-'
-        end
-        object Clear3: TMenuItem
-          Caption = 'Clear'
-          ImageIndex = 20
-          object IO1: TMenuItem
-            Action = actRtermIOClear
-          end
-          object Log1: TMenuItem
-            Action = actRtermLogClear
-          end
-          object IOandLog4: TMenuItem
-            Action = actRtermIOandLogClear
-          end
-        end
-        object menRtermFocus: TMenuItem
-          Caption = 'Focus'
-          ImageIndex = 274
-          object menRtermFocusEditor: TMenuItem
-            Action = actRtermEditorSetFocus
-            AutoCheck = True
-          end
-          object menRtermFocusConsole: TMenuItem
-            Action = actRtermIOSetFocus
-            AutoCheck = True
-          end
-          object menRtermFocusLog: TMenuItem
-            Action = actRtermLogSetFocus
-            AutoCheck = True
-          end
-        end
-        object menRtermSize: TMenuItem
-          Caption = 'Size'
-          ImageIndex = 248
-          object menRtermSizeMaximize: TMenuItem
-            Action = actRtermMaximize
-          end
-          object mmenRtermSizeDivide: TMenuItem
-            Action = actRtermDivide
-          end
-          object mmenRtermSizeMinimize: TMenuItem
-            Action = actRtermMinimize
-          end
-        end
-        object menRtermSplit: TMenuItem
-          Caption = 'Split'
-          ImageIndex = 255
-          object menRtermSplitHorizontal: TMenuItem
-            Action = actRtermIOSplitHorizontal
-            AutoCheck = True
-          end
-          object menRtermSplitVertical: TMenuItem
-            Action = actRtermIOSplitVertical
-            AutoCheck = True
-          end
-          object N147: TMenuItem
-            Caption = '-'
-          end
-          object menRtermSplitRemove: TMenuItem
-            Action = actRtermIOSplitRemove
-            AutoCheck = True
-          end
-        end
-        object menRtermHighlighter: TMenuItem
-          Caption = 'Highlighter'
-          ImageIndex = 62
-          object menRtermSyntaxIO: TMenuItem
-            Caption = 'IO'
-            ImageIndex = 244
-            object menRtermSyntaxIOText: TMenuItem
-              Action = actRtermSetIOSyntaxToText
-              AutoCheck = True
-            end
-            object menRtermSyntaxIOR: TMenuItem
-              Action = actRtermSetIOSyntaxToR
-              AutoCheck = True
-            end
-          end
-          object menRtermSyntaxLog: TMenuItem
-            Caption = 'Log'
-            ImageIndex = 252
-            object menRtermSyntaxLogText: TMenuItem
-              Action = actRtermSetLogSyntaxToText
-              AutoCheck = True
-            end
-            object menRtermSyntaxLogR: TMenuItem
-              Action = actRtermSetLogSyntaxToR
-              AutoCheck = True
-            end
-          end
-        end
-        object menRtermLineWrap: TMenuItem
-          Caption = 'Line wrap'
-          ImageIndex = 101
-          object IO2: TMenuItem
-            Action = actRtermIOLineWrap
-          end
-          object Log2: TMenuItem
-            Action = actRtermLogLineWrap
-          end
-        end
-        object N66: TMenuItem
-          Caption = '-'
-        end
-        object menRtermHistory: TMenuItem
-          Caption = 'History'
-          ImageIndex = 272
-          object menRtermHistorySave: TMenuItem
-            Action = actRtermSaveHistory
-          end
-          object menRtermHistoryLoad: TMenuItem
-            Action = actRtermLoadHistory
-          end
-          object N176: TMenuItem
-            Caption = '-'
-          end
-          object menRtermHistoryPrior: TMenuItem
-            Action = actRtermIOHistoryPrior
-          end
-          object menRtermHistoryNext: TMenuItem
-            Action = actRtermIOHistoryNext
-          end
-        end
-        object menRtermWorkspace: TMenuItem
-          Caption = 'Workspace'
-          ImageIndex = 273
-          object menRtermWorkspaceSave: TMenuItem
-            Action = actRtermSaveWorkspace
-          end
-          object menRtermWorkspaceLoad: TMenuItem
-            Action = actRtermLoadWorkspace
-          end
-        end
-        object N163: TMenuItem
-          Caption = '-'
-        end
-        object menRtermFont: TMenuItem
-          Caption = 'Font of active control (not permanent)'
-          ImageIndex = 260
-          object Increase1: TMenuItem
-            Action = actFontIncrease
-          end
-          object Decrease1: TMenuItem
-            Action = actFontDecrease
-          end
-        end
-      end
-      object N21: TMenuItem
-        Caption = '-'
-      end
-      object menSendToR: TMenuItem
-        Caption = 'Send'
-        ImageIndex = 0
-        object menSendToRFile: TMenuItem
-          Action = actRSendSourceFile
-        end
-        object menSendToRAll: TMenuItem
-          Action = actRSendFile
-        end
-        object N60: TMenuItem
-          Caption = '-'
-        end
-        object menSendToRSourceSelection: TMenuItem
-          Action = actRSendSourceSelection
-        end
-        object menSendToRSelection: TMenuItem
-          Action = actRSendSelection
-        end
-        object N173: TMenuItem
-          Caption = '-'
-        end
-        object Clipboard2: TMenuItem
-          Action = actRSendSourceClipboard
-        end
-        object Clipboard1: TMenuItem
-          Action = actRSendClipboard
-        end
-        object N18: TMenuItem
-          Caption = '-'
-        end
-        object menSendToRSourceBlockMarked: TMenuItem
-          Action = actRSendSourceBlockMarked
-        end
-        object menSendToRBlockMarked: TMenuItem
-          Action = actRSendBlockMarked
-        end
-        object N137: TMenuItem
-          Caption = '-'
-        end
-        object Contiguous1: TMenuItem
-          Action = actRSendSourceContiguous
-        end
-        object ContiguousechoTRUE1: TMenuItem
-          Action = actRSendContiguous
-        end
-        object N58: TMenuItem
-          Caption = '-'
-        end
-        object menSendToRLine: TMenuItem
-          Action = actRSendLine
-        end
-        object menSendToRLinesToEndPage: TMenuItem
-          Action = actRSendLinesToEndPage
-        end
-        object N16: TMenuItem
-          Caption = '-'
-        end
-        object menSendToRCursorToBegginingLine: TMenuItem
-          Action = actRSendCursorToBeginningLine
-        end
-        object menSendToRCursorToEndLine: TMenuItem
-          Action = actRSendCursorToEndLine
-        end
-        object N26: TMenuItem
-          Caption = '-'
-        end
-        object Sweave1: TMenuItem
-          Action = actRSendSweave
-        end
-        object menSendToRKnitr: TMenuItem
-          Caption = 'Knitr'
-          ImageIndex = 277
-          object Knitr1: TMenuItem
-            Action = actRSendKnitPdf
-          end
-          object KnittoHTMLRmd1: TMenuItem
-            Action = actRSendKnitHtml
-          end
-        end
-      end
-      object N11: TMenuItem
-        Caption = '-'
-      end
-      object menREditorCurrentLineToTop: TMenuItem
-        Action = actRCurrentLineToTop
-      end
-      object N12: TMenuItem
-        Caption = '-'
-      end
-      object menControlR: TMenuItem
-        Caption = 'Control'
-        ImageIndex = 12
-        object menControlRSetWorkDir: TMenuItem
-          Action = actRContSetWorkDirectory
-        end
-        object N88: TMenuItem
-          Caption = '-'
-        end
-        object menControlRListAllObjects: TMenuItem
-          Action = actRContListAllObjects
-        end
-        object menControlRPrintVariableContent: TMenuItem
-          Action = actRContPrintVariableContent
-        end
-        object menControlRListVariableNames: TMenuItem
-          Action = actRContListVariableNames
-        end
-        object menControlRListVariableStructure: TMenuItem
-          Action = actRContListVariableStructure
-        end
-        object menControlREditSelected: TMenuItem
-          Action = actRContEditVariable
-        end
-        object menControlRFixSelected: TMenuItem
-          Action = actRContFixVariable
-        end
-        object menControlRPlotSelected: TMenuItem
-          Action = actRContPlotVariable
-        end
-        object N13: TMenuItem
-          Caption = '-'
-        end
-        object menControlRClearConsole: TMenuItem
-          Action = actRContClearConsole
-        end
-        object menControlRCloseAllGraphicDevices: TMenuItem
-          Action = actRContCloseAllGraphics
-        end
-        object menControlRRemoveAllObjects: TMenuItem
-          Action = actRContRemoveAllObjects
-        end
-        object N84: TMenuItem
-          Caption = '-'
-        end
-        object menControlRClearAll: TMenuItem
-          Action = actRContClearAll
-        end
-        object N17: TMenuItem
-          Caption = '-'
-        end
-        object menControlREscape: TMenuItem
-          Action = actRContEscape
-        end
-        object N14: TMenuItem
-          Caption = '-'
-        end
-        object menControlRHelpSelected: TMenuItem
-          Action = actRContHelpSelectedWord
-        end
-        object menControlRExampleSelected: TMenuItem
-          Action = actRContExampleSelectedWord
-        end
-        object menControlRHelp: TMenuItem
-          Action = actRContHelp
-        end
-        object N114: TMenuItem
-          Caption = '-'
-        end
-        object menRPackages: TMenuItem
-          Action = actRContPackages
-          object menRPackagesInstall: TMenuItem
-            Action = actRContPacInstall
-          end
-          object menRPackagesInstallfromZip: TMenuItem
-            Action = actRContPacInstallZip
-          end
-          object N158: TMenuItem
-            Caption = '-'
-          end
-          object menRPackagesInstallTinnRcom: TMenuItem
-            Action = actRContPacInstTinnRcom
-          end
-          object menRPackagesLoadTinnRcom: TMenuItem
-            Action = actRContPacLoadTinnRcom
-          end
-          object N183: TMenuItem
-            Caption = '-'
-          end
-          object menRPackagesInstalled: TMenuItem
-            Action = actRContPacInstalled
-          end
-          object menRPackagesLoad: TMenuItem
-            Action = actRContPacLoad
-          end
-          object menRPackagesNew: TMenuItem
-            Action = actRContPacNew
-          end
-          object menRPackagesRemove: TMenuItem
-            Action = actRContPacRemove
-          end
-          object menRPackagesUpdate: TMenuItem
-            Action = actRContPacUpdate
-          end
-          object menRPackagesStatus: TMenuItem
-            Action = actRContPacStatus
-          end
-        end
-        object N124: TMenuItem
-          Caption = '-'
-        end
-        object memRTCPConnection: TMenuItem
-          Action = actRContTCPConnection
-        end
-      end
-      object N15: TMenuItem
-        Caption = '-'
-      end
-      object menRHotKeys: TMenuItem
-        Caption = 'Hotkeys (operational system)'
-        ImageIndex = 239
-        OnClick = menRHotKeysClick
-      end
-    end
-    object menView: TMenuItem
-      Caption = 'Vie&w'
-      GroupIndex = 9
-      object menViewR: TMenuItem
-        Caption = 'R'
-        object menViewROrganizeScreen: TMenuItem
-          Action = actOrganizeScreen
-        end
-        object menViewRterm: TMenuItem
-          Caption = 'Rterm'
-          ImageIndex = 148
-          object menViewRtermShowHide: TMenuItem
-            Action = actRtermVisible
-          end
-          object N140: TMenuItem
-            Caption = '-'
-          end
-          object menViewRtermSize: TMenuItem
-            Caption = 'Size'
-            ImageIndex = 248
-            object menViewRtermSizeMaximize: TMenuItem
-              Action = actRtermMaximize
-            end
-            object menViewRtermSizeDivide: TMenuItem
-              Action = actRtermDivide
-            end
-            object menViewRtermSizeMinimize: TMenuItem
-              Action = actRtermMinimize
-            end
-          end
-          object menViewRtermSplit: TMenuItem
-            Caption = 'Split'
-            ImageIndex = 255
-            object menViewRtermSplitHorizontal: TMenuItem
-              Action = actRtermIOSplitHorizontal
-              AutoCheck = True
-            end
-            object menViewRtermSplitVertical: TMenuItem
-              Action = actRtermIOSplitVertical
-              AutoCheck = True
-            end
-            object N149: TMenuItem
-              Caption = '-'
-            end
-            object menViewRtermSplitRemove: TMenuItem
-              Action = actRtermIOSplitRemove
-              AutoCheck = True
-            end
-          end
-          object menViewRtermSyntax: TMenuItem
-            Caption = 'Syntax'
-            ImageIndex = 62
-            object menViewRtermSyntaxIO: TMenuItem
-              Caption = 'IO'
-              ImageIndex = 244
-              object menViewRtermSyntaxIOText: TMenuItem
-                Action = actRtermSetIOSyntaxToText
-                AutoCheck = True
-              end
-              object menViewRtermSyntaxIOR: TMenuItem
-                Action = actRtermSetIOSyntaxToR
-                AutoCheck = True
-              end
-            end
-            object menViewRtermSyntaxLog: TMenuItem
-              Caption = 'Log'
-              ImageIndex = 252
-              object menViewRtermSyntaxLogText: TMenuItem
-                Action = actRtermSetLogSyntaxToText
-                AutoCheck = True
-              end
-              object menViewRtermSyntaxLogR: TMenuItem
-                Action = actRtermSetLogSyntaxToR
-                AutoCheck = True
-              end
-            end
-          end
-          object Linewrap1: TMenuItem
-            Caption = 'Line wrap'
-            ImageIndex = 101
-            object RtermIOLinewrapshowhide1: TMenuItem
-              Action = actRtermIOLineWrap
-            end
-            object RtermLogLinewrapshowhide2: TMenuItem
-              Action = actRtermLogLineWrap
-            end
-          end
-          object N150: TMenuItem
-            Caption = '-'
-          end
-          object Fontofactivecontrolnotpermanent1: TMenuItem
-            Caption = 'Font of active control (not permanent)'
-            ImageIndex = 260
-            object a1: TMenuItem
-              Action = actFontIncrease
-            end
-            object b1: TMenuItem
-              Action = actFontDecrease
-            end
-          end
-        end
-      end
-      object menViewTools: TMenuItem
-        Caption = 'Tools'
-        ImageIndex = 149
-        object menViewToolsVisibleToggle: TMenuItem
-          Action = actToolsVisible
-        end
-        object N5: TMenuItem
-          Caption = '-'
-        end
-        object menViewToolsSize: TMenuItem
-          Caption = 'Size'
-          ImageIndex = 248
-          object menViewToolsWidthMaximize: TMenuItem
-            Action = actToolsMaximize
-          end
-          object menViewToolsWidthDivide: TMenuItem
-            Action = actToolsDivide
-          end
-          object menViewToolsWidthMinimize: TMenuItem
-            Action = actToolsMinimize
-          end
-        end
-        object N121: TMenuItem
-          Caption = '-'
-        end
-        object menViewToolsRes: TMenuItem
-          Caption = 'Resources'
-          object menViewToolsResMisc: TMenuItem
-            Caption = 'Misc'
-            object Miscshowhide1: TMenuItem
-              Action = actMiscVisible
-            end
-            object N52: TMenuItem
-              Caption = '-'
-            end
-            object Windowsexplorer1: TMenuItem
-              Action = actWinExplVisible
-            end
-            object Workexpl1: TMenuItem
-              Action = actWorkExplVisible
-            end
-            object Project1: TMenuItem
-              Action = actProjectVisible
-            end
-          end
-          object menViewToolsResMarkup: TMenuItem
-            Caption = 'Markup'
-            object menViewToolsResMarkupMarkup: TMenuItem
-              Action = actMarkupVisible
-            end
-            object N142: TMenuItem
-              Caption = '-'
-            end
-            object menViewToolsResMarkupTxt2tags: TMenuItem
-              Action = actTxt2tagsVisible
-            end
-            object menViewToolsResMarkupLatex: TMenuItem
-              Action = actLatexVisible
-            end
-          end
-          object menViewToolsResResults: TMenuItem
-            Caption = 'Results'
-            object Results2: TMenuItem
-              Action = actResultsVisible
-            end
-            object N139: TMenuItem
-              Caption = '-'
-            end
-            object Inilog1: TMenuItem
-              Action = actIniLogVisible
-            end
-            object Search1: TMenuItem
-              Action = actSearchVisible
-            end
-          end
-          object menViewToolsResSpeel: TMenuItem
-            Action = actSpellVisible
-          end
-          object menViewToolsResDatabase: TMenuItem
-            Caption = 'Database'
-            object Databaseshowhide1: TMenuItem
-              Action = actDatabaseVisible
-            end
-            object N55: TMenuItem
-              Caption = '-'
-            end
-            object menViewToolsResShortcuts: TMenuItem
-              Action = actDataShortcutsVisible
-            end
-            object Completionshowhide1: TMenuItem
-              Action = actDataCompletionVisible
-            end
-            object Commentsshowhide1: TMenuItem
-              Action = actDataCommentsVisible
-            end
-          end
-          object menViewToolsResR: TMenuItem
-            Caption = 'R'
-            object Rshowhide1: TMenuItem
-              Action = actRVisible
-            end
-            object N101: TMenuItem
-              Caption = '-'
-            end
-            object Explorer1: TMenuItem
-              Action = actRExplorerVisible
-            end
-            object Card1: TMenuItem
-              Action = actDataRcardVisible
-              Caption = 'Card (show/hide)'
-            end
-            object Databaseshowhide2: TMenuItem
-              Action = actDataRmirrorsVisible
-              Caption = 'Mirrors (show/hide)'
-            end
-          end
-        end
-      end
-      object menViewToobars: TMenuItem
-        Caption = 'Toolbars'
-        ImageIndex = 158
-        object Showall1: TMenuItem
-          Action = actShowAllBars
-        end
-        object N122: TMenuItem
-          Caption = '-'
-        end
-        object menViewToolbarsEdit: TMenuItem
-          Action = actTobEditVisible
-        end
-        object menViewToolbarsFile: TMenuItem
-          Action = actTobFilesVisible
-        end
-        object menViewToolbarsFilter: TMenuItem
-          Action = actTobFilterVisible
-        end
-        object menViewToolbarsFormat: TMenuItem
-          Action = actTobFormatVisible
-          Checked = True
-        end
-        object menViewToolbarsMacro: TMenuItem
-          Action = actTobMacroVisible
-        end
-        object menViewToolbarsMisc: TMenuItem
-          Action = actTobMiscVisible
-        end
-        object menViewToolbarsProcessing: TMenuItem
-          Action = actTobProcessingVisible
-        end
-        object menViewToolbarsR: TMenuItem
-          Action = actTobRVisible
-        end
-        object menViewToolbarsSearch: TMenuItem
-          Action = actTobSearchVisible
-        end
-        object menViewToolbarsSpell: TMenuItem
-          Action = actTobSpellVisible
-        end
-        object menViewToolbarsSyntax: TMenuItem
-          Action = actTobSyntaxVisible
-        end
-        object menViewToolbarsView: TMenuItem
-          Action = actTobViewVisible
-        end
-      end
-      object menViewTabs: TMenuItem
-        Caption = 'Tabs'
-        object menViewTabsFiles: TMenuItem
-          Caption = 'Files'
-          object menViewTabsFilesVisible: TMenuItem
-            Action = actPgFilesVisible
-          end
-          object N6: TMenuItem
-            Caption = '-'
-          end
-          object op1: TMenuItem
-            Action = actFilesTabsTop
-            AutoCheck = True
-            GroupIndex = 6
-            RadioItem = True
-          end
-          object Bottom1: TMenuItem
-            Action = actFilesTabsBottom
-            AutoCheck = True
-            GroupIndex = 6
-            RadioItem = True
-          end
-        end
-        object menViewTabsTools: TMenuItem
-          Caption = 'Tools'
-          object Left1: TMenuItem
-            Action = actToolsTabsLeft
-            AutoCheck = True
-            GroupIndex = 7
-            RadioItem = True
-          end
-          object op2: TMenuItem
-            Action = actToolsTabsTop
-            AutoCheck = True
-            GroupIndex = 7
-            RadioItem = True
-          end
-          object Right1: TMenuItem
-            Action = actToolsTabsRight
-            AutoCheck = True
-            GroupIndex = 7
-            RadioItem = True
-          end
-          object Bottom2: TMenuItem
-            Action = actToolsTabsBottom
-            AutoCheck = True
-            GroupIndex = 7
-            RadioItem = True
-          end
-        end
-        object menViewTabsRterm: TMenuItem
-          Caption = 'Rterm'
-          object Left2: TMenuItem
-            Action = actRtermTabsLeft
-            AutoCheck = True
-            GroupIndex = 8
-            RadioItem = True
-          end
-          object op3: TMenuItem
-            Action = actRtermTabsTop
-            AutoCheck = True
-            GroupIndex = 8
-            RadioItem = True
-          end
-          object Right2: TMenuItem
-            Action = actRtermTabsRight
-            AutoCheck = True
-            GroupIndex = 8
-            RadioItem = True
-          end
-          object Bottom3: TMenuItem
-            Action = actRtermTabsBottom
-            AutoCheck = True
-            GroupIndex = 8
-            RadioItem = True
-          end
-        end
-      end
-      object N28: TMenuItem
-        Caption = '-'
-      end
-      object OrganizescreenTinnRRgui1: TMenuItem
-        Action = actOrganizeScreen
-      end
-      object N188: TMenuItem
-        Caption = '-'
-      end
-      object oolsshowhide1: TMenuItem
-        Action = actToolsVisible
-      end
-      object oolsmaximize1: TMenuItem
-        Action = actToolsMaximize
-      end
-      object oolsdivide1: TMenuItem
-        Action = actToolsDivide
-      end
-      object oolsminimize1: TMenuItem
-        Action = actToolsMinimize
-      end
-      object N187: TMenuItem
-        Caption = '-'
-      end
-      object Rtermshowhide1: TMenuItem
-        Action = actRtermVisible
-      end
-      object Rtermmaximize1: TMenuItem
-        Action = actRtermMaximize
-      end
-      object Rtermdivide1: TMenuItem
-        Action = actRtermDivide
-      end
-      object Rtermminimize1: TMenuItem
-        Action = actRtermMinimize
-      end
-      object N73: TMenuItem
-        Caption = '-'
-      end
-      object Wordwrap1: TMenuItem
-        Caption = 'Line wrap'
-        ImageIndex = 101
-        object Editorshowhide1: TMenuItem
-          Action = actEditorLineWrap
-        end
-        object RtermIOshowhide1: TMenuItem
-          Action = actRtermIOLineWrap
-        end
-        object RtermLogLinewrapshowhide1: TMenuItem
-          Action = actRtermLogLineWrap
-        end
-      end
-      object menViewGutter: TMenuItem
-        Action = actGutterVisible
-      end
-      object menViewLineNumbers: TMenuItem
-        Action = actLineNumbersVisible
-      end
-      object menViewSpecialCharacters: TMenuItem
-        Action = actSpecialCharVisible
-      end
-      object menViewStatusBar: TMenuItem
-        Action = actStatusBarVisible
-      end
-      object N7: TMenuItem
-        Caption = '-'
-      end
-      object menViewSplit: TMenuItem
-        Caption = 'Split'
-        object menViewSplitHorizontal: TMenuItem
-          Action = actSplitHorizontal
-        end
-        object menViewSplitVertical: TMenuItem
-          Action = actSplitVertical
-        end
-        object N148: TMenuItem
-          Caption = '-'
-        end
-        object menViewSplitRemove: TMenuItem
-          Action = actSplitRemove
-        end
-      end
-      object N162: TMenuItem
-        Caption = '-'
-      end
-      object menViewFont: TMenuItem
-        Caption = 'Font of active control (not permanent)'
-        ImageIndex = 260
-        object menViewIncrease: TMenuItem
-          Action = actFontIncrease
-        end
-        object menViewDecrease: TMenuItem
-          Action = actFontDecrease
-        end
-      end
-    end
-    object menWindow: TMenuItem
-      Caption = 'Win&dow'
-      GroupIndex = 10
-      object menWindowTileVertically: TMenuItem
-        Action = actWindowTileVertical
-      end
-      object menWindowTileHorizontally: TMenuItem
-        Action = actWindowTileHorizontal
-      end
-      object N29: TMenuItem
-        Caption = '-'
-      end
-      object menWindowMinimizeAll: TMenuItem
-        Action = actWindowMinimizeAll
-      end
-      object menWindowCascade: TMenuItem
-        Action = actWindowCascade
-      end
-      object menWindowArrangeIcons: TMenuItem
-        Action = actWindowArrange
-      end
-    end
-    object menWeb: TMenuItem
-      Caption = 'We&b'
-      GroupIndex = 11
-      object menWebRSearch: TMenuItem
-        Caption = 'R search'
-        ImageIndex = 184
-        object menWebRSearchSel: TMenuItem
-          Caption = 'Selected text'
-          ImageIndex = 55
-          object menWebSearchSelRArchives: TMenuItem
-            Caption = 'Archives'
-            Enabled = False
-            OnClick = menWebSearchSelRArchivesClick
-          end
-          object menWebSearchSelGoogle: TMenuItem
-            Caption = 'Google'
-            Enabled = False
-            OnClick = menWebSearchSelGoogleClick
-          end
-          object menWebSearchSelRSite: TMenuItem
-            Caption = 'Site search'
-            Enabled = False
-            OnClick = menWebSearchSelRSiteClick
-          end
-        end
-        object N32: TMenuItem
-          Caption = '-'
-        end
-        object menWebRSearchHelpForR: TMenuItem
-          Caption = 'Help for R (Jonathan Baron)'
-          ImageIndex = 63
-          OnClick = menWebRSearchHelpForRClick
-        end
-        object menWebRSearchMailingListArchives: TMenuItem
-          Caption = 'Mailing list archives'
-          ImageIndex = 186
-          OnClick = menWebRSearchMailingListArchivesClick
-        end
-        object menWebRSearchNabble: TMenuItem
-          Caption = 'Nabble'
-          object menWebRSearchNabbleR: TMenuItem
-            Caption = 'R forum'
-            OnClick = menWebRSearchNabbleRClick
-          end
-          object menWebRSearchNabbleRbr: TMenuItem
-            Caption = 'R-br forum'
-            OnClick = menWebRSearchNabbleRbrClick
-          end
-        end
-        object menWebR_help: TMenuItem
-          Caption = 'r-help mailing list information'
-          OnClick = menWebR_helpClick
-        end
-        object menWebRSearchRseek: TMenuItem
-          Caption = 'RSeek'
-          OnClick = menWebRSearchRseekClick
-        end
-        object menWebRSearchSite: TMenuItem
-          Caption = 'Site search'
-          ImageIndex = 171
-          OnClick = menWebRSearchSiteClick
-        end
-      end
-      object menWebSSearch: TMenuItem
-        Caption = 'S search'
-        ImageIndex = 185
-        object menWebSSearchSel: TMenuItem
-          Caption = 'Selected text'
-          ImageIndex = 55
-          object menWebSSearchSelArchives: TMenuItem
-            Caption = 'Archives search'
-            Enabled = False
-            OnClick = menWebSSearchSelArchivesClick
-          end
-        end
-        object N33: TMenuItem
-          Caption = '-'
-        end
-        object menWebSSearchMailling: TMenuItem
-          Caption = 'Mailing list archives'
-          ImageIndex = 186
-          OnClick = menWebSSearchMaillingClick
-        end
-      end
-      object N35: TMenuItem
-        Caption = '-'
-      end
-      object menWebRInformation: TMenuItem
-        Caption = 'R information'
-        ImageIndex = 162
-        object menWebRInformationsBioconductor: TMenuItem
-          Caption = 'Bioconductor'
-          OnClick = menWebRInformationsBioconductorClick
-        end
-        object menWebRInformationsCRAN: TMenuItem
-          Caption = 'CRAN'
-          OnClick = menWebRInformationsCRANClick
-        end
-        object menWebRInformationsNews: TMenuItem
-          Caption = 'News'
-          OnClick = menWebRInformationsNewsClick
-        end
-        object menWebRInformationsOmega: TMenuItem
-          Caption = 'Omega'
-          OnClick = menWebRInformationsOmegaClick
-        end
-        object menWebRInformationsRWiki: TMenuItem
-          Caption = 'R Wiki'
-          ImageIndex = 159
-          OnClick = menWebRInformationsRWikiClick
-        end
-        object menWebRInformationsWebSite: TMenuItem
-          Caption = 'Web site'
-          OnClick = menWebRInformationsWebSiteClick
-        end
-        object N1: TMenuItem
-          Caption = '-'
-        end
-        object menWebRInformationsZoonekynd: TMenuItem
-          Caption = 'Statistics with R'
-          OnClick = menWebRInformationsZoonekyndClick
-        end
-        object menWebRInformationsTutorial: TMenuItem
-          Caption = 'R tutorial'
-          OnClick = menWebRInformationsTutorialClick
-        end
-      end
-      object menWebRGui: TMenuItem
-        Caption = 'R Editors, GUIs and IDEs'
-        object menWebRGuiProjects: TMenuItem
-          Caption = 'Projects (CRAN)'
-          OnClick = menWebRGuiProjectsClick
-        end
-        object N71: TMenuItem
-          Caption = '-'
-        end
-        object menWebRGuiJGR: TMenuItem
-          Caption = 'JGR'
-          OnClick = menWebRGuiJGRClick
-        end
-        object menWebRGuiRComander: TMenuItem
-          Caption = 'R Comander'
-          OnClick = menWebRGuiRComanderClick
-        end
-        object menWebRGuiRpad: TMenuItem
-          Caption = 'Rpad'
-          OnClick = menWebRGuiRpadClick
-        end
-        object menWebRGuiRStudio: TMenuItem
-          Caption = 'RStudio'
-          OnClick = menWebRGuiRStudioClick
-        end
-        object menWebRGuiSciViews: TMenuItem
-          Caption = 'SciViews-K'
-          OnClick = menWebRGuiSciViewsClick
-        end
-        object N59: TMenuItem
-          Caption = '-'
-        end
-        object ESS1: TMenuItem
-          Caption = 'ESS'
-          OnClick = ESS1Click
-        end
-        object menWebRGuiTinnR: TMenuItem
-          Caption = 'Tinn-R'
-          ImageIndex = 164
-          object menWebRGuiTinnRLEC: TMenuItem
-            Caption = 'LEC (main web page)'
-            OnClick = menWebRGuiTinnRLECClick
-          end
-          object menWebRGuiTinnRSourceForge: TMenuItem
-            Caption = 'SourceForge (repository)'
-            OnClick = menWebRGuiTinnRSourceForgeClick
-          end
-          object menWebRGuiTinnRSciViews: TMenuItem
-            Caption = 'SciViews (old web page)'
-            OnClick = menWebRGuiTinnRSciViewsClick
-          end
-          object N179: TMenuItem
-            Caption = '-'
-          end
-          object menWebRGuiTinnRUserList: TMenuItem
-            Caption = 'User list (discussion group)'
-            ImageIndex = 64
-            OnClick = menWebRGuiTinnRUserListClick
-          end
-        end
-        object VimRplugin1: TMenuItem
-          Caption = 'Vim-R-plugin'
-          OnClick = VimRplugin1Click
-        end
-      end
-      object N36: TMenuItem
-        Caption = '-'
-      end
-      object menWebStat: TMenuItem
-        Caption = 'Statistics'
-        object menWebStatVirtualLab: TMenuItem
-          Caption = 'Virtual laboratories'
-          ImageIndex = 99
-          object menWebStatVirtualLabRice: TMenuItem
-            Caption = 'Rice'
-            OnClick = menWebStatVirtualLabRiceClick
-          end
-          object menWebStatVirtualStatisticalJava: TMenuItem
-            Caption = 'Statistical Java'
-            OnClick = menWebStatVirtualStatisticalJavaClick
-          end
-          object menWebStatVirtualLabVESTAC: TMenuItem
-            Caption = 'VESTAC'
-            OnClick = menWebStatVirtualLabVESTACClick
-          end
-          object menWebStatVLPS: TMenuItem
-            Caption = 'Virtual Laboratories in Probability and Statistics'
-            OnClick = menWebStatVLPSClick
-          end
-        end
-        object N53: TMenuItem
-          Caption = '-'
-        end
-        object menHelpStatStatSoft: TMenuItem
-          Caption = 'Electronic Textbook StatSoft'
-          OnClick = menHelpStatStatSoftClick
-        end
-        object menHelpStatHyperstat: TMenuItem
-          Caption = 'HyperStat Text Book'
-          OnClick = menHelpStatHyperstatClick
-        end
-        object menHelpStatJournalStatisticalSoftware: TMenuItem
-          Caption = 'Journal of Statistical Software'
-          OnClick = menHelpStatJournalStatisticalSoftwareClick
-        end
-      end
-      object N30: TMenuItem
-        Caption = '-'
-      end
-      object menWebtProcessing: TMenuItem
-        Caption = 'Processing'
-        ImageIndex = 39
-        object menWebtProcessingDeplate: TMenuItem
-          Caption = 'Deplate'
-          ImageIndex = 172
-          OnClick = menWebtProcessingDeplateClick
-        end
-        object menWebtProcessingMikTeX: TMenuItem
-          Caption = 'MikTeX'
-          OnClick = menWebtProcessingMikTeXClick
-        end
-        object menWebtProcessingPandoc: TMenuItem
-          Caption = 'Pandoc'
-          ImageIndex = 280
-          OnClick = menWebtProcessingPandocClick
-        end
-        object menWebtProcessingTxt2tags: TMenuItem
-          Caption = 'Txt2tags'
-          ImageIndex = 174
-          OnClick = menWebtProcessingTxt2tagsClick
-        end
-      end
-    end
-    object menHelp: TMenuItem
-      Caption = '&Help'
-      GroupIndex = 12
-      object menHelUserGuide: TMenuItem
-        Caption = 'User guide (PDF)'
-        ImageIndex = 25
-        OnClick = menHelUserGuideClick
-      end
-      object menHelNews: TMenuItem
-        Caption = 'What is new (PDF)?'
-        OnClick = menHelNewsClick
-      end
-      object menHelSecrets: TMenuItem
-        Caption = 'Some secrets for an efficient use (PDF)'
-        ImageIndex = 157
-        OnClick = menHelSecretsClick
-      end
-      object N191: TMenuItem
-        Caption = '-'
-      end
-      object menHelUserList: TMenuItem
-        Caption = 'User list (discussion group)'
-        GroupIndex = 1
-        ImageIndex = 64
-        OnClick = menHelUserListClick
-      end
-      object N23: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menHelExampleOfScript: TMenuItem
-        Caption = 'Example of script (R)'
-        GroupIndex = 1
-        OnClick = menHelExampleOfScriptClick
-      end
-      object menHelpRecognizedWords: TMenuItem
-        Caption = 'Recognized words (R)'
-        GroupIndex = 1
-        OnClick = menHelpRecognizedWordsClick
-      end
-      object N120: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menHelFileConversion: TMenuItem
-        Caption = 'File conversion (introduction)'
-        GroupIndex = 1
-        ImageIndex = 129
-        object menHelFileConversionDeplate: TMenuItem
-          Caption = 'Deplate'
-          GroupIndex = 1
-          ImageIndex = 172
-          OnClick = menHelFileConversionDeplateClick
-        end
-        object menHelFileConversionPandoc: TMenuItem
-          Caption = 'Pandoc'
-          GroupIndex = 1
-          ImageIndex = 280
-          OnClick = menHelFileConversionPandocClick
-        end
-        object menHelFileConversionTxt2tags: TMenuItem
-          Caption = 'Txt2tags'
-          GroupIndex = 1
-          ImageIndex = 174
-          OnClick = menHelFileConversionTxt2tagsClick
-        end
-      end
-      object N68: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menHelIniFiles: TMenuItem
-        Caption = 'Ini files (path information)'
-        GroupIndex = 1
-        ImageIndex = 211
-        OnClick = menHelIniFilesClick
-      end
-      object menHelCitation: TMenuItem
-        Caption = 'Citation (put on clipboard)'
-        GroupIndex = 1
-        ImageIndex = 156
-        OnClick = menHelCitationClick
-      end
-      object N189: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menHelAbout: TMenuItem
-        Action = actAbout
-        GroupIndex = 1
-      end
-    end
+    Top = 272
   end
   object pmenProjectMRU: TJvPopupMenu
     Style = msOffice
@@ -18967,8 +14758,8 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 112
-    Top = 176
+    Left = 552
+    Top = 480
   end
   object pmenMainMRU: TJvPopupMenu
     Style = msOffice
@@ -18978,127 +14769,8 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 80
-    Top = 176
-  end
-  object pmenCompletionMemo: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 80
-    Top = 272
-    object MenuItem20: TMenuItem
-      Action = actCompletionCopyDescrition
-    end
-    object MenuItem21: TMenuItem
-      Caption = '-'
-    end
-    object MenuItem22: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object MenuItem23: TMenuItem
-        Action = actFontIncrease
-      end
-      object MenuItem24: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object pmenCompletion: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 48
-    Top = 272
-    object Help4: TMenuItem
-      Action = actCompletionHelp
-    end
-    object N193: TMenuItem
-      Caption = '-'
-    end
-    object MenuItem25: TMenuItem
-      Action = actCompletionHelpSelected
-    end
-    object MenuItem26: TMenuItem
-      Action = actCompletionExampleSelected
-    end
-    object MenuItem27: TMenuItem
-      Caption = '-'
-    end
-    object MenuItem28: TMenuItem
-      Action = actCompletionCopyFunction
-    end
-    object MenuItem29: TMenuItem
-      Action = actCompletionCopyDescrition
-    end
-    object MenuItem30: TMenuItem
-      Caption = '-'
-    end
-    object MenuItem31: TMenuItem
-      Action = actCompletionEdit
-    end
-    object N170: TMenuItem
-      Caption = '-'
-    end
-    object Insert3: TMenuItem
-      Action = actCompletionInsert
-    end
-    object MenuItem32: TMenuItem
-      Caption = '-'
-    end
-    object MenuItem33: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object MenuItem34: TMenuItem
-        Action = actFontIncrease
-      end
-      object MenuItem35: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object pmenWorkExplorerFiles: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 112
-    Top = 208
-    object pmenWorkExplorerFilesRefresh: TMenuItem
-      Caption = 'Refresh'
-      ImageIndex = 86
-      OnClick = pmenWorkExplorerFilesRefreshClick
-    end
-    object MenuItem37: TMenuItem
-      Caption = '-'
-    end
-    object pmenWorkExplorerFilesFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenWorkExplorerFilesFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenWorkExplorerFilesFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
+    Left = 552
+    Top = 528
   end
   object pmenWinExplorerFolders: TJvPopupMenu
     Images = imlTinnR
@@ -19110,56 +14782,11 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 16
-    Top = 208
+    Left = 304
+    Top = 512
     object pmenWinExplorerFoldersRefresh: TMenuItem
       Caption = 'Refresh'
       ImageIndex = 86
-      OnClick = pmenWinExplorerFoldersRefreshClick
-    end
-    object MenuItem38: TMenuItem
-      Caption = '-'
-    end
-    object pmenWinExplorerFoldersFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenWinExplorerFoldersFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenWinExplorerFoldersFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
-    end
-  end
-  object pmenWorkExplorerFolders: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 80
-    Top = 208
-    object pmenWorkExplorerFoldersRefresh: TMenuItem
-      Caption = 'Refresh'
-      ImageIndex = 86
-      OnClick = pmenWorkExplorerFoldersRefreshClick
-    end
-    object MenuItem43: TMenuItem
-      Caption = '-'
-    end
-    object pmenWorkExplorerFoldersFont: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object pmenWorkExplorerFoldersFontIncrease: TMenuItem
-        Action = actFontIncrease
-      end
-      object pmenWorkExplorerFoldersFontDecrease: TMenuItem
-        Action = actFontDecrease
-      end
     end
   end
   object pmenShortcuts: TJvPopupMenu
@@ -19171,8 +14798,8 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 16
-    Top = 272
+    Left = 120
+    Top = 416
     object Help1: TMenuItem
       Action = actShortcutsHelp
     end
@@ -19183,26 +14810,11 @@ object frmTinnMain: TfrmTinnMain
       Action = actShortcutsEdit
     end
   end
-  object tUpdateOptions: TJvTimer
-    Enabled = False
-    Interval = 500
-    OnTimer = tUpdateOptionsTimer
-    Left = 240
-    Top = 112
-  end
-  object tRRuning: TJvTimer
-    EventTime = tetPost
-    Enabled = False
-    Interval = 500
-    OnTimer = tRRuningTimer
-    Left = 240
-    Top = 144
-  end
   object imlStatusBar: TImageList
-    Left = 176
-    Top = 240
+    Left = 56
+    Top = 304
     Bitmap = {
-      494C010104001003280310001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104001003540610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -19475,8 +15087,8 @@ object frmTinnMain: TfrmTinnMain
   end
   object cdMain: TColorDialog
     Options = [cdFullOpen]
-    Left = 209
-    Top = 241
+    Left = 105
+    Top = 313
   end
   object pmenComments: TJvPopupMenu
     Images = imlTinnR
@@ -19487,8 +15099,8 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 112
-    Top = 272
+    Left = 304
+    Top = 464
     object MenuItem1: TMenuItem
       Action = actCommentsHelp
     end
@@ -19509,8 +15121,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 112
-    Top = 304
+    Left = 208
+    Top = 512
     object MenuItem3: TMenuItem
       Action = actRmirrorsHelp
     end
@@ -19537,7 +15149,6 @@ object frmTinnMain: TfrmTinnMain
     object MenuItem7: TMenuItem
       Caption = 'Copy'
       Hint = 'R mirrors: copy'
-      OnClick = actRCardCopyDescritionExecute
       object Copyhost1: TMenuItem
         Action = actRmirrorsCopyHost
       end
@@ -19557,18 +15168,3244 @@ object frmTinnMain: TfrmTinnMain
     object MenuItem11: TMenuItem
       Action = actRmirrorsSetRepos
     end
-    object MenuItem12: TMenuItem
+  end
+  object amMain: TActionManager
+    ActionBars = <
+      item
+        ContextItems.SmallIcons = False
+        ContextItems = <>
+        Items = <
+          item
+            Items = <
+              item
+                Action = actLatexDimensional
+                Caption = '&Dimensional (n x m)'
+                ImageIndex = 213
+                ShortCut = 24649
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actLatexAlgebricFrac
+                Caption = '&frac{}{}'
+                ImageIndex = 236
+              end
+              item
+                Action = actLatexAlgebricSqrt
+                Caption = '&sqrt{}'
+                ImageIndex = 237
+              end
+              item
+                Action = actLatexAlgebricSqrtN
+                Caption = 's&qrt[]{}'
+                ImageIndex = 238
+              end>
+            Caption = '&Math'
+            CommandStyle = csComboBox
+            ImageIndex = 97
+            ShowCaption = False
+            CommandProperties.Width = -1
+          end
+          item
+            Items = <
+              item
+                Action = actLatexHeaderPart
+                Caption = '&Part'
+              end
+              item
+                Action = actLatexHeaderChapter
+                Caption = '&Chapter'
+              end
+              item
+                Action = actLatexHeaderSection
+                Caption = '&Section'
+                ImageIndex = 233
+              end
+              item
+                Action = actLatexHeaderSubSection
+                Caption = 'S&ub-section'
+                ImageIndex = 234
+              end
+              item
+                Action = actLatexHeaderSubSubSection
+                Caption = 'Su&b-sub-section'
+                ImageIndex = 235
+              end
+              item
+                Action = actLatexHeaderParagraph
+                Caption = 'P&aragraph'
+              end
+              item
+                Action = actLatexHeaderSubParagraph
+                Caption = 'Sub-pa&ragraph'
+              end>
+            Caption = '&Header'
+            CommandStyle = csComboBox
+            ImageIndex = 214
+            ShowCaption = False
+            CommandProperties.Width = -1
+          end
+          item
+            Items = <
+              item
+                Action = actLatexFormatEnumeration
+                Caption = '&Enumeration'
+                ImageIndex = 228
+              end
+              item
+                Action = actLatexFormatItemization
+                Caption = '&Itemization'
+                ImageIndex = 227
+              end
+              item
+                Items.CaptionOptions = coNone
+                Items = <>
+                Caption = '-'
+                CommandStyle = csSeparator
+                CommandProperties.Width = -1
+                CommandProperties.Font.Charset = DEFAULT_CHARSET
+                CommandProperties.Font.Color = clWindowText
+                CommandProperties.Font.Height = -11
+                CommandProperties.Font.Name = 'Tahoma'
+                CommandProperties.Font.Style = []
+                CommandProperties.ParentFont = False
+              end
+              item
+                Action = actLatexFormatLeft
+                Caption = '&Left'
+                ImageIndex = 219
+              end
+              item
+                Action = actLatexFormatCenter
+                Caption = '&Center'
+                ImageIndex = 218
+              end
+              item
+                Action = actLatexFormatRight
+                Caption = '&Right'
+                ImageIndex = 220
+              end>
+            Caption = '&Format'
+            ImageIndex = 217
+            ShowCaption = False
+          end
+          item
+            Items = <
+              item
+                Action = actLatexFontEnphase
+                Caption = '&Enphase'
+              end
+              item
+                Action = actLatexFontBold
+                Caption = '&Bold'
+                ImageIndex = 222
+              end
+              item
+                Action = actLatexFontItalic
+                Caption = '&Italic'
+                ImageIndex = 225
+              end
+              item
+                Action = actLatexFontSlatend
+                Caption = 'Sla&tend'
+              end
+              item
+                Action = actLatexFontTypewriter
+                Caption = 'T&ypewriter'
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actLatexFontSmallcaps
+                Caption = 'S&mall caps'
+                ImageIndex = 229
+              end
+              item
+                Action = actLatexFontTiny
+                Caption = 'Ti&ny'
+              end
+              item
+                Action = actLatexFontScript
+                Caption = 'S&cript size'
+              end
+              item
+                Action = actLatexFontSmall
+                Caption = '&Small'
+              end
+              item
+                Action = actLatexFontFootnote
+                Caption = '&Footnote size'
+              end
+              item
+                Action = actLatexFontNormal
+                Caption = 'N&ormal'
+              end
+              item
+                Action = actLatexFontLarge
+                Caption = '&Large'
+              end
+              item
+                Action = actLatexFontLarger
+                Caption = 'L&arger'
+              end
+              item
+                Action = actLatexFontLargest
+                Caption = 'La&rgest'
+              end
+              item
+                Action = actLatexFontHuge
+                Caption = '&Huge'
+              end
+              item
+                Action = actLatexFontHuger
+                Caption = 'H&uger'
+              end>
+            Caption = 'F&ont'
+            ImageIndex = 221
+            ShowCaption = False
+          end
+          item
+            Action = actReloadLatexSymbols
+            Caption = '&Reload Latex symbols (from ini)'
+            ImageIndex = 86
+            ShowCaption = False
+          end>
+        ActionBar = frmTools.atbLatex
+      end
+      item
+        Items = <
+          item
+            Action = actRSendFile
+            Caption = '&Send File to R'
+            ImageIndex = 1
+            ShowCaption = False
+          end
+          item
+            Action = actRSendSelection
+            Caption = 'Se&nd selection to R'
+            ImageIndex = 3
+            ShowCaption = False
+            ShortCut = 16468
+          end
+          item
+            Action = actRSendClipboard
+            Caption = 'Sen&d clipboard content to R'
+            ImageIndex = 268
+            ShowCaption = False
+            ShortCut = 24657
+          end
+          item
+            Action = actRSendBlockMarked
+            Caption = 'Send &marked block to R'
+            ImageIndex = 5
+            ShowCaption = False
+          end
+          item
+            Action = actRSendNavigator
+            Caption = 'Send sele&cted navigator tree to R'
+            ImageIndex = 227
+            ShowCaption = False
+          end
+          item
+            Action = actRSendContiguous
+            Caption = 'Send c&ontiguous content to R'
+            ImageIndex = 270
+            ShowCaption = False
+          end
+          item
+            Action = actRSendLinesToEndPage
+            Caption = 'Send l&ines to end of the file to R'
+            ImageIndex = 282
+            ShowCaption = False
+          end
+          item
+            Action = actRSendLine
+            Caption = '&Line'
+            ImageIndex = 7
+            ShowCaption = False
+            ShortCut = 16452
+          end
+          item
+            Action = actRCurrentLineToTop
+            Caption = 'Send con&tent from current line to top to R'
+            ImageIndex = 9
+            ShowCaption = False
+          end
+          item
+            Action = actRSendCursorToBeginningLine
+            Caption = 'Send content &from beggining line to the cursor to R'
+            ImageIndex = 10
+            ShowCaption = False
+          end
+          item
+            Action = actRSendCursorToEndLine
+            Caption = 'Send content f&rom cursor to end line to R'
+            ImageIndex = 11
+            ShowCaption = False
+          end
+          item
+            Action = actRsendEchoOn
+            Caption = '&Echo on'
+            ImageIndex = 140
+            ShowCaption = False
+          end
+          item
+            Action = actRSendKnitHtml
+            Caption = '&Knit to HTML (Rmd, Rhtml)'
+            ImageIndex = 277
+            ShowCaption = False
+            ShortCut = 24651
+          end
+          item
+            Action = actRSendKnitPdf
+            Caption = 'Knit to L&aTeX (Rnw)'
+            ImageIndex = 277
+            ShowCaption = False
+            ShortCut = 16459
+          end
+          item
+            Action = actRSendSweave
+            Caption = 'S&weave to LaTeX (Rnw)'
+            ImageIndex = 266
+            ShowCaption = False
+          end>
+        ActionBar = atbRSend
+      end
+      item
+        Items = <
+          item
+            Action = actRContSetWorkDirectory
+            Caption = '&Set work directory (current file path)'
+            ImageIndex = 13
+            ShowCaption = False
+          end
+          item
+            Action = actRContListAllObjects
+            Caption = '&List all objects'
+            ImageIndex = 14
+            ShowCaption = False
+          end
+          item
+            Action = actRContPrintVariableContent
+            Caption = '&Print content (selected)'
+            ImageIndex = 15
+            ShowCaption = False
+          end
+          item
+            Action = actRContPlotVariable
+            Caption = 'Pl&ot (selected)'
+            ImageIndex = 253
+            ShowCaption = False
+          end
+          item
+            Action = actRContListVariableNames
+            Caption = 'L&ist names (selected)'
+            ImageIndex = 16
+            ShowCaption = False
+          end
+          item
+            Action = actRContListVariableStructure
+            Caption = 'Lis&t structure (selected)'
+            ImageIndex = 17
+            ShowCaption = False
+            ShortCut = 113
+          end
+          item
+            Action = actRContEditVariable
+            Caption = '&Edit (selected)'
+            ImageIndex = 18
+            ShowCaption = False
+          end
+          item
+            Action = actRContFixVariable
+            Caption = '&Fix (selected)'
+            ImageIndex = 19
+            ShowCaption = False
+          end
+          item
+            Action = actRContClearConsole
+            Caption = 'Cle&ar console'
+            ImageIndex = 20
+            ShowCaption = False
+            ShortCut = 120
+          end
+          item
+            Action = actRContCloseAllGraphics
+            Caption = 'Close all &graphic devices'
+            ImageIndex = 21
+            ShowCaption = False
+            ShortCut = 121
+          end
+          item
+            Action = actRContRemoveAllObjects
+            Caption = '&Remove all objects'
+            ImageIndex = 22
+            ShowCaption = False
+            ShortCut = 122
+          end
+          item
+            Action = actRContClearAll
+            Caption = '&Clear all'
+            ImageIndex = 23
+            ShowCaption = False
+            ShortCut = 123
+          end
+          item
+            Action = actRContEscape
+            ImageIndex = 24
+            ShowCaption = False
+          end
+          item
+            Caption = '|'
+          end
+          item
+            Action = actRContHelpSelectedWord
+            Caption = '&Help (selected)'
+            ImageIndex = 27
+            ShowCaption = False
+            ShortCut = 112
+          end
+          item
+            Action = actRContExampleSelectedWord
+            Caption = 'E&xample (selected)'
+            ImageIndex = 26
+            ShowCaption = False
+            ShortCut = 16496
+          end
+          item
+            Action = actRContHelp
+            ImageIndex = 290
+            ShowCaption = False
+            ShortCut = 24688
+          end
+          item
+            Action = actRtermWarningError
+            Caption = '&Warning and error'
+            ImageIndex = 252
+            ShowCaption = False
+          end>
+        ActionBar = atbRContent
+      end
+      item
+        Items = <
+          item
+            Action = actRContPacInstall
+            Caption = '&Install'
+            ShowCaption = False
+          end
+          item
+            Action = actRContPacInstallZip
+            Caption = 'I&nstall (from local zip)'
+          end
+          item
+            Action = actRContPacInstTinnRcom
+            Caption = 'In&stall (TinnRcom)'
+          end
+          item
+            Action = actRContPacLoadTinnRcom
+            Caption = '&Load (TinnRcom)'
+          end
+          item
+            Action = actRContPacInstalled
+            Caption = 'Ins&talled'
+          end
+          item
+            Action = actRContPacLoad
+            Caption = 'L&oad'
+          end
+          item
+            Action = actRContPacNew
+            Caption = 'N&ew'
+          end
+          item
+            Action = actRContPacRemove
+            Caption = '&Remove'
+          end
+          item
+            Action = actRContPacUpdate
+            Caption = '&Update'
+          end
+          item
+            Action = actRContPacStatus
+            Caption = 'St&atus'
+          end>
+      end
+      item
+        Items = <
+          item
+            Action = actRContGuiStartClose
+            Caption = '&Rgui (start/close)'
+            ImageIndex = 81
+            ShowCaption = False
+          end
+          item
+            Action = actRContTermStartClose
+            Caption = 'R&term (start/close)'
+            ImageIndex = 244
+            ShowCaption = False
+          end
+          item
+            Items = <
+              item
+                Action = actRContPacInstall
+                Caption = '&Install'
+              end
+              item
+                Action = actRContPacInstallZip
+                Caption = 'I&nstall (from local zip)'
+              end
+              item
+                Action = actRContPacInstTinnRcom
+                Caption = 'In&stall (TinnRcom)'
+              end
+              item
+                Action = actRContPacLoadTinnRcom
+                Caption = '&Load (TinnRcom)'
+              end
+              item
+                Action = actRContPacInstalled
+                Caption = 'Ins&talled'
+              end
+              item
+                Action = actRContPacLoad
+                Caption = 'L&oad'
+              end
+              item
+                Action = actRContPacNew
+                Caption = 'N&ew'
+              end
+              item
+                Action = actRContPacRemove
+                Caption = '&Remove'
+              end
+              item
+                Action = actRContPacUpdate
+                Caption = '&Update'
+              end
+              item
+                Action = actRContPacStatus
+                Caption = 'St&atus'
+              end>
+            Caption = '&Packages'
+            CommandStyle = csMenu
+            ImageIndex = 162
+            ShowCaption = False
+            CommandProperties.Width = -1
+            CommandProperties.Font.Charset = DEFAULT_CHARSET
+            CommandProperties.Font.Color = clWindowText
+            CommandProperties.Font.Height = -11
+            CommandProperties.Font.Name = 'Tahoma'
+            CommandProperties.Font.Style = []
+            CommandProperties.Height = 0
+          end>
+        ActionBar = atbRConsole
+      end
+      item
+        Items.CaptionOptions = coNone
+        Items = <
+          item
+            Items = <
+              item
+                Action = actnReopenPseudo
+                Caption = '&actnReopenPseudo'
+              end>
+            Action = actProjectOpen
+            Caption = '&Open'
+            CommandStyle = csComboBox
+            ImageIndex = 112
+            CommandProperties.Width = -1
+          end
+          item
+            Items = <
+              item
+                Action = actProjectNew
+                Caption = '&New'
+                ImageIndex = 110
+              end
+              item
+                Action = actProjectOpen
+                Caption = '&Open'
+                ImageIndex = 112
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actProjectSave
+                Caption = '&Save'
+                ImageIndex = 113
+              end
+              item
+                Action = actProjectSaveAs
+                Caption = 'S&ave as'
+                ImageIndex = 114
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actProjectClose
+                Caption = '&Close project'
+                ImageIndex = 109
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actProjectDeleteCurrent
+                Caption = '&Delete current'
+                ImageIndex = 111
+              end>
+            Caption = '&Project'
+            ImageIndex = 108
+          end
+          item
+            Caption = '-'
+          end
+          item
+            Items = <
+              item
+                Action = actGrouptNew
+                Caption = '&New'
+                ImageIndex = 73
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actGroupRename
+                Caption = '&Rename'
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actGroupDeleteCurrent
+                Caption = '&Delete current'
+                ImageIndex = 74
+              end
+              item
+                Action = actGroupDeleteAll
+                Caption = 'D&elete all'
+                ImageIndex = 75
+              end>
+            Caption = '&Group'
+            ImageIndex = 70
+          end
+          item
+            Caption = '-'
+          end
+          item
+            Caption = '&actGroupExpandAll'
+            ImageIndex = 71
+          end
+          item
+            Caption = 'a&ctGroupCollapseAll'
+            ImageIndex = 72
+          end
+          item
+            Caption = '-'
+          end
+          item
+            Items = <
+              item
+                Action = actFilesOpenAll
+                Caption = '&Open all (project)'
+                ImageIndex = 66
+              end
+              item
+                Action = actFilesCloseAll
+                Caption = '&Close all (project)'
+                ImageIndex = 65
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actFilesOpenAllOfGroup
+                Caption = 'O&pen all (selected group)'
+              end
+              item
+                Action = actFilesCloseAllOfGroup
+                Caption = 'C&lose all (selected group)'
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actFilesAdd
+                Caption = '&Add'
+                ImageIndex = 34
+                ShortCut = 24621
+              end
+              item
+                Action = actFilesAddCurrent
+                Caption = 'A&dd current'
+                ImageIndex = 35
+                ShortCut = 16429
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actFilesRemoveAllOfProject
+                Caption = '&Remove all (project)'
+              end
+              item
+                Action = actFilesRemoveAllOfGroup
+                Caption = 'Re&move all (selected group)'
+              end
+              item
+                Action = actFilesRemove
+                Caption = 'R&emove'
+              end
+              item
+                Items = <
+                  item
+                    Action = actFilesFullPathUnix
+                    Caption = '&Unix mode ../..'
+                  end
+                  item
+                    Action = actFilesFullPathWindows
+                    Caption = '&Windows mode ..\..'
+                  end>
+                Caption = 'Cop&y full path to clipboard'
+              end>
+            Caption = '&File'
+            ImageIndex = 49
+          end
+          item
+            Caption = '-'
+          end
+          item
+            Action = actProjectEdit
+            Caption = '&Edit (as text file)'
+            ImageIndex = 160
+          end
+          item
+            Action = actProjectReload
+            Caption = '&Reload (from text file)'
+            ImageIndex = 86
+          end
+          item
+            Caption = '-'
+          end
+          item
+            Caption = 'ac&tProjectOpenNode'
+            ImageIndex = 267
+          end>
+        ActionBar = frmTools.atbProject
+      end
+      item
+        Items = <
+          item
+            Action = actFileNew
+            Caption = '&New'
+            ImageIndex = 28
+            ShowCaption = False
+            ShortCut = 16462
+          end
+          item
+            Items = <
+              item
+                Caption = '&ActionClientItem0'
+              end>
+            Action = actFileOpen
+            Caption = '&Open'
+            CommandStyle = csComboBox
+            ImageIndex = 66
+            ShowCaption = False
+            ShortCut = 16463
+            CommandProperties.Width = -1
+          end
+          item
+            Action = actFileSave
+            Caption = '&Save'
+            ImageIndex = 96
+            ShowCaption = False
+            ShortCut = 16467
+          end
+          item
+            Action = actFileSaveAll
+            Caption = 'S&ave all'
+            ImageIndex = 95
+            ShowCaption = False
+          end
+          item
+            Action = actReload
+            Caption = '&Reload'
+            ImageIndex = 88
+            ShowCaption = False
+            ShortCut = 24658
+          end
+          item
+            Action = actPrint
+            Caption = '&Print'
+            ImageIndex = 153
+            ShowCaption = False
+            ShortCut = 16464
+          end>
+        ActionBar = atbFiles
+      end
+      item
+        Items = <
+          item
+            Action = actFind
+            Caption = '&Find'
+            ImageIndex = 57
+            ShowCaption = False
+            ShortCut = 16454
+          end
+          item
+            Action = actSearchInFiles
+            Caption = '&Search in files'
+            ImageIndex = 58
+            ShowCaption = False
+            ShortCut = 24646
+          end
+          item
+            Action = actReplace
+            Caption = '&Replace'
+            ImageIndex = 61
+            ShowCaption = False
+            ShortCut = 16466
+          end
+          item
+            Action = actGotoLine
+            Caption = '&Go to'
+            ImageIndex = 33
+            ShowCaption = False
+            ShortCut = 32839
+          end>
+        ActionBar = atbFind
+      end
+      item
+        Items = <
+          item
+            Action = actOnTop
+            Caption = '&On top'
+            ImageIndex = 176
+            ShowCaption = False
+          end
+          item
+            Action = actRguiReturnFocus
+            Caption = '&Return focus to editor (after send/control Rgui)'
+            ImageIndex = 87
+            ShowCaption = False
+          end
+          item
+            Action = actOrganizeScreen
+            Caption = 'Or&ganize screen  (Tinn-R/Rgui)'
+            ImageIndex = 201
+            ShowCaption = False
+          end
+          item
+            Items = <
+              item
+                Action = actToolsDivide
+                Caption = '&Tools (divide)'
+                ImageIndex = 247
+              end
+              item
+                Action = actToolsMaximize
+                Caption = 'T&ools (maximize)'
+                ImageIndex = 248
+              end
+              item
+                Action = actToolsMinimize
+                Caption = 'Too&ls (minimize)'
+                ImageIndex = 246
+              end>
+            Action = actToolsVisible
+            Caption = '&Tools (show/hide)'
+            CommandStyle = csComboBox
+            ImageIndex = 149
+            ShowCaption = False
+            ShortCut = 16503
+            CommandProperties.Width = -1
+          end
+          item
+            Items = <
+              item
+                Action = actRtermDivide
+                Caption = '&Rterm (divide)'
+                ImageIndex = 247
+                ShortCut = 16506
+              end
+              item
+                Action = actRtermMaximize
+                Caption = 'R&term (maximize)'
+                ImageIndex = 248
+                ShortCut = 16507
+              end
+              item
+                Action = actRtermMinimize
+                Caption = 'Rt&erm (minimize)'
+                ImageIndex = 246
+                ShortCut = 16505
+              end>
+            Action = actRtermVisible
+            Caption = 'Rt&erm (show/hide)'
+            ImageIndex = 148
+            ShowCaption = False
+            ShortCut = 16504
+          end
+          item
+            Items = <
+              item
+                Action = actSplitHorizontal
+                Caption = '&Horizontal'
+                ImageIndex = 146
+              end
+              item
+                Action = actRtermIOSplitVertical
+                Caption = '&Vertical split (IO and LOG in the same view)'
+                ImageIndex = 145
+              end
+              item
+                Action = actRtermIOSplitRemove
+                Caption = '&Remove split (IO and LOG in distinct view)'
+              end>
+            Caption = '&IO and log'
+            CommandStyle = csComboBox
+            ImageIndex = 255
+            ShowCaption = False
+            CommandProperties.Width = -1
+          end
+          item
+            Items = <
+              item
+                Action = actEditorLineWrap
+                Caption = '&Editor (show/hide)'
+                ImageIndex = 101
+              end
+              item
+                Action = actRtermIOLineWrap
+                Caption = '&IO (show/hide)'
+                ImageIndex = 101
+              end
+              item
+                Action = actRtermLogLineWrap
+                Caption = '&Log (show/hide)'
+                ImageIndex = 101
+              end>
+            Caption = '&Line wrap'
+            CommandStyle = csComboBox
+            ImageIndex = 101
+            ShowCaption = False
+            CommandProperties.Width = -1
+          end>
+        ActionBar = atbView
+      end
+      item
+        Items = <
+          item
+            Action = actMacroRecord
+            Caption = '&Record'
+            ImageIndex = 89
+            ShowCaption = False
+            ShortCut = 118
+          end
+          item
+            Action = actMacroPlay
+            Caption = '&Play'
+            ImageIndex = 92
+            ShowCaption = False
+            ShortCut = 119
+          end>
+        ActionBar = atbMacro
+      end
+      item
+        Items = <
+          item
+            Action = actBlockMark
+            Caption = '&Mark'
+            ImageIndex = 105
+            ShowCaption = False
+            ShortCut = 49235
+          end
+          item
+            Action = actBlockUnmark
+            Caption = '&Unmark'
+            ImageIndex = 106
+            ShowCaption = False
+            ShortCut = 49242
+          end
+          item
+            Action = actUnmarkAll
+            Caption = 'U&nmark all'
+            ImageIndex = 107
+            ShowCaption = False
+            ShortCut = 49240
+          end
+          item
+            Action = actFoldAll
+            Caption = '&Fold all'
+            ImageIndex = 251
+            ShowCaption = False
+          end
+          item
+            Action = actUnfoldAll
+            Caption = 'Unf&old all'
+            ImageIndex = 214
+            ShowCaption = False
+          end>
+        ActionBar = atBookmark
+      end
+      item
+        Items = <
+          item
+            Items = <
+              item
+                Action = actIndentBlock
+                Caption = '&Indent'
+                ImageIndex = 102
+                ShowCaption = False
+                ShortCut = 16457
+              end
+              item
+                Action = actUnindentBlock
+                Caption = '&Unindent'
+                ImageIndex = 103
+                ShortCut = 16469
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actInvertSelection
+                Caption = 'I&nvert selection'
+              end>
+            Caption = '&Format selection'
+            CommandStyle = csComboBox
+            ImageIndex = 3
+            ShowCaption = False
+            CommandProperties.Width = -1
+          end
+          item
+            Items = <
+              item
+                Action = actUpperCase
+                Caption = '&Uppercase'
+                ImageIndex = 59
+              end
+              item
+                Action = actLowerCase
+                Caption = '&Lowercase'
+                ImageIndex = 60
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Action = actInvertCase
+                Caption = '&Invert case'
+              end>
+            Caption = 'F&ormat word'
+            CommandStyle = csComboBox
+            ImageIndex = 221
+            ShowCaption = False
+            CommandProperties.Width = -1
+          end
+          item
+            Action = actReformatR
+            Caption = '&Reformat R (file or selection)'
+            ImageIndex = 279
+            ShowCaption = False
+            ShortCut = 16500
+          end>
+        ActionBar = atbFormat
+      end
+      item
+        Color = clHighlightText
+        Items.Customizable = False
+        Items = <
+          item
+            Color = clWhite
+            Items = <
+              item
+                Action = actSetANSI
+                Caption = '&ANSI'
+              end
+              item
+                Action = actSetUTF8
+                Caption = '&UTF-8'
+              end
+              item
+                Action = actSetUTF16BE
+                Caption = 'U&TF16-BE'
+              end
+              item
+                Action = actSetUTF16LE
+                Caption = 'UT&F16-LE'
+              end
+              item
+                Caption = '-'
+              end
+              item
+                Items = <
+                  item
+                    Action = actANSI
+                    Caption = '&ANSI'
+                  end
+                  item
+                    Action = actUTF8
+                    Caption = '&UTF-8'
+                  end
+                  item
+                    Action = actUTF16LE
+                    Caption = 'U&TF16-LE'
+                  end
+                  item
+                    Action = actUTF16BE
+                    Caption = 'UT&F16-BE'
+                  end>
+                Caption = '&Set default for new files'
+              end>
+            Caption = ' &Encoding'
+            CommandStyle = csText
+            CommandProperties.Width = -1
+            CommandProperties.Font.Charset = DEFAULT_CHARSET
+            CommandProperties.Font.Color = clWindowText
+            CommandProperties.Font.Height = -11
+            CommandProperties.Font.Name = 'Tahoma'
+            CommandProperties.Font.Style = []
+            CommandProperties.ParentFont = False
+          end
+          item
+            Color = clHighlightText
+            Items = <
+              item
+                Action = actChaLinEndWIN
+                Caption = '&WIN (CR+LF)'
+              end
+              item
+                Action = actChaLinEndMAC
+                Caption = '&MAC (CR)'
+              end
+              item
+                Action = actChaLinEndUnix
+                Caption = '&UNIX (LF)'
+              end>
+            Visible = False
+            Caption = '&Line endings'
+            ImageIndex = 33
+            ShowGlyph = False
+            ShortCut = 16455
+          end
+          item
+            Action = actGotoLine
+            Caption = '&Go to'
+            ImageIndex = 33
+            ShortCut = 32839
+          end
+          item
+            Action = actReadOnly
+            Caption = '&Read only'
+            ImageIndex = 292
+            ShowCaption = False
+          end
+          item
+            Caption = '&File size'
+          end
+          item
+            Visible = False
+            Caption = ' '
+          end
+          item
+            Action = actRtermWarningError
+            Caption = '&Warnings and errors'
+            ImageIndex = 252
+          end
+          item
+            Visible = False
+            Action = acShowNotification
+            ImageIndex = 25
+          end>
+        Visible = False
+        ActionBar = atbStatus
+      end
+      item
+      end
+      item
+      end>
+    DisabledImages = imlTinnR
+    LargeDisabledImages = imlTinnR
+    LargeImages = imlTinnR
+    LinkedActionLists = <
+      item
+        ActionList = alMain
+        Caption = 'alMain'
+      end>
+    Images = imlTinnR
+    Left = 648
+    Top = 320
+    StyleName = 'Platform Default'
+    object actnReopenPseudo: TAction
+      Category = 'Recent Files'
+      Caption = 'actnReopenPseudo'
+      OnExecute = actnReopenPseudoExecute
+    end
+    object actnReopenPseudoFile: TAction
+      Category = 'Recent Files'
+      Caption = 'actnReopenPseudoFile'
+      OnExecute = actnReopenPseudoFileExecute
+    end
+    object acReopenFile1: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile1'
+      OnExecute = acReopenFile1Execute
+    end
+    object acReopenFile2: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile2'
+      OnExecute = acReopenFile2Execute
+    end
+    object acReopenFile3: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile3'
+      OnExecute = acReopenFile3Execute
+    end
+    object acReopenFile4: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile4'
+      OnExecute = acReopenFile4Execute
+    end
+    object acReopenFile5: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile5'
+      OnExecute = acReopenFile5Execute
+    end
+    object acReopenFile6: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile6'
+      OnExecute = acReopenFile6Execute
+    end
+    object acReopenFile7: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile7'
+      OnExecute = acReopenFile7Execute
+    end
+    object acReopenFile8: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile8'
+      OnExecute = acReopenFile8Execute
+    end
+    object acReopenFile9: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile9'
+      OnExecute = acReopenFile9Execute
+    end
+    object acReopenFile10: TAction
+      Category = 'Recent Files'
+      Caption = 'acReopenFile10'
+      OnExecute = acReopenFile10Execute
+    end
+    object acReopenProject1: TAction
+      Caption = 'acReopenProject1'
+      OnExecute = acReopenProject1Execute
+    end
+    object acReopenProject2: TAction
+      Caption = 'acReopenProject2'
+      OnExecute = acReopenProject2Execute
+    end
+    object acReopenProject3: TAction
+      Caption = 'acReopenProject3'
+      OnExecute = acReopenProject3Execute
+    end
+    object acReopenProject4: TAction
+      Caption = 'acReopenProject4'
+      OnExecute = acReopenProject4Execute
+    end
+    object acReopenProject5: TAction
+      Caption = 'acReopenProject5'
+      OnExecute = acReopenProject5Execute
+    end
+    object acReopenProject6: TAction
+      Caption = 'acReopenProject6'
+      OnExecute = acReopenProject6Execute
+    end
+    object acReopenProject7: TAction
+      Caption = 'acReopenProject7'
+      OnExecute = acReopenProject7Execute
+    end
+    object acReopenProject8: TAction
+      Caption = 'acReopenProject8'
+      OnExecute = acReopenProject8Execute
+    end
+    object acReopenProject9: TAction
+      Caption = 'acReopenProject9'
+      OnExecute = acReopenProject9Execute
+    end
+    object acReopenProject10: TAction
+      Caption = 'acReopenProject10'
+      OnExecute = acReopenProject10Execute
+    end
+    object actPseudoEncoding: TAction
+      Caption = 'actEncodingEmpty'
+      OnExecute = actPseudoEncodingExecute
+    end
+    object Action1: TAction
+      Caption = 'Action1'
+    end
+    object actnHighlighterPesudo: TAction
+      Caption = 'actnHighlighterPesudo'
+      OnExecute = actnHighlighterPesudoExecute
+    end
+    object actRSet_trPaths: TAction
+      Caption = 'Set .trPaths (temporarily)'
+      OnExecute = actRSet_trPathsExecute
+    end
+    object actRserver: TAction
+      Caption = 'Server (connections and tests)'
+      OnExecute = actRserverExecute
+    end
+    object actExplorerRefresh: TAction
+      Category = 'Tools'
+      Caption = 'Refresh'
+      OnExecute = actExplorerRefreshExecute
+    end
+    object actRQuickCommand: TAction
+      Category = 'R send'
+      Caption = 'actRQuickCommand'
+      OnExecute = actRQuickCommandExecute
+    end
+    object actDeleteCategory: TAction
+      Caption = 'Delete entry'
+      ImageIndex = 30
+      OnExecute = actDeleteCategoryExecute
+    end
+  end
+  object pabWinExplorerFiles: TPopupActionBar
+    Left = 880
+    Top = 184
+    object Copyfilelist1: TMenuItem
+      Action = actCopyFileList
+    end
+    object N2: TMenuItem
       Caption = '-'
     end
-    object MenuItem13: TMenuItem
-      Caption = 'Font (not permanent)'
-      ImageIndex = 260
-      object MenuItem15: TMenuItem
-        Action = actFontIncrease
+    object Refresh1: TMenuItem
+      Action = actExplorerRefresh
+    end
+  end
+  object IdLookupThread: TIdThreadComponent
+    Active = False
+    Loop = False
+    Priority = tpNormal
+    StopMode = smTerminate
+    OnRun = IdLookupThreadRun
+    Left = 232
+    Top = 312
+  end
+  object pabRExplorer: TPopupActionBar
+    Images = imlTinnR
+    Left = 792
+    Top = 184
+    object Editorsend1: TMenuItem
+      Action = actRExplorerSendNameToEditor
+    end
+    object Clipboardsend1: TMenuItem
+      Action = actRExplorerSendNameToClipboard
+    end
+    object Content2: TMenuItem
+      Caption = 'Content'
+      Hint = 'Content'
+      ImageIndex = 196
+      object Rawexport1: TMenuItem
+        Action = actRExplorerExpRaw
       end
-      object MenuItem16: TMenuItem
-        Action = actFontDecrease
+      object ASCIIexport1: TMenuItem
+        Action = actRExplorerExpASCII
+      end
+      object HTMLexport1: TMenuItem
+        Action = actRExplorerExpHTML
+      end
+      object eXexport1: TMenuItem
+        Action = actRExplorerExpTeX
       end
     end
+    object N78: TMenuItem
+      Caption = '-'
+    end
+    object Help7: TMenuItem
+      Action = actRExplorerHelpSelected
+    end
+    object Example1: TMenuItem
+      Action = actRExplorerExampleSelected
+    end
+    object N80: TMenuItem
+      Caption = '-'
+    end
+    object Objectbasicaction1: TMenuItem
+      Action = actRExplorerBasic
+      object Summary1: TMenuItem
+        Action = actRExplorerSummary
+      end
+      object N79: TMenuItem
+        Caption = '-'
+      end
+      object Remove1: TMenuItem
+        Action = actRExplorerRemove
+      end
+      object Removeallobjects1: TMenuItem
+        Action = actRExplorerRemoveAllObjects
+      end
+    end
+    object Content1: TMenuItem
+      Action = actRExplorerContent
+    end
+    object Plot1: TMenuItem
+      Action = actRExplorerPlot
+    end
+    object Names1: TMenuItem
+      Action = actRExplorerNames
+    end
+    object Structure1: TMenuItem
+      Action = actRExplorerStructure
+    end
+    object Edit2: TMenuItem
+      Action = actRExplorerEdit
+    end
+    object Fix1: TMenuItem
+      Action = actRExplorerFix
+      AutoHotkeys = maAutomatic
+    end
+    object N81: TMenuItem
+      Caption = '-'
+    end
+    object Help6: TMenuItem
+      Action = actRExplorerHelp
+    end
+  end
+  object pabFileTemp: TPopupActionBar
+    Left = 648
+    Top = 128
+    object menFileRecentFiles2: TMenuItem
+    end
+    object menProjRecent2: TMenuItem
+    end
+  end
+  object odMain: TFileOpenDialog
+    FavoriteLinks = <>
+    FileTypes = <
+      item
+        DisplayName = 'All Files'
+        FileMask = '*.*'
+      end
+      item
+        DisplayName = 'R Files'
+        FileMask = '*.r;*.rd'
+      end>
+    Options = [fdoNoReadOnlyReturn]
+    Left = 104
+    Top = 160
+  end
+  object sdMain: TFileSaveDialog
+    FavoriteLinks = <>
+    FileTypes = <>
+    FileTypeIndex = 0
+    Options = []
+    OnTypeChange = sdMainTypeChange
+    Left = 104
+    Top = 216
+  end
+  object pabPgFiles: TPopupActionBar
+    Images = imlTinnR
+    Left = 880
+    Top = 232
+    object Close1: TMenuItem
+      Action = actFileClose
+    end
+    object Closeothers1: TMenuItem
+      Action = actFileCloseOthers
+    end
+    object Closeall1: TMenuItem
+      Action = actFileCloseAll
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object Closeallright1: TMenuItem
+      Action = actFileCloseRight
+    end
+    object Closeallleft1: TMenuItem
+      Action = actFileCloseLeft
+    end
+  end
+  object pabEditor: TPopupActionBar
+    Images = imlTinnR
+    Left = 880
+    Top = 288
+    object actRQuickCommand1: TMenuItem
+      Action = actRQuickCommand
+      AutoCheck = True
+      Caption = 'head(<selection>)'
+    end
+    object summaryselection1: TMenuItem
+      Caption = 'summary(<selection>)'
+      OnClick = summaryselection1Click
+    end
+    object namesselection1: TMenuItem
+      Caption = 'names(<selection>)'
+      OnClick = namesselection1Click
+    end
+    object N76: TMenuItem
+      Caption = '-'
+    end
+    object Addcodesnippettothelibrary1: TMenuItem
+      Action = actRLibAddSnippet
+    end
+    object N52: TMenuItem
+      Caption = '-'
+    end
+    object File1: TMenuItem
+      Caption = 'File'
+      object Close2: TMenuItem
+        Action = actFileClose
+      end
+      object pmenEditorCloseMore1: TMenuItem
+        Caption = 'Close (more)'
+        object pmenEditorCloseOthers1: TMenuItem
+          Action = actFileCloseOthers
+        end
+        object pmenEditorCloseAll1: TMenuItem
+          Action = actFileCloseAll
+        end
+        object N5: TMenuItem
+          Caption = '-'
+        end
+        object pmenEditorCloseRight1: TMenuItem
+          Action = actFileCloseRight
+        end
+        object pmenEditorCloseLeft1: TMenuItem
+          Action = actFileCloseLeft
+        end
+      end
+      object N33: TMenuItem
+        Caption = '-'
+      end
+      object pmenEditorSaveAs1: TMenuItem
+        Action = actFileSaveAs
+      end
+      object pmenEditorSave1: TMenuItem
+        Action = actFileSave
+      end
+      object pmenEditorSaveAll1: TMenuItem
+        Action = actFileSaveAll
+      end
+      object N6: TMenuItem
+        Caption = '-'
+      end
+      object pmenEditorPrint1: TMenuItem
+        Action = actPrint
+      end
+      object N53: TMenuItem
+        Caption = '-'
+      end
+      object pmenEditorReload1: TMenuItem
+        Action = actReload
+      end
+      object N36: TMenuItem
+        Caption = '-'
+      end
+      object pmenFilePath1: TMenuItem
+        Caption = 'Copy full path to clipboard'
+        object pmenFilePathUnix1: TMenuItem
+          Action = actFullPathUnix
+        end
+        object pmenFilePathWindows1: TMenuItem
+          Action = actFullPathWindows
+        end
+      end
+      object pmenEditorCopyFormatted1: TMenuItem
+        Action = actCopyFormatted
+        object popEditorCopyFormattedRTF1: TMenuItem
+          Action = actCopyFormattedRTF
+        end
+        object popEditorCopyFormattedHTML1: TMenuItem
+          Action = actCopyFormattedHTML
+        end
+        object popEditorCopyFormattedTeX1: TMenuItem
+          Action = actCopyFormattedTeX
+        end
+      end
+    end
+    object pmenEditorEdit1: TMenuItem
+      Caption = 'Edit'
+      ImageIndex = 276
+      object pmenEditorUndo1: TMenuItem
+        Action = actEditUndo
+      end
+      object pmenEditorRedo1: TMenuItem
+        Action = actEditRedo
+      end
+      object N12: TMenuItem
+        Caption = '-'
+      end
+      object pmenEditorCopy1: TMenuItem
+        Action = actEditCopy
+      end
+      object pmenEditorCut1: TMenuItem
+        Action = actEditCut
+      end
+      object pmenEditorPaste1: TMenuItem
+        Action = actEditPaste
+      end
+      object N16: TMenuItem
+        Caption = '-'
+      end
+      object pmenEditorSelectAll1: TMenuItem
+        Action = actEditSelectAll
+      end
+      object N18: TMenuItem
+        Caption = '-'
+      end
+      object pmenEditorComment1: TMenuItem
+        Action = actComment
+      end
+      object pmenEditorUncommentFirsts1: TMenuItem
+        Caption = 'Uncomment first(s)'
+        Enabled = False
+        Hint = 'Edit: uncomment first(s)'
+        ImageIndex = 140
+        ShortCut = 32846
+      end
+      object pmenEditorUncommentAll1: TMenuItem
+        Action = actUncomment
+      end
+    end
+    object Indent2: TMenuItem
+      Action = actIndentBlock
+    end
+    object Unindent2: TMenuItem
+      Action = actUnindentBlock
+    end
+    object Lowercase1: TMenuItem
+      Action = actLowerCase
+    end
+    object Uppercase1: TMenuItem
+      Action = actUpperCase
+    end
+    object Invertcase2: TMenuItem
+      Action = actInvertCase
+    end
+    object Align1: TMenuItem
+      Action = actAlignEqualSign
+    end
+    object Alignwithfirstline: TMenuItem
+      Action = actAlignFirstLine
+    end
+    object pmenEditorFormatReformat1: TMenuItem
+      Caption = 'Reformat'
+      object ReformatRfileorselection2: TMenuItem
+        Action = actReformatR
+      end
+    end
+    object N30: TMenuItem
+      Caption = '-'
+    end
+    object pmenEditorSort1: TMenuItem
+      Caption = 'Sort'
+      Hint = 'Sort string'
+      ImageIndex = 205
+      object pmenEditorSortString1: TMenuItem
+        Action = actSortString
+      end
+      object pmenEditorSortNumber1: TMenuItem
+        Action = actSortNumber
+      end
+      object pmenEditorSortDate1: TMenuItem
+        Action = actSortDate
+      end
+    end
+    object pmenEditorCount1: TMenuItem
+      Action = actCount
+    end
+    object Editorshowhide2: TMenuItem
+      Action = actEditorLineWrap
+      Caption = 'Line wrap (show/hide)'
+    end
+  end
+  object jvMenMain: TMainMenu
+    Images = imlTinnR
+    Left = 648
+    Top = 216
+    object menFile1: TMenuItem
+      Caption = '&File'
+      GroupIndex = 1
+      object menFileNew1: TMenuItem
+        Action = actFileNew
+      end
+      object menFileTemplate1: TMenuItem
+        Caption = 'Template'
+        object menFileTemplateRscript1: TMenuItem
+          Action = actTemplateRScript
+        end
+        object menFileTemplateRdoc1: TMenuItem
+          Caption = 'R doc'
+          object menFileTemplateRdocFunction1: TMenuItem
+            Action = actTemplateRFunction
+          end
+          object actTemplateRDatasetDiff1: TMenuItem
+            Action = actTemplateRDataset
+          end
+          object menFileTemplateRdocEmpty1: TMenuItem
+            Action = actTemplateREmpty
+          end
+        end
+        object menFileTemplateRhtml1: TMenuItem
+          Action = actTemplateRNoWeb
+        end
+        object menFileTemplateRmarkdown1: TMenuItem
+          Action = actTemplateRHTML
+        end
+        object menFileTemplateRsweave1: TMenuItem
+          Action = actTemplateRNoWeb
+        end
+      end
+      object N3: TMenuItem
+        Caption = '-'
+      end
+      object menFileOpenAllMRU1: TMenuItem
+        Action = actOpenMRU
+        GroupIndex = 1
+      end
+      object menFileOpen1: TMenuItem
+        Action = actFileOpen
+        GroupIndex = 1
+      end
+      object menFileRecentFiles: TMenuItem
+        Caption = 'Recent files'
+        GroupIndex = 1
+        ImageIndex = 54
+      end
+      object menFileReload1: TMenuItem
+        Action = actReload
+        GroupIndex = 1
+      end
+      object N4: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menFileSave1: TMenuItem
+        Action = actFileSave
+        GroupIndex = 1
+      end
+      object menFileSaveAs1: TMenuItem
+        Action = actFileSaveAs
+        GroupIndex = 1
+      end
+      object menFileSaveAll1: TMenuItem
+        Action = actFileSaveAll
+        GroupIndex = 1
+      end
+      object N7: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menFileClose1: TMenuItem
+        Action = actFileClose
+        GroupIndex = 1
+      end
+      object menFileCloseAll1: TMenuItem
+        Action = actFileCloseAll
+        GroupIndex = 1
+      end
+      object N8: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menFilePrint1: TMenuItem
+        Action = actPrint
+        GroupIndex = 1
+      end
+      object N9: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menFileCopyFullPath1: TMenuItem
+        Caption = 'Copy full path to clipboard'
+        GroupIndex = 1
+        object menFileCopyFullPathUnix1: TMenuItem
+          Action = actFullPathUnix
+        end
+        object menFileCopyFullPathWindows1: TMenuItem
+          Action = actFullPathWindows
+        end
+      end
+      object N10: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menFileExit1: TMenuItem
+        Action = actAplicationExit
+        GroupIndex = 1
+      end
+    end
+    object menProject1: TMenuItem
+      Caption = '&Project'
+      GroupIndex = 6
+      object menProjProject1: TMenuItem
+        Caption = 'Project'
+        Hint = 'Project'
+        ImageIndex = 108
+        object menProjProjectNew1: TMenuItem
+          Action = actProjectNew
+        end
+        object menProjProjectOpen1: TMenuItem
+          Action = actProjectOpen
+        end
+        object N11: TMenuItem
+          Caption = '-'
+        end
+        object menProjProjectSave1: TMenuItem
+          Action = actProjectSave
+        end
+        object menProjProjectSaveAs1: TMenuItem
+          Action = actProjectSaveAs
+        end
+        object menProjProjectClose1: TMenuItem
+          Action = actProjectClose
+        end
+        object N13: TMenuItem
+          Caption = '-'
+        end
+        object menProjProjectDeleteCurrent1: TMenuItem
+          Action = actProjectDeleteCurrent
+        end
+      end
+      object N14: TMenuItem
+        Caption = '-'
+      end
+      object menProjGroup1: TMenuItem
+        Caption = 'Group(s)'
+        Hint = 'Group(s)'
+        ImageIndex = 70
+        object menProjGroupNew1: TMenuItem
+          Action = actGrouptNew
+        end
+        object N15: TMenuItem
+          Caption = '-'
+        end
+        object menProjGroupRename1: TMenuItem
+          Action = actGroupRename
+        end
+        object N17: TMenuItem
+          Caption = '-'
+        end
+        object menProjGroupDeleteCurrent1: TMenuItem
+          Action = actGroupDeleteCurrent
+        end
+        object menProjGroupDeleteAll1: TMenuItem
+          Action = actGroupDeleteAll
+        end
+        object N19: TMenuItem
+          Caption = '-'
+        end
+        object menProjGroupExpandAll1: TMenuItem
+          Action = actGroupExpandAll
+        end
+        object menProjGroupCollapseAll1: TMenuItem
+          Action = actGroupCollapseAll
+        end
+      end
+      object N20: TMenuItem
+        Caption = '-'
+      end
+      object menProjFiles1: TMenuItem
+        Caption = 'File(s)'
+        ImageIndex = 49
+        object menProjFilesOpenAll1: TMenuItem
+          Action = actFilesOpenAll
+        end
+        object menProjFilesCloseAll1: TMenuItem
+          Action = actFilesCloseAll
+        end
+        object N22: TMenuItem
+          Caption = '-'
+        end
+        object menProjFilesOpenAllOfGroup1: TMenuItem
+          Action = actFilesOpenAllOfGroup
+        end
+        object menProjFilesCloseAllOfGroup1: TMenuItem
+          Action = actFilesCloseAllOfGroup
+        end
+        object N23: TMenuItem
+          Caption = '-'
+        end
+        object menProjFilesAdd1: TMenuItem
+          Action = actFilesAdd
+        end
+        object menProjFilesAddCurrent1: TMenuItem
+          Action = actFilesAddCurrent
+        end
+        object N24: TMenuItem
+          Caption = '-'
+        end
+        object menProjFilesRemoveAllOfProject1: TMenuItem
+          Action = actFilesRemoveAllOfProject
+        end
+        object menProjFilesRemoveAllOfGroup1: TMenuItem
+          Action = actFilesRemoveAllOfGroup
+        end
+        object menProjFilesRemove1: TMenuItem
+          Action = actFilesRemove
+        end
+        object N25: TMenuItem
+          Caption = '-'
+        end
+        object menFilesFullPath1: TMenuItem
+          Caption = 'Copy full path to clipboard'
+          object menFilesFullPathUnix1: TMenuItem
+            Action = actFilesFullPathUnix
+          end
+          object menFilesFullPathWindows1: TMenuItem
+            Action = actFilesFullPathWindows
+          end
+        end
+      end
+      object N27: TMenuItem
+        Caption = '-'
+      end
+      object menProjRecent: TMenuItem
+        Caption = 'Recent'
+        Hint = 'Reload project'
+        ImageIndex = 161
+      end
+      object N29: TMenuItem
+        Caption = '-'
+      end
+      object menProjEdit1: TMenuItem
+        Action = actProjectEdit
+      end
+      object menProjReload1: TMenuItem
+        Action = actProjectReload
+      end
+    end
+    object menEdit1: TMenuItem
+      Caption = '&Edit'
+      GroupIndex = 6
+      object menEditUndo1: TMenuItem
+        Action = actEditUndo
+        GroupIndex = 6
+      end
+      object menEditRedo1: TMenuItem
+        Action = actEditRedo
+        GroupIndex = 6
+      end
+      object N31: TMenuItem
+        Caption = '-'
+        GroupIndex = 6
+      end
+      object menEditCopy1: TMenuItem
+        Action = actEditCopy
+        GroupIndex = 6
+      end
+      object menEditCut1: TMenuItem
+        Action = actEditCut
+        GroupIndex = 6
+      end
+      object menEditPaste1: TMenuItem
+        Action = actEditPaste
+        GroupIndex = 6
+      end
+      object N32: TMenuItem
+        Caption = '-'
+        GroupIndex = 6
+      end
+      object menEditCopyFormated1: TMenuItem
+        Action = actCopyFormatted
+        GroupIndex = 6
+        object menEditCopyFormatedRtf1: TMenuItem
+          Action = actCopyFormattedRTF
+        end
+        object menEditCopyFormatedHtml1: TMenuItem
+          Action = actCopyFormattedHTML
+        end
+        object menEditCopyFormatedTex1: TMenuItem
+          Action = actCopyFormattedTeX
+        end
+      end
+      object N34: TMenuItem
+        Caption = '-'
+        GroupIndex = 6
+      end
+      object menEditSelectAll1: TMenuItem
+        Action = actEditSelectAll
+        GroupIndex = 6
+      end
+      object N35: TMenuItem
+        Caption = '-'
+        GroupIndex = 6
+      end
+      object menEditComment1: TMenuItem
+        Action = actComment
+        GroupIndex = 6
+      end
+      object menEditUncommentAll1: TMenuItem
+        Action = actUncomment
+        GroupIndex = 6
+      end
+      object menEditQuoteWords1: TMenuItem
+        Action = actQuote
+        GroupIndex = 6
+      end
+      object menEditRemoveLineBreaks1: TMenuItem
+        Action = actRemoveLineBreaks
+        GroupIndex = 6
+      end
+    end
+    object menFormat1: TMenuItem
+      Caption = 'Form&at'
+      GroupIndex = 6
+      object UppercaseWord1: TMenuItem
+        Action = actUpperCase
+      end
+      object LowercaseWord1: TMenuItem
+        Action = actLowerCase
+      end
+      object InvertCase1: TMenuItem
+        Action = actInvertCase
+      end
+      object InvertSelection1: TMenuItem
+        Action = actInvertSelection
+      end
+      object N40: TMenuItem
+        Caption = '-'
+      end
+      object menFormatBlockIndent1: TMenuItem
+        Action = actIndentBlock
+      end
+      object menFormatBlockUnident1: TMenuItem
+        Action = actUnindentBlock
+      end
+      object N42: TMenuItem
+        Caption = '-'
+      end
+      object menFormatReformat1: TMenuItem
+        Caption = 'Reformat'
+        object R1: TMenuItem
+          Action = actReformatR
+        end
+      end
+    end
+    object menMarks1: TMenuItem
+      Caption = '&Marks'
+      GroupIndex = 6
+      object menMarksBlock1: TMenuItem
+        Caption = 'Block'
+        object menMarksMark1: TMenuItem
+          Action = actBlockMark
+          GroupIndex = 4
+        end
+        object menMarksUnmark1: TMenuItem
+          Action = actBlockUnmark
+          GroupIndex = 4
+        end
+      end
+      object N43: TMenuItem
+        Caption = '-'
+        GroupIndex = 4
+      end
+      object menMarksUnmarkAll1: TMenuItem
+        Action = actUnmarkAll
+        GroupIndex = 4
+      end
+    end
+    object menInsert1: TMenuItem
+      Caption = '&Insert'
+      GroupIndex = 6
+      object menInsertLatex1: TMenuItem
+        Caption = 'LaTeX'
+        object menInsertLatexMath1: TMenuItem
+          Caption = 'Math'
+          ImageIndex = 97
+          object menInsertLatexMathDimensional1: TMenuItem
+            Action = actLatexDimensional
+          end
+          object N44: TMenuItem
+            Caption = '-'
+          end
+          object menInsertLatexMathFrac1: TMenuItem
+            Action = actLatexAlgebricFrac
+          end
+          object menInsertLatexMathSqrt1: TMenuItem
+            Action = actLatexAlgebricSqrt
+          end
+          object menInsertLatexMathSqrtn1: TMenuItem
+            Action = actLatexAlgebricSqrtN
+          end
+        end
+        object N45: TMenuItem
+          Caption = '-'
+        end
+        object menInsertLatexHeader1: TMenuItem
+          Caption = 'Header'
+          ImageIndex = 214
+          object menInsertLatexHeaderPart1: TMenuItem
+            Action = actLatexHeaderPart
+          end
+          object menInsertLatexHeaderChapter1: TMenuItem
+            Action = actLatexHeaderChapter
+          end
+          object menInsertLatexHeaderSection1: TMenuItem
+            Action = actLatexHeaderSection
+          end
+          object menInsertLatexHeaderSubsection1: TMenuItem
+            Action = actLatexHeaderSubSection
+          end
+          object menInsertLatexHeaderSubsubsection1: TMenuItem
+            Action = actLatexHeaderSubSubSection
+          end
+          object menInsertLatexHeaderParagraph1: TMenuItem
+            Action = actLatexHeaderParagraph
+          end
+          object menInsertLatexHeaderSubparagraph1: TMenuItem
+            Action = actLatexHeaderSubParagraph
+          end
+        end
+        object menInsertLatexFormat1: TMenuItem
+          Caption = 'Format'
+          ImageIndex = 215
+          object menInsertLatexFormatItemization1: TMenuItem
+            Action = actLatexFormatItemization
+          end
+          object menInsertLatexFormatEnumeration1: TMenuItem
+            Action = actLatexFormatEnumeration
+          end
+          object N46: TMenuItem
+            Caption = '-'
+          end
+          object menInsertLatexFormatLeft1: TMenuItem
+            Action = actLatexFormatLeft
+          end
+          object menInsertLatexFormatCenter1: TMenuItem
+            Action = actLatexFormatCenter
+          end
+          object menInsertLatexFormatRight1: TMenuItem
+            Action = actLatexFormatRight
+          end
+        end
+        object menInsertLatexFont1: TMenuItem
+          Caption = 'Font'
+          ImageIndex = 221
+          object menInsertLatexFontEnphase1: TMenuItem
+            Action = actLatexFontEnphase
+          end
+          object menInsertLatexFontBold1: TMenuItem
+            Action = actLatexFontBold
+          end
+          object menInsertLatexFontItalic1: TMenuItem
+            Action = actLatexFontItalic
+          end
+          object menInsertLatexFontSlatend1: TMenuItem
+            Action = actLatexFontSlatend
+          end
+          object menInsertLatexFontTypewriter1: TMenuItem
+            Action = actLatexFontTypewriter
+          end
+          object menInsertLatexFontSmallcaps1: TMenuItem
+            Action = actLatexFontSmallcaps
+          end
+          object N48: TMenuItem
+            Caption = '-'
+          end
+          object menInsertLatexFontTiny1: TMenuItem
+            Action = actLatexFontTiny
+          end
+          object menInsertLatexFontScriptsize1: TMenuItem
+            Action = actLatexFontScript
+          end
+          object menInsertLatexFontFootnotsize1: TMenuItem
+            Action = actLatexFontFootnote
+          end
+          object menInsertLatexFontSmall1: TMenuItem
+            Action = actLatexFontSmall
+          end
+          object menInsertLatexFontNormal1: TMenuItem
+            Action = actLatexFontNormal
+          end
+          object menInsertLatexFontLarge1: TMenuItem
+            Action = actLatexFontLarge
+          end
+          object menInsertLatexFontLarger1: TMenuItem
+            Action = actLatexFontLarger
+          end
+          object menInsertLatexFontLargest1: TMenuItem
+            Action = actLatexFontLargest
+          end
+          object menInsertLatexFontHuge1: TMenuItem
+            Action = actLatexFontHuge
+          end
+          object menInsertLatexFontHuger1: TMenuItem
+            Action = actLatexFontHuger
+          end
+        end
+      end
+      object N49: TMenuItem
+        Caption = '-'
+      end
+      object menInserCompletion1: TMenuItem
+        Action = actCompletion
+      end
+      object N51: TMenuItem
+        Caption = '-'
+      end
+      object menInsertDateTime1: TMenuItem
+        Action = actDateStamp
+      end
+    end
+    object menSearch1: TMenuItem
+      Caption = '&Search'
+      GroupIndex = 6
+      object menSearchFind1: TMenuItem
+        Action = actFind
+      end
+      object menSearchFindAgain1: TMenuItem
+        Action = actFindAgain
+      end
+      object N54: TMenuItem
+        Caption = '-'
+        GroupIndex = 3
+      end
+      object menSearchInFiles1: TMenuItem
+        Action = actSearchInFiles
+        GroupIndex = 3
+      end
+      object N55: TMenuItem
+        Caption = '-'
+        GroupIndex = 3
+      end
+      object menSearchReplace1: TMenuItem
+        Action = actReplace
+        GroupIndex = 3
+      end
+      object N57: TMenuItem
+        Caption = '-'
+        GroupIndex = 3
+      end
+      object menSearchGoTo1: TMenuItem
+        Action = actGotoLine
+        GroupIndex = 3
+      end
+    end
+    object menOptions1: TMenuItem
+      Caption = '&Options'
+      GroupIndex = 7
+      object menOptionsApplication1: TMenuItem
+        Action = actShowAppOptions
+      end
+      object menOptionsShortcuts1: TMenuItem
+        Action = actShortcutsEdit
+        Caption = 'Shortcuts'
+      end
+      object menOptionColorPreference1: TMenuItem
+        Action = actColorsPreference
+        GroupIndex = 1
+      end
+      object menToolsDatabase1: TMenuItem
+        Caption = 'Database'
+        GroupIndex = 1
+        object menToolsDatabaseShortcuts1: TMenuItem
+          Action = actShortcutsEdit
+          Caption = 'Shortcuts'
+        end
+        object menToolsDatabaseComments1: TMenuItem
+          Action = actDoComments
+          GroupIndex = 1
+        end
+        object menToolsDatabaseMirrorsR1: TMenuItem
+          Action = actDoMirrors
+          GroupIndex = 1
+        end
+      end
+      object N58: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menOptionStartupFileMaximized1: TMenuItem
+        Action = actOpenMaximized
+        GroupIndex = 1
+      end
+      object menOptionGoBack1: TMenuItem
+        Action = actRguiReturnFocus
+        GroupIndex = 1
+      end
+      object menOptionAlwaysOnTop1: TMenuItem
+        Action = actOnTop
+        GroupIndex = 1
+      end
+      object menOptionReadOnlyToggle1: TMenuItem
+        Action = actReadOnly
+        GroupIndex = 1
+      end
+      object Setdefaulthighlighter1: TMenuItem
+        Caption = 'Set default highlighter'
+        GroupIndex = 1
+      end
+    end
+    object menTools1: TMenuItem
+      Caption = '&Tools'
+      GroupIndex = 7
+      object menToolsProcessing1: TMenuItem
+        Caption = 'Processing'
+        object menToolsConversion1: TMenuItem
+          Caption = 'Conversion'
+          ImageIndex = 129
+          object menToolsConversionDeplateTo1: TMenuItem
+            Caption = 'Deplate to'
+            ImageIndex = 172
+            object menToolsConversionDeplateToLaTeX1: TMenuItem
+              Action = actDeplateToLaTeX
+            end
+            object menToolsConversionDeplateToLaTeXdramastic1: TMenuItem
+              Action = actDeplateToLaTeXDramatist
+            end
+            object menToolsConversionDeplateToSweave1: TMenuItem
+              Action = actDeplateToSweave
+            end
+            object menToolsConversionDeplateToPlain1: TMenuItem
+              Action = actDeplateToPlain
+            end
+            object N59: TMenuItem
+              Caption = '-'
+            end
+            object menToolsConversionDeplateToHTML1: TMenuItem
+              Action = actDeplateToHtml
+            end
+            object menToolsConversionDeplateToHtmlsite1: TMenuItem
+              Action = actDeplateToHtmlSite
+            end
+            object menToolsConversionDeplateToHtmlslides1: TMenuItem
+              Action = actDeplateToHtmlSlides
+            end
+            object menToolsConversionDeplateToXhtml1: TMenuItem
+              Action = actDeplateToXhtmlTransitional
+            end
+            object menToolsConversionDeplateToXhtml2: TMenuItem
+              Action = actDeplateToXhtmlMathMl
+            end
+            object menToolsConversionDeplateToPhp1: TMenuItem
+              Action = actDeplateToPhp
+            end
+            object N60: TMenuItem
+              Caption = '-'
+            end
+            object menToolsConversionDeplateToDbkarticle1: TMenuItem
+              Action = actDeplateToDocbookArticle
+            end
+            object menToolsConversionDeplateToDbkbook1: TMenuItem
+              Action = actDeplateToDocbookBook
+            end
+            object menToolsConversionDeplateToDbkref1: TMenuItem
+              Action = actDeplateToDocbookReference
+            end
+          end
+          object menToolsConversionPandoc: TMenuItem
+            Action = actToolsPandocConversion
+          end
+          object menToolsConversionTxt2tagsTo1: TMenuItem
+            Caption = 'Txt2tags to'
+            ImageIndex = 174
+            object menToolsConversionTxt2tagsToLatex1: TMenuItem
+              Action = actTxt2tagsToLatex
+            end
+            object menToolsConversionTxt2tagsToSweave1: TMenuItem
+              Action = actTxt2tagsToSweave
+            end
+            object xt1: TMenuItem
+              Action = actTxt2tagsToTxt
+            end
+            object N61: TMenuItem
+              Caption = '-'
+            end
+            object menToolsConversionTxt2tagsToHTML1: TMenuItem
+              Action = actTxt2tagsToHtml
+            end
+            object XHTML1: TMenuItem
+              Action = actTxt2tagsToXhtml
+            end
+            object SGML1: TMenuItem
+              Action = actTxt2tagsToSgml
+            end
+            object Lout1: TMenuItem
+              Action = actTxt2tagsToLout
+            end
+            object Manpage1: TMenuItem
+              Action = actTxt2tagsToMan
+            end
+            object N63: TMenuItem
+              Caption = '-'
+            end
+            object Wikipedia1: TMenuItem
+              Action = actTxt2tagsToWiki
+            end
+            object GoogleCodeWiki1: TMenuItem
+              Action = actTxt2tagsToGwiki
+            end
+            object DokuWiki1: TMenuItem
+              Action = actTxt2tagsToDoku
+            end
+            object MoinMoin1: TMenuItem
+              Action = actTxt2tagsToMoin
+            end
+            object N64: TMenuItem
+              Caption = '-'
+            end
+            object MagicPoint1: TMenuItem
+              Action = actTxt2tagsToMgp
+            end
+            object PageMaker1: TMenuItem
+              Action = actTxt2tagsToPm6
+            end
+          end
+        end
+        object menToolsCompilation1: TMenuItem
+          Caption = 'Compilation (LaTeX)'
+          ImageIndex = 128
+          object menToolsCompilationMinimized1: TMenuItem
+            Action = actDOSMinimizedAlways
+          end
+          object N66: TMenuItem
+            Caption = '-'
+          end
+          object menToolsCompilationLaTeXToDVISingle1: TMenuItem
+            Action = actLatexToDVISingle
+          end
+          object menToolsCompilationLaTeXToDVIBibtex1: TMenuItem
+            Action = actLatexToDVIBibtex
+          end
+          object N67: TMenuItem
+            Caption = '-'
+          end
+          object menToolsCompilationLaTeXToPDFSingle1: TMenuItem
+            Action = actLatexToPDFSingle
+          end
+          object menToolsCompilationLaTeXToPDFBibtex1: TMenuItem
+            Action = actLatexToPDFBibtex
+          end
+          object N68: TMenuItem
+            Caption = '-'
+          end
+          object Makeindexmakeindex1: TMenuItem
+            Action = actLatexMakeIndex
+          end
+        end
+        object menToolsViewer1: TMenuItem
+          Caption = 'Viewer'
+          ImageIndex = 170
+          object menToolsViewerDVI1: TMenuItem
+            Caption = 'DVI'
+            object menToolsViewerDVIOpenAlways1: TMenuItem
+              Action = actDVIOpenAlways
+            end
+            object menToolsViewerDVIOpenFile1: TMenuItem
+              Action = actDVIOpenFile
+            end
+          end
+          object menToolsViewerPDF1: TMenuItem
+            Caption = 'PDF'
+            ImageIndex = 46
+            object menToolsViewerPDFOpenAlways1: TMenuItem
+              Action = actPDFOpenAlways
+            end
+            object menToolsViewerPDFOpenFile1: TMenuItem
+              Action = actPDFOpenFile
+            end
+          end
+          object menToolsViewerHTML1: TMenuItem
+            Caption = 'HTML'
+            object menToolsViewerHTMLOpenAlways1: TMenuItem
+              Action = actHTMLOpenAlways
+            end
+            object N69: TMenuItem
+              Caption = '-'
+            end
+            object menToolsViewerHTMLOpenCurrent1: TMenuItem
+              Action = actHTMLOpenCurrentFile
+            end
+            object menToolsViewerHTMLOpenFile1: TMenuItem
+              Action = actHTMLOpenFile
+            end
+          end
+        end
+      end
+      object N70: TMenuItem
+        Caption = '-'
+      end
+      object menToolsBackup1: TMenuItem
+        Caption = 'Backup'
+        GroupIndex = 1
+        ImageIndex = 121
+        object menToolsBackupSystem1: TMenuItem
+          Action = actBackupSystemConfiguration
+        end
+        object menToolsBackupDatabase1: TMenuItem
+          Action = actBackupDatabase
+        end
+      end
+      object menToolsRestore1: TMenuItem
+        Caption = 'Restore'
+        GroupIndex = 1
+        ImageIndex = 124
+        object menToolsRestoreSystem1: TMenuItem
+          Action = actRestoreSystemConfiguration
+        end
+        object menToolsRestoreDatabase1: TMenuItem
+          Action = actRestoreDatabase
+        end
+      end
+      object N71: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menToolsMacro1: TMenuItem
+        Caption = 'Macro'
+        GroupIndex = 1
+        object menToolsMacroRecord1: TMenuItem
+          Action = actMacroRecord
+        end
+        object menToolsMacroPlay1: TMenuItem
+          Action = actMacroPlay
+        end
+      end
+      object N73: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menToolsASCIIChart1: TMenuItem
+        Action = actAsciiChart
+        GroupIndex = 1
+      end
+      object menToolsDifferences1: TMenuItem
+        Action = actDifferences
+        GroupIndex = 1
+      end
+      object N84: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menToolsSpell1: TMenuItem
+        Action = actSpell
+        GroupIndex = 1
+      end
+      object menToolsSort1: TMenuItem
+        Caption = 'Sort'
+        GroupIndex = 1
+        Hint = 'Sort (all or selection)'
+        ImageIndex = 205
+        object menToolsSortString1: TMenuItem
+          Action = actSortString
+        end
+        object menToolsSortNumber1: TMenuItem
+          Action = actSortNumber
+        end
+        object menToolsSortDate1: TMenuItem
+          Action = actSortDate
+        end
+      end
+      object actCount1: TMenuItem
+        Action = actCount
+        GroupIndex = 1
+      end
+      object N86: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menToolsMatchBracket1: TMenuItem
+        Action = actMatchBracket
+        GroupIndex = 1
+      end
+      object menToolsUtils1: TMenuItem
+        Caption = 'Utils'
+        GroupIndex = 12
+        object menToolsUtilsActionlistToClipboard1: TMenuItem
+          Action = actActionListToClipboard
+          GroupIndex = 12
+        end
+        object menToolsUtilsActionlistToDataset1: TMenuItem
+          Action = actActionListToDataset
+          GroupIndex = 12
+        end
+        object menToolsUtilsDatasetToActionlist1: TMenuItem
+          Action = actDatasetToActionList
+          GroupIndex = 12
+        end
+        object N87: TMenuItem
+          Caption = '-'
+          GroupIndex = 12
+        end
+        object menToolsUtilsTesteRegex1: TMenuItem
+          Action = actTestRegEx
+          GroupIndex = 12
+        end
+        object N88: TMenuItem
+          Caption = '-'
+          GroupIndex = 12
+        end
+        object menToolsUtilsStringReplace1: TMenuItem
+          Action = actStringReplace
+          GroupIndex = 12
+        end
+        object N90: TMenuItem
+          Caption = '-'
+          GroupIndex = 12
+        end
+      end
+    end
+    object menR1: TMenuItem
+      Caption = '&R'
+      GroupIndex = 8
+      object menRStartClose1: TMenuItem
+        Caption = 'Start/close and connections'
+        object menRTermStartClose1: TMenuItem
+          Action = actRContTermStartClose
+        end
+        object menRGuiStartClose1: TMenuItem
+          Action = actRContGuiStartClose
+        end
+        object N91: TMenuItem
+          Caption = '-'
+        end
+        object menRserver1: TMenuItem
+          Action = actRserver
+        end
+      end
+      object N92: TMenuItem
+        Caption = '-'
+      end
+      object menRSet_trPaths1: TMenuItem
+        Action = actRSet_trPaths
+      end
+      object menRGet_Info1: TMenuItem
+        Action = actGetInfo
+      end
+      object menRmirrors_update1: TMenuItem
+        Action = actRmirrorsUpdate
+      end
+      object N93: TMenuItem
+        Caption = '-'
+      end
+      object menRterm1: TMenuItem
+        Caption = 'Rterm'
+        ImageIndex = 148
+        object menRtermShowHide1: TMenuItem
+          Action = actRtermVisible
+        end
+        object N94: TMenuItem
+          Caption = '-'
+        end
+        object menRtermFile1: TMenuItem
+          Caption = 'File'
+          ImageIndex = 32
+          object menRtermFileIO1: TMenuItem
+            Caption = 'IO'
+            ImageIndex = 244
+            object menRtermFileIOSave1: TMenuItem
+              Action = actRtermIOSave
+            end
+            object menRtermFileIOSaveAs1: TMenuItem
+              Action = actRtermIOSaveAs
+            end
+            object menRtermFileIOPrint1: TMenuItem
+              Action = actRtermIOPrint
+            end
+          end
+          object menRtermFileLog1: TMenuItem
+            Caption = 'Log'
+            ImageIndex = 252
+            object menRtermFileLogSave1: TMenuItem
+              Action = actRtermLogSave
+            end
+            object menRtermFileLogSaveAs1: TMenuItem
+              Action = actRtermLogSaveAs
+            end
+            object menRtermFileLogPrint1: TMenuItem
+              Action = actRtermLogPrint
+            end
+          end
+        end
+        object N95: TMenuItem
+          Caption = '-'
+        end
+        object Clear1: TMenuItem
+          Caption = 'Clear'
+          ImageIndex = 20
+          object IO1: TMenuItem
+            Action = actRtermIOClear
+          end
+          object Log1: TMenuItem
+            Action = actRtermLogClear
+          end
+          object IOandLog1: TMenuItem
+            Action = actRtermIOandLogClear
+          end
+        end
+        object menRtermFocus1: TMenuItem
+          Caption = 'Focus'
+          ImageIndex = 274
+          object menRtermFocusEditor1: TMenuItem
+            Action = actRtermEditorSetFocus
+            AutoCheck = True
+          end
+          object menRtermFocusConsole1: TMenuItem
+            Action = actRtermIOSetFocus
+            AutoCheck = True
+          end
+          object menRtermFocusLog1: TMenuItem
+            Action = actRtermLogSetFocus
+            AutoCheck = True
+          end
+        end
+        object menRtermSize1: TMenuItem
+          Caption = 'Size'
+          ImageIndex = 248
+          object menRtermSizeMaximize1: TMenuItem
+            Action = actRtermMaximize
+          end
+          object mmenRtermSizeDivide1: TMenuItem
+            Action = actRtermDivide
+          end
+          object mmenRtermSizeMinimize1: TMenuItem
+            Action = actRtermMinimize
+          end
+        end
+        object menRtermSplit1: TMenuItem
+          Caption = 'Split'
+          ImageIndex = 255
+          object menRtermSplitHorizontal1: TMenuItem
+            Action = actRtermIOSplitHorizontal
+            AutoCheck = True
+          end
+          object menRtermSplitVertical1: TMenuItem
+            Action = actRtermIOSplitVertical
+            AutoCheck = True
+          end
+          object N96: TMenuItem
+            Caption = '-'
+          end
+          object menRtermSplitRemove1: TMenuItem
+            Action = actRtermIOSplitRemove
+            AutoCheck = True
+          end
+        end
+        object menRtermHighlighter1: TMenuItem
+          Caption = 'Highlighter'
+          ImageIndex = 62
+          object menRtermSyntaxIO1: TMenuItem
+            Caption = 'IO'
+            ImageIndex = 244
+            object menRtermSyntaxIOText1: TMenuItem
+              Action = actRtermSetIOSyntaxToText
+              AutoCheck = True
+            end
+            object menRtermSyntaxIOR1: TMenuItem
+              Action = actRtermSetIOSyntaxToR
+              AutoCheck = True
+            end
+          end
+          object menRtermSyntaxLog1: TMenuItem
+            Caption = 'Log'
+            ImageIndex = 252
+            object menRtermSyntaxLogText1: TMenuItem
+              Action = actRtermSetLogSyntaxToText
+              AutoCheck = True
+            end
+            object menRtermSyntaxLogR1: TMenuItem
+              Action = actRtermSetLogSyntaxToR
+              AutoCheck = True
+            end
+          end
+        end
+        object menRtermLineWrap1: TMenuItem
+          Caption = 'Line wrap'
+          ImageIndex = 101
+          object IO2: TMenuItem
+            Action = actRtermIOLineWrap
+          end
+          object Log2: TMenuItem
+            Action = actRtermLogLineWrap
+          end
+        end
+        object N97: TMenuItem
+          Caption = '-'
+        end
+        object menRtermHistory1: TMenuItem
+          Caption = 'History'
+          ImageIndex = 272
+          object menRtermHistorySave1: TMenuItem
+            Action = actRtermSaveHistory
+          end
+          object menRtermHistoryLoad1: TMenuItem
+            Action = actRtermLoadHistory
+          end
+          object N98: TMenuItem
+            Caption = '-'
+          end
+          object menRtermHistoryPrior1: TMenuItem
+            Action = actRtermIOHistoryPrior
+          end
+          object menRtermHistoryNext1: TMenuItem
+            Action = actRtermIOHistoryNext
+          end
+        end
+        object menRtermWorkspace1: TMenuItem
+          Caption = 'Workspace'
+          ImageIndex = 273
+          object menRtermWorkspaceSave1: TMenuItem
+            Action = actRtermSaveWorkspace
+          end
+          object menRtermWorkspaceLoad1: TMenuItem
+            Action = actRtermLoadWorkspace
+          end
+        end
+        object N99: TMenuItem
+          Caption = '-'
+        end
+        object menRtermFont1: TMenuItem
+          Caption = 'Font of active control (not permanent)'
+          ImageIndex = 260
+          object Increase1: TMenuItem
+            Action = actFontIncrease
+          end
+          object Decrease1: TMenuItem
+            Action = actFontDecrease
+          end
+        end
+      end
+      object N100: TMenuItem
+        Caption = '-'
+      end
+      object menControlR1: TMenuItem
+        Caption = 'Control'
+        ImageIndex = 12
+        object menControlRSetWorkDir1: TMenuItem
+          Action = actRContSetWorkDirectory
+        end
+        object N103: TMenuItem
+          Caption = '-'
+        end
+        object menControlRListAllObjects1: TMenuItem
+          Action = actRContListAllObjects
+        end
+        object menControlRPrintVariableContent1: TMenuItem
+          Action = actRContPrintVariableContent
+        end
+        object menControlRListVariableNames1: TMenuItem
+          Action = actRContListVariableNames
+        end
+        object menControlRListVariableStructure1: TMenuItem
+          Action = actRContListVariableStructure
+        end
+        object menControlREditSelected1: TMenuItem
+          Action = actRContEditVariable
+        end
+        object menControlRFixSelected1: TMenuItem
+          Action = actRContFixVariable
+        end
+        object menControlRPlotSelected1: TMenuItem
+          Action = actRContPlotVariable
+        end
+        object N104: TMenuItem
+          Caption = '-'
+        end
+        object menControlRClearConsole1: TMenuItem
+          Action = actRContClearConsole
+        end
+        object menControlRCloseAllGraphicDevices1: TMenuItem
+          Action = actRContCloseAllGraphics
+        end
+        object menControlRRemoveAllObjects1: TMenuItem
+          Action = actRContRemoveAllObjects
+        end
+        object N105: TMenuItem
+          Caption = '-'
+        end
+        object menControlRClearAll1: TMenuItem
+          Action = actRContClearAll
+        end
+        object N107: TMenuItem
+          Caption = '-'
+        end
+        object menControlREscape1: TMenuItem
+          Action = actRContEscape
+        end
+        object N109: TMenuItem
+          Caption = '-'
+        end
+        object menControlRHelpSelected1: TMenuItem
+          Action = actRContHelpSelectedWord
+        end
+        object menControlRExampleSelected1: TMenuItem
+          Action = actRContExampleSelectedWord
+        end
+        object menControlRHelp1: TMenuItem
+          Action = actRContHelp
+        end
+        object N110: TMenuItem
+          Caption = '-'
+        end
+        object menRPackages1: TMenuItem
+          Action = actRContPackages
+          object menRPackagesInstall1: TMenuItem
+            Action = actRContPacInstall
+          end
+          object menRPackagesInstallfromZip1: TMenuItem
+            Action = actRContPacInstallZip
+          end
+          object N111: TMenuItem
+            Caption = '-'
+          end
+          object menRPackagesInstallTinnRcom1: TMenuItem
+            Action = actRContPacInstTinnRcom
+          end
+          object menRPackagesLoadTinnRcom1: TMenuItem
+            Action = actRContPacLoadTinnRcom
+          end
+          object N112: TMenuItem
+            Caption = '-'
+          end
+          object menRPackagesInstalled1: TMenuItem
+            Action = actRContPacInstalled
+          end
+          object menRPackagesLoad1: TMenuItem
+            Action = actRContPacLoad
+          end
+          object menRPackagesNew1: TMenuItem
+            Action = actRContPacNew
+          end
+          object menRPackagesRemove1: TMenuItem
+            Action = actRContPacRemove
+          end
+          object menRPackagesUpdate1: TMenuItem
+            Action = actRContPacUpdate
+          end
+          object menRPackagesStatus1: TMenuItem
+            Action = actRContPacStatus
+          end
+        end
+        object N114: TMenuItem
+          Caption = '-'
+        end
+        object memRTCPConnection1: TMenuItem
+          Action = actRContTCPConnection
+        end
+      end
+      object N115: TMenuItem
+        Caption = '-'
+      end
+      object menRHotKeys1: TMenuItem
+        Action = actShowMenuHotkeys
+      end
+    end
+    object menView1: TMenuItem
+      Caption = 'Vie&w'
+      GroupIndex = 9
+      object oolsshowhide1: TMenuItem
+        Action = actToolsVisible
+      end
+      object oolsmaximize1: TMenuItem
+        Action = actToolsMaximize
+      end
+      object oolsdivide1: TMenuItem
+        Action = actToolsDivide
+      end
+      object oolsminimize1: TMenuItem
+        Action = actToolsMinimize
+      end
+      object N117: TMenuItem
+        Caption = '-'
+      end
+      object OrganizescreenTinnRRgui1: TMenuItem
+        Action = actOrganizeScreen
+      end
+      object N118: TMenuItem
+        Caption = '-'
+      end
+      object Rtermshowhide1: TMenuItem
+        Action = actRtermVisible
+      end
+      object Rtermmaximize1: TMenuItem
+        Action = actRtermMaximize
+      end
+      object Rtermdivide1: TMenuItem
+        Action = actRtermDivide
+      end
+      object Rtermminimize1: TMenuItem
+        Action = actRtermMinimize
+      end
+      object menViewRtermSplit1: TMenuItem
+        Caption = 'Split'
+        ImageIndex = 255
+        object menViewRtermSplitHorizontal1: TMenuItem
+          Action = actRtermIOSplitHorizontal
+          AutoCheck = True
+        end
+        object menViewRtermSplitVertical1: TMenuItem
+          Action = actRtermIOSplitVertical
+          AutoCheck = True
+        end
+        object N119: TMenuItem
+          Caption = '-'
+        end
+        object menViewRtermSplitRemove1: TMenuItem
+          Action = actRtermIOSplitRemove
+          AutoCheck = True
+        end
+      end
+      object menViewRtermSyntax1: TMenuItem
+        Caption = 'Syntax'
+        ImageIndex = 62
+        object menViewRtermSyntaxIO1: TMenuItem
+          Caption = 'IO'
+          ImageIndex = 244
+          object menViewRtermSyntaxIOText1: TMenuItem
+            Action = actRtermSetIOSyntaxToText
+            AutoCheck = True
+          end
+          object menViewRtermSyntaxIOR1: TMenuItem
+            Action = actRtermSetIOSyntaxToR
+            AutoCheck = True
+          end
+        end
+        object menViewRtermSyntaxLog1: TMenuItem
+          Caption = 'Log'
+          ImageIndex = 252
+          object menViewRtermSyntaxLogText1: TMenuItem
+            Action = actRtermSetLogSyntaxToText
+            AutoCheck = True
+          end
+          object menViewRtermSyntaxLogR1: TMenuItem
+            Action = actRtermSetLogSyntaxToR
+            AutoCheck = True
+          end
+        end
+      end
+      object N120: TMenuItem
+        Caption = '-'
+      end
+      object Wordwrap1: TMenuItem
+        Caption = 'Line wrap'
+        ImageIndex = 101
+        object Editorshowhide1: TMenuItem
+          Action = actEditorLineWrap
+        end
+        object RtermIOshowhide1: TMenuItem
+          Action = actRtermIOLineWrap
+        end
+        object RtermLogLinewrapshowhide1: TMenuItem
+          Action = actRtermLogLineWrap
+        end
+      end
+      object menViewGutter1: TMenuItem
+        Action = actMarkersVisible
+      end
+      object menViewLineNumbers1: TMenuItem
+        Action = actLineNumbersVisible
+      end
+      object Foldingshowhide1: TMenuItem
+        Action = actFoldingVisible
+      end
+      object menViewSpecialCharacters1: TMenuItem
+        Action = actSpecialCharVisible
+      end
+      object menViewStatusBar1: TMenuItem
+        Action = actStatusBarVisible
+      end
+      object menViewSplit1: TMenuItem
+        Caption = 'Split'
+        object menViewSplitHorizontal1: TMenuItem
+          Action = actSplitHorizontal
+        end
+        object menViewSplitVertical1: TMenuItem
+          Action = actSplitVertical
+        end
+        object N121: TMenuItem
+          Caption = '-'
+        end
+        object menViewSplitRemove1: TMenuItem
+          Action = actSplitRemove
+        end
+      end
+    end
+    object menWindow1: TMenuItem
+      Caption = 'Win&dow'
+      GroupIndex = 10
+      object menWindowTileVertically1: TMenuItem
+        Action = actWindowTileVertical
+      end
+      object menWindowTileHorizontally1: TMenuItem
+        Action = actWindowTileHorizontal
+      end
+      object N122: TMenuItem
+        Caption = '-'
+      end
+      object menWindowMinimizeAll1: TMenuItem
+        Action = actWindowMinimizeAll
+      end
+      object menWindowCascade1: TMenuItem
+        Action = actWindowCascade
+      end
+      object menWindowArrangeIcons1: TMenuItem
+        Action = actWindowArrange
+      end
+    end
+    object menWeb1: TMenuItem
+      Caption = 'We&b'
+      GroupIndex = 11
+      object menWebRSearch1: TMenuItem
+        Caption = 'R search selected'
+        ImageIndex = 184
+        object menWebSearchSelGoogle: TMenuItem
+          Action = actWebSelectedTextGoogle
+        end
+        object menWebSearchSelRSite: TMenuItem
+          Action = actWebSelectedTextSiteSearch
+        end
+        object N124: TMenuItem
+          Caption = '-'
+        end
+      end
+      object N126: TMenuItem
+        Caption = '-'
+      end
+      object menWebRInformation1: TMenuItem
+        Caption = 'R information'
+        ImageIndex = 162
+        object menWebRInformationsCRAN: TMenuItem
+          Action = actWebRInfoCRAN
+        end
+        object menWebRInformationsNews: TMenuItem
+          Action = actWebRNews
+        end
+        object menWebRInformationsRWiki: TMenuItem
+          Action = actWebRWiki
+        end
+        object menWebRInformationsWebSite: TMenuItem
+          Action = actWebWebsite
+        end
+      end
+    end
+    object menHelp: TMenuItem
+      Caption = '&Help'
+      GroupIndex = 12
+      object menHelUserGuide: TMenuItem
+        Action = actHelpUserGuide
+      end
+      object menHelNews: TMenuItem
+        Action = actHelpWhatsNew
+      end
+      object menHelSecrets: TMenuItem
+        Action = actHelpEfficientUse
+      end
+      object N127: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menHelExampleOfScript: TMenuItem
+        Action = actHelpScript
+        GroupIndex = 1
+      end
+      object menHelpRecognizedWords: TMenuItem
+        Action = actHelpRecognizedWords
+        GroupIndex = 1
+      end
+      object N128: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menHelFileConversion1: TMenuItem
+        Caption = 'File conversion (introduction)'
+        GroupIndex = 1
+        ImageIndex = 129
+        object menHelFileConversionDeplate: TMenuItem
+          Action = actHelpDeplate
+          GroupIndex = 1
+        end
+        object menHelFileConversionPandoc: TMenuItem
+          Action = actHelpPandoc
+          GroupIndex = 1
+        end
+        object menHelFileConversionTxt2tags: TMenuItem
+          Action = actTxt2tags
+          GroupIndex = 1
+        end
+      end
+      object N129: TMenuItem
+        Caption = '-'
+        GroupIndex = 1
+      end
+      object menHelAbout1: TMenuItem
+        Action = actHelpAbout
+        GroupIndex = 1
+      end
+    end
+  end
+  object csMainBase: TClientSocket
+    Active = False
+    ClientType = ctNonBlocking
+    Port = 0
+    OnRead = csMainBaseRead
+    OnError = csMainBaseError
+    Left = 312
+    Top = 104
+  end
+  object pabLibrary: TPopupActionBar
+    Images = imlTinnR
+    Left = 880
+    Top = 352
+    object Insert2: TMenuItem
+      Action = actRcardInsert
+    end
+    object Insertwithoutarguments1: TMenuItem
+      Action = actRcardInsertNoArgs
+    end
+    object Edit3: TMenuItem
+      Action = actRCardEdit
+    end
+    object Deleteentryfromlibrary1: TMenuItem
+      Action = actRLibDeleteEntry
+    end
+  end
+  object tDataConflict: TTimer
+    Enabled = False
+    Interval = 300
+    OnTimer = tDataConflictTimer
+    Left = 160
+    Top = 304
+  end
+  object tBackup: TTimer
+    Enabled = False
+    Interval = 30000
+    OnTimer = tBackupTimer
+    Left = 160
+    Top = 248
+  end
+  object tUpdateOptions: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = tUpdateOptionsTimer
+    Left = 160
+    Top = 208
+  end
+  object tRRuning: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = tRRuningTimer
+    Left = 160
+    Top = 168
+  end
+  object tNotifyTimer: TTimer
+    Enabled = False
+    Interval = 15000
+    OnTimer = tNotifyTimerTimer
+    Left = 160
+    Top = 352
   end
 end

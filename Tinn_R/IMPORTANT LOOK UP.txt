@@ -1,0 +1,41 @@
+Gutter On Off
+LineNumber On Off
+
+
+SetBookMarks
+
+Selection.Beginn.Line
+Selection.End.Line
+
+
+Was ist
+synEditor.TopLine
+
+
+
+synEditorEndDrag fehlt?!?!
+
+
+
+   iIOLineWrap: Integer;
+    iLogLineWrap: Integer;
+
+    iEditorLineWrap: Integer;
+    iPrintLineWrap: Integer;
+
+
+
+seEditor.LinesInWindow 
+
+ecSelLineEnd
+ExecuteCommand(ecSelPageBottom, #0, nil);
+
+ecSelLineStart
+
+Special Chars
+
+
+procedure TfrmEditor.sciEditorEndDrag(Sender, Target: TObject; X, Y: Integer);
+begin
+  EnableSave;
+end;

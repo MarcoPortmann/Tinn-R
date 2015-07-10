@@ -88,4 +88,16 @@ object frmSplash: TfrmSplash
       8082E18082E18082E18082E18082E18082E18082E18082E18082E180D4E4164F
       803FFFD9}
   end
+  object lLoadInfo: TLabel
+    Left = 16
+    Top = 282
+    Width = 41
+    Height = 21
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
 end

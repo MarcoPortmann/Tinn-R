@@ -1,21 +1,21 @@
 ; Tinn-R Inno (Installer) Setup Script
-; By: José Cláudio Faria (11/2013)
+; By: Marco Portmann (5/2015) (original version by José Cláudio Faria)
 ; Tinn-R:     http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
-; INNO Setup: http://www.innosetup.com
+; INNO Setup: https://github.com/MarcoPortmann/Tinn-R
 
 [Setup]
 AppName              = Tinn-R
 AppPublisher         = Tinn-R Team
-AppPublisherURL      = http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
-AppSupportURL        = http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
-AppUpdatesURL        = http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
-AppVerName           = Tinn-R 3.0.3.5
+AppPublisherURL      = https://github.com/MarcoPortmann/Tinn-R
+AppSupportURL        = https://github.com/MarcoPortmann/Tinn-R
+AppUpdatesURL        = https://github.com/MarcoPortmann/Tinn-R
+AppVerName           = Tinn-R 3.0.3.6
 ChangesAssociations  = true
 Compression          = lzma
-DefaultDirName       = {sd}\Tinn-R
+DefaultDirName       = {pf32}\Tinn-R
 DefaultGroupName     = Tinn-R
 LicenseFile          = ..\doc\licence_gpl3.txt
-OutputBaseFilename   = Tinn-R_3.0.3.5_setup
+OutputBaseFilename   = Tinn-R_3.0.3.6_setup
 OutputDir            = ..\install_setup\bin
 SolidCompression     = yes
 WizardImageFile      = ..\res\setup.bmp
@@ -38,11 +38,13 @@ Name: tps_association;      Description: &Associate (*.tps) - Tinn-R project;   
 Name: txt_association;      Description: &Associate (*.txt) - Text;                        GroupDescription: Files association:; Flags: unchecked
 
 [INI]
-Filename: {app}\Tinn-R.url; Section: InternetShortcut; Key: URL; String: http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
+Filename: {app}\Tinn-R.url; Section: InternetShortcut; Key: URL; String: https://github.com/MarcoPortmann/Tinn-R
 
 [Files]
 Source: ..\bin\Tinn-R.exe.manifest;             DestDir: {app}\bin
 Source: ..\bin\Tinn-R.exe;                      DestDir: {app}\bin
+Source: ..\bin\sqlite3.dll;                     DestDir: {app}\bin
+Source: ..\bin\SciLexer.dll;                    DestDir: {app}\bin
 Source: ..\data\data.zip;                       DestDir: {app}\data
 Source: ..\doc\licence_gpl2.txt;                DestDir: {app}\doc
 Source: ..\doc\licence_gpl3.txt;                DestDir: {app}\doc
@@ -78,12 +80,7 @@ Source: ..\templates\R html.Rhtml;              DestDir: {app}\templates
 Source: ..\templates\R markdown.Rmd;            DestDir: {app}\templates
 Source: ..\templates\R script.R;                DestDir: {app}\templates
 Source: ..\templates\R_noweb.Rnw;               DestDir: {app}\templates
-Source: ..\utils\Rinfo_b.R;                     DestDir: {app}\utils
-Source: ..\utils\Rinfo_c.R;                     DestDir: {app}\utils
-Source: ..\utils\Rinfo_load_b.R;                DestDir: {app}\utils
-Source: ..\utils\Rinfo_load_c.R;                DestDir: {app}\utils
-Source: ..\utils\Rinfo_load_c.R;                DestDir: {app}\utils
-Source: ..\utils\Rinstall.R;                    DestDir: {app}\utils
+Source: ..\utils\TinnRCommunication.R;          DestDir: {app}\utils
 
 [Icons]
 Name: {group}\Tinn-R;                                                Filename: {app}\bin\Tinn-R.exe; IconIndex: 0; IconFilename: {app}\bin\Tinn-R.exe; Flags: useapppaths
@@ -95,6 +92,7 @@ Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Tinn-R; Filename: {
 [UninstallDelete]
 Type: files; Name: {app}\Tinn-R.url
 Type: filesandordirs; Name: {app}\data
+Type: filesandordirs; Name: {userappdata}\Tinn-R
 
 [Run]
 Filename: {app}\bin\Tinn-R.exe; Description: {cm:LaunchProgram,Tinn-R}; Flags: nowait PostInstall unchecked SkipIfSilent
@@ -122,7 +120,7 @@ Root: HKCR; Subkey: Tinn-R\shell\open\command; ValueType: string; ValueData: """
 //About
 Procedure AboutButtonOnClick(Sender: TObject);
 Begin
-  MsgBox('Tinn-R is a open source project under the GNU General Public License versions 2 and 3.', mbInformation, mb_Ok);
+  MsgBox('Tinn-R is an open source project under the GNU General Public License versions 2 and 3.', mbInformation, mb_Ok);
 End;
 
 //URL link
@@ -131,7 +129,7 @@ Var
   ErrorCode: Integer;
 
 Begin
-  If not ShellExec('open', 'http://nbcgib.uesc.br/lec/software/editores/tinn-r/en',
+  If not ShellExec('open', 'https://github.com/MarcoPortmann/Tinn-R',
                    '', '', SW_SHOW, ewNoWait, ErrorCode) Then MsgBox('Please, check the browser.', mbInformation, mb_Ok);
 End;
 
@@ -155,7 +153,7 @@ Begin
   URLLabel           := TNewStaticText.Create(WizardForm);
   URLLabel.Top       := AboutButton.Top + AboutButton.Height - URLLabel.Height - 2;
   URLLabel.Left      := AboutButton.Left + AboutButton.Width + 20;
-  URLLabel.Caption   := 'Web page of Tinn-R project';
+  URLLabel.Caption   := 'Tinn-R (beta) on GitHub';
   URLLabel.Font.Style:= URLLabel.Font.Style + [fsUnderLine];
   URLLabel.Font.Color:= clBlue;
   URLLabel.Cursor    := crHand;

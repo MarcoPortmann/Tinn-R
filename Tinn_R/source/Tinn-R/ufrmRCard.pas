@@ -1,45 +1,45 @@
 (*
- Tinn is a ASCII file editor primarily intended as a better replacement
- of the default Notepad.exe under Windows.
+  Tinn is a ASCII file editor primarily intended as a better replacement
+  of the default Notepad.exe under Windows.
 
- This software is distributed under the terms of the GNU General
- Public License, either Version 2, June 1991 or Version 3, June 2007.
- The terms of version 2 and of the license are in a folder called
- doc (licence_gpl2.txt and licence_gpl2.txt)
- which you should have received with this software.
+  This software is distributed under the terms of the GNU General
+  Public License, either Version 2, June 1991 or Version 3, June 2007.
+  The terms of version 2 and of the license are in a folder called
+  doc (licence_gpl2.txt and licence_gpl2.txt)
+  which you should have received with this software.
 
- See http://www.opensource.org/licenses/gpl-license.html or
- http://www.fsf.org/copyleft/gpl.html for further information.
+  See http://www.opensource.org/licenses/gpl-license.html or
+  http://www.fsf.org/copyleft/gpl.html for further information.
 
- Copyright
+  Copyright
   Russell May - http://www.solarvoid.com
 
- Tinn-R is an extension of Tinn that provides additional tools to control R
- (http://cran.r-project.org). The project is coordened by José Cláudio Faria
- (joseclaudio.faria@gmail.com).
+  Tinn-R is an extension of Tinn that provides additional tools to control R
+  (http://cran.r-project.org). The project is coordened by José Cláudio Faria
+  (joseclaudio.faria@gmail.com).
 
- As such, Tinn-R is a feature-rich replacement of the basic script editor
- provided with Rgui. It provides syntax-highlighting, submission of code in
- whole, or line-by-line, and many other useful tools to ease writting and
- debugging of R code.
+  As such, Tinn-R is a feature-rich replacement of the basic script editor
+  provided with Rgui. It provides syntax-highlighting, submission of code in
+  whole, or line-by-line, and many other useful tools to ease writting and
+  debugging of R code.
 
- Copyright
+  Copyright
   Tinn-R team October/2005
   Tinn-R team October/2013
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 and 3 of the License, or
- (at your option) any later version.
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 and 3 of the License, or
+  (at your option) any later version.
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *)
 
 unit ufrmRcard;
@@ -49,57 +49,52 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, Db, DBTables,
-  Buttons, ComCtrls;
+  Buttons, ComCtrls, System.UITypes, Vcl.CheckLst ;
 
 type
   TfrmRcard = class(TForm)
     bbHelp: TBitBtn;
-    bbtRcardCancel: TBitBtn;
-    bbtRcardCancelAll: TBitBtn;
     bbtRcardClose: TBitBtn;
     bbtRcardDelete: TBitBtn;
-    bbtRcardEdit: TBitBtn;
-    bbtRcardNew: TBitBtn;
-    bbtRcardRestoreDefault: TBitBtn;
-    bbtRcardSave: TBitBtn;
-    dbeRFunction: TDBEdit;
-    dbeRGroup: TDBEdit;
-    dbgRcard: TDBGrid;
-    dbmDescription: TDBMemo;
-    DBNavigator1: TDBNavigator;
-    edtFunctionSearch: TEdit;
-    edtGroupSearch: TEdit;
+    bbtRCardDiscard: TBitBtn;
+    leName: TLabeledEdit;
+    leTrigger: TLabeledEdit;
+    reInsert: TRichEdit;
+    lePackage: TLabeledEdit;
+    leArguments: TLabeledEdit;
+    leEnvironment: TLabeledEdit;
     GroupBox1: TGroupBox;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    lblSearchGroup: TLabel;
-    Panel2: TPanel;
-    stbRcard: TStatusBar;
+    cbArguments: TCheckBox;
+    clbCategories: TCheckListBox;
+    GroupBox2: TGroupBox;
+    edAddCategory: TButtonedEdit;
+    bbDeleteCategory: TBitBtn;
 
     procedure bbHelpClick(Sender: TObject);
-    procedure bbtRcardCancelAllClick(Sender: TObject);
-    procedure bbtRcardCancelClick(Sender: TObject);
     procedure bbtRcardCloseClick(Sender: TObject);
     procedure bbtRcardDeleteClick(Sender: TObject);
-    procedure bbtRcardEditClick(Sender: TObject);
-    procedure bbtRcardNewClick(Sender: TObject);
-    procedure bbtRcardRestoreDefaultClick(Sender: TObject);
-    procedure bbtRcardSaveClick(Sender: TObject);
-    procedure dbgRcardTitleClick(Column: TColumn);
-    procedure edtFunctionSearchChange(Sender: TObject);
-    procedure edtGroupSearchChange(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
+    procedure bbtRCardDiscardClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormShow(Sender: TObject);
-
+    procedure edAddCategoryRightButtonClick(Sender: TObject);
+    procedure PopulateCategoryBox;
+    procedure FormCreate(Sender: TObject);
+    procedure DeleteCategory;
+    procedure clbCategoriesClickCheck(Sender: TObject);
   private
+    sName, sTrigger, sPackage, sEnvironment, sArguments, sInsert: String;
+    bArguments: Boolean;
+    bNewCard, bCheckAction: Boolean;
+    bGroupsNeedUpdate: Boolean;
     { Private declarations }
     procedure ActualizeGroups;
+    procedure TickCategories;
+    function CheckNameAllowed: Boolean;
+    function CheckTriggerAllowed: Boolean;
   public
     { Public declarations }
+    procedure LoadExistingCard;
+    procedure LoadSnippetAdd(sIns: String);
   end;
 
 var
@@ -114,143 +109,56 @@ uses
 
 {$R *.dfm}
 
-procedure TfrmRcard.edtGroupSearchChange(Sender: TObject);
-begin
-  with edtGroupSearch do begin
-    if (Text = '') then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
-      Exit;
-    end;
-
-    if (modDados.cdRcard.Locate('Group',
-                                Text,
-                                [loPartialKey]) = True) then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
-    end
-    else begin
-      Color     := clRed;
-      Font.Color:= clWhite;
-      Font.Style:= [fsBold];
-    end;
-  end;
-end;
-
-procedure TfrmRcard.edtFunctionSearchChange(Sender: TObject);
-begin
-  with edtFunctionSearch do begin
-    if (Text = '') then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
-      Exit;
-    end;
-
-    if (modDados.cdRcard.Locate('Function',
-                                Text,
-                                [loPartialKey]) = True) then begin
-      Color     := clWindow;
-      Font.Color:= clBlack;
-      Font.Style:= [];
-    end
-    else begin
-      Color     := clRed;
-      Font.Color:= clWhite;
-      Font.Style:= [fsBold];
-    end;
-  end;
-end;
-
-procedure TfrmRcard.FormActivate(Sender: TObject);
-begin
-  with frmTinnMain do begin
-    with dbeRGroup do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
-    end;
-
-    with dbeRFunction do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
-    end;
-
-    with dbmDescription do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
-    end;
-  end;
-
-  with dbgRcard do begin  //Necessary to avoid conflit of names (frmTinnMain)
-    Color     := frmTinnMain.clBGApplication;
-    Font.Color:= frmTinnMain.clFGApplication;
-  end;
-
-  stbRcard.Panels[0].Text:= 'Browse mode';
-
-  with ModDados do begin
-    cdRcard.Filtered:= False;
-    with frmTinnMain do
-      frmTools.lbRcard.Selected[iRcardFilter]:= False;
-     cdRcard.Bookmark:= frmTinnMain.sRcardBookMark;
-  end;
-
-  edtGroupSearch.SetFocus;
-end;
-
-procedure TfrmRcard.bbtRcardNewClick(Sender: TObject);
-begin
-  with modDados.cdRcard do
-    Insert;
-  dbeRGroup.SetFocus;
-  stbRcard.Panels[0].Text:= 'Insert mode';
-end;
-
 procedure TfrmRcard.bbtRcardDeleteClick(Sender: TObject);
 begin
-  with modDados.cdRcard do
-    Delete;
+  if MessageDlg('Do you want to delete the current library entry?', mtConfirmation, [mbyes, mbabort], 0) = mrYes then
+  begin
+    modDados.sqlMainBase.ExecuteDirect('DELETE FROM UserDefined WHERE Name like '+AnsiQuotedStr(trim(sName),'"')+ ' AND Envir like '+AnsiQuotedStr(trim(sEnvironment),'"'));
+    modDados.sqlMainBase.ExecuteDirect('DELETE FROM Objects WHERE Name like '+AnsiQuotedStr(trim(sName),'"')+ ' AND Envir like '+AnsiQuotedStr(trim(sEnvironment),'"'));
+    frmTinnMain.AfterLibraryUpdate;
+    Close;
+  end;
 end;
 
-procedure TfrmRcard.bbtRcardEditClick(Sender: TObject);
+procedure TfrmRcard.bbtRCardDiscardClick(Sender: TObject);
 begin
-  with modDados.cdRcard do
-    Edit;
-  dbeRFunction.SetFocus;
-  stbRcard.Panels[0].Text:= 'Edit mode';
+  Close;
+  //frmTinnMain.Refresh;
 end;
 
-procedure TfrmRcard.bbtRcardCancelClick(Sender: TObject);
+procedure TfrmRcard.edAddCategoryRightButtonClick(Sender: TObject);
+var sAdd: String;
 begin
-  with modDados.cdRcard do
-    Cancel;
-  stbRcard.Panels[0].Text:= 'Browse mode';
-end;
+  sAdd := trim(edAddCategory.Text);
 
-procedure TfrmRcard.bbtRcardSaveClick(Sender: TObject);
-begin
-  with modDados.cdRcard do begin
-    Edit;
-    try
-      Post;
-      MergeChangeLog;
-      SaveToFile();
-      frmTinnMain.iRcardBeforeChanges:= SavePoint;
-    except
-    end;
+  if sAdd = '' then
+    exit;
+
+  with modDados.sqldsMainCheck do
+  begin
+    Close;
+    CommandText := 'SELECT * FROM Categories where Lower(Category) like '+AnsiQuotedStr(ansilowercase(sAdd), '"');
+    Open;
+    if RecordCount = 0 then
+    begin
+      modDados.sqlMainBase.ExecuteDirect('INSERT INTO Categories (Category) VALUES ('+AnsiQuotedStr(sAdd, '"')+')');
+      PopulateCategoryBox;
+      TickCategories;
+      bGroupsNeedUpdate := true;
+    end else MessageDlg('This category already exits.', mtInformation, [mbok], 0);
   end;
 end;
 
 procedure TfrmRcard.ActualizeGroups;
 begin
-  //Actualize groups in frmTinnMain
-  with modDados do begin
+  // Actualize groups in frmTinnMain
+  with modDados do
+  begin
     RcardGroupsFilter(self);
 
-    with frmTinnMain do begin
-      frmTools.lbRcard.Items:= slRcard_Groups;
+    with frmTinnMain do
+    begin
+      frmTools.lbRcard.Items := slRcard_Groups;
       frmTools.lbRcard.Refresh;
     end;
 
@@ -258,92 +166,293 @@ begin
   end;
 end;
 
-procedure TfrmRcard.FormClose(Sender: TObject;
-                              var Action: TCloseAction);
+procedure TfrmRcard.TickCategories;
+var sCatName: string;
 begin
-  with frmTinnMain do begin
-    frmTools.lbRcard.ItemIndex:= iRcardFilter;
-    frmTools.lbRcardClick(Self);
+  with modDados.sqldsCategoriesDetails do
+  begin
+    Close;
+    CommandText := 'SELECT Category FROM CategoriesObjects WHERE Name =' + AnsiQuotedStr(leName.Text, '"')+ ' AND Envir = '+ AnsiQuotedStr(leEnvironment.Text, '"');
+    Open;
+    First;
+    clbCategories.CheckAll(cbUnchecked, true, false);
+    while not EOF do
+    begin
+      sCatName := FieldByName('Category').AsString;
+      if clbCategories.Items.IndexOf(sCatName) > -1 then
+        clbCategories.Checked[clbCategories.Items.IndexOf(sCatName)] := True;
+      Next;
+    end;
   end;
 end;
 
-procedure TfrmRcard.FormCloseQuery(Sender: TObject;
-                                   var CanClose: Boolean);
+procedure TfrmRcard.LoadExistingCard;
 begin
-  with modDados.cdRcard do begin
-    IndexDefs.Clear;
+  bNewCard := false;
+  bbDeleteCategory.Caption := '';
+  with modDados.cdMainBase do
+  begin
+    sName := trim(FieldByName('Name').AsString);
+    sTrigger := trim(FieldByName('Trigger').AsString);
+    sPackage := trim(FieldByName('PrettyPackage').AsString);
+    sEnvironment := trim(FieldByName('Envir').AsString);
+    sArguments := trim(FieldByName('Arguments').AsString);
+    bArguments := (FieldByName('HasArguments').AsInteger = 1);
+    sInsert := trim(FieldByName('InsertText').AsString);
 
-    with IndexDefs.AddIndexDef do
+
+    caption := 'R library details for ''' + sName + '''';
+    leName.Text := sName;
+    leTrigger.Text := sTrigger;
+    lePackage.Text := sPackage;
+    leEnvironment.Text := sEnvironment;
+    leArguments.Text := sArguments;
+    cbArguments.Checked := bArguments;
+    reInsert.Text := sInsert;
+  end;
+  TickCategories;
+end;
+
+procedure TfrmRcard.LoadSnippetAdd(sIns: string);
+
+begin
+  bNewCard := true;
+  bbDeleteCategory.Caption := '';
+
+  bbtRCardDelete.Visible := false;
+  bbtRCardDelete.Enabled := false;
+  bbHelp.Left := bbtRCardDiscard.Left - 6 - bbHelp.Width;
+
+  with modDados.cdMainBase do
+  begin
+    sName := trim(copy(sIns, 1, 5));
+    sTrigger := '';
+    sPackage := '';
+    sEnvironment := 'User defined';
+    sArguments := '';
+    bArguments := false;
+    sInsert := sIns;
+
+
+    caption := 'R library details for ''' + sName + '''';
+    leName.Text := sName;
+    leTrigger.Text := sTrigger;
+    lePackage.Text := sPackage;
+    leEnvironment.Text := sEnvironment;
+    leArguments.Text := sArguments;
+    cbArguments.Checked := bArguments;
+    reInsert.Text := sInsert;
+  end;
+end;
+
+
+procedure TfrmRcard.PopulateCategoryBox;
+var
+  i: Integer;
+  sCatName: string;
+begin
+  with modDados.sqldsCategories do
+  begin
+    Open;
+    First;
+    i := -1;
+    while not EOF do
     begin
-      Name   := 'RcardDefaultIndex';
-      Fields := 'Group;Function';
-      Options:= [ixPrimary, ixUnique];
+      inc(i);
+      sCatName := FieldByName('Category').AsString;
+      if clbCategories.Items.Count > i then
+      begin
+        if sCatName <> clbCategories.Items[i] then
+          clbCategories.Items[i] := sCatName;
+      end
+      else
+        clbCategories.Items.Add(sCatName);
+      Next;
+    end;
+    for i := clbCategories.Items.Count - 1 downto i + 1 do
+      clbCategories.Items.Delete(i);
+  end;
+end;
+
+procedure TfrmRcard.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  with frmTinnMain do
+  begin
+    {if bGroupsNeedUpdate then
+     DoStuff;}
+    //frmTools.lbRcard.ItemIndex := iRcardFilter;
+    // rmTools.lbRcardClick(self);
+  end;
+end;
+
+procedure TfrmRcard.DeleteCategory;
+begin
+  if clbCategories.ItemIndex = -1 then
+    exit;
+
+  if MessageDlg('Do you want to delete the category '''+clbCategories.Items[clbCategories.ItemIndex]+''' from the list of categories? This will affect all entries in the library and cannot be undone.', mtConfirmation, [mbyes, mbabort], 0) = mrYes then
+  begin
+    modDados.sqlMainBase.ExecuteDirect('DELETE FROM Categories where Lower(Category) like'+AnsiQuotedStr(ansilowercase(clbCategories.Items[clbCategories.ItemIndex]), '"'));
+    PopulateCategoryBox;
+    TickCategories;
+    bGroupsNeedUpdate := true;
+  end;
+end;
+
+function TfrmRcard.CheckNameAllowed;
+begin
+  CheckNameAllowed := false;
+
+  if not bNewCard then
+    if (trim(leName.Text) = sName) and (trim(leEnvironment.Text) = sEnvironment) then
+    begin
+      CheckNameAllowed := true;
+      Exit;
     end;
 
-    IndexName:= 'RcardDefaultIndex';
+  with modDados.sqldsMainCheck do
+  begin
+    Close;
+    CommandText := 'SELECT * FROM Objects where Name like '+AnsiQuotedStr(trim(leName.Text),'"')+ ' AND Envir like '+AnsiQuotedStr(trim(leEnvironment.Text),'"');
+    Open;
+    if RecordCount = 0 then
+      CheckNameAllowed := true;
   end;
+end;
+
+function TfrmRcard.CheckTriggerAllowed;
+var sTrig: String;
+begin
+  CheckTriggerAllowed := false;
+  sTrig := trim(leTrigger.Text);
+
+  if (sTrig = sTrigger) or (sTrig = '') then
+  begin
+      CheckTriggerAllowed := true;
+      Exit;
+  end;
+
+  with modDados.sqldsMainCheck do
+  begin
+    Close;
+    CommandText := 'SELECT * FROM UserDefined where Trigger like '+AnsiQuotedStr(sTrig,'"');
+    Open;
+    if RecordCount = 0 then
+      CheckTriggerAllowed := true;
+  end;
+end;
+
+procedure TfrmRcard.clbCategoriesClickCheck(Sender: TObject);
+begin
+  bCheckAction := true;
+end;
+
+procedure TfrmRcard.FormCreate(Sender: TObject);
+begin
+  bCheckAction := false;
+  PopulateCategoryBox;
 end;
 
 procedure TfrmRcard.FormShow(Sender: TObject);
 begin
-  AlphaBlendValue:= frmTinnMain.iAlphaBlendValue;
+  AlphaBlendValue := frmTinnMain.iAlphaBlendValue;
 end;
 
 procedure TfrmRcard.bbtRcardCloseClick(Sender: TObject);
+var
+  sCommand, sNewName, sNewTrigger, sNewPackage, sNewEnvironment, sNewArguments, sNewInsert, sNewHasArguments, sDeprVar, sDeprVal: String;
+  bNewArguments: Boolean;
+  i: Integer;
 begin
-  with modDados.cdRcard do begin
-    SavePoint:= frmTinnMain.iRcardBeforeChanges;
-    IndexName:= 'RcardDefaultIndex';
+
+  sNewName := trim(leName.Text);
+  sNewTrigger := trim(leTrigger.Text);
+  sNewPackage := trim(lePackage.Text);
+  sNewEnvironment := trim(leEnvironment.Text);
+  sNewArguments := trim(leArguments.Text);
+  bNewArguments := cbArguments.Checked;
+  sNewInsert := trim(reInsert.Text);
+  if bNewArguments then
+   sNewHasArguments := '1' else  sNewHasArguments := '0';
+
+  if sNewName = '' then
+  begin
+    MessageDlg('Please enter a name.', mtInformation, [mbok], 0);
+    Exit;
   end;
 
-  ActualizeGroups;
-  Close;
-  frmTinnMain.Refresh;
-end;
+  if not CheckNameAllowed then
+  begin
+    MessageDlg('There already exists an object with the name '+AnsiQuotedStr(sNewName,'''')+' in the environment '+AnsiQuotedStr(sNewEnvironment,'''')+'.', mtInformation, [mbok], 0);
+    Exit;
+  end;
 
-procedure TfrmRcard.dbgRcardTitleClick(Column: TColumn);
-begin
-  with modDados.cdRcard do
-    if (Column.FieldName = 'Group') then IndexFieldNames:= 'Group;Function'
-                                    else IndexFieldNames:= 'Function;Group';
+  if not CheckTriggerAllowed then
+  begin
+    MessageDlg('The trigger '+AnsiQuotedStr(sNewTrigger,'''')+' is already in use for another object.', mtInformation, [mbok], 0);
+    Exit;
+  end;
+
+
+  if not bNewCard then
+    if (sNewName <> sName) OR (sNewTrigger <> sTrigger) OR
+       (sNewPackage <> sPackage) OR (sNewEnvironment <> sEnvironment) OR
+       (sNewArguments <> sArguments) OR (bNewArguments <> bArguments) OR
+       (sNewInsert <> sInsert) OR (bCheckAction = true) then
+    begin
+     sCommand := 'UPDATE Objects SET ';
+     sCommand := sCommand +
+                 'Name = '          + AnsiQuotedStr(sNewName, '"') + ', ' +
+                 'Envir ='          + AnsiQuotedStr(sNewEnvironment, '"') + ', ' +
+                 'PrettyPackage = ' + AnsiQuotedStr(sNewPackage, '"') + ', ' +
+                 'InsertText = '    + AnsiQuotedStr(sNewInsert, '"') + ', ' +
+                 'Arguments = '     + AnsiQuotedStr(sNewArguments, '"') + ', ' +
+                 'HasArguments = '  + AnsiQuotedStr(sNewHasArguments, '"');
+
+      sCommand := sCommand + ' WHERE  Name like '+AnsiQuotedStr(trim(sName),'"')+ ' AND Envir like '+AnsiQuotedStr(trim(sEnvironment),'"');
+      modDados.sqlMainBase.ExecuteDirect(sCommand);
+
+    end;
+
+  if bNewCard then
+  begin
+    // These fields will probably be deleted in later versions or they don't have to be set here.
+    sDeprVar := ',DisplayName, Description, Title, DescriptionFormatted, Dim, [Group], Class';
+    sDeprVal := ',"", "", "", "", "", "",""';
+    // ...
+    sCommand := 'INSERT INTO  Objects (Name, Envir, PrettyPackage, InsertText, Arguments, HasArguments '+sDeprVar+') VALUES (';
+    sCommand := sCommand + AnsiQuotedStr(sNewName, '"') + ', ' + AnsiQuotedStr(sNewEnvironment, '"') + ', '
+                         + AnsiQuotedStr(sNewPackage, '"') + ', ' + AnsiQuotedStr(sNewInsert, '"') + ', '
+                         + AnsiQuotedStr(sNewArguments, '"') + ', ' + sNewHasArguments
+                         + sDeprVal+ ')';
+
+    modDados.sqlMainBase.ExecuteDirect(sCommand);
+
+    // check whether Trigger is saved
+    // InsertText with multiline text does not appear
+
+  end;
+
+  if sNewTrigger <> '' then
+    modDados.sqlMainBase.ExecuteDirect('INSERT INTO  UserDefined (Name, Envir, Completion, Trigger) VALUES ('+AnsiQuotedStr(sNewName, '"')+',  '+AnsiQuotedStr(sNewEnvironment, '"')+',"",'+AnsiQuotedStr(sNewTrigger, '"')+' )')
+  else
+    modDados.sqlMainBase.ExecuteDirect('DELETE FROM UserDefined WHERE Name like '+AnsiQuotedStr(trim(sName),'"')+ ' AND Envir like '+AnsiQuotedStr(trim(sEnvironment),'"'));
+
+
+  sCommand := 'DELETE FROM CategoriesObjects WHERE Name like '+AnsiQuotedStr(trim(sName),'"')+ ' AND Envir like '+AnsiQuotedStr(trim(sEnvironment),'"');
+  modDados.sqlMainBase.ExecuteDirect(sCommand);
+
+  for i := 0 to clbCategories.Items.Count-1 do
+    if clbCategories.Checked[i] then
+      modDados.sqlMainBase.ExecuteDirect('INSERT INTO CategoriesObjects (Name, Envir, Category) VALUES ('+ AnsiQuotedStr(trim(sName),'"')+ ', '+AnsiQuotedStr(trim(sEnvironment),'"')+ ','+ AnsiQuotedStr(trim(clbCategories.Items[i]),'"')  +')');
+
+  frmTinnMain.AfterLibraryUpdate;
+  Close;
 end;
 
 procedure TfrmRcard.bbHelpClick(Sender: TObject);
 begin
   frmTinnMain.OpenUserGuidePDF('"Card (R)"');
-end;
-
-procedure TfrmRcard.bbtRcardCancelAllClick(Sender: TObject);
-begin
-  with modDados.cdRcard do
-    SavePoint:= frmTinnMain.iRcardBeforeChanges;
-end;
-
-procedure TfrmRcard.bbtRcardRestoreDefaultClick(Sender: TObject);
-begin
-  if not FileExists(frmTinnMain.sFileDataOrigin) then Exit;
-  try
-    modDados.cdRcard.Active:= False;
-
-    with frmTinnMain.zipKit do begin
-      FileName     := frmTinnMain.sFileDataOrigin;
-      BaseDirectory:= frmTinnMain.sPathData;
-      ExtractFiles('Rcard.xml');
-      CloseArchive;
-    end;
-
-    with modDados do begin
-      cdRcard.Active:= True;
-      frmTinnMain.iRcardBeforeChanges:= cdRcard.SavePoint;
-    end;  
-
-    MessageDlg('The original ''Rcard.xml'' was successfully restored!',
-               mtInformation,
-               [MBOK],
-               0);
-  except
-    // todo!
-  end;
 end;
 
 end.

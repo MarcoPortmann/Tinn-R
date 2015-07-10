@@ -1,0 +1,5390 @@
+object frmTools: TfrmTools
+  Left = 411
+  Top = 150
+  AlphaBlend = True
+  AlphaBlendValue = 200
+  Caption = 'Tools'
+  ClientHeight = 901
+  ClientWidth = 459
+  Color = clWindow
+  Ctl3D = False
+  DockSite = True
+  DragKind = dkDock
+  DragMode = dmAutomatic
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -14
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  Position = poDesigned
+  Visible = True
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnMouseWheel = FormMouseWheel
+  OnResize = FormResize
+  OnShow = FormShow
+  PixelsPerInch = 120
+  TextHeight = 17
+  object JvPoweredByJCL1: TJvPoweredByJCL
+    Left = 178
+    Top = 31
+    Width = 1
+    Height = 44
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    URL = 'http://homepages.codegear.com/jedi/jcl/'
+  end
+  object npTools: TJvNavigationPane
+    Left = 0
+    Top = 0
+    Width = 459
+    Height = 901
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
+    ActivePage = ppR
+    Align = alClient
+    Background.Stretch = False
+    Background.Proportional = False
+    Background.Center = False
+    Background.Tile = False
+    Background.Transparent = False
+    Caption = 'Tools'
+    Colors.ButtonColorFrom = clWhite
+    Colors.ButtonColorTo = 12435133
+    Colors.ButtonHotColorFrom = 13009540
+    Colors.ButtonHotColorTo = 13009540
+    Colors.ButtonSelectedColorFrom = 14602190
+    Colors.ButtonSelectedColorTo = 14602190
+    Colors.SplitterColorFrom = 13026246
+    Colors.SplitterColorTo = 9211532
+    Colors.DividerColorFrom = 15725551
+    Colors.DividerColorTo = 13026246
+    Colors.HeaderColorFrom = 8684164
+    Colors.HeaderColorTo = 8684164
+    Colors.FrameColor = 8684676
+    Colors.ToolPanelHeaderColorFrom = clWhite
+    Colors.ToolPanelHeaderColorTo = 12435133
+    StyleManager = npStyle
+    ParentStyleManager = False
+    SplitterHeight = 9
+    MaximizedCount = 6
+    NavPanelFont.Charset = DEFAULT_CHARSET
+    NavPanelFont.Color = clWindowText
+    NavPanelFont.Height = -12
+    NavPanelFont.Name = 'Segoe UI'
+    NavPanelFont.Style = [fsBold]
+    NavPanelHotTrackFont.Charset = DEFAULT_CHARSET
+    NavPanelHotTrackFont.Color = clWindow
+    NavPanelHotTrackFont.Height = -12
+    NavPanelHotTrackFont.Name = 'Segoe UI'
+    NavPanelHotTrackFont.Style = [fsBold]
+    SmallImages = frmTinnMain.imlTinnR
+    OnResize = npToolsResize
+    OnSplitterMoved = npToolsSplitterMoved
+    object ppR: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'R'
+      Iconic = True
+      ImageIndex = 80
+      object JvNavPanelDivider2: TJvNavPanelDivider
+        Left = 0
+        Top = 0
+        Width = 457
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        MinSize = 1
+        Caption = 'Explorer'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+        ExplicitWidth = 456
+      end
+      object JvNavPanelDivider1: TJvNavPanelDivider
+        Left = 0
+        Top = 237
+        Width = 457
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        MinSize = 1
+        OnMoved = JvNavPanelDivider1Moved
+        Caption = 'R library'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+        ExplicitWidth = 456
+      end
+      object JvNavPanelDivider4: TJvNavPanelDivider
+        Left = 0
+        Top = 550
+        Width = 457
+        Height = 26
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alBottom
+        MinSize = 1
+        OnMoved = JvNavPanelDivider4Moved
+        Caption = 'Navigator'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+        ExplicitTop = 480
+        ExplicitWidth = 456
+      end
+      object panExplorer: TPanel
+        Left = 0
+        Top = 25
+        Width = 457
+        Height = 212
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        BevelOuter = bvNone
+        Color = clWindow
+        ParentBackground = False
+        TabOrder = 0
+        object panExplorerHeader: TPanel
+          Left = 0
+          Top = 0
+          Width = 457
+          Height = 65
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          BevelOuter = bvNone
+          BorderWidth = 2
+          TabOrder = 0
+          object Splitter4: TSplitter
+            Left = 302
+            Top = 33
+            Width = 10
+            Height = 30
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alRight
+            ResizeStyle = rsUpdate
+            ExplicitLeft = 301
+            ExplicitTop = 34
+            ExplicitHeight = 29
+          end
+          object edToolsRExplorerFilter: TButtonedEdit
+            Left = 312
+            Top = 33
+            Width = 143
+            Height = 30
+            Margins.Left = 1
+            Margins.Top = 0
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alRight
+            Images = frmTinnMain.imlTinnR
+            RightButton.ImageIndex = 55
+            RightButton.Visible = True
+            TabOrder = 0
+            OnClick = edToolsRExplorerFilterClick
+            OnExit = edToolsRExplorerFilterExit
+            OnKeyUp = edToolsRExplorerFilterKeyUp
+            ExplicitHeight = 23
+          end
+          object bbtREnvironmentRefresh: TBitBtn
+            Left = 3
+            Top = 7
+            Width = 32
+            Height = 27
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Action = frmTinnMain.actREnvironmentRefresh
+            Caption = 'Refresh environment'
+            Margin = 1
+            TabOrder = 1
+          end
+          object panEnvironment: TPanel
+            Left = 2
+            Top = 2
+            Width = 453
+            Height = 31
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alTop
+            BevelEdges = []
+            BevelOuter = bvNone
+            TabOrder = 2
+            object cbbToolsREnvironment: TComboBox
+              AlignWithMargins = True
+              Left = 36
+              Top = 1
+              Width = 417
+              Height = 25
+              Hint = 'Set R environment'
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 4
+              Align = alClient
+              Style = csDropDownList
+              TabOrder = 0
+              OnSelect = cbbToolsREnvironmentSelect
+            end
+            object bbRefreshExplorerBoth: TBitBtn
+              AlignWithMargins = True
+              Left = 0
+              Top = 0
+              Width = 30
+              Height = 28
+              Hint = 'Refresh environment and explorer'
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 5
+              Align = alLeft
+              Glyph.Data = {
+                F6000000424DF600000000000000760000002800000010000000100000000100
+                0400000000008000000000000000000000001000000000000000000000000000
+                8000008000000080800080000000800080008080000080808000C0C0C0000000
+                FF0000FF000000FFFF00FF000000FF00FF00FFFF0000FFFFFF00DDDDDDDDDDDD
+                DDDDDDDDDDDDDDDDDDDDDDDDDDDD2DDDDDDDDDDDDDD22DDDDDDDDDDDDD22222D
+                DDDDDDDDDDD22DD2DDDDDDDDDDDD2DD2DDDDDDDDD2DDDDD2DDDDDDDDD2DD2DDD
+                DDDDDDDDD2DD22DDDDDDDDDDDD22222DDDDDDDDDDDDD22DDDDDDDDDDDDDD2DDD
+                DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD}
+              Margin = 0
+              TabOrder = 1
+              Visible = False
+              OnClick = bbRefreshExplorerBothClick
+            end
+          end
+          object cbbToolsRExplorer: TComboBoxEx
+            AlignWithMargins = True
+            Left = 3
+            Top = 33
+            Width = 299
+            Height = 26
+            Margins.Left = 1
+            Margins.Top = 0
+            Margins.Right = 0
+            Margins.Bottom = 7
+            Align = alClient
+            ItemsEx = <
+              item
+                Caption = 'All'
+                ImageIndex = 0
+                SelectedImageIndex = 0
+              end
+              item
+                Caption = 'Data'
+                ImageIndex = 1
+                SelectedImageIndex = 1
+              end
+              item
+                Caption = 'Functions'
+                ImageIndex = 2
+                SelectedImageIndex = 2
+              end
+              item
+                Caption = 'Data.frames'
+                ImageIndex = 3
+                SelectedImageIndex = 3
+              end
+              item
+                Caption = 'Arrays'
+                ImageIndex = 4
+                SelectedImageIndex = 4
+              end
+              item
+                Caption = 'Matrices'
+                ImageIndex = 4
+                SelectedImageIndex = 4
+              end
+              item
+                Caption = 'Tables'
+                ImageIndex = 6
+                SelectedImageIndex = 6
+              end
+              item
+                Caption = 'Vectors'
+                ImageIndex = 7
+                SelectedImageIndex = 7
+              end
+              item
+                Caption = 'Lists'
+                ImageIndex = 8
+                SelectedImageIndex = 8
+              end
+              item
+                Caption = 'Others'
+                ImageIndex = 9
+                SelectedImageIndex = 9
+              end>
+            Style = csExDropDownList
+            TabOrder = 3
+            OnSelect = cbbToolsRExplorerSelect
+            Images = frmTinnMain.imlRexplorer
+          end
+        end
+        object cgObjects: TDBCtrlGrid
+          Left = 0
+          Top = 65
+          Width = 457
+          Height = 147
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alClient
+          DataSource = modDados.dsRObjects
+          PanelBorder = gbNone
+          PanelHeight = 36
+          PanelWidth = 436
+          ParentColor = False
+          PopupMenu = frmTinnMain.pabRExplorer
+          TabOrder = 1
+          RowCount = 4
+          SelectedColor = clWhite
+          OnDblClick = cgObjectsDblClick
+          OnKeyDown = cgObjectsKeyDown
+          OnKeyPress = cgObjectsKeyPress
+          OnKeyUp = cgObjectsKeyUp
+          OnPaintPanel = cgObjectsPaintPanel
+          OnStartDrag = cgObjectsStartDrag
+        end
+      end
+      object panRCard: TPanel
+        Left = 0
+        Top = 262
+        Width = 457
+        Height = 288
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alClient
+        BevelOuter = bvNone
+        ParentColor = True
+        TabOrder = 1
+        object panRCard4: TPanel
+          Left = 0
+          Top = 33
+          Width = 457
+          Height = 255
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alClient
+          BevelOuter = bvNone
+          Color = clWindow
+          ParentBackground = False
+          TabOrder = 0
+          object Bevel1: TBevel
+            Left = 0
+            Top = 104
+            Width = 457
+            Height = 2
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alBottom
+            Shape = bsBottomLine
+            ExplicitTop = 37
+            ExplicitWidth = 456
+          end
+          object cgMainBase: TDBCtrlGrid
+            Left = 0
+            Top = 0
+            Width = 457
+            Height = 104
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            DataSource = modDados.dsMainBase
+            PanelBorder = gbNone
+            PanelHeight = 26
+            PanelWidth = 436
+            ParentColor = False
+            PopupMenu = frmTinnMain.pabLibrary
+            TabOrder = 0
+            RowCount = 4
+            SelectedColor = clWhite
+            OnDblClick = cgMainBaseDblClick
+            OnKeyDown = cgMainBaseKeyDown
+            OnKeyPress = cgMainBaseKeyPress
+            OnPaintPanel = cgMainBasePaintPanel
+            ExplicitHeight = 97
+            object DBText1: TDBText
+              Left = 21
+              Top = 21
+              Width = 85
+              Height = 22
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              DataSource = modDados.dsMainBase
+              Visible = False
+            end
+          end
+          object wbDescription: TWebBrowser
+            Left = 0
+            Top = 106
+            Width = 457
+            Height = 149
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alBottom
+            TabOrder = 1
+            ExplicitTop = 99
+            ExplicitWidth = 436
+            ControlData = {
+              4C000000C9250000520C00000000000000000000000000000000000000000000
+              000000004C000000000000000000000001000000E0D057007335CF11AE690800
+              2B2E126200000000000000004C0000000114020000000000C000000000000046
+              8000000000000000000000000000000000000000000000000000000000000000
+              00000000000000000100000000000000000000000000000000000000}
+          end
+        end
+        object panRCard1: TPanel
+          Left = 0
+          Top = 0
+          Width = 457
+          Height = 33
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          BevelOuter = bvNone
+          Padding.Left = 3
+          Padding.Top = 3
+          Padding.Right = 3
+          Padding.Bottom = 3
+          TabOrder = 1
+          object Splitter2: TSplitter
+            Left = 302
+            Top = 3
+            Width = 11
+            Height = 27
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alRight
+            ResizeStyle = rsUpdate
+          end
+          object lbRCard: TComboBox
+            Left = 3
+            Top = 3
+            Width = 299
+            Height = 25
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            Style = csDropDownList
+            DropDownCount = 16
+            TabOrder = 0
+            OnClick = lbRcardClick
+          end
+          object edCardSearch: TButtonedEdit
+            Left = 313
+            Top = 3
+            Width = 141
+            Height = 27
+            Margins.Left = 1
+            Margins.Top = 0
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alRight
+            Images = frmTinnMain.imlTinnR
+            RightButton.ImageIndex = 55
+            RightButton.Visible = True
+            TabOrder = 1
+            OnExit = edCardSearchExit
+            OnKeyDown = edCardSearchKeyDown
+            OnKeyPress = edCardSearchKeyPress
+            OnKeyUp = edCardSearchKeyUp
+            OnRightButtonClick = edCardSearchRightButtonClick
+            ExplicitHeight = 23
+          end
+        end
+      end
+      object panNavi: TPanel
+        Left = 0
+        Top = 576
+        Width = 457
+        Height = 54
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alBottom
+        BevelOuter = bvNone
+        Caption = 'panNavi'
+        TabOrder = 2
+        object RNavigator: TRNavigator
+          Left = 0
+          Top = 0
+          Width = 457
+          Height = 54
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alClient
+          BevelInner = bvNone
+          BevelOuter = bvNone
+          BorderStyle = bsNone
+          HideSelection = False
+          Indent = 19
+          ReadOnly = True
+          TabOrder = 0
+          OnClick = RNavigatorClick
+          OnDblClick = RNavigatorDblClick
+        end
+      end
+    end
+    object ppFiles: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'File management'
+      Iconic = True
+      ImageIndex = 65
+      ExplicitWidth = 456
+      ExplicitHeight = 560
+      object JvNavPanelDivider5: TJvNavPanelDivider
+        Left = 0
+        Top = 0
+        Width = 457
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Project'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+        ExplicitWidth = 456
+      end
+      object JvNavPanelDivider6: TJvNavPanelDivider
+        Left = 0
+        Top = 148
+        Width = 457
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Windows explorer'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+        ExplicitWidth = 456
+      end
+      object panProj: TPanel
+        Left = 0
+        Top = 25
+        Width = 457
+        Height = 123
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 0
+        ExplicitWidth = 456
+        object tvProject: TTreeView
+          Left = 0
+          Top = 34
+          Width = 457
+          Height = 70
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alClient
+          Anchors = [akLeft, akRight, akBottom]
+          BevelInner = bvNone
+          BevelOuter = bvRaised
+          BiDiMode = bdLeftToRight
+          BorderStyle = bsNone
+          Ctl3D = False
+          DragMode = dmAutomatic
+          Images = frmTinnMain.imlProject
+          Indent = 19
+          ParentBiDiMode = False
+          ParentCtl3D = False
+          PopupMenu = frmTinnMain.pmenProjects
+          ReadOnly = True
+          RightClickSelect = True
+          TabOrder = 0
+          OnAddition = tvProjectAddition
+          OnChange = tvProjectChange
+          OnDblClick = tvProjectDblClick
+          OnDeletion = tvProjectDeletion
+          OnDragDrop = tvProjectDragDrop
+          OnDragOver = tvProjectDragOver
+          OnEndDrag = tvProjectEndDrag
+          OnKeyDown = tvProjectKeyDown
+          OnStartDrag = tvProjectStartDrag
+        end
+        object stbProject: TStatusBar
+          Left = 0
+          Top = 104
+          Width = 457
+          Height = 19
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Panels = <
+            item
+              Bevel = pbNone
+              Text = 'Total:'
+              Width = 29
+            end
+            item
+              Width = 40
+            end
+            item
+              Bevel = pbNone
+              Text = 'Index:'
+              Width = 35
+            end
+            item
+              Width = 40
+            end
+            item
+              Bevel = pbNone
+              Text = 'Sel:'
+              Width = 21
+            end
+            item
+              Width = 50
+            end>
+          ExplicitTop = 98
+          ExplicitWidth = 349
+        end
+        object atbProject: TActionToolBar
+          Left = 0
+          Top = 0
+          Width = 457
+          Height = 34
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          ActionManager = frmTinnMain.amMain
+          Caption = 'Projects'
+          Color = clMenuBar
+          ColorMap.DisabledFontColor = 7171437
+          ColorMap.HighlightColor = clWhite
+          ColorMap.BtnSelectedFont = clBlack
+          ColorMap.UnusedColor = clWhite
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+          Spacing = 0
+          ExplicitWidth = 456
+        end
+      end
+      object panWinExplorer: TPanel
+        Left = 0
+        Top = 173
+        Width = 457
+        Height = 457
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alClient
+        Anchors = [akLeft, akRight, akBottom]
+        BevelOuter = bvNone
+        TabOrder = 1
+        ExplicitWidth = 456
+        ExplicitHeight = 387
+        object Splitter6: TSplitter
+          Left = 0
+          Top = 317
+          Width = 457
+          Height = 4
+          Cursor = crVSplit
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alBottom
+          ExplicitTop = 247
+          ExplicitWidth = 456
+        end
+        object panWinExpHeader: TPanel
+          Left = 0
+          Top = 0
+          Width = 457
+          Height = 68
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 0
+          ExplicitWidth = 456
+          object panWinFav: TPanel
+            Left = 0
+            Top = 0
+            Width = 456
+            Height = 33
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 0
+            object bbtExplorerAddFavorites: TBitBtn
+              AlignWithMargins = True
+              Left = 4
+              Top = 3
+              Width = 33
+              Height = 28
+              Hint = 'Windows explorer: folder (add favorite)'
+              Margins.Left = 4
+              Margins.Bottom = 1
+              Align = alLeft
+              Glyph.Data = {
+                36030000424D3603000000000000360000002800000010000000100000000100
+                1800000000000003000000000000000000000000000000000000008080008080
+                0080803399CC0080800080800080800080800080800080803366333366333366
+                333366333366330080800080800080800080803399CC3399CC3399CC00808000
+                808000808033663333996666CC9999CCCC66CC99339966336633008080008080
+                0080803399CC3399CC3399CC3399CC00808000808033663366CC9966CC990080
+                8066CC9966CC993366330080800080800080800080803399CC33CCCC33CCCC33
+                99CC3399CC33663399CCCC00808000808000808099CCCC336633008080008080
+                0080800080800080803399CC99CCFF66CCCC3399CC33996699CCCC99CCCC0080
+                8066CC9966CC9933663300808000808000808000808000808033CCCC66CCFF99
+                CCFF66CCFF33999966999999CCCCC0DCC066CC9933996633663333CCCC33CCCC
+                33CCCC33CCCC33CCCC33CCCC99CCFF33CCFF33CCFF99CCFF6699996699663399
+                6633996633663300808033CCFF66CCFF99CCFF99CCFF99CCFF99CCFF99CCFF99
+                CCFF99CCFF66CCFF66CCFF66CCFF33CCCC3399CC3399CC00808033CCFF33CCFF
+                99FFFF33CCFF33CCFF33CCFF33CCFF99CCFF33CCCC33CCCC3399CC3399CC3399
+                CC3399CC3399CC00808000808033CCFF99CCFF99CCFF33CCFF33CCFF33CCFF99
+                CCFF66CCFF33CCCC00808000808000808000808000808000808000808033CCFF
+                66CCFF99FFFF33CCFF33CCFF33CCFF66CCFF66CCFF33CCCC33CCCC0080800080
+                8000808000808000808000808000808033CCFF99FFFF66CCFF33CCFF33CCFF33
+                CCFF99CCFF66CCFF33CCCC33CCCC008080008080008080008080008080008080
+                33CCFF66CCFF99FFFF33CCFF33CCFF33CCFF33CCFF99CCFF66CCFF33CCCC0080
+                8000808000808000808000808000808000808033CCFF99FFFF99FFFF99FFFF99
+                CCFF99CCFF99CCFF99CCFF66CCFF33CCCC008080008080008080008080008080
+                00808033CCFF33CCFF33CCFF33CCFF33CCFF33CCFF33CCCC33CCCC33CCCC33CC
+                CC33CCCC00808000808000808000808000808000808000808000808000808000
+                8080008080008080008080008080008080008080008080008080}
+              Margin = 1
+              TabOrder = 0
+              OnClick = bbtExplorerAddFavoritesClick
+            end
+            object bbtExplorerRemoveFavorites: TBitBtn
+              AlignWithMargins = True
+              Left = 41
+              Top = 3
+              Width = 32
+              Height = 28
+              Hint = 'Windows explorer: folder (remove favorite)'
+              Margins.Left = 1
+              Margins.Bottom = 1
+              Align = alLeft
+              Glyph.Data = {
+                36030000424D3603000000000000360000002800000010000000100000000100
+                1800000000000003000000000000000000000000000000000000008080008080
+                0080803399CC0080800080800080800080800080800080803366CC0033CC0033
+                CC0033CC0033CC0080800080800080800080803399CC3399CC3399CC00808000
+                80800080803366CC3366CC3366CC0066FF0066CC0033CC0033CC008080008080
+                0080803399CC3399CC3399CC3399CC0080800080800033CC6699FF3366FF0066
+                FF0066FF0066CC0033CC0080800080800080800080803399CC33CCCC33CCCC33
+                99CC3399CC0033CC99CCFF0080800080800080803366FF0033CC008080008080
+                0080800080800080803399CC99CCFF66CCCC3399CC0033CC99CCFF3399FF0066
+                FF3399FF3399FF0033CC00808000808000808000808000808033CCCC66CCFF99
+                CCFF66CCFF3399CC3366CC99CCFFC6D6EF6699FF3366CC0033CC33CCCC33CCCC
+                33CCCC33CCCC33CCCC33CCCC99CCFF33CCFF33CCFF99CCFF3399CC0066CC0033
+                CC0033CC0033CC00808033CCFF66CCFF99CCFF99CCFF99CCFF99CCFF99CCFF99
+                CCFF99CCFF66CCFF66CCFF66CCFF33CCCC3399CC3399CC00808033CCFF33CCFF
+                99FFFF33CCFF33CCFF33CCFF33CCFF99CCFF33CCCC33CCCC3399CC3399CC3399
+                CC3399CC3399CC00808000808033CCFF99CCFF99CCFF33CCFF33CCFF33CCFF99
+                CCFF66CCFF33CCCC00808000808000808000808000808000808000808033CCFF
+                66CCFF99FFFF33CCFF33CCFF33CCFF66CCFF66CCFF33CCCC33CCCC0080800080
+                8000808000808000808000808000808033CCFF99FFFF66CCFF33CCFF33CCFF33
+                CCFF99CCFF66CCFF33CCCC33CCCC008080008080008080008080008080008080
+                33CCFF66CCFF99FFFF33CCFF33CCFF33CCFF33CCFF99CCFF66CCFF33CCCC0080
+                8000808000808000808000808000808000808033CCFF99FFFF99FFFF99FFFF99
+                CCFF99CCFF99CCFF99CCFF66CCFF33CCCC008080008080008080008080008080
+                00808033CCFF33CCFF33CCFF33CCFF33CCFF33CCFF33CCCC33CCCC33CCCC33CC
+                CC33CCCC00808000808000808000808000808000808000808000808000808000
+                8080008080008080008080008080008080008080008080008080}
+              Margin = 1
+              TabOrder = 1
+              OnClick = bbtExplorerRemoveFavoritesClick
+            end
+            object cbExplorerFavorites: TComboBox
+              AlignWithMargins = True
+              Left = 80
+              Top = 4
+              Width = 372
+              Height = 25
+              Hint = 'Windows explorer: folder (choice)'
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              Style = csDropDownList
+              Ctl3D = True
+              DropDownCount = 10
+              ParentCtl3D = False
+              Sorted = True
+              TabOrder = 2
+              OnChange = cbExplorerFavoritesChange
+            end
+          end
+          object Panel1: TPanel
+            Left = 0
+            Top = 33
+            Width = 457
+            Height = 35
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BevelOuter = bvNone
+            TabOrder = 1
+            ExplicitWidth = 456
+            object Splitter7: TSplitter
+              Left = 286
+              Top = 0
+              Width = 6
+              Height = 35
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alRight
+            end
+            object fcbbToolsWinExplorer: TFilterComboBox
+              AlignWithMargins = True
+              Left = 4
+              Top = 4
+              Width = 278
+              Height = 25
+              Hint = 'Windows explorer: filter (choice)'
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              AutoComplete = False
+              AutoDropDown = True
+              Ctl3D = True
+              ParentCtl3D = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 0
+              OnChange = fcbbToolsWinExplorerChange
+            end
+            object edWinExplorerFilter: TButtonedEdit
+              AlignWithMargins = True
+              Left = 296
+              Top = 4
+              Width = 156
+              Height = 27
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alRight
+              Images = frmTinnMain.imlTinnR
+              RightButton.ImageIndex = 55
+              RightButton.Visible = True
+              TabOrder = 1
+              OnExit = edWinExplorerFilterExit
+              OnKeyDown = edWinExplorerFilterKeyDown
+              OnKeyPress = edWinExplorerFilterKeyPress
+              OnRightButtonClick = edWinExplorerFilterRightButtonClick
+            end
+          end
+        end
+        object jvflbWinExplorer: TJvFileListBox
+          Left = 0
+          Top = 321
+          Width = 457
+          Height = 136
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alBottom
+          IntegralHeight = True
+          ItemHeight = 17
+          PopupMenu = frmTinnMain.pabWinExplorerFiles
+          ShowGlyphs = True
+          TabOrder = 1
+          OnDblClick = jvflbWinExplorerDblClick
+          OnEndDrag = jvflbWinExplorerEndDrag
+          OnKeyDown = jvflbWinExplorerKeyDown
+          OnStartDrag = jvflbWinExplorerStartDrag
+          ForceFileExtensions = False
+          BorderStyle = bsNone
+          ExplicitTop = 251
+          ExplicitWidth = 456
+        end
+        object stvWindows: TShellTreeView
+          Left = 0
+          Top = 68
+          Width = 457
+          Height = 249
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          ObjectTypes = [otFolders]
+          Root = 'rfDesktop'
+          UseShellImages = True
+          Align = alClient
+          AutoRefresh = False
+          BorderStyle = bsNone
+          HideSelection = False
+          Indent = 23
+          ParentColor = False
+          RightClickSelect = True
+          ShowRoot = False
+          TabOrder = 2
+          OnChange = stvWindowsChange
+        end
+      end
+    end
+    object ppSearch: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'Search'
+      ImageIndex = 57
+      ExplicitWidth = 456
+      ExplicitHeight = 560
+      object Panel3: TPanel
+        Left = 0
+        Top = 0
+        Width = 457
+        Height = 39
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        AutoSize = True
+        BevelOuter = bvNone
+        BorderWidth = 2
+        TabOrder = 0
+        ExplicitWidth = 456
+      end
+      object tvSearch: TTreeView
+        Left = 0
+        Top = 39
+        Width = 457
+        Height = 572
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alClient
+        BevelInner = bvNone
+        BevelOuter = bvNone
+        BiDiMode = bdLeftToRight
+        BorderStyle = bsNone
+        Ctl3D = False
+        DragMode = dmAutomatic
+        Images = frmTinnMain.imlSearch
+        Indent = 19
+        ParentBiDiMode = False
+        ParentCtl3D = False
+        PopupMenu = frmTinnMain.pmenSearch
+        ReadOnly = True
+        RightClickSelect = True
+        TabOrder = 1
+        OnChange = tvSearchChange
+        OnDblClick = tvSearchDblClick
+        OnDragOver = tvSearchDragOver
+        OnEndDrag = tvSearchEndDrag
+        OnStartDrag = tvSearchStartDrag
+      end
+      object stbSearch: TStatusBar
+        Left = 0
+        Top = 611
+        Width = 457
+        Height = 19
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Panels = <
+          item
+            Bevel = pbNone
+            Text = 'Total:'
+            Width = 32
+          end
+          item
+            Width = 50
+          end
+          item
+            Bevel = pbNone
+            Text = 'Index:'
+            Width = 35
+          end
+          item
+            Width = 50
+          end
+          item
+            Bevel = pbNone
+            Text = 'Selected:'
+            Width = 51
+          end
+          item
+            Width = 50
+          end>
+        ExplicitTop = 535
+        ExplicitWidth = 349
+      end
+    end
+    object ppSpell: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'Spell'
+      ImageIndex = 260
+      ExplicitWidth = 456
+      ExplicitHeight = 560
+    end
+    object ppMisc: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'Misc'
+      ImageIndex = 120
+      ExplicitWidth = 456
+      ExplicitHeight = 560
+      object JvNavPanelDivider13: TJvNavPanelDivider
+        Left = 0
+        Top = 0
+        Width = 456
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Shortcuts'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object JvNavPanelDivider15: TJvNavPanelDivider
+        Left = 0
+        Top = 158
+        Width = 456
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Comments'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object JvNavPanelDivider14: TJvNavPanelDivider
+        Left = 0
+        Top = 428
+        Width = 456
+        Height = 24
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alBottom
+        Caption = 'Mirrors'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object panShort: TPanel
+        Left = 0
+        Top = 25
+        Width = 456
+        Height = 133
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        TabOrder = 0
+        object splShortcuts: TSplitter
+          Left = 1
+          Top = 149
+          Width = 455
+          Height = 5
+          Cursor = crVSplit
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          Beveled = True
+          Color = clActiveCaption
+          ParentColor = False
+        end
+        object Panel13: TPanel
+          Left = 1
+          Top = 1
+          Width = 455
+          Height = 34
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+        object panShortcuts: TPanel
+          Left = 1
+          Top = 35
+          Width = 455
+          Height = 114
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          BevelOuter = bvNone
+          Constraints.MinHeight = 20
+          TabOrder = 1
+          object lbShortcuts: TListBox
+            Left = 0
+            Top = 0
+            Width = 455
+            Height = 114
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            AutoComplete = False
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            Ctl3D = False
+            ItemHeight = 17
+            ParentCtl3D = False
+            Sorted = True
+            TabOrder = 0
+            OnClick = lbShortcutsClick
+          end
+        end
+        object Panel11: TPanel
+          Left = 1
+          Top = 154
+          Width = 455
+          Height = 9
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 2
+          ExplicitWidth = 454
+          object dbShortcutsMemo: TDBMemo
+            Left = 0
+            Top = -33
+            Width = 455
+            Height = 42
+            HelpType = htKeyword
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alBottom
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            Constraints.MaxHeight = 157
+            Ctl3D = False
+            DataField = 'Hint'
+            DataSource = modDados.dsShortcuts
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -15
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentCtl3D = False
+            ParentFont = False
+            ParentShowHint = False
+            ReadOnly = True
+            ScrollBars = ssVertical
+            ShowHint = False
+            TabOrder = 0
+            WantReturns = False
+          end
+          object dbgShortcuts: TDBGrid
+            Left = 0
+            Top = 24
+            Width = 455
+            Height = 6
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BorderStyle = bsNone
+            Ctl3D = False
+            DataSource = modDados.dsShortcuts
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            Options = [dgTitles, dgIndicator, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+            ParentCtl3D = False
+            ParentFont = False
+            PopupMenu = frmTinnMain.pmenShortcuts
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = [fsBold]
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'Caption'
+                Width = 150
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Shortcut'
+                Title.Alignment = taRightJustify
+                Width = 50
+                Visible = True
+              end>
+          end
+          object Panel12: TPanel
+            Left = 0
+            Top = 0
+            Width = 455
+            Height = 24
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 2
+            object imgShortcut: TImage
+              Left = 0
+              Top = 0
+              Width = 24
+              Height = 24
+              Hint = 'Shortcuts: Image'
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alLeft
+              Center = True
+              Transparent = True
+            end
+            object DBNavigator4: TDBNavigator
+              Left = 24
+              Top = 0
+              Width = 431
+              Height = 24
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              DataSource = modDados.dsShortcuts
+              VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+              Align = alClient
+              TabOrder = 0
+            end
+          end
+        end
+      end
+      object panComments: TPanel
+        Left = 0
+        Top = 183
+        Width = 457
+        Height = 245
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alClient
+        Caption = 'panComments'
+        TabOrder = 1
+        ExplicitWidth = 456
+        ExplicitHeight = 183
+        object GroupBox30: TGroupBox
+          Left = 1
+          Top = 1
+          Width = 455
+          Height = 244
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alClient
+          Caption = ' Options '
+          TabOrder = 0
+          object cbComAutoDetect_Language: TCheckBox
+            Left = 12
+            Top = 25
+            Width = 265
+            Height = 22
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Caption = 'Auto detect language (recommended)'
+            TabOrder = 0
+          end
+          object cbComPriority_Line: TCheckBox
+            Left = 12
+            Top = 51
+            Width = 248
+            Height = 22
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Caption = 'When both available priority to line'
+            TabOrder = 1
+          end
+        end
+        object dbgComments: TDBGrid
+          Left = 1
+          Top = 85
+          Width = 394
+          Height = 0
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          BorderStyle = bsNone
+          DataSource = modDados.dsComments
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          Options = [dgTitles, dgIndicator, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+          ParentFont = False
+          PopupMenu = frmTinnMain.pmenComments
+          TabOrder = 1
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = [fsBold]
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'Language'
+              Width = 130
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Line'
+              Title.Alignment = taCenter
+              Width = 50
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Begin'
+              Title.Alignment = taCenter
+              Width = 40
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'End'
+              Title.Alignment = taCenter
+              Width = 40
+              Visible = True
+            end>
+        end
+      end
+      object panRMirrors: TPanel
+        Left = 0
+        Top = 452
+        Width = 457
+        Height = 178
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alBottom
+        Caption = 'panRMirrors'
+        TabOrder = 2
+        ExplicitTop = 391
+        ExplicitWidth = 456
+        object Splitter1: TSplitter
+          Left = 1
+          Top = 149
+          Width = 455
+          Height = 5
+          Cursor = crVSplit
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          Beveled = True
+          Color = clActiveCaption
+          ParentColor = False
+        end
+        object Panel16: TPanel
+          Left = 1
+          Top = 1
+          Width = 455
+          Height = 34
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+        object panCountries: TPanel
+          Left = 1
+          Top = 35
+          Width = 455
+          Height = 114
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alTop
+          BevelOuter = bvNone
+          Constraints.MinHeight = 20
+          TabOrder = 1
+          object lbCountries: TListBox
+            Left = 0
+            Top = 0
+            Width = 455
+            Height = 114
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            AutoComplete = False
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            Ctl3D = False
+            ItemHeight = 17
+            ParentCtl3D = False
+            TabOrder = 0
+            OnClick = lbCountriesClick
+          end
+        end
+        object Panel18: TPanel
+          Left = 1
+          Top = 154
+          Width = 455
+          Height = 2
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 2
+          ExplicitWidth = 454
+          object dbgRmirrors: TDBGrid
+            Left = 0
+            Top = 24
+            Width = 455
+            Height = 9
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BorderStyle = bsNone
+            DataSource = modDados.dsRmirrors
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            Options = [dgTitles, dgIndicator, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+            ParentFont = False
+            PopupMenu = frmTinnMain.pmenRmirrors
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = [fsBold]
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'Name'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'City'
+                Width = 64
+                Visible = True
+              end>
+          end
+          object Panel19: TPanel
+            Left = 0
+            Top = 0
+            Width = 455
+            Height = 24
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alTop
+            BevelOuter = bvNone
+            TabOrder = 1
+            object DBNavigator5: TDBNavigator
+              Left = 0
+              Top = 0
+              Width = 455
+              Height = 24
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              DataSource = modDados.dsRmirrors
+              VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+              Align = alClient
+              TabOrder = 0
+            end
+          end
+        end
+        object Panel20: TPanel
+          Left = 1
+          Top = 79
+          Width = 455
+          Height = 79
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Align = alBottom
+          TabOrder = 3
+          ExplicitTop = 73
+          ExplicitWidth = 454
+          object dbeRmirrorsURL: TDBEdit
+            Left = 1
+            Top = 24
+            Width = 453
+            Height = 24
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alTop
+            DataField = 'URL'
+            DataSource = modDados.dsRmirrors
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBtnText
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            OnClick = dbeRmirrorsURLClick
+            OnMouseMove = dbeRmirrorsURLMouseMove
+          end
+          object dbeRmirrorsCode: TDBEdit
+            Left = 1
+            Top = 48
+            Width = 453
+            Height = 23
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alTop
+            DataField = 'Code'
+            DataSource = modDados.dsRmirrors
+            TabOrder = 1
+          end
+          object dbeRmirrorsHost: TDBEdit
+            Left = 1
+            Top = 1
+            Width = 453
+            Height = 23
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alTop
+            DataField = 'Host'
+            DataSource = modDados.dsRmirrors
+            TabOrder = 2
+          end
+        end
+        object stbRMirrors: TStatusBar
+          Left = 1
+          Top = 158
+          Width = 455
+          Height = 19
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Panels = <
+            item
+              Bevel = pbNone
+              Style = psOwnerDraw
+              Text = 'Default:'
+              Width = 42
+            end
+            item
+              Style = psOwnerDraw
+              Width = 40
+            end>
+          OnClick = stbRMirrorsClick
+          OnMouseMove = stbRMirrorsMouseMove
+          OnDrawPanel = stbRMirrorsDrawPanel
+          ExplicitTop = 152
+          ExplicitWidth = 347
+        end
+      end
+    end
+    object ppLatex: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'LaTeX'
+      ImageIndex = 221
+      ExplicitWidth = 456
+      ExplicitHeight = 560
+      object atbLatex: TActionToolBar
+        Left = 0
+        Top = 0
+        Width = 457
+        Height = 34
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        ActionManager = frmTinnMain.amMain
+        Caption = 'tbLatex'
+        Color = clMenuBar
+        ColorMap.DisabledFontColor = 7171437
+        ColorMap.HighlightColor = clWhite
+        ColorMap.BtnSelectedFont = clBlack
+        ColorMap.UnusedColor = clWhite
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -15
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Spacing = 0
+        ExplicitWidth = 456
+      end
+      object pgLatex: TJvgPageControl
+        Left = 0
+        Top = 34
+        Width = 457
+        Height = 596
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        ActivePage = tbsLatexAccent
+        Align = alClient
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -14
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        TabOrder = 0
+        TabStop = False
+        TabStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
+        TabStyle.BevelInner = bvNone
+        TabStyle.BevelOuter = bvNone
+        TabStyle.Bold = False
+        TabStyle.BackgrColor = clBtnFace
+        TabStyle.Font.Charset = DEFAULT_CHARSET
+        TabStyle.Font.Color = clBlack
+        TabStyle.Font.Height = -11
+        TabStyle.Font.Name = 'Arial'
+        TabStyle.Font.Style = []
+        TabStyle.CaptionHAlign = fhaCenter
+        TabStyle.Gradient.Active = False
+        TabStyle.Gradient.Orientation = fgdHorizontal
+        TabSelectedStyle.Borders = [fsdLeft, fsdTop, fsdRight, fsdBottom]
+        TabSelectedStyle.BevelInner = bvNone
+        TabSelectedStyle.BevelOuter = bvNone
+        TabSelectedStyle.Bold = False
+        TabSelectedStyle.BackgrColor = clBtnFace
+        TabSelectedStyle.Font.Charset = DEFAULT_CHARSET
+        TabSelectedStyle.Font.Color = clBtnText
+        TabSelectedStyle.Font.Height = -11
+        TabSelectedStyle.Font.Name = 'Arial'
+        TabSelectedStyle.Font.Style = []
+        TabSelectedStyle.CaptionHAlign = fhaCenter
+        TabSelectedStyle.Gradient.Active = False
+        TabSelectedStyle.Gradient.Orientation = fgdHorizontal
+        Options = [ftoAutoFontDirection, ftoExcludeGlyphs]
+        ExplicitWidth = 456
+        ExplicitHeight = 526
+        object tbsLatexAccent: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Accent'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivAccents: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexAccents
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexArrow: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Arrow'
+          ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object ScrollBox3: TScrollBox
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            TabOrder = 0
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+            object GroupBox21: TGroupBox
+              Left = 0
+              Top = 309
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Sloped '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 0
+              ExplicitWidth = 446
+              object jvivArrowSloped: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox22: TGroupBox
+              Left = 0
+              Top = 243
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Up '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 1
+              ExplicitWidth = 446
+              object jvivArrowUp: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox23: TGroupBox
+              Left = 0
+              Top = 178
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Left '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 2
+              ExplicitWidth = 446
+              object jvivArrowLeft: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox24: TGroupBox
+              Left = 0
+              Top = 112
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Down '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 3
+              ExplicitWidth = 446
+              object jvivArrowDown: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox25: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 449
+              Height = 112
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Right '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 4
+              ExplicitWidth = 446
+              object jvivArrowRight: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 93
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox20: TGroupBox
+              Left = 0
+              Top = 439
+              Width = 449
+              Height = 125
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              Caption = ' Box '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 5
+              ExplicitWidth = 446
+              ExplicitHeight = 45
+              object jvivArrowBox: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 106
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitTop = 24
+                ExplicitWidth = 444
+                ExplicitHeight = 19
+              end
+            end
+            object GroupBox19: TGroupBox
+              Left = 0
+              Top = 374
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Both '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 6
+              ExplicitWidth = 446
+              object jvivArrowBoth: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+          end
+        end
+        object tbsLatexBar: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Bar'
+          ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivBar: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -15
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexBracket: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Bracket'
+          ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivBracket: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexDot: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Dot'
+          ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivDot: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexGeometry: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Geometry'
+          ImageIndex = 8
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object ScrollBox1: TScrollBox
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            TabOrder = 0
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+            object GroupBox18: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Line '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 0
+              ExplicitWidth = 446
+              object jvivGeometryLine: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox17: TGroupBox
+              Left = 0
+              Top = 65
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Angle '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 1
+              ExplicitWidth = 446
+              object jvivGeometryAngle: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox16: TGroupBox
+              Left = 0
+              Top = 131
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Triangle '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 2
+              ExplicitWidth = 446
+              object jvivGeometryTriangle: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox15: TGroupBox
+              Left = 0
+              Top = 196
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Star '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 3
+              ExplicitWidth = 446
+              object jvivGeometryStar: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox14: TGroupBox
+              Left = 0
+              Top = 262
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Box '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 4
+              ExplicitWidth = 446
+              object jvivGeometryBox: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox13: TGroupBox
+              Left = 0
+              Top = 327
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Diamond '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 5
+              ExplicitWidth = 446
+              object jvivGeometryDiamond: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox12: TGroupBox
+              Left = 0
+              Top = 392
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Circle '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 6
+              ExplicitWidth = 446
+              object jvivGeometryCircle: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox11: TGroupBox
+              Left = 0
+              Top = 458
+              Width = 449
+              Height = 106
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              Caption = ' Var '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 7
+              ExplicitWidth = 446
+              ExplicitHeight = 26
+              object jvivGeometryVar: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 87
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                ExplicitTop = 24
+                ExplicitWidth = 444
+                ExplicitHeight = 1
+              end
+            end
+            object GroupBox10: TGroupBox
+              Left = 0
+              Top = 458
+              Width = 449
+              Height = 106
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              Caption = ' Misc '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 8
+              ExplicitWidth = 446
+              ExplicitHeight = 26
+              object jvivGeometryMisc: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 87
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitTop = 24
+                ExplicitWidth = 444
+                ExplicitHeight = 1
+              end
+            end
+          end
+        end
+        object tbsLatexGreek: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Greek'
+          ImageIndex = 9
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object ScrollBox2: TScrollBox
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            TabOrder = 0
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+            object GroupBox4: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 449
+              Height = 112
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Lower '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 0
+              ExplicitWidth = 446
+              object jvivGreekLower: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 93
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox3: TGroupBox
+              Left = 0
+              Top = 112
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Upper '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 1
+              ExplicitWidth = 446
+              object jvivGreekUpper: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox2: TGroupBox
+              Left = 0
+              Top = 178
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Var '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 2
+              ExplicitWidth = 446
+              object jvivGreekVar: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox1: TGroupBox
+              Left = 0
+              Top = 243
+              Width = 449
+              Height = 321
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              Caption = ' Misc '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 3
+              ExplicitWidth = 446
+              ExplicitHeight = 241
+              object jvivGreekMisc: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 302
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitTop = 24
+                ExplicitWidth = 444
+                ExplicitHeight = 215
+              end
+            end
+          end
+        end
+        object tbsLatexMath: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Math'
+          ImageIndex = 10
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object ScrollBox5: TScrollBox
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            TabOrder = 0
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+            object GroupBox9: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Function '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 0
+              ExplicitWidth = 446
+              object jvivMathFunction: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox8: TGroupBox
+              Left = 0
+              Top = 65
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Logical '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 1
+              ExplicitWidth = 446
+              object jvivMathLogical: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox7: TGroupBox
+              Left = 0
+              Top = 131
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Set '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 2
+              ExplicitWidth = 446
+              object jvivMathSet: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+            object GroupBox6: TGroupBox
+              Left = 0
+              Top = 196
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Var '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 3
+              ExplicitWidth = 446
+              object jvivMathVar: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox5: TGroupBox
+              Left = 0
+              Top = 262
+              Width = 449
+              Height = 302
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              Caption = ' Misc '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 4
+              ExplicitWidth = 446
+              ExplicitHeight = 222
+              object jvivMathMisc: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 283
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitTop = 24
+                ExplicitWidth = 444
+                ExplicitHeight = 197
+              end
+            end
+          end
+        end
+        object tbsLatexMisc: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Misc'
+          ImageIndex = 11
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivMisc: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexNegation: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Negation'
+          ImageIndex = 12
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivNegation: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexOperator: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Operator'
+          ImageIndex = 5
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivOperator: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexRelation: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Relation'
+          ImageIndex = 6
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivRelation: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+        object tbsLatexSky: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Sky'
+          ImageIndex = 7
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object ScrollBox4: TScrollBox
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            Align = alClient
+            BevelInner = bvNone
+            BevelOuter = bvNone
+            BorderStyle = bsNone
+            TabOrder = 0
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+            object GroupBox26: TGroupBox
+              Left = 0
+              Top = 131
+              Width = 449
+              Height = 433
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alClient
+              Caption = ' Var '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 0
+              ExplicitWidth = 446
+              ExplicitHeight = 353
+              object jvivSkyVar: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 414
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitTop = 24
+                ExplicitWidth = 444
+                ExplicitHeight = 328
+              end
+            end
+            object GroupBox27: TGroupBox
+              Left = 0
+              Top = 65
+              Width = 449
+              Height = 66
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Astrology '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 1
+              ExplicitWidth = 446
+              object jvivSkyAstrology: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 47
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+                ExplicitHeight = 46
+              end
+            end
+            object GroupBox28: TGroupBox
+              Left = 0
+              Top = 0
+              Width = 449
+              Height = 65
+              Margins.Left = 4
+              Margins.Top = 4
+              Margins.Right = 4
+              Margins.Bottom = 4
+              Align = alTop
+              Caption = ' Solar '
+              Ctl3D = False
+              ParentCtl3D = False
+              TabOrder = 2
+              ExplicitWidth = 446
+              object jvivSkySolar: TJvImagesViewer
+                Left = 1
+                Top = 18
+                Width = 447
+                Height = 46
+                Margins.Left = 4
+                Margins.Top = 4
+                Margins.Right = 4
+                Margins.Bottom = 4
+                HorzScrollBar.Range = 248
+                HorzScrollBar.Tracking = True
+                HorzScrollBar.Visible = False
+                VertScrollBar.Range = 31
+                VertScrollBar.Tracking = True
+                FileMask = 
+                  '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+                  'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+                  'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+                  'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+                  '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+                Options.AutoCenter = False
+                Options.Alignment = taLeftJustify
+                Options.FrameColor = clNone
+                Options.Height = 30
+                Options.HorzSpacing = 1
+                Options.HotTrack = False
+                Options.ImagePadding = 1
+                Options.MultiSelect = False
+                Options.ReduceMemoryUsage = True
+                Options.Transparent = True
+                Options.ShowCaptions = False
+                Options.VertSpacing = 1
+                Options.Width = 30
+                SelectedIndex = -1
+                OnItemHint = LatexHint
+                Align = alClient
+                TabOrder = 0
+                TabStop = True
+                OnMouseMove = LatexMouseMove
+                OnMouseUp = LatexSymbol
+                ExplicitWidth = 444
+              end
+            end
+          end
+        end
+        object tbsLatexUserCustom: TTabSheet
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'User custom'
+          ImageIndex = 13
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
+          object jvivUserCustom: TJvImagesViewer
+            Left = 0
+            Top = 0
+            Width = 449
+            Height = 564
+            Margins.Left = 4
+            Margins.Top = 4
+            Margins.Right = 4
+            Margins.Bottom = 4
+            HorzScrollBar.Range = 248
+            HorzScrollBar.Tracking = True
+            HorzScrollBar.Visible = False
+            VertScrollBar.Range = 31
+            VertScrollBar.Tracking = True
+            FileMask = 
+              '*.png;*.psp;*.cut;*.pcd;*.pic;*.cel;*.pbm;*.pgm;*.ppm;*.pdd;*.ps' +
+              'd;*.bw;*.rgb;*.rgba;*.sgi;*.rla;*.rpf;*.scr;*.pcc;*.pcx;*.eps;*.' +
+              'fax;*.tif;*.tiff;*.icb;*.tga;*.vda;*.vst;*.win;*.dib;*.rle;*.jpe' +
+              'g;*.jpe;*.jpg;*.jfif;*.emf;*.wmf;*.ico;*.bmp;*.gif;*.cur;*.pcx;*' +
+              '.ani;*.jpg;*.jpeg;*.bmp;*.ico;*.emf;*.wmf'
+            Options.AutoCenter = False
+            Options.Alignment = taLeftJustify
+            Options.FrameColor = clNone
+            Options.Height = 30
+            Options.HorzSpacing = 1
+            Options.HotTrack = False
+            Options.ImagePadding = 1
+            Options.MultiSelect = False
+            Options.ReduceMemoryUsage = True
+            Options.Transparent = True
+            Options.ShowCaptions = False
+            Options.VertSpacing = 1
+            Options.Width = 30
+            SelectedIndex = -1
+            OnItemHint = LatexHint
+            Align = alClient
+            TabOrder = 0
+            TabStop = True
+            OnMouseMove = LatexMouseMove
+            OnMouseUp = LatexSymbol
+            ExplicitWidth = 446
+            ExplicitHeight = 484
+          end
+        end
+      end
+    end
+    object ppDeveloper: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'Developer'
+      ImageIndex = 280
+      ExplicitWidth = 456
+      ExplicitHeight = 560
+      object JvNavPanelDivider8: TJvNavPanelDivider
+        Left = 0
+        Top = 252
+        Width = 456
+        Height = 32
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Files'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object JvNavPanelDivider9: TJvNavPanelDivider
+        Left = 0
+        Top = 284
+        Width = 456
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Ini log'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object DBGrid1: TDBGrid
+        Left = 0
+        Top = 0
+        Width = 456
+        Height = 252
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        DataSource = modDados.dsMainBase
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -14
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+      end
+      object memIniLog: TMemo
+        Left = 0
+        Top = 309
+        Width = 456
+        Height = 321
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alClient
+        BorderStyle = bsNone
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBackground
+        Font.Height = -15
+        Font.Name = 'Courier New'
+        Font.Style = []
+        HideSelection = False
+        ParentFont = False
+        ScrollBars = ssBoth
+        TabOrder = 1
+      end
+    end
+    object ppTxt2tags: TJvNavPanelPage
+      Left = 0
+      Top = 0
+      Width = 457
+      Height = 630
+      Hint = ''
+      Margins.Left = 4
+      Margins.Top = 4
+      Margins.Right = 4
+      Margins.Bottom = 4
+      Background.Stretch = False
+      Background.Proportional = False
+      Background.Center = False
+      Background.Tile = False
+      Background.Transparent = False
+      Caption = 'Txt2tags'
+      ImageIndex = 230
+      ExplicitWidth = 456
+      ExplicitHeight = 560
+      object JvNavPanelDivider10: TJvNavPanelDivider
+        Left = 0
+        Top = 0
+        Width = 456
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Marks'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object JvNavPanelDivider11: TJvNavPanelDivider
+        Left = 0
+        Top = 276
+        Width = 456
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        Caption = 'Macros'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object JvNavPanelDivider12: TJvNavPanelDivider
+        Left = 0
+        Top = 505
+        Width = 456
+        Height = 25
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alBottom
+        Caption = 'Settings'
+        ColorFrom = 15725551
+        ColorTo = 13026246
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -15
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        StyleManager = npStyle
+      end
+      object Panel17: TPanel
+        Left = 0
+        Top = 25
+        Width = 456
+        Height = 251
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alTop
+        TabOrder = 0
+        object Label43: TLabel
+          Tag = 1
+          Left = 21
+          Top = 22
+          Width = 36
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title 1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label44: TLabel
+          Tag = 2
+          Left = 21
+          Top = 43
+          Width = 36
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title 2'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label45: TLabel
+          Tag = 3
+          Left = 21
+          Top = 65
+          Width = 36
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title 3'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label46: TLabel
+          Tag = 4
+          Left = 21
+          Top = 88
+          Width = 36
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title 4'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label47: TLabel
+          Tag = 5
+          Left = 21
+          Top = 110
+          Width = 36
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title 5'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label48: TLabel
+          Tag = 6
+          Left = 21
+          Top = 132
+          Width = 67
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title num. 1'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label49: TLabel
+          Tag = 7
+          Left = 21
+          Top = 154
+          Width = 67
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title num. 2'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label50: TLabel
+          Tag = 8
+          Left = 21
+          Top = 177
+          Width = 67
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title num. 3'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label51: TLabel
+          Tag = 9
+          Left = 21
+          Top = 199
+          Width = 67
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title num. 4'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label52: TLabel
+          Tag = 10
+          Left = 21
+          Top = 221
+          Width = 67
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Title num. 5'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label53: TLabel
+          Tag = 11
+          Left = 135
+          Top = 22
+          Width = 28
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Bold'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label54: TLabel
+          Tag = 12
+          Left = 135
+          Top = 43
+          Width = 27
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Italic'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label55: TLabel
+          Tag = 13
+          Left = 135
+          Top = 65
+          Width = 58
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Underline'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label56: TLabel
+          Tag = 14
+          Left = 135
+          Top = 88
+          Width = 34
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Mono'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label57: TLabel
+          Tag = 15
+          Left = 135
+          Top = 110
+          Width = 36
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Quote'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label58: TLabel
+          Tag = 16
+          Left = 135
+          Top = 132
+          Width = 20
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'List'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label59: TLabel
+          Tag = 17
+          Left = 135
+          Top = 154
+          Width = 51
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'List num.'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label60: TLabel
+          Tag = 18
+          Left = 135
+          Top = 177
+          Width = 45
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'List def.'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label61: TLabel
+          Tag = 19
+          Left = 135
+          Top = 199
+          Width = 24
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Link'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label62: TLabel
+          Tag = 20
+          Left = 135
+          Top = 221
+          Width = 42
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Anchor'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label63: TLabel
+          Tag = 21
+          Left = 228
+          Top = 22
+          Width = 78
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Verbatim line'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label64: TLabel
+          Tag = 22
+          Left = 228
+          Top = 43
+          Width = 85
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Verbatim area'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label65: TLabel
+          Tag = 23
+          Left = 228
+          Top = 65
+          Width = 50
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Raw text'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label66: TLabel
+          Tag = 24
+          Left = 228
+          Top = 88
+          Width = 51
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Raw line'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label67: TLabel
+          Tag = 25
+          Left = 228
+          Top = 110
+          Width = 58
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Raw area'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label68: TLabel
+          Tag = 26
+          Left = 228
+          Top = 132
+          Width = 38
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Image'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label69: TLabel
+          Tag = 27
+          Left = 228
+          Top = 154
+          Width = 64
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Comments'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label70: TLabel
+          Tag = 28
+          Left = 228
+          Top = 177
+          Width = 36
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Table'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label71: TLabel
+          Tag = 29
+          Left = 228
+          Top = 199
+          Width = 93
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Line sep. single'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label72: TLabel
+          Tag = 30
+          Left = 228
+          Top = 221
+          Width = 99
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Line sep. double'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+      end
+      object Panel21: TPanel
+        Left = 0
+        Top = 530
+        Width = 456
+        Height = 100
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alBottom
+        TabOrder = 1
+        object Label73: TLabel
+          Tag = 37
+          Left = 31
+          Top = 22
+          Width = 40
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Target'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label74: TLabel
+          Tag = 38
+          Left = 31
+          Top = 43
+          Width = 46
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Options'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label75: TLabel
+          Tag = 39
+          Left = 116
+          Top = 22
+          Width = 85
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Pre processor'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label76: TLabel
+          Tag = 40
+          Left = 116
+          Top = 43
+          Width = 91
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Post processor'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label77: TLabel
+          Tag = 41
+          Left = 248
+          Top = 22
+          Width = 57
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Encoding'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label78: TLabel
+          Tag = 42
+          Left = 248
+          Top = 43
+          Width = 30
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Style'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+      end
+      object Panel22: TPanel
+        Left = 0
+        Top = 301
+        Width = 456
+        Height = 204
+        Margins.Left = 4
+        Margins.Top = 4
+        Margins.Right = 4
+        Margins.Bottom = 4
+        Align = alClient
+        TabOrder = 2
+        object Label79: TLabel
+          Tag = 31
+          Left = 21
+          Top = 22
+          Width = 29
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Date'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label80: TLabel
+          Tag = 32
+          Left = 21
+          Top = 43
+          Width = 100
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Modification time'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label81: TLabel
+          Tag = 33
+          Left = 184
+          Top = 22
+          Width = 71
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Path source'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label82: TLabel
+          Tag = 34
+          Left = 184
+          Top = 43
+          Width = 95
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Path destination'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label83: TLabel
+          Tag = 35
+          Left = 21
+          Top = 67
+          Width = 103
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Table of contents'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+        object Label84: TLabel
+          Tag = 36
+          Left = 184
+          Top = 67
+          Width = 84
+          Height = 16
+          Margins.Left = 4
+          Margins.Top = 4
+          Margins.Right = 4
+          Margins.Bottom = 4
+          Caption = 'Document title'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMenuText
+          Font.Height = -15
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          Transparent = True
+          OnClick = LabelClick
+          OnMouseEnter = LabelMouseEnter
+          OnMouseLeave = LabelMouseLeave
+        end
+      end
+    end
+  end
+  object JvDockClientTools: TJvDockClient
+    DirectDrag = False
+    DockStyle = frmTinnMain.JvDockVSNetStyle
+    Left = 432
+    Top = 463
+  end
+  object npStyle: TJvNavPaneStyleManager
+    Colors.ButtonColorFrom = clWhite
+    Colors.ButtonColorTo = 12435133
+    Colors.ButtonHotColorFrom = 13009540
+    Colors.ButtonHotColorTo = 13009540
+    Colors.ButtonSelectedColorFrom = 14602190
+    Colors.ButtonSelectedColorTo = 14602190
+    Colors.SplitterColorFrom = 13026246
+    Colors.SplitterColorTo = 9211532
+    Colors.DividerColorFrom = 15725551
+    Colors.DividerColorTo = 13026246
+    Colors.HeaderColorFrom = 8684164
+    Colors.HeaderColorTo = 8684164
+    Colors.FrameColor = 8684676
+    Colors.ToolPanelHeaderColorFrom = clWhite
+    Colors.ToolPanelHeaderColorTo = 12435133
+    Fonts.NavPanelFont.Charset = DEFAULT_CHARSET
+    Fonts.NavPanelFont.Color = clWindowText
+    Fonts.NavPanelFont.Height = -12
+    Fonts.NavPanelFont.Name = 'Segoe UI'
+    Fonts.NavPanelFont.Style = [fsBold]
+    Fonts.NavPanelHotTrackFont.Charset = DEFAULT_CHARSET
+    Fonts.NavPanelHotTrackFont.Color = clWindow
+    Fonts.NavPanelHotTrackFont.Height = -12
+    Fonts.NavPanelHotTrackFont.Name = 'Segoe UI'
+    Fonts.NavPanelHotTrackFont.Style = [fsBold]
+    Fonts.DividerFont.Charset = DEFAULT_CHARSET
+    Fonts.DividerFont.Color = clWindowText
+    Fonts.DividerFont.Height = -12
+    Fonts.DividerFont.Name = 'Segoe UI'
+    Fonts.DividerFont.Style = []
+    Fonts.HeaderFont.Charset = DEFAULT_CHARSET
+    Fonts.HeaderFont.Color = clWindow
+    Fonts.HeaderFont.Height = -12
+    Fonts.HeaderFont.Name = 'Arial'
+    Fonts.HeaderFont.Style = [fsBold]
+    Theme = nptCustom
+    Left = 104
+    Top = 48
+  end
+end

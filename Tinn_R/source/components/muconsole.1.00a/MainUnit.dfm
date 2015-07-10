@@ -2,8 +2,8 @@ object MainForm: TMainForm
   Left = 635
   Top = 124
   Caption = 'MainForm'
-  ClientHeight = 506
-  ClientWidth = 632
+  ClientHeight = 525
+  ClientWidth = 881
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,8 +14,8 @@ object MainForm: TMainForm
   OnResize = FormResize
   OnShow = FormShow
   DesignSize = (
-    632
-    506)
+    881
+    525)
   PixelsPerInch = 96
   TextHeight = 13
   object ApplicationLabel: TLabel
@@ -53,13 +53,20 @@ object MainForm: TMainForm
     Height = 13
     Caption = 'Debug'
   end
+  object CommLabel: TLabel
+    Left = 648
+    Top = 78
+    Width = 47
+    Height = 13
+    Caption = 'Command'
+  end
   object CommandLineEdit: TEdit
     Left = 64
     Top = 8
     Width = 121
     Height = 21
     TabOrder = 0
-    Text = 'C:\R\R-3.0.2patched\bin\x64\Rterm.exe --no-save'
+    Text = 'C:\Program Files\R\R-3.1.0\bin\x64\Rterm.exe --no-save'
   end
   object CommandEdit: TEdit
     Left = 64
@@ -67,7 +74,7 @@ object MainForm: TMainForm
     Width = 121
     Height = 21
     TabOrder = 3
-    Text = 'a=rnorm(1e3); a'
+    Text = 'a=rnorm(1e3); a; Sys.sleep(x); a'
   end
   object RunBtn: TButton
     Left = 190
@@ -92,7 +99,7 @@ object MainForm: TMainForm
     Top = 38
     Width = 75
     Height = 25
-    Caption = 'SendBtn'
+    Caption = 'Send Edit'
     TabOrder = 4
     OnClick = SendBtnClick
   end
@@ -100,7 +107,7 @@ object MainForm: TMainForm
     Left = 8
     Top = 96
     Width = 201
-    Height = 353
+    Height = 381
     Anchors = [akLeft, akTop, akBottom]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -114,10 +121,10 @@ object MainForm: TMainForm
     TabOrder = 5
   end
   object ErrorMemo: TMemo
-    Left = 216
-    Top = 96
+    Left = 217
+    Top = 97
     Width = 201
-    Height = 353
+    Height = 380
     Anchors = [akLeft, akTop, akBottom]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -134,7 +141,7 @@ object MainForm: TMainForm
     Left = 424
     Top = 96
     Width = 201
-    Height = 353
+    Height = 381
     Anchors = [akLeft, akTop, akBottom]
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -148,8 +155,8 @@ object MainForm: TMainForm
     TabOrder = 7
   end
   object ExitBtn: TButton
-    Left = 544
-    Top = 464
+    Left = 793
+    Top = 483
     Width = 81
     Height = 25
     Anchors = [akRight, akBottom]
@@ -159,7 +166,7 @@ object MainForm: TMainForm
   end
   object EnableKillCheck: TCheckBox
     Left = 8
-    Top = 460
+    Top = 479
     Width = 103
     Height = 17
     Anchors = [akLeft, akBottom]
@@ -169,7 +176,7 @@ object MainForm: TMainForm
   end
   object StopOnFreeCheck: TCheckBox
     Left = 8
-    Top = 477
+    Top = 496
     Width = 103
     Height = 17
     Anchors = [akLeft, akBottom]
@@ -181,7 +188,7 @@ object MainForm: TMainForm
   end
   object SetTerminateCommandBtn: TButton
     Left = 120
-    Top = 464
+    Top = 483
     Width = 145
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -191,7 +198,7 @@ object MainForm: TMainForm
   end
   object SetWaitTimeoutBtn: TButton
     Left = 270
-    Top = 464
+    Top = 483
     Width = 148
     Height = 25
     Anchors = [akLeft, akBottom]
@@ -199,13 +206,67 @@ object MainForm: TMainForm
     TabOrder = 11
     OnClick = SetWaitTimeoutBtnClick
   end
+  object Button1: TButton
+    Left = 271
+    Top = 37
+    Width = 75
+    Height = 25
+    Caption = 'Send Memo'
+    TabOrder = 13
+    OnClick = Button1Click
+  end
+  object CommandMemo: TMemo
+    Left = 640
+    Top = 97
+    Width = 244
+    Height = 380
+    Anchors = [akLeft, akTop, akBottom]
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Courier New'
+    Font.Style = []
+    Lines.Strings = (
+      'CommandMemo')
+    ParentFont = False
+    ScrollBars = ssBoth
+    TabOrder = 14
+  end
+  object Button2: TButton
+    Left = 353
+    Top = 6
+    Width = 111
+    Height = 25
+    Caption = 'SplitMode sm0D0A'
+    TabOrder = 15
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 353
+    Top = 37
+    Width = 111
+    Height = 25
+    Caption = 'SplitMode smNone'
+    TabOrder = 16
+    OnClick = Button3Click
+  end
+  object Button4: TButton
+    Left = 470
+    Top = 6
+    Width = 99
+    Height = 25
+    Caption = 'SplitMode smSplitchar'
+    TabOrder = 17
+    OnClick = Button4Click
+  end
   object ConsoleIO: TConsoleIO
     OnReceiveOutput = ConsoleIOReceiveOutput
     OnReceiveError = ConsoleIOReceiveError
     OnError = ConsoleIOError
     OnProcessStatusChange = ConsoleIOProcessStatusChange
     TerminateCommand = 'quit()'
-    Left = 285
-    Top = 41
+    SplitMode = smSplitchar
+    Left = 581
+    Top = 1
   end
 end

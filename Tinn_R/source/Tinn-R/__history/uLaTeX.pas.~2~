@@ -1,0 +1,363 @@
+unit uLaTeX;
+
+
+
+interface
+
+uses System.Classes, System.SysUtils, trUtils, DScintilla, Vcl.Dialogs;
+  procedure LatexAlgebricFrac(sciEditor: TDScintilla);
+  procedure LatexAlgebricSqrt(sciEditor: TDScintilla);
+  procedure LatexAlgebricSqrtN(sciEditor: TDScintilla);
+  procedure LatexFontSize_Sub(sciEditor: TDScintilla; Tag: Integer);
+  procedure LatexFormat_Sub(sciEditor: TDScintilla; Tag: Integer);
+  procedure InsertLatexMath(sciEditor: TDScintilla; sFunction: string; iCaretControl: integer);
+
+implementation
+
+
+procedure LatexFontSize_Sub(sciEditor: TDScintilla; Tag: Integer);
+
+  procedure InsertLatex(iSize: integer);
+  var
+
+    sPrior, sSize: string;
+  begin
+
+    case iSize of
+      0:
+        sSize := '{\tiny {}}';
+      1:
+        sSize := '{\scriptsize {}}';
+      2:
+        sSize := '{\footnotesize {}}';
+      3:
+        sSize := '{\small {}}';
+      4:
+        sSize := '{\normalsize {}}';
+      5:
+        sSize := '{\large {}}';
+      6:
+        sSize := '{\Large {}}';
+      7:
+        sSize := '{\LARGE {}}';
+      8:
+        sSize := '{\huge {}}';
+      9:
+        sSize := '{\Huge {}}';
+    end;
+
+
+    with sciEditor do
+    begin
+      if GetSelText <> '' then
+      begin
+        sPrior := GetSelText;
+        ReplaceSel( sSize);
+  SetCaretX(GetCaretX(sciEditor) -2,  sciEditor);
+        ReplaceSel( sPrior);
+  SetCaretX(GetCaretX(sciEditor) +2,  sciEditor);
+      end
+      else
+      begin
+        ReplaceSel( sSize);
+      LineEnd;
+  SetCaretX(GetCaretX(sciEditor) -2,  sciEditor);
+      end;
+    end;
+   sciEditor.SetFocus;
+   // PostMessage(TWinControl(Self.MDIChildren[i] as TfrmEditor).Handle,
+   //   WM_SETFOCUS, 0, 0);
+  end;
+
+begin
+    InsertLatex(Tag);
+end;
+
+procedure LatexFormat_Sub(sciEditor: TDScintilla; Tag: Integer);
+
+  function MakeContent(sType, sPrior: string; iTabWidth: integer): string;
+  var
+    sTmp, sTab: string;
+
+    function FormatPrior(sPrior, sReplace: string): string;
+    begin
+      sTmp := sReplace + StringReplace(sPrior, #13#10, #13#10 + sReplace,
+        [rfReplaceAll, rfIgnoreCase]);
+      Result := sTmp + #13;
+    end;
+
+  begin
+    repeat
+      sTab := sTab + ' ';
+    until (Length(sTab) = iTabWidth);
+
+    case StringToCaseSelect(sType, ['Itemization', 'Enumeration', 'Left',
+      'Center', 'Right']) of
+      0:
+        begin // Itemization
+          if (sPrior = EmptyStr) then
+            Result := sTab + '\item .' + #13#10
+          else
+            Result := FormatPrior(sPrior, sTab + '\item ');
+        end;
+      1:
+        begin // Enumeration
+          if (sPrior = EmptyStr) then
+            Result := sTab + '\item .' + #13
+          else
+            Result := FormatPrior(sPrior, sTab + '\item ');
+        end;
+      2:
+        begin // Left
+          if (sPrior = EmptyStr) then
+            Result := sTab + #13
+          else
+            Result := FormatPrior(sPrior, sTab);
+        end;
+      3:
+        begin // Center
+          if (sPrior = EmptyStr) then
+            Result := sTab + #13
+          else
+            Result := FormatPrior(sPrior, sTab);
+        end;
+      4:
+        begin // Right
+          if (sPrior = EmptyStr) then
+            Result := sTab + #13
+          else
+            Result := FormatPrior(sPrior, sTab);
+        end;
+    end;
+  end;
+
+  function MakeType(sType, sPrior: string; iTabWidth: integer): string;
+  begin
+    case StringToCaseSelect(sType, ['Itemization', 'Enumeration', 'Left',
+      'Center', 'Right']) of
+      0:
+        begin // Itemization
+          Result := '\begin{itemize}' + #13 + MakeContent(sType, sPrior,
+            iTabWidth) + '\end{itemize}';
+        end;
+      1:
+        begin // Enumeration
+          Result := '\begin{enumerate}' + #13 + MakeContent(sType, sPrior,
+            iTabWidth) + '\end{enumerate}';
+        end;
+      2:
+        begin // Left
+          Result := '\begin{flushleft}' + #13 + MakeContent(sType, sPrior,
+            iTabWidth) + '\end{flushleft}';
+        end;
+      3:
+        begin // Center
+          Result := '\begin{center}' + #13 + MakeContent(sType, sPrior,
+            iTabWidth) + '\end{center}';
+        end;
+      4:
+        begin // Right
+          Result := '\begin{flushright}' + #13 + MakeContent(sType, sPrior,
+            iTabWidth) + '\end{flushright}';
+        end;
+    end;
+  end;
+
+  procedure InsertLatex(iType: integer);
+  var
+
+
+    sPrior, sType: string;
+
+    iTabWidth: integer;
+
+   // synSearchOptions: TSynSearchOptions;
+
+  begin
+
+    case iType of
+      0:
+        sType := 'Itemization';
+      1:
+        sType := 'Enumeration';
+      2:
+        sType := 'Left';
+      3:
+        sType := 'Center';
+      4:
+        sType := 'Right';
+    end;
+
+    with sciEditor do
+    begin
+      iTabWidth :=  GetTabWidth;
+      if GetSelText <> '' then
+      begin
+        sPrior := GetSelText;
+        ReplaceSel( MakeType(sType, sPrior, iTabWidth));
+      end
+      else
+      begin
+        ReplaceSel( MakeType(sType, EmptyStr, iTabWidth));
+        LineDown;
+        GotoLine(LineFromPosition(GetCurrentPos));
+    showmessage('sci  #2214532 SearchEngine');
+    exit;
+   {
+        SearchEngine := SynEditSearch;
+        synSearchOptions := [];
+        SearchReplace('.', EmptyStr, synSearchOptions); }
+      end;
+    end;
+
+    sciEditor.SetFocus;
+    //PostMessage(TWinControl(Self.MDIChildren[i] as TfrmEditor).Handle,
+    //  WM_SETFOCUS, 0, 0);
+  end;
+
+begin
+    InsertLatex(Tag);
+end;
+
+
+
+procedure LatexAlgebricFrac(sciEditor: TDScintilla);
+
+  function CountStrings(sTmp: string): integer;
+  var
+    slTmp: TStringList;
+
+  begin
+    try
+      slTmp := TStringList.Create;
+      StrSplit(' ', sTmp, slTmp);
+    finally
+      Result := slTmp.Count;
+      FreeAndNil(slTmp);
+    end;
+  end;
+
+  function FormatFrac(sTmp: string): string;
+  var
+    slTmp: TStringList;
+    sArg1, sArg2: string;
+
+  begin
+    try
+      slTmp := TStringList.Create;
+
+      StrSplit(' ', sTmp, slTmp);
+
+      if (slTmp.Count >= 2) then
+      begin
+        sArg1 := slTmp[0];
+        sArg2 := slTmp[1];
+      end;
+    finally
+      FreeAndNil(slTmp);
+
+      Result := '{' + sArg1 + '}' + '{' + sArg2 + '}';
+    end;
+  end;
+
+begin
+
+  with sciEditor do
+    if GetSelText <> '' then
+    begin
+      if (CountStrings(GetSelText) = 2) then
+          InsertLatexMath(sciEditor, '\frac' + FormatFrac(GetSelText), 0)
+      else
+          InsertLatexMath(sciEditor, '\frac' + FormatFrac(GetSelText), -3);
+    end
+    else
+        InsertLatexMath(sciEditor, '\frac' + FormatFrac(EmptyStr), -3);
+end;
+
+procedure LatexAlgebricSqrt(sciEditor: TDScintilla);
+
+  function FormatSqrt(sTmp: string): string;
+  begin
+    Result := '{' + sTmp + '}';
+  end;
+
+begin
+  with sciEditor do
+    if GetSelText <> '' then
+      InsertLatexMath(sciEditor, '\sqrt' + FormatSqrt(GetSelText), 0)
+    else
+      InsertLatexMath(sciEditor, '\sqrt' + FormatSqrt(EmptyStr), -1);
+end;
+
+
+procedure LatexAlgebricSqrtN(sciEditor: TDScintilla);
+
+  function CountStrings(sTmp: string): integer;
+  var
+    slTmp: TStringList;
+
+  begin
+    try
+      slTmp := TStringList.Create;
+      StrSplit(' ', sTmp, slTmp);
+    finally
+      Result := slTmp.Count;
+      FreeAndNil(slTmp);
+    end;
+  end;
+
+  function FormatSqrtN(sTmp: string): string;
+  var
+    slTmp: TStringList;
+    sArg1, sArg2: string;
+
+  begin
+    try
+      slTmp := TStringList.Create;
+
+      StrSplit(' ', sTmp, slTmp);
+
+      if (slTmp.Count >= 2) then
+      begin
+        sArg1 := slTmp[0];
+        sArg2 := slTmp[1];
+      end;
+    finally
+      FreeAndNil(slTmp);
+
+      Result := '[' + sArg1 + ']' + '{' + sArg2 + '}';
+    end;
+  end;
+begin
+  with sciEditor do
+  begin
+    if GetSelText <> '' then
+    begin
+      if (CountStrings(GetSelText) = 2) then
+        InsertLatexMath(sciEditor, '\sqrt' + FormatSqrtN(GetSelText), 0)
+      else
+        InsertLatexMath(sciEditor, '\sqrt' + FormatSqrtN(GetSelText), -3);
+    end
+    else
+        InsertLatexMath(sciEditor, '\sqrt' + FormatSqrtN(EmptyStr), -3);
+  end;
+end;
+
+
+procedure InsertLatexMath(sciEditor: TDScintilla; sFunction: string; iCaretControl: integer);
+begin
+
+  with sciEditor do
+    if GetSelText <> '' then
+      ReplaceSel( sFunction)
+    else
+      ReplaceSel( sFunction);
+
+  SetCaretX(GetCaretX(sciEditor) +iCaretControl,  sciEditor);
+  sciEditor.SetFocus;
+  //PostMessage(TWinControl(Self.MDIChildren[i] as TfrmEditor).Handle,
+  //  WM_SETFOCUS, 0, 0);
+end;
+
+
+end.

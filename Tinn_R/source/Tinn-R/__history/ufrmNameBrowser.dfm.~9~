@@ -1,0 +1,82 @@
+object frmNameBrowser: TfrmNameBrowser
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  BorderStyle = bsNone
+  Caption = 'Name browser'
+  ClientHeight = 521
+  ClientWidth = 281
+  Color = clBtnFace
+  DockSite = True
+  DragKind = dkDock
+  DragMode = dmAutomatic
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDeactivate = FormDeactivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object panHeader: TPanel
+    Left = 0
+    Top = 0
+    Width = 281
+    Height = 27
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+    ExplicitWidth = 265
+    object ButtonedEdit1: TButtonedEdit
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 275
+      Height = 21
+      Align = alClient
+      TabOrder = 0
+      Text = 'ButtonedEdit1'
+      ExplicitWidth = 259
+    end
+  end
+  object lvNames: TListView
+    Left = 0
+    Top = 27
+    Width = 281
+    Height = 494
+    Align = alClient
+    Columns = <
+      item
+        AutoSize = True
+        Caption = 'Names'
+      end
+      item
+        Caption = 'Dim'
+      end
+      item
+        Caption = 'Class'
+      end>
+    Items.ItemData = {
+      051A0000000100000000000000FFFFFFFFFFFFFFFF00000000FFFFFFFF000000
+      0000}
+    MultiSelect = True
+    TabOrder = 1
+    ViewStyle = vsReport
+    OnDblClick = lvNamesDblClick
+    ExplicitLeft = 40
+    ExplicitTop = 168
+    ExplicitWidth = 250
+    ExplicitHeight = 150
+  end
+  object JvDockClientNameBrowser: TJvDockClient
+    DirectDrag = False
+    RightDock = False
+    DockStyle = frmTinnMain.JvDockVSNetStyle
+    Left = 88
+    Top = 384
+  end
+end

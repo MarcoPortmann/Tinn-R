@@ -1,0 +1,1554 @@
+unit uRSendCommands;
+
+interface
+
+uses
+  ufrmMain, ufrmEditor, ufrmRTerm, ufrmTools, trUtils, uModDados, Menus,
+  System.SysUtils, trCodeSender,   System.UITypes, System.Classes, StrUtils,
+  VCL.Clipbrd, VCL.Forms, VCL.dialogs, Httpapp, DScintilla, DScintillaTypes;
+
+procedure DoSend(var sTmp: string; bSendToSynIO: Boolean = True);
+function GetBlockMarked(var bSingleLine: Boolean): string;
+function GetClipboard(var bSingleLine: Boolean): string;
+function GetContiguous(var bSingleLine: Boolean): string;
+function GetCursorTo(sWay: string): string;
+function GetFile(var bSingleLine: Boolean): string;
+function GetLine(bGoToNextValidLine: Boolean): string;
+function GetLinesToEndPage(var bSingleLine: Boolean): string;
+function GetLinesToTop(var bSingleLine: Boolean): string;
+function GetSelection(var bSingleLine: Boolean): string;
+function GetNavigationText(var bSingleLine: Boolean): string;
+procedure RemoveLine_Commented(var sTmp: string);
+procedure RemoveLine_Empty(var sTmp: string);
+procedure RSendClipboard(bEcho: Boolean);
+procedure RSendContiguous(bEcho: Boolean);
+procedure RSendCurrentLineToTop(bEcho: Boolean);
+procedure RSendCursorToBeginningLine;
+procedure RSendCursorToEndLine;
+procedure RSendBlockMarked(bEcho: Boolean);
+procedure RSendFile(bEcho: Boolean);
+procedure RSendLine;
+procedure RSendLinesToEndPage(bEcho: Boolean);
+procedure RSendNavigator(bEcho: Boolean);
+procedure RSendSelection(bEcho: Boolean);
+function SingleLine(sTmp: string): Boolean;
+procedure RSendSweave;
+procedure RSendKnitPdf;
+procedure RSendKnitHtml;
+procedure ConnectRSocketServer;
+procedure ConnectSocketClients(sIPHost: string; iIPPort: integer);
+procedure LoadTinnRCommunicationScripts;
+function  GetPortToUse: Integer;
+
+function  InstallTinnRPackages(sPackages: String): Boolean;
+function  CheckConnection: Boolean;
+
+
+implementation
+
+procedure DoSend(var sTmp: string; bSendToSynIO: Boolean = True);
+var
+  sToSend: string;
+
+begin
+  with frmTinnMain do
+  begin
+    with actRtermWarningError do
+    begin
+      Visible := False;
+      Checked := False;
+    end;
+
+    // Rterm: priority 1
+    if Rterm_Running then
+    begin
+      CheckRterm;
+      sToSend := sTmp + #13#10;
+      frmRterm.cRterm.SendInput(sToSend);
+      if bSendToSynIO then
+        SendToConsole(sTmp);
+      // Exit;
+    end
+    // Rgui: priority 2
+    else if Rgui_Running then
+    begin
+      sToSend := sTmp;
+      fCodeSender.SendChar(sToSend, hRgui, iDelay);
+      frmTinnMain.CheckTop;
+      SetFocus_Rgui(iDelay div 4);
+    end
+    // R server remote: priority 3
+    else if bIPRemoteConnected then
+    begin
+      if not UseTCPIP then
+        Exit;
+      CheckRterm;
+      sToSend := sTmp + #13#10;
+
+      if bSendToSynIO then
+        PrintMessage(sTmp, True);
+      csRGeneral.Socket.SendText(sToSend);
+      SetFocus_Rgui(iDelay div 4);
+    end;
+  end;
+end;
+
+procedure RemoveLine_Commented(var sTmp: string);
+begin
+  sTmp := RegEx_Multiline(sTmp,
+    // '^[ \{\}\(\)"''''_a-zA-Z0-9,.=-].*' // Get all lines not started by # (R is a language quite promiscuous!!!)
+    '^((?!^#)).*$'); // \o/
+end;
+
+procedure RemoveLine_Empty(var sTmp: string);
+begin
+  sTmp := RegEx_Multiline(sTmp, '.*$'); // \o/
+end;
+
+function SingleLine(sTmp: string): Boolean;
+begin
+  Result := False;
+  if (pos(#13#10, sTmp) <= 0) or ((Length(sTmp) - 1) = pos(#13#10, sTmp)) then
+    Result := True;
+end;
+
+function GetBlockMarked(var bSingleLine: Boolean): string;
+var
+
+  i, iLineBlockBegin, iLineBlockEnd: integer;
+
+  seEditor: TDScintilla;
+ // smOption: TSynSelectionMode;
+
+  sTmp, sTmpX, sFilePath: string;
+
+begin
+
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+
+    if not GetActiveEditorOrNil(seEditor) then
+      exit;
+
+
+    with seEditor do
+    begin
+      iLineBlockBegin := MarkerPrevious(LineFromPosition(GetCurrentPos), 1023);
+      iLineBlockEnd := MarkerNext(LineFromPosition(GetCurrentPos), 1023);
+
+      if (iLineBlockBegin <> -1) and (iLineBlockEnd <> -1) then
+        sTmp := seeditor.GetTextRange(PositionFromLine(iLineBlockBegin), seeditor.GetLineEndPosition(iLineBlockEnd));
+    end;
+
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\block.r';
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[6]';
+    end;
+  end;
+end;
+
+function GetContiguous(var bSingleLine: Boolean): string;
+var
+  bEmptyLine, bEndOfChunk, bValidLine: Boolean;
+
+  cTmp: Char;
+
+  iCurrent, iLines, iResult, iContiguousBegin, iContiguousEnd: integer;
+
+  seEditor: TDScintilla;
+
+  sLine, sTmp, sFilePath: string;
+
+  //smOption: TSynSelectionMode;
+
+ // synSearchOptions: TSynSearchOptions;
+
+  procedure GoToNextLine;
+  begin
+    bEmptyLine := False;
+    SetCaretX(0, seEditor);
+    seEditor.LineDown;
+    iCurrent := GetCaretY(seEditor);
+
+  end;
+
+  procedure GoToNextValidLine(iLine: integer);
+  begin
+    with seEditor do
+    begin
+      GoToLine(iLine);
+      bValidLine := False;
+      iCurrent := GetCaretY(seEditor);
+      iLines := GetLineCount;
+      while (bValidLine = False) and (iCurrent < iLines-1) do
+      begin
+        GetCurLine(sLine);
+        sLine := trim(sLine);
+        try
+          if (sLine <> EmptyStr) then
+            cTmp := sLine[1]
+          else
+            cTmp := #32; // Nothing
+        except
+          begin
+            //sci //m.p. //sci //m.p. SelectionMode := smOption;
+            Exit;
+          end;
+        end;
+        case cTmp of
+          #10 .. #13, // LF .. CR,
+          #32:
+            GoToNextLine; // Nothing
+          #35:
+            if frmTinnMain.bRSendAll then
+              bValidLine := True // #
+            else
+              GoToNextLine;
+        else
+          bValidLine := True;
+        end;
+      end;
+    end;
+  end;
+
+  procedure Others_GoToNextEmptyLine(iLine: integer);
+  begin
+    with seEditor do
+    begin
+      GoToLine(iLine + 1);
+      bEmptyLine := False;
+      iCurrent := GetCaretY(seEditor);
+      iLines := GetLineCount;
+
+      while (bEmptyLine = False) and (iCurrent < iLines-1) do
+      begin
+
+        GetCurLine(sLine);
+        sLine := trim(sLine);
+        try
+          if (sLine <> EmptyStr) then
+            cTmp := sLine[1]
+          else
+            cTmp := #32; // Nothing
+        except
+          begin
+            //sci //m.p. SelectionMode := smOption;
+            Exit;
+          end;
+        end;
+
+        case cTmp of
+          #10 .. #13:
+            bEmptyLine := True; // LF .. CR,
+          #32:
+            bEmptyLine := True; // Nothing
+          #35:
+            GoToNextLine; // #
+        else
+          GoToNextLine;
+        end;
+      end;
+    end;
+  end;
+
+  procedure Sweave_GoToNextEmptyLine(iLine: integer);
+  begin
+    with seEditor do
+    begin
+      GoToLine(iLine + 1);
+      bEmptyLine := False;
+      iCurrent := GetCaretY(seEditor);
+      iLines := GetLineCount;
+      while (bEmptyLine = False) and (iCurrent <= iLines-1) do
+      begin
+        GetCurLine(sLine);
+        sLine := trim(sLine);
+        try
+          if (sLine <> EmptyStr) then
+            cTmp := sLine[1]
+          else
+            cTmp := #32; // Nothing
+        except
+          begin
+            //sci //m.p. SelectionMode := smOption;
+            Exit;
+          end;
+        end;
+
+        case cTmp of
+          #10 .. #13:
+            bEmptyLine := True; // LF .. CR,
+          #32:
+            bEmptyLine := True; // Nothing
+          #35:
+            GoToNextLine; // #
+          #64:
+            begin // @ (end of chunk)
+              bEmptyLine := True;
+              LineUp;
+              bEndOfChunk := True;
+            end
+        else
+          GoToNextLine;
+        end;
+      end;
+    end;
+  end;
+
+  function FindNextChunk: Boolean;
+  var chrange: TDSciCharacterRange;
+  begin
+    Result := True;
+    with seEditor do
+    begin
+     showmessage('Sci transfer Error #234234');
+     exit;
+
+     iResult := seEditor.FindText(0, '>>=', chrange);
+     if iResult >-1  then
+       seEditor.ReplaceSel('');
+    {
+      SearchEngine := frmTinnMain.SynEditSearch;
+      synSearchOptions := [];
+      iResult := SearchReplace('>>=', EmptyStr, synSearchOptions);
+      // It will search the next chunk of Sweave
+     }
+      if (iResult > -1) then
+        GoToNextLine
+      else
+        Result := False; // It was found the last line of the last chunk
+    end;
+  end;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    bEndOfChunk := False;
+    if not ValidRRunning then
+      Exit;
+
+    with (MDIChildren[FindTopWindow] as TfrmEditor) do
+      if (sActiveEditor = 'sciEditor') then
+        seEditor := sciEditor
+      else
+        seEditor := sciEditor2;
+
+    with seEditor do
+    begin
+      Lines.BeginUpdate;
+
+
+      Home;
+      iContiguousBegin := GetCurrentPos;
+
+
+
+      if (GetCurrentLexerName = 'Sweave') then
+        Sweave_GoToNextEmptyLine(GetCaretY(seEditor))
+      else
+        Others_GoToNextEmptyLine(GetCaretY(seEditor));
+
+
+      iContiguousEnd := GetCurrentPos;
+
+      SetSelectionStart(iContiguousBegin);
+      SetSelectionEnd(iContiguousEnd);
+
+
+      if GetSelText <> '' then
+        sTmp := GetSelText
+      else
+      begin
+        Lines.EndUpdate;
+        Exit;
+      end;
+
+      SetCaretX(0, seEditor);
+
+      if (GetCurrentLexerName = 'Sweave') and bEndOfChunk then
+        FindNextChunk;
+
+      GoToNextValidLine(GetCaretY(seEditor));
+      //sci //m.p. SelectionMode := smOption;
+      Lines.EndUpdate;
+    end;
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if (sTmp = EmptyStr) then
+      Exit;
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\selection.r';
+
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[5]';
+    end;
+  end;
+end;
+
+function GetClipboard(var bSingleLine: Boolean): string;
+var
+  sTmp, sFilePath: string;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+
+    sTmp := Clipboard.AsText;
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\selection.r';
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[5]';
+    end;
+  end;
+end;
+
+function GetCursorTo(sWay: string): string;
+var
+  iLineWrapOption: Integer;
+  iCurLine: integer;
+  seEditor: TDScintilla;
+//  smOption: TSynSelectionMode;
+  scurline: String;
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+    with (MDIChildren[FindTopWindow] as TfrmEditor) do
+      if (sActiveEditor = 'sciEditor') then
+        seEditor := sciEditor
+      else
+        seEditor := sciEditor2;
+    with seEditor do
+    begin
+      GetCurLine(scurline);
+      iCurLine := seeditor.LineFromPosition(GetCurrentPos);
+
+      if (sWay = 'BeginningLine') then
+        Result := seeditor.GetTextRange(GetLineEndPosition(iCurLine) - length(scurline), GetCurrentPos)
+      // CursorToEndLine
+      else
+        Result :=GetTextRange(GetCurrentPos, GetLineEndPosition(iCurLine));
+
+        Result := trim(Result);
+    end;
+  end;
+end;
+
+function GetFile(var bSingleLine: Boolean): string;
+var
+  sTmp, sFilePath: string;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+    sTmp := (MDIChildren[FindTopWindow] as TfrmEditor).sciEditor.GetText;
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\file.r';
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[4]';
+    end;
+  end;
+end;
+
+function GetLine(bGoToNextValidLine: Boolean): string;
+var
+  bValidLine, bLineWrap: Boolean;
+
+  cTmp: Char;
+
+  iCurrent, iLines, iResult: integer;
+
+  seEditor: TDScintilla;
+
+  sLine, sTmp: string;
+
+ // smOption: TSynSelectionMode;
+
+ // synSearchOptions: TSynSearchOptions;
+
+  procedure Others_GoToNextValidLine(iLine: integer);
+
+    procedure GoToNextLine;
+    begin
+      bValidLine := False;
+      with seEditor do
+      begin
+        SetCaretX(0, seEditor);
+        seEditor.LineDown;
+        iCurrent := GetCaretY(seEditor);
+      end;
+    end;
+
+  begin
+    with seEditor do
+    begin
+      GoToLine(iLine);
+      bValidLine := False;
+      iCurrent := GetCaretY(seEditor);
+      iLines := Lines.Count;
+      while (bValidLine = False) and (iCurrent < iLines-1) do
+      begin
+        GetCurLine(sLine);
+        sLine := trim(sLine);
+        try
+          if (sLine <> EmptyStr) then
+            cTmp := sLine[1]
+          else
+            cTmp := #32; // Nothing
+        except
+          begin
+            //sci //m.p. SelectionMode := smOption;
+            Exit;
+          end;
+        end;
+
+        case cTmp of
+          #10 .. #13, // LF .. CR,
+          #32:
+            GoToNextLine; // Nothing
+          #35:
+            if frmTinnMain.bRSendAll then
+              bValidLine := True // #
+            else
+              GoToNextLine;
+        else
+          bValidLine := True;
+        end;
+      end;
+    end;
+  end;
+
+  procedure Sweave_GoToNextValidLine(iLine: integer);
+
+    procedure GoToNextLine;
+    begin
+      bValidLine := False;
+      with seEditor do
+      begin
+        SetCaretX(0, seEditor);
+        LineDown;
+        iCurrent := GetCaretY(seEditor);
+      end;
+    end;
+
+    function FindNextChunk: Boolean;
+    begin
+      Result := True;
+
+      with seEditor do
+      begin
+       showmessage('Sci transfer not complete #57253');
+       exit;
+        {SearchEngine := frmTinnMain.SynEditSearch;
+        synSearchOptions := [];
+        iResult := SearchReplace('>>=', EmptyStr, synSearchOptions); }
+        // It will search the next chunk of Sweave
+        if (iResult > 0) then
+          GoToNextLine
+        else
+          Result := False; // It was found the last line of the last chunk
+      end;
+    end;
+
+  begin
+    with seEditor do
+    begin
+      GoToLine(iLine);
+      bValidLine := False;
+      iCurrent := GetCaretY(seEditor);
+      iLines := GetLineCount;
+
+      while (bValidLine = False) and (iCurrent < iLines-1) do
+      begin
+        GetCurLine(sLine);
+        sLine := trim(sLine);
+        try
+          if (sLine <> EmptyStr) then
+            cTmp := sLine[1]
+          else
+            cTmp := #32; // Nothing
+        except
+          begin
+            //sci //m.p. SelectionMode := smOption;
+            Exit;
+          end;
+        end;
+
+        case cTmp of
+          #10 .. #13, // LF .. CR,
+          #32:
+            GoToNextLine; // Nothing
+          #35:
+            if frmTinnMain.bRSendAll then
+              bValidLine := True // #
+            else
+              GoToNextLine;
+          #64:
+            if not FindNextChunk then
+              break;
+        else
+          bValidLine := True;
+        end;
+      end;
+    end;
+  end;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+    with (MDIChildren[FindTopWindow] as TfrmEditor) do
+      if (sActiveEditor = 'sciEditor') then
+        seEditor := sciEditor
+      else
+        seEditor := sciEditor2;
+    with seEditor do
+    begin
+      Lines.BeginUpdate;
+      bLineWrap := False;
+
+      iCurrent := GetCaretY(seEditor);
+      sTmp := trim(Lines[iCurrent]);
+      Result := sTmp;
+
+      if iCurrent < seEditor.GetLineCount-1 then
+
+
+      if bGoToNextValidLine then
+        if (GetCurrentLexerName = 'Sweave') then
+          Sweave_GoToNextValidLine(iCurrent+1)
+        else
+          Others_GoToNextValidLine(iCurrent+1);
+
+      Lines.EndUpdate;
+    end;
+  end;
+end;
+     {
+      exit;
+
+      Lines.BeginUpdate;
+      bLineWrap := False;
+      if bScrollSendingLines then
+      begin // Automatize scroll!
+
+
+
+       //sci //m.p.
+        if WordWrap then
+        begin
+          bLineWrap := True;
+          actEditorLineWrapExecute(nil);
+        end;
+     showmessage('sci not ready #13AAF');
+        if (GetCaretY(seEditor) = (seEditor.GetFirstVisibleLine + seEditor.LinesInWindow - 1))
+        then
+          SetFirstVisibleLine := GetCaretY(seEditor);
+        if bLineWrap then
+          actEditorLineWrapExecute(nil);
+      end;
+      //sci //m.p.
+
+      smOption := SelectionMode;
+
+      if (SelectionMode <> smLine) then
+        SelectionMode := smLine;
+
+      SetCaretX(0, seEditor);
+
+      if bGoToNextValidLine then
+        if (cbSyntax.Text = 'Sweave') then
+          Sweave_GoToNextValidLine(GetCaretY(seEditor))
+        else
+          Others_GoToNextValidLine(GetCaretY(seEditor));
+      if (GetCaretY(seEditor) = iLines) then
+        GetCurLine(sLine) // Last line without line endings
+      else
+      begin
+       showmessage('not ready check ecSelLineEnd');
+       exit;
+        if (LineText <> EmptyStr) then
+          ExecuteCommand(ecSelLineEnd, #0, nil);
+
+        if GetSelText <> '' then
+          sTmp := trim(GetSelText)
+        else
+        begin
+          Lines.EndUpdate;
+          //sci //m.p. SelectionMode := smOption;
+          Exit;
+        end;
+      end;
+
+      SetCaretX(0, seEditor);
+      if bGoToNextValidLine then
+        if (cbSyntax.Text = 'Sweave') then
+          Sweave_GoToNextValidLine(GetCaretY(seEditor) + 1)
+        else
+          Others_GoToNextValidLine(GetCaretY(seEditor) + 1);
+      //sci //m.p. SelectionMode := smOption;
+      Lines.EndUpdate;
+    end;
+
+    Result := sTmp;
+  end;
+end;}
+
+function GetLinesToEndPage(var bSingleLine: Boolean): string;
+var
+  seEditor: TDScintilla;
+//  smOption: TSynSelectionMode;
+  iCurLine: Integer;
+  sTmp, sFilePath, scurline: string;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+
+    with (MDIChildren[FindTopWindow] as TfrmEditor) do
+      if (sActiveEditor = 'sciEditor') then
+        seEditor := sciEditor
+      else
+        seEditor := sciEditor2;
+
+    with seEditor do
+    begin
+      GetCurLine(scurline);
+      iCurLine := LineFromPosition(GetCurrentPos);
+      sTmp:= trim(GetTextRange(GetLineEndPosition(iCurLine) - Length(scurline), GetTextLength));
+
+      if sTmp = '' then
+        Exit;
+
+    end;
+
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\lines.r';
+
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[7]';
+    end;
+  end;
+end;
+
+
+
+function GetLinesToTop(var bSingleLine: Boolean): string;
+var
+  seEditor: TDScintilla;
+ // smOption: TSynSelectionMode;
+  iCurLine: Integer;
+  sTmp, sFilePath, scurline: string;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+
+    with (MDIChildren[FindTopWindow] as TfrmEditor) do
+      if (sActiveEditor = 'sciEditor') then
+        seEditor := sciEditor
+      else
+        seEditor := sciEditor2;
+
+    with seEditor do
+    begin
+      GetCurLine(scurline);
+      iCurLine := LineFromPosition(GetCurrentPos);
+      sTmp:= trim( GetTextRange(0,GetLineEndPosition(iCurLine)));
+
+      if sTmp = '' then
+        Exit;
+
+    end;
+
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\lines.r';
+
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[7]';
+    end;
+  end;
+end;
+
+
+
+function GetSelection(var bSingleLine: Boolean): string;
+var
+  seEditor: TDScintilla;
+  sTmp, sFilePath: string;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := '';
+    if not ValidRRunning then
+      Exit;
+
+    with (MDIChildren[FindTopWindow] as TfrmEditor) do
+      if (sActiveEditor = 'sciEditor') then
+        seEditor := sciEditor
+      else
+        seEditor := sciEditor2;
+
+    with seEditor do
+      if GetSelText <> '' then
+        sTmp := GetSelText
+      else
+        Exit;
+
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\selection.r';
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[5]';
+    end;
+  end;
+end;
+
+function GetNavigationText(var bSingleLine: Boolean): string;
+var
+  seEditor: TDScintilla;
+
+  sTmp, sFilePath: string;
+
+begin
+  with frmTinnMain do
+  begin
+    Result := EmptyStr;
+    if not ValidRRunning then
+      Exit;
+
+    if Assigned(frmTools.RNavigator) then
+      sTmp := frmTools.RNavigator.SendToR;
+
+    if not bRSendAll then
+      RemoveLine_Commented(sTmp);
+    RemoveLine_Empty(sTmp);
+
+    if bRSmartSend and SingleLine(sTmp) then
+    begin
+      bSingleLine := True;
+      Result := StringReplace(sTmp, #13#10, EmptyStr, [rfReplaceAll]);
+      Exit;
+    end;
+
+    sFilePath := sPathTmp + '\selection.r';
+    if FileSaveFast(sFilePath, sTmp) then
+    begin
+      // if (RHistory = nil) then RHistory:= TRHistory.Create;
+      // RHistory.LoadFromFile(sFilePath);
+      Result := '.trPaths[5]';
+    end;
+  end;
+end;
+
+procedure RSendClipboard(bEcho: Boolean);
+var
+  sTmp, sToSend, sEcoString: string;
+  bSingleLine: Boolean;
+
+begin
+  sToSend := GetClipboard(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+
+  DoSend(sTmp);
+end;
+
+procedure RSendContiguous(bEcho: Boolean);
+var
+  sTmp, sToSend, sEcoString: string;
+  bSingleLine: Boolean;
+begin
+  sToSend := GetContiguous(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+  DoSend(sTmp);
+end;
+
+procedure RSendCurrentLineToTop(bEcho: Boolean);
+var
+  seEditor: TDScintilla;
+
+  sTmp, sToSend, sEcoString: string;
+  bSingleLine: Boolean;
+begin
+  sToSend := GetLinesToTop(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+  DoSend(sTmp);
+
+{  with frmTinnMain do
+  begin
+    with (MDIChildren[FindTopWindow] as TfrmEditor) do
+      if (sActiveEditor = 'sciEditor') then
+        seEditor := sciEditor
+      else
+        seEditor := sciEditor2;
+
+    with seEditor do
+    begin
+      seEditor.
+      SetFirstVisibleLine(GetCaretY(seEditor));
+      SetCaretX(0, seEditor);
+    end;
+
+    CheckTop;
+    SetFocus_Rgui(iDelay);
+  end;}
+end;
+
+procedure RSendCursorToBeginningLine;
+var
+  sTmp: string;
+begin
+  sTmp := GetCursorTo('BeginningLine');
+  if (sTmp = EmptyStr) then
+    Exit;
+  DoSend(sTmp);
+end;
+
+procedure RSendCursorToEndLine;
+var
+  sTmp: string;
+begin
+  sTmp := GetCursorTo('EndLine');
+  if (sTmp = EmptyStr) then
+    Exit;
+  DoSend(sTmp);
+end;
+
+procedure RSendBlockMarked(bEcho: Boolean);
+var
+  sTmp, sToSend, sEcoString: string;
+  bSingleLine: Boolean;
+
+begin
+  sToSend := GetBlockMarked(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+
+  DoSend(sTmp);
+end;
+
+procedure RSendFile(bEcho: Boolean);
+var
+  sTmp, sToSend, sEcoString: string;
+  bSingleLine: Boolean;
+
+begin
+  sToSend := GetFile(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+
+  DoSend(sTmp);
+end;
+
+procedure RSendLine;
+var
+  bGoToNextValidLine: Boolean;
+
+  sTmp: string;
+  i: integer;
+
+begin
+
+  i := frmTinnMain.FindTopWindow;
+  with (frmTinnMain.MDIChildren[i] as TfrmEditor) do
+    bGoToNextValidLine := not bSendToREditing;
+
+  sTmp := GetLine(bGoToNextValidLine);
+  if (sTmp = EmptyStr) then
+    Exit;
+
+  DoSend(sTmp);
+end;
+
+procedure RSendLinesToEndPage(bEcho: Boolean);
+var
+  bSingleLine: Boolean;
+  sTmp, sToSend, sEcoString: string;
+begin
+  sToSend := GetLinesToEndPage(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+
+  DoSend(sTmp);
+end;
+
+procedure RSendNavigator(bEcho: Boolean);
+var
+  sTmp, sToSend, sEcoString: string;
+  bSingleLine: Boolean;
+begin
+  sToSend := GetNavigationText(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+
+  DoSend(sTmp);
+end;
+
+procedure RSendSelection(bEcho: Boolean);
+var
+  sTmp, sToSend, sEcoString: string;
+  bSingleLine: Boolean;
+
+begin
+  sToSend := GetSelection(bSingleLine);
+  if (sToSend = EmptyStr) then
+    Exit;
+
+  if bEcho then
+    sEcoString := ', echo=TRUE' + ', max.deparse.length=' +
+      IntToStr(frmTinnMain.iMaxDeparseLength)
+  else
+    sEcoString := '';
+
+  if bSingleLine then
+    sTmp := sToSend
+  else
+    sTmp := 'source(' + sToSend + sEcoString + ')';
+
+  DoSend(sTmp);
+end;
+
+procedure RSendSweave;
+var
+  i: integer;
+  sTmp, sUnix, sLatexFile: string;
+begin
+  with frmTinnMain do
+  begin
+    sUnix := frmTinnMain.GetPathFile(True);
+
+    if (sUnix = EmptyStr) then
+      Exit;
+
+    sTmp := 'setwd(''' + GetPathFile(False) + ''')' + #13#10;
+
+    if (csRGeneral.Active) then
+      csRGeneral.Socket.SendText(sTmp);
+    Application.ProcessMessages;
+
+    sTmp := 'Sweave(''' + sUnix + ''')';
+
+    DoSend(sTmp);
+
+    sLatexFile := ChangeFileExt(sUnix, '.tex');
+
+    i := 1;
+    repeat
+      Sleep(5 * iDelay);
+
+      showmessage(UnixPathToDosPath(sLatexFile));
+      if FileExists(UnixPathToDosPath(sLatexFile)) then
+      begin
+        showmessage(UnixPathToDosPath(sLatexFile));
+        OpenFileIntoTinn(UnixPathToDosPath(sLatexFile), 0, False, True, True);
+        // UpdateFileIntoTinn(UnixPathToDosPath(sLatexFile));
+        break;
+      end;
+
+      inc(i);
+    until (i = 20);
+  end;
+end;
+
+procedure RSendKnitPdf;
+var
+  i: integer;
+
+  sTmp, sUnix, sLatexFile: string;
+
+begin
+  with frmTinnMain do
+  begin
+    sUnix := GetPathFile(True);
+    if (sUnix = EmptyStr) then
+      Exit;
+
+    sTmp := 'setwd(''' + GetPathFile(False) + ''')' + #13#10;
+
+    if (csRGeneral.Active) then
+      csRGeneral.Socket.SendText(sTmp);
+    Application.ProcessMessages;
+
+    if (bRRequireKnitr) then
+    begin
+      bRRequireKnitr := False;
+      sTmp := 'require(knitr); knit(''' + sUnix + ''')';
+    end
+    else
+    begin
+      sTmp := 'knit(''' + sUnix + ''')';
+    end;
+
+    DoSend(sTmp);
+
+    sLatexFile := ChangeFileExt(UnixPathToDosPath(sUnix), '.tex');
+    i := 1;
+    repeat
+      Sleep(5 * iDelay);
+
+      if FileExists(sLatexFile) then
+      begin
+        Sleep(10 * iDelay); // It is important!
+        OpenFileIntoTinn(UnixPathToDosPath(sLatexFile), 0, False, True, True);
+        break;
+      end;
+
+      inc(i);
+    until (i = 20);
+  end;
+end;
+
+procedure RSendKnitHtml;
+var
+  i: integer;
+
+  sTmp, sUnix, sMarkdownFile, sHtmlFile: string;
+
+begin
+  with frmTinnMain do
+  begin
+    sUnix := GetPathFile(True);
+    if (sUnix = EmptyStr) then
+      Exit;
+
+    sTmp := 'setwd(''' + GetPathFile(False) + ''')' + #13#10;
+
+    if (csRGeneral.Active) then
+      csRGeneral.Socket.SendText(sTmp);
+    Application.ProcessMessages;
+
+    if (bRRequireKnitr) then
+    begin
+      bRRequireKnitr := False;
+      sTmp := 'require(knitr); knit2html(''' + sUnix + ''')';
+    end
+    else
+    begin
+      sTmp := 'knit2html(''' + sUnix + ''')';
+    end;
+
+    DoSend(sTmp);
+
+    sMarkdownFile := ChangeFileExt(sUnix, '.md');
+
+    sHtmlFile := ChangeFileExt(sUnix, '.html');
+
+    i := 1;
+    repeat
+      Sleep(5 * iDelay);
+      // Do not change the order of the UpdateFileIntoTinn
+      if FileExists(UnixPathToDosPath(sHtmlFile)) then
+      begin
+        Sleep(10 * iDelay); // It is important!
+        if FileExists(UnixPathToDosPath(sMarkdownFile)) then
+          // file.Rhtml do not generate file.md
+          OpenFileIntoTinn(UnixPathToDosPath(sMarkdownFile), 0, False,
+            True, True);
+        OpenFileIntoTinn(UnixPathToDosPath(sHtmlFile), 0, False, True, True);
+        if (actHtmlOpenAlways.Checked) then
+          actHtmlOpenCurrentFileExecute(nil);
+        break;
+      end;
+
+      inc(i);
+    until (i = 20);
+  end;
+end;
+
+procedure ConnectRSocketServer;
+var
+  iIPPortToUse: Integer;
+  sStart, sToSend, sIPHostToUse: string;
+begin
+with frmTinnMain do
+begin
+
+  if not  (Rterm_Running and frmRterm.cRterm.bRterm_Ready and (iServerConnectionTrial < 20)) then
+    exit;
+
+
+  if bIPLocal then
+  begin
+    iIPPortToUse := iIPPortLocal;
+    sIPHostToUse := sIPHostLocal;
+  end else
+  begin
+    iIPPortToUse := iIPPortRemote;
+    sIPHostToUse := sIPHostRemote;
+  end;
+
+
+
+  sStart := 'startSocketServer(port=' + IntToStr(iIPPortToUse) + ')';
+
+
+  try
+
+      //sToSend := 'library(svSocket); '+ sStart + #13#10 ;
+      sToSend := 'invisible(' + sStart + ')';
+      if Rterm_Running then
+      begin
+        iServerConnectionTrial := iServerConnectionTrial + 1;
+        if Odd(iServerConnectionTrial) then
+        begin
+          DoSend(stoSend, false);
+       //   frmRterm.cRterm.SendInput(sToSend);
+          //SendToConsole(sStart);
+        end;
+        //else
+          ConnectSocketClients(sIPHostToUse, iIPPortToUse);
+
+      end;
+
+
+  except
+    //
+  end;
+
+end;
+end;
+
+
+procedure ConnectSocketClients(sIPHost: string; iIPPort: integer);
+begin
+with frmTinnMain do
+begin
+  csMainBase.Host := sIPHost;
+  csMainBase.Port := iIPPort;
+
+  csREnvironment.Host := sIPHost;
+  csREnvironment.Port := iIPPort;
+  csRExplorer.Host := sIPHost;
+  csRExplorer.Port := iIPPort;
+  csRGeneral.Host := sIPHost;
+  csRGeneral.Port := iIPPort;
+  csRtip.Host := sIPHost;
+  csRtip.Port := iIPPort;
+
+  csMainBase.Active := true;
+  csREnvironment.Active := true;
+  csRExplorer.Active := true;
+  csRGeneral.Active := true;
+
+  csRtip.Active := true;
+  bTCPIPRunning := true;
+end;
+end;
+
+procedure LoadTinnRCommunicationScripts;
+var
+  sTinnRPaths: string;
+
+  sSend, fname: String;
+begin
+ {
+  sTinnRPaths := 'TinnR <- new.env(parent = .GlobalEnv); TinnR$TinnPort <- '+inttostr(GetPortToUse)+'; TinnR$.trPaths <- file.path(Sys.getenv(''APPDATA''), ' +
+    '''Tinn-R'', ' + '''tmp'', ' + 'c('''', ' + '''search.txt'', ' +
+    '''objects.txt'', ' + '''file.r'', ' + '''selection.r'', ' + '''block.r'', '
+    + '''lines.r'', ' + '''reformat-input.r'', ' + '''reformat-output.r'', ' + '''nameslookup.r'', ' + '''RExplorer.txt''), ' +
+    'fsep=''\\'')'+#13#10;
+     }
+
+  sTinnRPaths := 'TinnR <- new.env(parent = .GlobalEnv); TinnR$TinnPort <- '+inttostr(GetPortToUse)
+    +'; TinnR$.trPaths <- c( file.path(Sys.getenv(''APPDATA''), ' +
+    '''Tinn-R'', ' + '''tmp'', ' + 'c('''', ' + '''search.txt'', ' +
+    '''objects.txt'', ' + '''file.r'', ' + '''selection.r'', ' + '''block.r'', '
+    + '''lines.r'', ' + '''reformat-input.r'', ' + '''reformat-output.r'', ' + '''nameslookup.r'', ' + '''RExplorer.txt''), ' +
+    'fsep=''\\''), '
+    + 'file.path(Sys.getenv(''APPDATA''), ' +
+    '''Tinn-R'', ' + '''data'', ' + 'c(''RHelpSystem.txt'') , fsep=''\\'')'
+    +')'  ;
+
+  //frmTinnMain.csRGeneral.Socket.SendText(sTinnRPaths);
+
+  fname := IncludeTrailingPathDelimiter(frmTinnMain.sPathData)+'TinnRCommunication.r';
+  sSend := 'source("'+DosPathToUnixPath(fname)+'", echo=F, max.deparse.length=150)';
+  if not FileExists(fname) then
+  begin
+    showmessage('File '''+fname+''' not found.');
+    exit;
+  end;
+
+  sSend := sTinnRPaths + '; '+sSend;
+  DoSend(sSend, false);
+  //frmTinnMain.csRGeneral.Socket.SendText(sSend);
+end;
+
+function GetPortToUse: Integer;
+begin
+with frmTinnMain do
+begin
+  if bIPLocal then
+    Result := iIPPortLocal
+   else
+    Result := iIPPortRemote;
+end;
+end;
+
+
+function InstallTinnRPackages(sPackages: String): Boolean;
+var
+  mrOption, mrInstall: TModalResult;
+  slPackages: TStringList;
+  sSend: String;
+
+  function QuoteList(slPack: TStringList): String;
+    var i: Integer;
+  begin
+    for i := 0 to slPack.Count - 1 do
+      slPack[i] :=''''+ slPack[i] + '''';
+    Result := slPack.CommaText;
+  end;
+begin
+
+
+  // Without Internet it will no be possible to install
+  if (CheckConnection = False) then
+  begin
+    MessageDlg('Please connect to the internet and try again.', mtInformation, [mbOk], 0);
+    Exit;
+  end;
+
+
+  slPackages := TStringList.Create;
+  StrSplit('|', sPackages, slPackages);
+
+
+  if slPackages.Count = 1 then
+
+    mrInstall :=
+      MessageDlg('Tinn-R requires the following package to be installed: '+slPackages.CommaText + #13
+      + 'Do you want to install it now?', mtConfirmation, [mbYes, mbNo], 0) else
+    mrInstall :=
+      MessageDlg('Tinn-R requires the following packages to be installed: '+AnsiReplaceStr(slPackages.CommaText, ',', ', ') + #13
+      + 'Do you want to install them now?', mtConfirmation, [mbYes, mbNo], 0);
+
+
+  case mrInstall of
+    mrYes:
+      begin
+//        Screen.Cursor := crHourglass;
+
+        sSend := 'r <- getOption("repos"); r["CRAN"] <- "http://cran.r-project.org";install.packages(c('+QuoteList(slPackages)+'), repos = r); stop("TinnRMSG:PackagesInstalled:")';
+        DoSend(sSend, false);
+//        Screen.Cursor := crDefault;
+      end;
+    mrNo:
+      begin
+        {MessageDlg('Some important resources of Tinn-R editor related to R' +
+          #13 + 'provided by TinnRcom package' + #13 +
+          'will not be available in the current session!', mtWarning,
+          [mbOk], 0); }
+      end;
+  end;
+end;
+
+function CheckConnection: Boolean;
+begin
+  if IsConnected then
+    Result := True
+  else
+  begin
+ {   with stbMain do
+    begin
+      Panels[7].Text := 'Warning';
+      Panels[8].Text := 'Please, check your internet connection!';
+    end;   }
+    Application.ProcessMessages;
+
+    Result := False;
+  end;
+end;
+
+end.

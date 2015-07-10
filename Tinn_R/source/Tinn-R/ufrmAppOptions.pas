@@ -1,45 +1,45 @@
 (*
- Tinn is a ASCII file editor primarily intended as a better replacement
- of the default Notepad.exe under Windows.
+  Tinn is a ASCII file editor primarily intended as a better replacement
+  of the default Notepad.exe under Windows.
 
- This software is distributed under the terms of the GNU General
- Public License, either Version 2, June 1991 or Version 3, June 2007.
- The terms of version 2 and of the license are in a folder called
- doc (licence_gpl2.txt and licence_gpl2.txt)
- which you should have received with this software.
+  This software is distributed under the terms of the GNU General
+  Public License, either Version 2, June 1991 or Version 3, June 2007.
+  The terms of version 2 and of the license are in a folder called
+  doc (licence_gpl2.txt and licence_gpl2.txt)
+  which you should have received with this software.
 
- See http://www.opensource.org/licenses/gpl-license.html or
- http://www.fsf.org/copyleft/gpl.html for further information.
+  See http://www.opensource.org/licenses/gpl-license.html or
+  http://www.fsf.org/copyleft/gpl.html for further information.
 
- Copyright
+  Copyright
   Russell May - http://www.solarvoid.com
 
- Tinn-R is an extension of Tinn that provides additional tools to control R
- (http://cran.r-project.org). The project is coordened by José Cláudio Faria
- (joseclaudio.faria@gmail.com).
+  Tinn-R is an extension of Tinn that provides additional tools to control R
+  (http://cran.r-project.org). The project is coordened by José Cláudio Faria
+  (joseclaudio.faria@gmail.com).
 
- As such, Tinn-R is a feature-rich replacement of the basic script editor
- provided with Rgui. It provides syntax-highlighting, submission of code in
- whole, or line-by-line, and many other useful tools to ease writting and
- debugging of R code.
+  As such, Tinn-R is a feature-rich replacement of the basic script editor
+  provided with Rgui. It provides syntax-highlighting, submission of code in
+  whole, or line-by-line, and many other useful tools to ease writting and
+  debugging of R code.
 
- Copyright
+  Copyright
   Tinn-R team October/2005
   Tinn-R team October/2013
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 and 3 of the License, or
- (at your option) any later version.
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 and 3 of the License, or
+  (at your option) any later version.
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *)
 
 unit ufrmAppOptions;
@@ -49,16 +49,15 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ComCtrls, CommCtrl, StdCtrls, Buttons, ExtCtrls, ImgList,
-  Menus, EditAlign, ScktComp, trShape, JvExControls,
+  Menus, ScktComp, JvExControls, SciKeyBindings,
   JvColorTrackbar, JvgPage, JvExComCtrls, JvComCtrls,
-  SynEdit, SynEditMiscClasses, SynEditKeyCmds, SynEditKeyConst,
-  SynEditOC;
+  JvOfficeColorButton, JvExExtCtrls, JvExtComponent, JvPanel, System.UITypes, System.Types,
+  JvHotKey, JvExStdCtrls, JvCombobox, JvColorCombo ;
 
 type
-  TColorPopup = (cpGutter,
-                 cpRightEdge);
+  TColorPopup = (cpGutter, cpRightEdge);
 
-  TSynEditorOptionsAllUserCommands = procedure(ACommands: TStrings) of object;
+ // TSynEditorOptionsAllUserCommands = procedure(ACommands: TStrings) of object;
 
   TfrmAppOptions = class(TForm)
     ActiveBorder1: TMenuItem;
@@ -68,27 +67,13 @@ type
     bbHelp: TBitBtn;
     bbtCancel: TBitBtn;
     bbtConPathDeplate: TBitBtn;
-    bbtConPathTxt2tags: TBitBtn;
-    bbtDVIParametersBibtex: TButton;
-    bbtDVIParametersSingle: TButton;
     bbtIntPathDeplate: TBitBtn;
-    bbtIntPathTxt2tags: TBitBtn;
     bbtOK: TBitBtn;
-    bbtParDeplate: TButton;
-    bbtParTxt2tags: TButton;
-    bbtPathPandoc: TBitBtn;
-    bbtPDFParBibtex: TButton;
-    bbtPDFParSingle: TButton;
-    bbtRGuiDefault: TButton;
-    bbtRGuiPath: TBitBtn;
-    bbtRTermDefault: TButton;
-    bbtRTermPath: TBitBtn;
     btnFont: TButton;
     btnGutterColor: TPanel;
     btnGutterFont: TButton;
     btnMRUClear: TButton;
     btnRightEdge: TPanel;
-    btnUpdateKey: TButton;
     ButtonFace1: TMenuItem;
     ButtonShadow1: TMenuItem;
     ButtonText1: TMenuItem;
@@ -99,7 +84,6 @@ type
     cbCloseDVIViewer: TCheckBox;
     cbClosePDFViewer: TCheckBox;
     cbComAutoDetect_Language: TCheckBox;
-    cbCommands: TComboBox;
     cbComPriority_Line: TCheckBox;
     cbDOSMinimizedAlways: TCheckBox;
     cbDVIOpenAlways: TCheckBox;
@@ -185,25 +169,6 @@ type
     ckWantTabs: TCheckBox;
     cOverwriteCaret: TComboBox;
     edMaxDeparseLength: TEdit;
-    edParDeplate: TEditAlign;
-    edParDVIBibtex: TEditAlign;
-    edParDVISingle: TEditAlign;
-    edParPDFBibtex: TEditAlign;
-    edParPDFSingle: TEditAlign;
-    edParRGui: TEditAlign;
-    edParRTerm: TEditAlign;
-    edParTxt2tags: TEditAlign;
-    edPath_Pandoc: TEditAlign;
-    edPathDeplate_Converter: TEditAlign;
-    edPathDeplate_Interpreter: TEditAlign;
-    edPathR_Connected: TEditAlign;
-    edPathRGui: TEditAlign;
-    edPathRTerm: TEditAlign;
-    edPathTinnRcom_Installed: TEditAlign;
-    edPathTxt2tags_Converter: TEditAlign;
-    edPathTxt2tags_Interpreter: TEditAlign;
-    edReformatR: TEditAlign;
-    edReformatRd: TEditAlign;
     edtIPHostLocal: TEdit;
     edtIPHostRemote: TEdit;
     edtIPPortLocal: TEdit;
@@ -230,8 +195,6 @@ type
     gpbDelay: TGroupBox;
     gpbDOSOption: TGroupBox;
     gpbDVIParameters: TGroupBox;
-    gpbDVIParametersBibtex: TGroupBox;
-    gpbDVIParametersSingle: TGroupBox;
     gpbIntPathDeplate: TGroupBox;
     gpbIntPathTxt2tags: TGroupBox;
     gpbLatexOptions: TGroupBox;
@@ -243,8 +206,6 @@ type
     gpbPathRTerm: TGroupBox;
     gpbPDFAfter: TGroupBox;
     gpbPDFParameters: TGroupBox;
-    gpbPDFParametersBibtex: TGroupBox;
-    gpbPDFParametersSingle: TGroupBox;
     gpbRExplorer: TGroupBox;
     gpbRguiReturnFocus: TGroupBox;
     gpbRServerTCPIP: TGroupBox;
@@ -297,11 +258,7 @@ type
     Label18: TLabel;
     Label19: TLabel;
     Label2: TLabel;
-    Label20: TLabel;
-    Label21: TLabel;
-    Label22: TLabel;
     Label23: TLabel;
-    Label24: TLabel;
     Label25: TLabel;
     Label26: TLabel;
     Label3: TLabel;
@@ -368,10 +325,6 @@ type
     rgRguiTinnRDisposition: TRadioGroup;
     Scrollbar1: TMenuItem;
     sGutterColor: TShape;
-    shBGApplication: TtrShape;
-    shBGTabSelected: TtrShape;
-    shFGApplication: TtrShape;
-    shSampleApplication: TtrShape;
     sRightEdgeColor: TShape;
     tbDelay: TJvColorTrackBar;
     tbLastFile: TTrackBar;
@@ -385,7 +338,7 @@ type
     tbsAppErrorRterm: TTabSheet;
     tbsAppFilesExtensions: TTabSheet;
     tbsAppGeneral: TTabSheet;
-    tbsAppMoreConversion: TTabSheet;
+    l: TTabSheet;
     tbsAppMoreLatex: TTabSheet;
     tbsAppOptionsRgui: TTabSheet;
     tbsAppOptionsRterm: TTabSheet;
@@ -408,6 +361,48 @@ type
     Window1: TMenuItem;
     WindowFrame1: TMenuItem;
     WindowText1: TMenuItem;
+    cbForeground: TJvOfficeColorButton;
+    Label27: TLabel;
+    Label28: TLabel;
+    cbBackground: TJvOfficeColorButton;
+    shFGApplication: TPanel;
+    cbTab: TJvOfficeColorButton;
+    Label29: TLabel;
+    GroupBox22: TGroupBox;
+    lbBackup: TLabel;
+    tbBackup: TJvColorTrackBar;
+    cbBackupOn: TCheckBox;
+    cbReopenFiles: TCheckBox;
+    cbRSendNavigator: TCheckBox;
+    edReformatR: TMemo;
+    edPathTinnRcom_Installed: TMemo;
+    edPathDeplate_Converter: TEdit;
+    edPathDeplate_Interpreter: TEdit;
+    edParDVISingle: TButtonedEdit;
+    Label30: TLabel;
+    Label31: TLabel;
+    edParDVIBibtex: TButtonedEdit;
+    Label32: TLabel;
+    Label33: TLabel;
+    edParPDFSingle: TButtonedEdit;
+    Label34: TLabel;
+    edParPDFBibtex: TButtonedEdit;
+    edReformatRd: TEdit;
+    edPathR_Connected: TEdit;
+    edParDeplate: TButtonedEdit;
+    edParRTerm: TButtonedEdit;
+    edPathRTerm: TButtonedEdit;
+    edParRGui: TButtonedEdit;
+    edPathRGui: TButtonedEdit;
+    edParTxt2tags: TButtonedEdit;
+    edPathTxt2tags_Interpreter: TButtonedEdit;
+    edPathTxt2tags_Converter: TButtonedEdit;
+    Label20: TLabel;
+    jvHotKey: TJvHotKey;
+    btnUpdateKey: TButton;
+    btnResetDefault: TButton;
+    Memo2: TMemo;
+    edPath_Pandoc: TButtonedEdit;
 
     procedure bbHelpClick(Sender: TObject);
     procedure bbtConPathDeplateClick(Sender: TObject);
@@ -418,7 +413,6 @@ type
     procedure bbtIntPathTxt2tagsClick(Sender: TObject);
     procedure bbtParDeplateClick(Sender: TObject);
     procedure bbtParTxt2tagsClick(Sender: TObject);
-    procedure bbtPathPandocClick(Sender: TObject);
     procedure bbtPDFParBibtexClick(Sender: TObject);
     procedure bbtPDFParSingleClick(Sender: TObject);
     procedure bbtRGuiDefaultClick(Sender: TObject);
@@ -429,80 +423,90 @@ type
     procedure btnGutterFontClick(Sender: TObject);
     procedure btnMRUClearClick(Sender: TObject);
     procedure btnUpdateKeyClick(Sender: TObject);
-    procedure cbCommandsExit(Sender: TObject);
+{    procedure cbCommandsExit(Sender: TObject);
     procedure cbCommandsKeyPress(Sender: TObject; var Key: Char);
-    procedure cbCommandsKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure cbCommandsKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);     }
     procedure cbRResourcesVisibleClick(Sender: TObject);
-    procedure edLineWidthKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure edLineWidthKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure edMaxDeparseLengthKeyPress(Sender: TObject; var Key: Char);
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure imGeneralMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure imGutterMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure imGeneralMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure imGutterMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure jtvAppOptionsChange(Sender: TObject; Node: TTreeNode);
-    procedure lvKeystrokesChanging(Sender: TObject; Item: TListItem; Change: TItemChange; var AllowChange: Boolean);
-    procedure lvKeystrokesSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
+    procedure lvKeystrokesChanging(Sender: TObject; Item: TListItem;
+      Change: TItemChange; var AllowChange: Boolean);
+    procedure lvKeystrokesSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
     procedure pmColorClick(Sender: TObject);
     procedure rdgRArchitectureClick(Sender: TObject);
     procedure rdgRTCPIPTypeClick(Sender: TObject);
     procedure rdgRtermTypeClick(Sender: TObject);
     procedure rdgRUseLatestClick(Sender: TObject);
     procedure rgRguiTinnRDispositionClick(Sender: TObject);
-    procedure sGutterColorMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shBGApplicationMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shBGTabSelectedMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure shFGApplicationMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-    procedure sRightEdgeColorMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure sGutterColorMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure sRightEdgeColorMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure tbDelayPosChange(Sender: TObject);
     procedure tbLastFileChange(Sender: TObject);
     procedure tbLastSearchChange(Sender: TObject);
     procedure tbRguiTinnRProportionChange(Sender: TObject);
     procedure tbTransparencyPosChange(Sender: TObject);
+    procedure cbForegroundColorChange(Sender: TObject);
+    procedure cbBackgroundColorChange(Sender: TObject);
+    procedure cbTabColorChange(Sender: TObject);
+    procedure tbBackupPosChange(Sender: TObject);
+    procedure btnResetDefaultClick(Sender: TObject);
+    procedure edPath_PandocRightButtonClick(Sender: TObject);
 
   private
     { Private declarations }
-    bRArchitecture64: boolean;  // It is necessary here due to automatic changes in path according with user option.
-                                // The same variable name exists also as private in frmTinnMain.
+    bRArchitecture64: Boolean;
+    // It is necessary here due to automatic changes in path according with user option.
+    // The same variable name exists also as private in frmTinnMain.
 
-    bExtended         : boolean;
-    bFormVisible      : boolean;
-    cpFrom            : TColorPopup;
-    eKeyShort         : TSynHotKey;
-    liOldSelected     : TListItem;
-    seoAllUserCommands: TSynEditorOptionsAllUserCommands;
-    seoUserCommand    : TSynEditorOptionsUserCommand;
+    bExtended: Boolean;
+    bFormVisible: Boolean;
+    cpFrom: TColorPopup;
+  //  eKeyShort: TSynHotKey;
+    liOldSelected: TListItem;
+//    seoAllUserCommands: TSynEditorOptionsAllUserCommands;
+//    seoUserCommand: TSynEditorOptionsUserCommand;
 
-    {$IFNDEF SYN_COMPILER_4_UP}
-    //FOldWndProc: TWndMethod;
-    //procedure OverridingWndProc(var Message: TMessage);
-    {$ENDIF}
-
+{$IFNDEF SYN_COMPILER_4_UP}
+    // FOldWndProc: TWndMethod;
+    // procedure OverridingWndProc(var Message: TMessage);
+{$ENDIF}
     function GetColor(Item: TMenuItem): TColor;
-    function GetEmpty: boolean;
-    procedure EditStrCallback(const S: string);
-    procedure FillInKeystrokeInfo(seKeystroke: TSynEditKeystroke; liTmp: TListItem);
+    function GetEmpty: Boolean;
+//    procedure EditStrCallback(const S: string);
+//    procedure FillInKeystrokeInfo(seKeystroke: TSynEditKeystroke;
+//      liTmp: TListItem);
     procedure RemoveEmpty;
     procedure ShowAdjustedFont(lbl: TLabel; pan: TPanel);
+    procedure PopulateEditorKeyStrokeListBox;
 
   public
     { Public declarations }
 
-    {$IFNDEF SYN_DELPHI_4_UP}
-    FOnSelectItem: TLVSelectItemEvent;
-    {$ENDIF}
-
-    property GetUserCommandNames: TSynEditorOptionsUserCommand
-      read seoUserCommand
-      write seoUserCommand;
+{ $IFNDEF SYN_DELPHI_4_UP}
+//    FOnSelectItem: TLVSelectItemEvent;
+{ $ENDIF}
+{    property GetUserCommandNames: TSynEditorOptionsUserCommand
+      read seoUserCommand write seoUserCommand;
 
     property GetAllUserCommands: TSynEditorOptionsAllUserCommands
-      read seoAllUserCommands
-      write seoAllUserCommands;
+      read seoAllUserCommands write seoAllUserCommands;   }
 
-    procedure NewStatus_Editor(var coTmp: TSynEditorOC);
-    procedure Status_Editor(var coTmp: TSynEditorOC);
+    procedure SaveEditorStatus;
+    procedure LoadEditorStatus;
   end;
 
 var
@@ -513,67 +517,72 @@ implementation
 uses
   ufrmMain,
   ufrmEditor,
-  trUtils;
+  trUtils, uLexerCommands;
 
 {$R *.DFM}
 
 // Adapted from: http://delphi.about.com/od/vclusing/l/aa010703a.htm
-function GetNodeByText(tvTmp: TTreeView;
-                       sTmp: string;
-                       bVisible: Boolean): TTreeNode;
+function GetNodeByText(tvTmp: TTreeView; sTmp: string; bVisible: Boolean)
+  : TTreeNode;
 var
   nTmp: TTreeNode;
 
 begin
-  Result:= nil;
-  if (tvTmp.Items.Count = 0) then Exit;
-  nTmp:= tvTmp.Items[0];
-  while nTmp <> nil do begin
-    if (UpperCase(nTmp.Text) = UpperCase(sTmp)) then begin
-      Result:= nTmp;
-      if bVisible then Result.MakeVisible;
+  Result := nil;
+  if (tvTmp.Items.Count = 0) then
+    Exit;
+  nTmp := tvTmp.Items[0];
+  while nTmp <> nil do
+  begin
+    if (UpperCase(nTmp.Text) = UpperCase(sTmp)) then
+    begin
+      Result := nTmp;
+      if bVisible then
+        Result.MakeVisible;
       tvTmp.SetFocus;
-      nTmp.Selected:= True;
+      nTmp.Selected := True;
       Break;
     end;
-    nTmp:= nTmp.GetNext;
+    nTmp := nTmp.GetNext;
   end;
 end;
 
-
 procedure TfrmAppOptions.RemoveEmpty;
 var
-  i: integer;
+  i: Integer;
 
 begin
-  for i:= 0 to (lvKeystrokes.Items.Count - 1) do
+{
+  for i := 0 to (lvKeystrokes.Items.Count - 1) do
     if (lvKeystrokes.Items[i].Caption = '') or
-       (lvKeystrokes.Items[i].Caption = 'ecNone') then begin  // The empty!
-      lvKeystrokes.Items[i].Selected:= True;
-      TSynEditKeyStroke(lvKeystrokes.Selected.Data).Free;
+      (lvKeystrokes.Items[i].Caption = 'ecNone') then
+    begin // The empty!
+      lvKeystrokes.Items[i].Selected := True;
+      TSynEditKeystroke(lvKeystrokes.Selected.Data).Free;
       lvKeystrokes.Selected.Delete;
     end;
+ }
+
 end;
 
-
-function TfrmAppOptions.GetEmpty: boolean;
+function TfrmAppOptions.GetEmpty: Boolean;
 var
-  i: integer;
+  i: Integer;
 
 begin
-  Result:= False;
+  Result := False;
 
-  for i:= (lvKeystrokes.Items.Count - 1) downto 0 do
-    if (lvKeystrokes.Items[i].Caption = '') then begin  // The empty!
-      lvKeystrokes.Items[i].Selected:= true;
+  for i := (lvKeystrokes.Items.Count - 1) downto 0 do
+    if (lvKeystrokes.Items[i].Caption = '') then
+    begin // The empty!
+      lvKeystrokes.Items[i].Selected := True;
       try
-        lvKeystrokes.Scroll(0,
-                            5000); // Force the latest to be visible
+        lvKeystrokes.Scroll(0, 5000); // Force the latest to be visible
       except
         // TODO
       end;
       lvKeystrokes.SetFocus;
-      Result:= True;
+      Result := True;
     end;
 end;
 
@@ -585,14 +594,11 @@ begin
   begin
     labFont.Font.Assign(fdAppOptions.Font);
 
-    labFont.Caption:= labFont.Font.Name;
+    labFont.Caption := labFont.Font.Name;
 
-    labFont.Caption:= labFont.Font.Name +
-                      ' ' +
-                      IntToStr(labFont.Font.Size);
+    labFont.Caption := labFont.Font.Name + ' ' + IntToStr(labFont.Font.Size);
 
-    ShowAdjustedFont(labFont,
-                     panLabFont);
+    ShowAdjustedFont(labFont, panLabFont);
   end;
 end;
 
@@ -604,12 +610,10 @@ begin
   begin
     lblGutterFont.Font.Assign(fdAppOptions.Font);
 
-    lblGutterFont.Caption:= lblGutterFont.Font.Name +
-                            ' ' +
-                            IntToStr(lblGutterFont.Font.Size);
+    lblGutterFont.Caption := lblGutterFont.Font.Name + ' ' +
+      IntToStr(lblGutterFont.Font.Size);
 
-    ShowAdjustedFont(lblGutterFont,
-                     panGutterFont);
+    ShowAdjustedFont(lblGutterFont, panGutterFont);
   end;
 end;
 
@@ -618,60 +622,85 @@ begin
   frmTinnMain.ClearMRU;
 end;
 
+procedure TfrmAppOptions.btnResetDefaultClick(Sender: TObject);
+begin
+  if MessageDlg('This option immediately resets your settings. Are you sure?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+  begin
+    frmTinnMain.EditorKeyStrokes.ResetDefaultCommands;
+    SaveKeyCommands(frmTinnMain.EditorKeyStrokes, frmTinnMain.sPathEditor_KeyStrokes);
+    PopulateEditorKeyStrokeListBox;
+    LoopAllEditorsReSetProperties
+  end;
+end;
+
 procedure TfrmAppOptions.btnUpdateKeyClick(Sender: TObject);
 var
   iCmd: Integer;
-
+  KeyCommand: TSciKeyCommand;
 begin
-  if (lvKeystrokes.Selected = nil) then Exit;
 
-  if (cbCommands.ItemIndex < 0) then begin
-    if (pgApp.ActivePage = tbsEditorKeystrokes) then GetEmpty;
+  if (lvKeystrokes.SelCount<1) OR (lvKeystrokes.Selected = nil) OR (lvKeystrokes.ItemIndex = -1) then
     Exit;
-  end;
 
-  iCmd:= Integer(cbCommands.Items.Objects[cbCommands.ItemIndex]);
+  KeyCommand:= frmTinnMain.EditorKeyStrokes.FindShortCut(jvHotKey.HotKey);
 
-  TSynEditKeyStroke(liOldSelected.Data).Command:= iCmd;
+  if KeyCommand <> nil then
+    if KeyCommand.Command <> Integer(lvKeystrokes.Selected.Data^) then
+    begin
+      MessageDlg('This keystroke is aleady assigned to another command.', mtInformation, [mbok], 0);
+      // .... todo: write an overwrite confirmation dialog
+      exit;
+    end;
 
-  try  // After remove generate exception: I could not find the origin of (ocasional exception) yet!
-    if (eKeyShort.HotKey <> 0) then
-      TSynEditKeyStroke(liOldSelected.Data).ShortCut:= eKeyShort.HotKey;
-  except
-    // TODO
-  end;
+  if jvHotKey.HotKey = 0 then
+    lvKeyStrokes.Selected.SubItems[0] := '' else
+      lvKeyStrokes.Selected.SubItems[0] := ShortCutToText(jvHotKey.HotKey);
+  iCmd := frmTinnMain.GetKeyStrokeByCommand(KeyCommand, Integer(lvKeystrokes.Selected.Data^));
+    frmTinnMain.EditorKeyStrokes[iCmd].ShortCut := jvHotKey.HotKey;
 
-
-  FillInKeystrokeInfo(TSynEditKeyStroke(liOldSelected.Data),
-                      lvKeystrokes.Selected);
 end;
 
-procedure TfrmAppOptions.edLineWidthKeyDown(Sender: TObject;
-                                            var Key: Word;
-                                            Shift: TShiftState);
+procedure TfrmAppOptions.edPath_PandocRightButtonClick(Sender: TObject);
+begin
+  with odAppOptions do
+  begin
+    InitialDir := ExtractFilePath(edPath_Pandoc.Text);
+    Filter := 'Executable program (*.exe)|*.exe';
+    DefaultExt := 'exe';
+    FileName := '';
+    if Execute then
+      edPath_Pandoc.Text := FileName;
+  end;
+end;
+
+procedure TfrmAppOptions.edLineWidthKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
   // Only digits allowed
 end;
 
 procedure TfrmAppOptions.edMaxDeparseLengthKeyPress(Sender: TObject;
-                                                    var Key: Char);
+  var Key: Char);
 begin
-  if not (Key in['0'..'9',
-          Chr(8)]) then Key:= #0;
+  if not(Key in ['0' .. '9', Chr(8)]) then
+    Key := #0;
 end;
 
 procedure TfrmAppOptions.FormActivate(Sender: TObject);
 begin
-  with frmTinnMain do begin
-    pgIP.TabSelectedStyle.BackgrColor:= clBGTabSelectedNew;
-    with jtvAppOptions do begin
-      Color     := clBGApplication;
-      Font.Color:= clFGApplication;
+  with frmTinnMain do
+  begin
+    pgIP.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
+    with jtvAppOptions do
+    begin
+      Color := clBGApplication;
+      Font.Color := clFGApplication;
     end;
   end;
 
-  // Force both to be executed
+  // Force all to be executed
   tbDelayPosChange(nil);
+  tbBackupPosChange(nil);
   tbTransparencyPosChange(nil);
 end;
 
@@ -682,164 +711,160 @@ var
   B: TBitmap;
 
 begin
-  B:= TBitmap.Create;
+  B := TBitmap.Create;
 
   try
-    B.Width:= 16;
-    B.Height:= 16;
+    B.Width := 16;
+    B.Height := 16;
 
-    //Loop through and create colored images
-    for i:= 0 to pmAppOptions.Items.Count-1 do
+    // Loop through and create colored images
+    for i := 0 to pmAppOptions.Items.Count - 1 do
     begin
-      if (pmAppOptions.Items[i].Tag = -1) then Continue;
-      C:= GetColor(pmAppOptions.Items[i]);
-      B.Canvas.Brush.Color:= C;
-      B.Canvas.Brush.Style:= bsSolid;
-      B.Canvas.Pen.Style:= psSolid;
-      B.Canvas.Pen.Color:= clBlack;
+      if (pmAppOptions.Items[i].Tag = -1) then
+        Continue;
+      C := GetColor(pmAppOptions.Items[i]);
+      B.Canvas.Brush.Color := C;
+      B.Canvas.Brush.Style := bsSolid;
+      B.Canvas.Pen.Style := psSolid;
+      B.Canvas.Pen.Color := clBlack;
       B.Canvas.Rectangle(0, 0, 16, 16);
-      imlAppOptions.Add(B,
-                        nil);
-      {$IFDEF SYN_COMPILER_4_UP}
-      pmAppOptions.Items[i].ImageIndex:= pmAppOptions.Items[i].Tag;
-      {$ENDIF}
+      imlAppOptions.Add(B, nil);
+{$IFDEF SYN_COMPILER_4_UP}
+      pmAppOptions.Items[i].ImageIndex := pmAppOptions.Items[i].Tag;
+{$ENDIF}
     end;
   finally
     B.Free;
   end;
 
-  eKeyShort:= TSynHotKey.Create(Self);
+ { eKeyShort := TSynHotKey.Create(Self);
   with eKeyShort do
   begin
-    Parent     := gbKeystrokes;
-    Left       := cbCommands.Left;
-    Top        := cbCommands.Top +
-                  cbCommands.Height +
-                  5;
-    Width      := cbCommands.Width;
-    Height     := cbCommands.Height;
-    HotKey     := 0;
-    InvalidKeys:= [];
-    Modifiers  := [];
-    TabOrder   := 1;
-    BorderStyle:= bsNone;
-  end;
+    Parent := gbKeyStrokes;
+    Left := cbCommands.Left;
+    Top := cbCommands.Top + cbCommands.Height + 5;
+    Width := cbCommands.Width;
+    Height := cbCommands.Height;
+    HotKey := 0;
+    InvalidKeys := [];
+    Modifiers := [];
+    TabOrder := 1;
+    BorderStyle := bsNone;
+  end;    }
 
-  bFormVisible:= False;
+  bFormVisible := False;
 end;
 
-procedure TfrmAppOptions.FormClose(Sender: TObject;
-                                   var Action: TCloseAction);
+procedure TfrmAppOptions.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  RemoveEmpty;         // Remove any empty entry
-  //btnUpdateKey.Click;  // Update
+  RemoveEmpty; // Remove any empty entry
+  // btnUpdateKey.Click;  // Update
 
-  frmTinnMain.sAppSelected:= jtvAppOptions.Selected.Text;
+  frmTinnMain.sAppSelected := jtvAppOptions.Selected.Text;
 end;
 
 procedure TfrmAppOptions.FormShow(Sender: TObject);
 var
-  i         : Integer;
+  i: Integer;
   slCommands: TStringList;
 
 begin
-  GetNodeByText(jtvAppOptions,
-                frmTinnMain.sAppSelected,
-                True);
+  GetNodeByText(jtvAppOptions, frmTinnMain.sAppSelected, True);
 
   // Editor Keystrokes
   // We need to do this now because it will not have been assigned when create occurs
-  cbCommands.Items.Clear;
+{  cbCommands.Items.Clear;
 
-  //Start the callback to add the strings
-  if bExtended then GetEditorCommandExtended(EditStrCallback)
-               else GetEditorCommandValues(EditStrCallBack);
+  // Start the callback to add the strings
+  if bExtended then
+    GetEditorCommandExtended(EditStrCallback)
+  else
+    GetEditorCommandValues(EditStrCallback);
+
 
   // Now add in the user defined ones if they have any
-  if Assigned(seoAllUserCommands) then begin
-    slCommands:= TStringList.Create;
+  if Assigned(seoAllUserCommands) then
+  begin
+    slCommands := TStringList.Create;
     try
       seoAllUserCommands(slCommands);
 
-      for i:= 0 to (slCommands.Count - 1) do
-        if Assigned(slCommands.Objects[i]) then cbCommands.Items.AddObject(slCommands[i],
-                                                                           slCommands.Objects[i]);
+      for i := 0 to (slCommands.Count - 1) do
+        if Assigned(slCommands.Objects[i]) then
+          cbCommands.Items.AddObject(slCommands[i], slCommands.Objects[i]);
     finally
       FreeAndNil(slCommands);
     end;
-  end;
+  end;      }
 
-  if (lvKeystrokes.Items.Count > 0) then lvKeystrokes.Items[0].Selected:= True;
+  if (lvKeystrokes.Items.Count > 0) then
+    lvKeystrokes.Items[0].Selected := True;
 
-  AlphaBlendValue:= frmTinnMain.iAlphaBlendValue;
+  AlphaBlendValue := frmTinnMain.iAlphaBlendValue;
 
   // To avoid the function GetRegistryValue runs many times
-  bFormVisible:= True;
+  bFormVisible := True;
   rdgRUseLatestClick(nil);
 end;
 
-procedure TfrmAppOptions.jtvAppOptionsChange(Sender: TObject;
-                                             Node: TTreeNode);
+procedure TfrmAppOptions.jtvAppOptionsChange(Sender: TObject; Node: TTreeNode);
 begin
-  case StringToCaseSelect(Node.Text,
-                          ['Main',    // All of them do not have an associated TabSheet!
-                           'Editor',
-                           'R',
-                           'Rgui',
-                           'Rterm',
-                           'Reformat',
-                           'Processing',
-                           'Conversion',
-                           'Latex']) of
-    0..8: with jtvAppOptions do
-            Selected:= Selected.GetNext;
+  case StringToCaseSelect(Node.Text, ['Main',
+    // All of them do not have an associated TabSheet!
+    'Editor', 'R', 'Rgui', 'Rterm', 'Reformat', 'Processing', 'Conversion',
+    'Latex']) of
+    0 .. 8:
+      with jtvAppOptions do
+        Selected := Selected.GetNext;
   end;
 end;
 
 procedure TfrmAppOptions.bbtRGuiPathClick(Sender: TObject);
 begin
-  with odAppOptions do begin
-    InitialDir:= ExtractFilePath(edPathRGui.Text);
-    Filter    := 'Executable program (*.exe)|*.exe';
-    DefaultExt:= 'exe';
-    FileName  := '';
-    if Execute then edPathRGui.Text:= FileName;
+  with odAppOptions do
+  begin
+    InitialDir := ExtractFilePath(edPathRGui.Text);
+    Filter := 'Executable program (*.exe)|*.exe';
+    DefaultExt := 'exe';
+    FileName := '';
+    if Execute then
+      edPathRGui.Text := FileName;
   end;
 end;
 
 procedure TfrmAppOptions.bbtRTermPathClick(Sender: TObject);
 begin
-  with odAppOptions do begin
-    InitialDir:= ExtractFilePath(edPathRTerm.Text);
-    Filter    := 'Executable program (*.exe)|*.exe';
-    DefaultExt:= 'exe';
-    FileName  := '';
-    if Execute then edPathRTerm.Text:= FileName;
+  with odAppOptions do
+  begin
+    InitialDir := ExtractFilePath(edPathRTerm.Text);
+    Filter := 'Executable program (*.exe)|*.exe';
+    DefaultExt := 'exe';
+    FileName := '';
+    if Execute then
+      edPathRTerm.Text := FileName;
   end;
 end;
 
 procedure TfrmAppOptions.tbLastFileChange(Sender: TObject);
 begin
-  lblLastFile.Caption:= 'Files: last ' +
-                        intToStr(tbLastFile.Position) +
-                        ' file(s)';
+  lblLastFile.Caption := 'Files: last ' + IntToStr(tbLastFile.Position) +
+    ' file(s)';
 end;
 
 procedure TfrmAppOptions.tbLastSearchChange(Sender: TObject);
 begin
-  lblLastSearch.Caption:= 'Searches: last ' +
-                          intToStr(tbLastSearch.Position) +
-                          ' search(es)';
+  lblLastSearch.Caption := 'Searches: last ' + IntToStr(tbLastSearch.Position) +
+    ' search(es)';
 end;
 
 procedure TfrmAppOptions.bbtParDeplateClick(Sender: TObject);
 begin
-  edParDeplate.Text:= '-f';
+  edParDeplate.Text := '-f';
 end;
 
 procedure TfrmAppOptions.bbtParTxt2tagsClick(Sender: TObject);
 begin
-  edParTxt2tags.Text:= '-t';
+  edParTxt2tags.Text := '-t';
 end;
 
 procedure TfrmAppOptions.bbHelpClick(Sender: TObject);
@@ -849,546 +874,515 @@ end;
 
 procedure TfrmAppOptions.bbtConPathDeplateClick(Sender: TObject);
 begin
-  with odAppOptions do begin
-    InitialDir:= ExtractFilePath(edPathDeplate_Converter.Text);
-    Filter    := 'Ruby script (*.*)|*.*';
-    DefaultExt:= '';
-    FileName  := '';
-    if Execute then edPathDeplate_Converter.Text:= FileName;
+  with odAppOptions do
+  begin
+    InitialDir := ExtractFilePath(edPathDeplate_Converter.Text);
+    Filter := 'Ruby script (*.*)|*.*';
+    DefaultExt := '';
+    FileName := '';
+    if Execute then
+      edPathDeplate_Converter.Text := FileName;
   end;
 end;
 
 procedure TfrmAppOptions.bbtConPathTxt2tagsClick(Sender: TObject);
 begin
-  with odAppOptions do begin
-    InitialDir:= ExtractFilePath(edPathTxt2tags_Converter.Text);
-    Filter    := 'Python script (*.*)|*.*';
-    DefaultExt:= '';
-    FileName  := '';
-    if Execute then edPathTxt2tags_Converter.Text:= FileName;
+  with odAppOptions do
+  begin
+    InitialDir := ExtractFilePath(edPathTxt2tags_Converter.Text);
+    Filter := 'Python script (*.*)|*.*';
+    DefaultExt := '';
+    FileName := '';
+    if Execute then
+      edPathTxt2tags_Converter.Text := FileName;
   end;
 end;
 
 procedure TfrmAppOptions.bbtIntPathDeplateClick(Sender: TObject);
 begin
-  with odAppOptions do begin
-    InitialDir:= ExtractFilePath(edPathDeplate_Interpreter.Text);
-    Filter    := 'Executable program (*.exe)|*.exe';
-    DefaultExt:= 'exe';
-    FileName  := '';
-    if Execute then edPathDeplate_Interpreter.Text:= FileName;
-  end;
-end;
-
-procedure TfrmAppOptions.bbtPathPandocClick(Sender: TObject);
-begin
-  with odAppOptions do begin
-    InitialDir:= ExtractFilePath(edPath_Pandoc.Text);
-    Filter    := 'Executable program (*.exe)|*.exe';
-    DefaultExt:= 'exe';
-    FileName  := '';
-    if Execute then edPath_Pandoc.Text:= FileName;
+  with odAppOptions do
+  begin
+    InitialDir := ExtractFilePath(edPathDeplate_Interpreter.Text);
+    Filter := 'Executable program (*.exe)|*.exe';
+    DefaultExt := 'exe';
+    FileName := '';
+    if Execute then
+      edPathDeplate_Interpreter.Text := FileName;
   end;
 end;
 
 procedure TfrmAppOptions.bbtIntPathTxt2tagsClick(Sender: TObject);
 begin
-  with odAppOptions do begin
-    InitialDir:= ExtractFilePath(edPathTxt2tags_Interpreter.Text);
-    Filter    := 'Executable program (*.exe)|*.exe';
-    DefaultExt:= 'exe';
-    FileName  := '';
-    if Execute then edPathTxt2tags_Interpreter.Text:= FileName;
+  with odAppOptions do
+  begin
+    InitialDir := ExtractFilePath(edPathTxt2tags_Interpreter.Text);
+    Filter := 'Executable program (*.exe)|*.exe';
+    DefaultExt := 'exe';
+    FileName := '';
+    if Execute then
+      edPathTxt2tags_Interpreter.Text := FileName;
   end;
 end;
 
 procedure TfrmAppOptions.tbRguiTinnRProportionChange(Sender: TObject);
 begin
-  lblTinnRExpansion.Caption:= 'Proportion: ' +
-                              intToStr(tbRguiTinnRProportion.Position) +
-                              '%';
+  lblTinnRExpansion.Caption := 'Proportion: ' +
+    IntToStr(tbRguiTinnRProportion.Position) + '%';
   rgRguiTinnRDispositionClick(nil);
 end;
 
 procedure TfrmAppOptions.tbTransparencyPosChange(Sender: TObject);
 begin
-  lbTransparency.Caption:= IntToStr(tbTransparency.Position) +
-                           ' %';
+  lbTransparency.Caption := IntToStr(tbTransparency.Position) + ' %';
 
-  AlphaBlendValue:= 255 - (255 * tbTransparency.Position) Div 100;
+  AlphaBlendValue := 255 - (255 * tbTransparency.Position) Div 100;
 end;
 
 procedure TfrmAppOptions.rdgRArchitectureClick(Sender: TObject);
 var
-  sPathR,
-    sPathRterm,
-    sPathRgui : string;
+  sPathR, sPathRterm, sPathRgui: string;
 
   procedure SetPathRTerm;
   begin
-    if (AnsiCompareStr(frmTinnMain.sRversion,
-                       '2.12.0') < 0) then sPathRterm:= sPathR +
-                                                        '\bin\Rterm.exe'
+    if (AnsiCompareStr(frmTinnMain.sRversion, '2.12.0') < 0) then
+      sPathRterm := sPathR + '\bin\Rterm.exe'
+    else if DirectoryExists(sPathR + '\bin\x64') and bRArchitecture64 then
+      sPathRterm := sPathR + '\bin\x64\Rterm.exe'
     else
-      if DirectoryExists(sPathR +
-                         '\bin\x64') and
-         bRArchitecture64 then sPathRterm:= sPathR +
-                                            '\bin\x64\Rterm.exe'
-                          else sPathRterm:= sPathR +
-                                            '\bin\i386\Rterm.exe';
+      sPathRterm := sPathR + '\bin\i386\Rterm.exe';
   end;
 
   procedure SetPathRgui;
   begin
-    if (AnsiCompareStr(frmTinnMain.sRversion,
-                       '2.12.0') < 0) then sPathRgui:= sPathR +
-                                                       '\bin\Rgui.exe'
+    if (AnsiCompareStr(frmTinnMain.sRversion, '2.12.0') < 0) then
+      sPathRgui := sPathR + '\bin\Rgui.exe'
+    else if DirectoryExists(sPathR + '\bin\x64') and bRArchitecture64 then
+      sPathRgui := sPathR + '\bin\x64\Rgui.exe'
     else
-      if DirectoryExists(sPathR + '\bin\x64') and
-         bRArchitecture64 then sPathRgui:= sPathR +
-                                           '\bin\x64\Rgui.exe'
-                          else sPathRgui:= sPathR +
-                                           '\bin\i386\Rgui.exe';
+      sPathRgui := sPathR + '\bin\i386\Rgui.exe';
   end;
 
 begin
   // To avoid the function GetRegistryValue runs many times
-  if (not bFormVisible) then Exit;
+  if (not bFormVisible) then
+    Exit;
 
-  if (rdgRUseLatest.ItemIndex = 1) then Exit;  // In this case the user must set the path of both (Term and Rgui) manually!
+  if (rdgRUseLatest.ItemIndex = 1) then
+    Exit; // In this case the user must set the path of both (Term and Rgui) manually!
 
-  sPathR:= GetRegistryValue('SOFTWARE\R-core\R');
+  sPathR := GetRegistryValue('SOFTWARE\R-core\R');
 
-  if (rdgRArchitecture.ItemIndex = 1) then bRArchitecture64:= True
-                                      else bRArchitecture64:= False;
+  if (rdgRArchitecture.ItemIndex = 1) then
+    bRArchitecture64 := True
+  else
+    bRArchitecture64 := False;
 
   // Rterm
   SetPathRTerm;
-  edPathRTerm.Text:= sPathRterm;
+  edPathRTerm.Text := sPathRterm;
 
   // Rgui
   SetPathRgui;
-  edPathRgui.Text := sPathRgui;
+  edPathRGui.Text := sPathRgui;
 end;
 
 procedure TfrmAppOptions.rdgRUseLatestClick(Sender: TObject);
 begin
   // To avoid the function GetRegistryValue runs many times
-  if (not bFormVisible) then Exit;
+  if (not bFormVisible) then
+    Exit;
 
-  bRArchitecture64:= frmTinnMain.bRArchitecture64;
-  rdgRArchitecture.Enabled:= bRArchitecture64;
+  bRArchitecture64 := frmTinnMain.bRArchitecture64;
+  rdgRArchitecture.Enabled := bRArchitecture64;
 
   case rdgRUseLatest.ItemIndex of
-     0: begin
-          if DirectoryExists(GetRegistryValue('SOFTWARE\R-core\R') +
-                                              '\bin\x64') then
-            rdgRArchitecture.Enabled:= True;
-          rdgRArchitectureClick(Self);
-        end;
-     1: begin
-          rdgRArchitecture.Enabled:= False;
-        end;
+    0:
+      begin
+        if DirectoryExists(GetRegistryValue('SOFTWARE\R-core\R') + '\bin\x64')
+        then
+          rdgRArchitecture.Enabled := True;
+        rdgRArchitectureClick(Self);
+      end;
+    1:
+      begin
+        rdgRArchitecture.Enabled := False;
+      end;
   end;
 end;
 
 procedure TfrmAppOptions.rdgRtermTypeClick(Sender: TObject);
 begin
-  rdgRTermDisposition.Enabled:= rdgRTermType.ItemIndex = 0;
+  rdgRtermDisposition.Enabled := rdgRtermType.ItemIndex = 0;
 end;
 
 procedure TfrmAppOptions.rgRguiTinnRDispositionClick(Sender: TObject);
 begin
-  //0: Tinn-R on top
-  //1: Tinn-R on bottom
-  //2: Tinn-R on left
-  //3: Tinn-R on right
+  // 0: Tinn-R on top
+  // 1: Tinn-R on bottom
+  // 2: Tinn-R on left
+  // 3: Tinn-R on right
   case rgRguiTinnRDisposition.ItemIndex of
-    0: begin  //0: Tinn-R on top
-         panTinnR.Align := alTop;
-         panTinnR.Height:= (tbRguiTinnRProportion.Position * panScreen.Height) div 100;
-       end;
-    1: begin  //1: Tinn-R on bottom
-         panTinnR.Align := alBottom;
-         panTinnR.Height:= (tbRguiTinnRProportion.Position * panScreen.Height) div 100;
-       end;
-    2: begin  //2: Tinn-R on left
-         panTinnR.Align := alLeft;
-         panTinnR.Width := (tbRguiTinnRProportion.Position * panScreen.Width) div 100;
-       end;
-    3: begin  //3: Tinn-R on right
-         panTinnR.Align := alRight;
-         panTinnR.Width := (tbRguiTinnRProportion.Position * panScreen.Width) div 100;
-       end;
+    0:
+      begin // 0: Tinn-R on top
+        panTinnR.Align := alTop;
+        panTinnR.Height := (tbRguiTinnRProportion.Position *
+          panScreen.Height) div 100;
+      end;
+    1:
+      begin // 1: Tinn-R on bottom
+        panTinnR.Align := alBottom;
+        panTinnR.Height := (tbRguiTinnRProportion.Position *
+          panScreen.Height) div 100;
+      end;
+    2:
+      begin // 2: Tinn-R on left
+        panTinnR.Align := alLeft;
+        panTinnR.Width := (tbRguiTinnRProportion.Position *
+          panScreen.Width) div 100;
+      end;
+    3:
+      begin // 3: Tinn-R on right
+        panTinnR.Align := alRight;
+        panTinnR.Width := (tbRguiTinnRProportion.Position *
+          panScreen.Width) div 100;
+      end;
   end;
 end;
 
 procedure TfrmAppOptions.bbtRGuiDefaultClick(Sender: TObject);
 begin
-  edParRGui.Text:= '--sdi';
+  edParRGui.Text := '--sdi';
 end;
 
 procedure TfrmAppOptions.bbtRTermDefaultClick(Sender: TObject);
 begin
-  edParRTerm.Text:= '--ess';
+  edParRTerm.Text := '--ess';
 end;
 
 procedure TfrmAppOptions.cbRResourcesVisibleClick(Sender: TObject);
 begin
-  //tbsR.TabVisible:= cbRResourcesVisible.Checked;
+  // tbsR.TabVisible:= cbRResourcesVisible.Checked;
 end;
 
+procedure TfrmAppOptions.cbTabColorChange(Sender: TObject);
+begin
+  { with frmTinnMain do begin
+    cdMain.Color:= shBGApplication.Brush.Color;
+    if (not cdMain.Execute) then Exit;
+    clTemp:= cdMain.Color;
+    end;
+
+    with shBGTabSelected do
+    Brush.Color:= clTemp; }
+end;
+
+procedure TfrmAppOptions.cbBackgroundColorChange(Sender: TObject);
+begin
+  shFGApplication.Color := cbBackground.SelectedColor;
+end;
+ {
 procedure TfrmAppOptions.cbCommandsExit(Sender: TObject);
 var
   iTmp: Integer;
 
 begin
-  iTmp:= cbCommands.Items.IndexOf(cbCommands.Text);
-  if (iTmp = -1) then begin
-    if bExtended then cbCommands.ItemIndex:= cbCommands.Items.IndexOf(ConvertCodeStringToExtended('ecNone'))
-                 else cbCommands.ItemIndex:= cbCommands.Items.IndexOf('ecNone');
+  iTmp := cbCommands.Items.IndexOf(cbCommands.Text);
+  if (iTmp = -1) then
+  begin
+    if bExtended then
+      cbCommands.ItemIndex := cbCommands.Items.IndexOf
+        (ConvertCodeStringToExtended('ecNone'))
+    else
+      cbCommands.ItemIndex := cbCommands.Items.IndexOf('ecNone');
   end
-  else cbCommands.ItemIndex:= iTmp;  // Need to force it incase they just typed something in
+  else
+    cbCommands.ItemIndex := iTmp;
+  // Need to force it incase they just typed something in
 end;
 
-procedure TfrmAppOptions.cbCommandsKeyPress(Sender: TObject;
-                                             var Key: Char);
+
+procedure TfrmAppOptions.cbCommandsKeyPress(Sender: TObject; var Key: Char);
 var
   WorkStr: String;
-  i      : Integer;
+  i: Integer;
 
 begin
   // This would be better if componentized, but oh well...
-  WorkStr:= AnsiUppercase(Copy(cbCommands.Text,
-                               1,
-                               cbCommands.SelStart) +
-                          Key);
-  i:= 0;
-  while i < cbCommands.Items.Count do begin
-    if (pos(WorkStr,
-            AnsiUppercase(cbCommands.Items[i])) = 1) then begin
-      cbCommands.Text:= cbCommands.Items[i];
-      cbCommands.SelStart:= length(WorkStr);
-      cbCommands.SelLength:= Length(cbCommands.Text) -
-                             cbCommands.SelStart;
-      Key:= #0;
-      break;
+  WorkStr := AnsiUppercase(Copy(cbCommands.Text, 1, cbCommands.SelStart) + Key);
+  i := 0;
+  while i < cbCommands.Items.Count do
+  begin
+    if (pos(WorkStr, AnsiUppercase(cbCommands.Items[i])) = 1) then
+    begin
+      cbCommands.Text := cbCommands.Items[i];
+      cbCommands.SelStart := length(WorkStr);
+      cbCommands.SelLength := length(cbCommands.Text) - cbCommands.SelStart;
+      Key := #0;
+      Break;
     end
-    else inc(i);
+    else
+      inc(i);
   end;
-end;
-
-procedure TfrmAppOptions.cbCommandsKeyUp(Sender: TObject;
-                                          var Key: Word;
-                                          Shift: TShiftState);
+end;   }
+{
+procedure TfrmAppOptions.cbCommandsKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
-  if (Key = SYNEDIT_RETURN) then btnUpdateKey.Click;
+ if (Key = SYNEDIT_RETURN) then
+    btnUpdateKey.Click;
+end;
+    }
+procedure TfrmAppOptions.cbForegroundColorChange(Sender: TObject);
+begin
+  shFGApplication.Font.Color := cbForeground.SelectedColor;
 end;
 
 procedure TfrmAppOptions.bbtPDFParSingleClick(Sender: TObject);
 begin
-  edParPDFSingle.Text:= 'pdflatex -c-style-errors'
+  edParPDFSingle.Text := 'pdflatex -c-style-errors'
 end;
 
 procedure TfrmAppOptions.bbtPDFParBibtexClick(Sender: TObject);
 begin
-  edParPDFBibtex.Text:= 'bibtex'
+  edParPDFBibtex.Text := 'bibtex'
 end;
 
 procedure TfrmAppOptions.bbtDVIParametersSingleClick(Sender: TObject);
 begin
-  edParDVISingle.Text:= 'latex -c-style-errors --src-specials'
+  edParDVISingle.Text := 'latex -c-style-errors --src-specials'
 end;
 
 procedure TfrmAppOptions.bbtDVIParametersBibtexClick(Sender: TObject);
 begin
-  edParDVIBibtex.Text:= 'bibtex --src-specials'
+  edParDVIBibtex.Text := 'bibtex --src-specials'
 end;
 
 procedure TfrmAppOptions.sGutterColorMouseUp(Sender: TObject;
-                                             Button: TMouseButton;
-                                             Shift: TShiftState;
-                                             X,
-                                              Y: Integer);
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  with frmTinnMain do begin
-    cdMain.Color:= sGutterColor.Brush.Color;
-    if (cdMain.Execute) then sGutterColor.Brush.Color:= cdMain.Color;
+  with frmTinnMain do
+  begin
+    cdMain.Color := sGutterColor.Brush.Color;
+    if (cdMain.Execute) then
+      sGutterColor.Brush.Color := cdMain.Color;
   end;
-end;
-
-procedure TfrmAppOptions.shBGApplicationMouseUp(Sender: TObject;
-                                                Button: TMouseButton;
-                                                Shift: TShiftState;
-                                                X,
-                                                Y: Integer);
-var
-  clTemp: TColor;
-
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shBGApplication.Brush.Color;
-    if (not cdMain.Execute) then Exit;
-    clTemp:= cdMain.Color;
-  end;
-
-  with shBGApplication do begin
-    Brush.Color:= clTemp;
-    Font.Color := ContrastColor(clTemp);
-    Refresh;
-  end;
-
-  with shSampleApplication do
-    Brush.Color:= clTemp;
-end;
-
-procedure TfrmAppOptions.shFGApplicationMouseUp(Sender: TObject;
-                                                Button: TMouseButton;
-                                                Shift: TShiftState;
-                                                X,
-                                                 Y: Integer);
-var
-  clTemp: TColor;
-
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shFGApplication.Brush.Color;
-    if (not cdMain.Execute) then Exit;
-    clTemp:= cdMain.Color;
-  end;
-
-  with shFGApplication do begin
-    Brush.Color:= clTemp;
-    Font.Color := ContrastColor(clTemp);
-    Refresh;
-  end;
-
-  with shSampleApplication do
-    Font.Color:= clTemp;
 end;
 
 procedure TfrmAppOptions.sRightEdgeColorMouseUp(Sender: TObject;
-                                                Button: TMouseButton;
-                                                Shift: TShiftState;
-                                                X,
-                                                 Y: Integer);
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  with frmTinnMain do begin
-    cdMain.Color:= sRightEdgeColor.Brush.Color;
-    if (cdMain.Execute) then sRightEdgeColor.Brush.Color:= cdMain.Color;
+  with frmTinnMain do
+  begin
+    cdMain.Color := sRightEdgeColor.Brush.Color;
+    if (cdMain.Execute) then
+      sRightEdgeColor.Brush.Color := cdMain.Color;
   end;
-end;
-
-procedure TfrmAppOptions.shBGTabSelectedMouseUp(Sender: TObject;
-                                                Button: TMouseButton;
-                                                Shift: TShiftState;
-                                                X,
-                                                Y: Integer);
-var
-  clTemp: TColor;
-
-begin
-  with frmTinnMain do begin
-    cdMain.Color:= shBGApplication.Brush.Color;
-    if (not cdMain.Execute) then Exit;
-    clTemp:= cdMain.Color;
-  end;
-
-  with shBGTabSelected do
-    Brush.Color:= clTemp;
 end;
 
 procedure TfrmAppOptions.rdgRTCPIPTypeClick(Sender: TObject);
 begin
-  if (rdgRTCPIPType.ItemIndex = 0) then begin
-    pgIP.ActivePage:= tbsIPLocal;
+  if (rdgRTCPIPType.ItemIndex = 0) then
+  begin
+    pgIP.ActivePage := tbsIPLocal;
     cbRTCPIPConsoleUse.Enabled := False;
-    cbRTCPIPConsoleEcho.Enabled:= False;
+    cbRTCPIPConsoleEcho.Enabled := False;
   end
-  else begin
-    pgIP.ActivePage:= tbsIPRemote;
+  else
+  begin
+    pgIP.ActivePage := tbsIPRemote;
     cbRTCPIPConsoleUse.Enabled := True;
-    cbRTCPIPConsoleEcho.Enabled:= True;
+    cbRTCPIPConsoleEcho.Enabled := True;
   end;
+end;
+
+procedure TfrmAppOptions.tbBackupPosChange(Sender: TObject);
+begin
+  lbBackup.Caption := IntToStr(tbBackup.Position) + ' s';
 end;
 
 procedure TfrmAppOptions.tbDelayPosChange(Sender: TObject);
 begin
-  lbDelay.Caption:= IntToStr(tbDelay.Position) +
-                    ' ms';
+  lbDelay.Caption := IntToStr(tbDelay.Position) + ' ms';
 end;
 
-procedure TfrmAppOptions.lvKeystrokesChanging(Sender: TObject;
-                                              Item: TListItem;
-                                              Change: TItemChange;
-                                              var AllowChange: Boolean);
+procedure TfrmAppOptions.lvKeystrokesChanging(Sender: TObject; Item: TListItem;
+  Change: TItemChange; var AllowChange: Boolean);
 begin
-  if Visible then
+{  if Visible then
   begin
-    if (Item = liOldSelected) and
-       ((Item.Caption <> cbCommands.Text) or
-       (TSynEditKeystroke(Item.Data).ShortCut <> eKeyShort.HotKey)) then begin
+    if (Item = liOldSelected) and ((Item.Caption <> cbCommands.Text) or
+      (TSynEditKeystroke(Item.Data).ShortCut <> eKeyShort.HotKey)) then
+    begin
       btnUpdateKeyClick(btnUpdateKey);
     end;
-  end;
+  end; }
 end;
 
 procedure TfrmAppOptions.lvKeystrokesSelectItem(Sender: TObject;
-                                                Item: TListItem;
-                                                Selected: Boolean);
+  Item: TListItem; Selected: Boolean);
+var KeyCommand: TSciKeyCommand;
 begin
-  if (lvKeystrokes.Selected = nil) then Exit;
 
-  cbCommands.Text     := lvKeystrokes.Selected.Caption;
-  cbCommands.ItemIndex:= cbCommands.Items.IndexOf(lvKeystrokes.Selected.Caption);
+    jvHotkey.HotKey := 0;
+  if (lvKeystrokes.Selected = nil) then
+    Exit
+  else if frmTinnMain.GetKeyStrokeByCommand(KeyCommand,  Integer(lvKeystrokes.Selected.Data^)) <> -1 then
+  begin
+    jvHotKey.HotKey := KeyCommand.ShortCut;
+  end;
+   {
+   cbCommands.Text := lvKeystrokes.Selected.Caption;
+  cbCommands.ItemIndex := cbCommands.Items.IndexOf
+    (lvKeystrokes.Selected.Caption);
 
-  eKeyShort.HotKey:= TSynEditKeyStroke(lvKeystrokes.Selected.Data).ShortCut;
+  eKeyShort.HotKey := TSynEditKeystroke(lvKeystrokes.Selected.Data).ShortCut;
 
-  liOldSelected:= Item;
+  liOldSelected := Item;}
 end;
-
+  {
 procedure TfrmAppOptions.EditStrCallback(const S: string);
 begin
-  //Add the Item
-  if bExtended then cbCommands.Items.AddObject(S,
-                                               TObject(ConvertExtendedToCommand(S)))
-               else cbCommands.Items.AddObject(S,
-                                               TObject(ConvertCodeStringToCommand(S)));
+  // Add the Item
+  if bExtended then
+    cbCommands.Items.AddObject(S, TObject(ConvertExtendedToCommand(S)))
+  else
+    cbCommands.Items.AddObject(S, TObject(ConvertCodeStringToCommand(S)));
 end;
-
-procedure TfrmAppOptions.Status_Editor(var coTmp: TSynEditorOC);
-var
-  i    : integer;
-  liTmp: TListItem;
-
+  }
+procedure TfrmAppOptions.LoadEditorStatus;
 begin
-  // Gutter
-  ckGutterVisible.Checked        := coTmp.Gutter.Visible;
-  ckGutterAutosize.Checked       := coTmp.Gutter.AutoSize;
-  ckGutterShowLineNumbers.Checked:= coTmp.Gutter.ShowLineNumbers;
-  ckGutterShowLeaderZeros.Checked:= coTmp.Gutter.LeadingZeros;
-  ckGutterStartAtZero.Checked    := coTmp.Gutter.ZeroStart;
-  cbGutterFont.Checked           := coTmp.Gutter.UseFontStyle;
-  sGutterColor.Brush.Color       := coTmp.Gutter.Color;
-  lblGutterFont.Font.Assign(coTmp.Gutter.Font);
-  lblGutterFont.Caption          := lblGutterFont.Font.Name +
-                                    ' ' +
-                                    IntToStr(lblGutterFont.Font.Size) +
-                                    'pt';
-  ShowAdjustedFont(lblGutterFont,
-                   panGutterFont);
+  with frmTinnMain.ifEditor do
+  begin
+    // Left margin
+    ckGutterVisible.Checked := ReadBool('Scintilla', 'MarginVisible',  true);
+    ckGutterShowLineNumbers.Checked := ReadBool('Scintilla', 'ShowLineNumbers',    true);
+    sGutterColor.Brush.Color := ReadInteger('Scintilla', 'MarginColor',     clBtnFace);
 
-  // Right Edge
-  eRightEdge.Text            := IntToStr(coTmp.RightEdge);
-  sRightEdgeColor.Brush.Color:= coTmp.RightEdgeColor;
+    cbGutterFont.Checked := ReadBool('Scintilla', 'MarginUse',          false);
+    lblGutterFont.Font.Color := ReadInteger('Scintilla', 'MarginFontColor', clBlack);
+    lblGutterFont.Font.Size := ReadInteger('Scintilla', 'MarginFontSize',  8);
+    lblGutterFont.Font.Name := ReadString('Scintilla', 'MarginFontName', 'Arial' );
 
-  // Line Spacing
-  eLineSpacing.Text:= IntToStr(coTmp.ExtraLineSpacing);
-  eTabWidth.Text   := IntToStr(coTmp.TabWidth);
+    // Right margin
+    eRightEdge.Text := inttostr(ReadInteger('Scintilla', 'RightEdgeColumn', 80));
+    sRightEdgeColor.Brush.Color :=  ReadInteger('Scintilla', 'RightEdgeColor',  clGreen);
 
-  // Font
-  labFont.Font.Assign(coTmp.Font);
-  labFont.Caption:= labFont.Font.Name +
-                    ' ' + IntToStr(labFont.Font.Size) +
-                    'pt';
+    // Tab
 
-  ShowAdjustedFont(labFont,
-                   panLabFont);
+    eTabWidth.Text := inttostr(ReadInteger('Scintilla', 'TabWidth',  2));
+    ckTabsToSpaces.Checked := ReadBool('Scintilla', 'TabSpaces',  true);
 
-  // Options
-  ckAltSetsColumnMode.Checked  := eoAltSetsColumnMode in coTmp.Options;
-  ckAutoIndent.Checked         := eoAutoIndent in coTmp.Options;
-  ckAutoSizeMaxWidth.Checked   := eoAutoSizeMaxScrollWidth in coTmp.Options;
-  ckDisableScrollArrows.Checked:= eoDisableScrollArrows in coTmp.Options;
-  ckDragAndDropEditing.Checked := eoDragDropEditing in coTmp.Options;
-  ckEnhanceEndKey.Checked      := eoEnhanceEndKey in coTmp.Options;
-  ckEnhanceHomeKey.Checked     := eoEnhanceHomeKey in coTmp.Options;
-  ckGroupUndo.Checked          := eoGroupUndo in coTmp.Options;
-  ckHalfPageScroll.Checked     := eoHalfPageScroll in coTmp.Options;
-  ckHideShowScrollbars.Checked := eoHideShowScrollbars in coTmp.Options;
-  ckKeepCaretX.Checked         := eoKeepCaretX in coTmp.Options;
-  ckRightMouseMoves.Checked    := eoRightMouseMovesCursor in coTmp.Options;
-  ckScrollByOneLess.Checked    := eoScrollByOneLess in coTmp.Options;
-  ckScrollHintFollows.Checked  := eoScrollHintFollows in coTmp.Options;
-  ckScrollPastEOF.Checked      := eoScrollPastEof in coTmp.Options;
-  ckScrollPastEOL.Checked      := eoScrollPastEol in coTmp.Options;
-  ckShowScrollHint.Checked     := eoShowScrollHint in coTmp.Options;
-  ckShowSpecialChars.Checked   := eoShowSpecialChars in coTmp.Options;
-  ckSmartTabDelete.Checked     := eoSmartTabDelete in coTmp.Options;
-  ckSmartTabs.Checked          := eoSmartTabs in coTmp.Options;
-  ckTabsToSpaces.Checked       := eoTabsToSpaces in coTmp.Options;
-  ckTrimTrailingSpaces.Checked := eoTrimTrailingSpaces in coTmp.Options;
-  ckWantTabs.Checked           := eoTabIndent in coTmp.Options;
+    // Font
 
-  // Caret
-  cInsertCaret.ItemIndex   := ord(coTmp.InsertCaret);
-  cOverwriteCaret.ItemIndex:= ord(coTmp.OverwriteCaret);
+    labFont.Font.Color := ReadInteger('Scintilla', 'StdFontColor',   clBlack);
+    labFont.Font.Size  := ReadInteger('Scintilla', 'StdFontSize',    10);
+    labFont.Font.Name  := ReadString('Scintilla', 'StdFontName',    'Courier New');
+
+    // Special Characters
+    ckShowSpecialChars.Checked := ReadBool('Scintilla', 'SpecialChars', false);
+  end;
 
   // Keystrokes
+  PopulateEditorKeyStrokeListBox;
+
+
+end;
+
+procedure TfrmAppOptions.PopulateEditorKeyStrokeListBox;
+var
+  i: Integer;
+  liTmp: TListItem;
+  KeyCommand: TSciKeyCommand;
+begin
   lvKeystrokes.Items.BeginUpdate;
   try
     lvKeystrokes.Items.Clear;
-
-    for i:= 0 to (coTmp.Keystrokes.Count-1) do begin
-      liTmp:= lvKeystrokes.Items.Add;
-
-      FillInKeystrokeInfo(coTmp.Keystrokes.Items[i],
-                          liTmp);
-
-      liTmp.Data:= coTmp.Keystrokes.Items[i];
-  end;
-    //if (lvKeystrokes.Items.Count > 0) then lvKeystrokes.Items[0].Selected:= True;
+    with frmTinnMain do
+    begin
+      EditorKeystrokes := TSciKeyCommandCollection.Create(nil);
+      if FileExists(sPathEditor_KeyStrokes) then
+        LoadKeyCommands(EditorKeystrokes, sPathEditor_KeyStrokes);
+    end;
+    for i := 0 to length(Sci_KeyboardCommandMap) - 1 do
+    begin
+      liTmp := lvKeystrokes.Items.Add;
+      with liTmp do
+      begin
+        Caption := Sci_KeyboardCommandMap[i].Name;
+        Data := @Sci_KeyboardCommandMap[i].Value;
+        if frmTinnMain.GetKeyStrokeByCommand(KeyCommand, Sci_KeyboardCommandMap[i].Value) <> -1 then
+        begin
+          SubItems.Add(ShortCutToText(KeyCommand.ShortCut));
+        end
+        else
+          SubItems.Add('');
+      end;
+    end;
+    if (lvKeystrokes.Items.Count > 0) then
+      lvKeystrokes.Items[0].Selected := True;
   finally
     lvKeystrokes.Items.EndUpdate;
   end;
 end;
 
-procedure TfrmAppOptions.NewStatus_Editor(var coTmp: TSynEditorOC);
-var
-  vOptions: TSynEditorOptions;
-
-  procedure SetFlag(aOption: TSynEditorOption;
-                    aValue: Boolean);
+procedure TfrmAppOptions.SaveEditorStatus;
+begin
+  with frmTinnMain.ifEditor do
   begin
-    if aValue then Include(vOptions,
-                           aOption)
-              else Exclude(vOptions,
-                           aOption);
+    // Left margin
+    WriteBool('Scintilla', 'MarginVisible',      ckGutterVisible.Checked);
+    WriteBool('Scintilla', 'ShowLineNumbers',    ckGutterShowLineNumbers.Checked);
+    WriteInteger('Scintilla', 'MarginColor',     sGutterColor.Brush.Color);
+
+    WriteBool('Scintilla', 'MarginUse',          cbGutterFont.Checked);
+    WriteInteger('Scintilla', 'MarginFontColor', lblGutterFont.Font.Color);
+    WriteInteger('Scintilla', 'MarginFontSize',  lblGutterFont.Font.Size);
+    WriteString('Scintilla', 'MarginFontName',   lblGutterFont.Font.Name);
+
+    // Right margin
+    WriteInteger('Scintilla', 'RightEdgeColumn', StrToIntDef(eRightEdge.Text, 80));
+    WriteInteger('Scintilla', 'RightEdgeColor',  sRightEdgeColor.Brush.Color);
+
+    // Tab
+
+    WriteInteger('Scintilla', 'TabWidth',  strToIntDef(eTabWidth.Text, 2));
+    WriteBool('Scintilla', 'TabSpaces',  ckTabsToSpaces.Checked);
+
+    // Font
+
+    WriteInteger('Scintilla', 'StdFontColor', labFont.Font.Color);
+    WriteInteger('Scintilla', 'StdFontSize',  labFont.Font.Size);
+    WriteString('Scintilla', 'StdFontName',   labFont.Font.Name);
+
+    // Special Characters
+    WriteBool('Scintilla', 'SpecialChars',  ckShowSpecialChars.Checked);
   end;
 
-begin
+  frmTinnMain.SaveEditorKeystrokes;
+
+
+
+
   // Gutter
-  coTmp.Gutter.Visible        := ckGutterVisible.Checked;
-  coTmp.Gutter.AutoSize       := ckGutterAutosize.Checked;
-  coTmp.Gutter.ShowLineNumbers:= ckGutterShowLineNumbers.Checked;
-  coTmp.Gutter.LeadingZeros   := ckGutterShowLeaderZeros.Checked;
-  coTmp.Gutter.ZeroStart      := ckGutterStartAtZero.Checked;
-  coTmp.Gutter.Color          := sGutterColor.Brush.Color;
-  coTmp.Gutter.UseFontStyle   := cbGutterFont.Checked;
-  coTmp.Gutter.Font.Assign(lblGutterFont.Font);
 
-  // Right Edge
-  coTmp.RightEdge     := StrToIntDef(eRightEdge.Text,
-                                     80);
-  coTmp.RightEdgeColor:= sRightEdgeColor.Brush.Color;
-
+  //coTmp.Gutter.AutoSize := ckGutterAutosize.Checked;
+  //coTmp.Gutter.LeadingZeros := ckGutterShowLeaderZeros.Checked;
+  //coTmp.Gutter.ZeroStart := ckGutterStartAtZero.Checked;
   // Line Spacing
-  coTmp.ExtraLineSpacing:= StrToIntDef(eLineSpacing.Text,
-                                       0);
+    // coTmp.ExtraLineSpacing := StrToIntDef(eLineSpacing.Text, 0);
 
   // Tab width
-  coTmp.TabWidth        := StrToIntDef(eTabWidth.Text,
-                                       2);
 
   // Bookmarks
-  coTmp.BookMarkOptions.EnableKeys   := True;
-  coTmp.BookMarkOptions.GlyphsVisible:= True;
+  //coTmp.BookMarkOptions.EnableKeys := True;
+  //coTmp.BookMarkOptions.GlyphsVisible := True;
 
   // Font
-  coTmp.Font.Assign(labFont.Font);
+
 
   // Options
-  vOptions:= coTmp.Options;  // Keep old values for unsupported options
+  {
+  vOptions := coTmp.Options; // Keep old values for unsupported options
   SetFlag(eoTabIndent, ckWantTabs.Checked);
   SetFlag(eoAltSetsColumnMode, ckAltSetsColumnMode.Checked);
   SetFlag(eoAutoIndent, ckAutoIndent.Checked);
@@ -1407,228 +1401,168 @@ begin
   SetFlag(eoScrollPastEof, ckScrollPastEOF.Checked);
   SetFlag(eoScrollPastEol, ckScrollPastEOL.Checked);
   SetFlag(eoShowScrollHint, ckShowScrollHint.Checked);
-  SetFlag(eoShowSpecialChars, ckShowSpecialChars.Checked);
+
   SetFlag(eoSmartTabDelete, ckSmartTabDelete.Checked);
   SetFlag(eoSmartTabs, ckSmartTabs.Checked);
-  SetFlag(eoTabsToSpaces, ckTabsToSpaces.Checked);
+
   SetFlag(eoTrimTrailingSpaces, ckTrimTrailingSpaces.Checked);
-  coTmp.Options:= vOptions;
+  coTmp.Options := vOptions;
 
   // Caret
-  coTmp.InsertCaret   := TSynEditCaretType(cInsertCaret.ItemIndex);
-  coTmp.OverwriteCaret:= TSynEditCaretType(cOverwriteCaret.ItemIndex);
-{
-  // Keystrokes
-  lvKeystrokes.Items.BeginUpdate;
-  try
+  coTmp.InsertCaret := TSynEditCaretType(cInsertCaret.ItemIndex);
+  coTmp.OverwriteCaret := TSynEditCaretType(cOverwriteCaret.ItemIndex);
+  }
+
+  {
+    // Keystrokes
+    lvKeystrokes.Items.BeginUpdate;
+    try
     lvKeystrokes.Items.Clear;
     for i:= 0 to (coTmp.Keystrokes.Count-1) do begin
-      li:= lvKeystrokes.Items.Add;
+    li:= lvKeystrokes.Items.Add;
 
-      FillInKeystrokeInfo(coTmp.Keystrokes.Items[i],
-                          li);
+    FillInKeystrokeInfo(coTmp.Keystrokes.Items[i],
+    li);
 
-      li.Data:= coTmp.Keystrokes.Items[i];
+    li.Data:= coTmp.Keystrokes.Items[i];
     end;
     //if (lvKeystrokes.Items.Count > 0) then lvKeystrokes.Items[0].Selected:= True;
-  finally
+    finally
     lvKeystrokes.Items.EndUpdate;
-  end;
-}
-(*
-  // Keystrokes
-  //coTmp.Keystrokes.Clear;
-  lvKeystrokes.Items.BeginUpdate;
-
-  try
-    for i:= 0 to (lvKeystrokes.Items.Count - 1) do begin
-      //coTmp.Keystrokes.Items[i].:= nil;
-      //coTmp.Keystrokes.Items[i]:= lvKeystrokes.Items.Item[i].Data;
-      //coTmp.Keystrokes.Items[i]:= lvKeystrokes.Items.Item[i].Data;
-{
-      coTmp.Keystrokes.AddKey(TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Command,
-                              TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).ShortCut,
-                              TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Shift);
-}
-      //TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Command; //está comendo um já existente.
-      //TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).ShortCut;
-      coTmp.Keystrokes.Items[i].Command := TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Command;
-      coTmp.Keystrokes.Items[i].ShortCut:= TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Shortcut;
-      coTmp.Keystrokes.Items[i].Shift   := TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Shift;
     end;
-  except
-    // TODO
-  end;
+  }
+  (*
+    // Keystrokes
+    //coTmp.Keystrokes.Clear;
+    lvKeystrokes.Items.BeginUpdate;
 
-  lvKeystrokes.Items.EndUpdate;
-*)
+    try
+    for i:= 0 to (lvKeystrokes.Items.Count - 1) do begin
+    //coTmp.Keystrokes.Items[i].:= nil;
+    //coTmp.Keystrokes.Items[i]:= lvKeystrokes.Items.Item[i].Data;
+    //coTmp.Keystrokes.Items[i]:= lvKeystrokes.Items.Item[i].Data;
+    {
+    coTmp.Keystrokes.AddKey(TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Command,
+    TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).ShortCut,
+    TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Shift);
+    }
+    //TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Command; //está comendo um já existente.
+    //TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).ShortCut;
+    coTmp.Keystrokes.Items[i].Command := TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Command;
+    coTmp.Keystrokes.Items[i].ShortCut:= TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Shortcut;
+    coTmp.Keystrokes.Items[i].Shift   := TSynEditKeyStroke(lvKeystrokes.Items.Item[i].Data).Shift;
+    end;
+    except
+    // TODO
+    end;
+
+    lvKeystrokes.Items.EndUpdate;
+  *)
 end;
 
 procedure TfrmAppOptions.imGeneralMouseDown(Sender: TObject;
-                                            Button: TMouseButton;
-                                            Shift: TShiftState;
-                                            X,
-                                             Y: Integer);
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
-  P : TPoint;
+  P: TPoint;
 
 begin
-  cpFrom:= cpRightEdge;
-  P:= sRightEdgeColor.ClientToScreen(Point(-1, sRightEdgeColor.Height-1));
-  btnRightEdge.BevelOuter:= bvLowered;
-  pmAppOptions.Popup(P.X,
-                     P.Y);
-  btnRightEdge.BevelOuter:= bvNone;
+  cpFrom := cpRightEdge;
+  P := sRightEdgeColor.ClientToScreen(Point(-1, sRightEdgeColor.Height - 1));
+  btnRightEdge.BevelOuter := bvLowered;
+  pmAppOptions.Popup(P.X, P.Y);
+  btnRightEdge.BevelOuter := bvNone;
 end;
 
 procedure TfrmAppOptions.imGutterMouseDown(Sender: TObject;
-                                           Button: TMouseButton;
-                                           Shift: TShiftState;
-                                           X,
-                                            Y: Integer);
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
-  P : TPoint;
+  P: TPoint;
 
 begin
-  cpFrom:= cpGutter;
-  P:= sGutterColor.ClientToScreen(Point(-1, sGutterColor.Height-1));
-  btnGutterColor.BevelOuter:= bvLowered;
-  pmAppOptions.Popup(P.X,
-                     P.Y);
-  btnGutterColor.BevelOuter:= bvNone;
+  cpFrom := cpGutter;
+  P := sGutterColor.ClientToScreen(Point(-1, sGutterColor.Height - 1));
+  btnGutterColor.BevelOuter := bvLowered;
+  pmAppOptions.Popup(P.X, P.Y);
+  btnGutterColor.BevelOuter := bvNone;
 end;
-
+ {
 procedure TfrmAppOptions.FillInKeystrokeInfo(seKeystroke: TSynEditKeystroke;
-                                             liTmp: TListItem);
+  liTmp: TListItem);
 var
   sTmp: string;
 
 begin
-  with seKeystroke do begin
-    if (Command >= ecUserFirst) then begin
-      sTmp:= 'User Command';
+  with seKeystroke do
+  begin
+    if (Command >= ecUserFirst) then
+    begin
+      sTmp := 'User Command';
 
-      if Assigned(GetUserCommandNames) then GetUserCommandNames(Command,
-                                                                sTmp);
+      if Assigned(GetUserCommandNames) then
+        GetUserCommandNames(Command, sTmp);
     end
-    else begin
-      if bExtended then sTmp:= ConvertCodeStringToExtended(EditorCommandToCodeString(Command))
-                   else sTmp:= EditorCommandToCodeString(Command);
+    else
+    begin
+      if bExtended then
+        sTmp := ConvertCodeStringToExtended(EditorCommandToCodeString(Command))
+      else
+        sTmp := EditorCommandToCodeString(Command);
     end;
 
     // Caption
-    liTmp.Caption:= sTmp;
+    liTmp.Caption := sTmp;
 
     // Keystroke
     liTmp.SubItems.Clear;
-    sTmp:= '';
+    sTmp := '';
 
-    if (Shortcut <> 0) then sTmp:= ShortCutToText(ShortCut);
+    if (ShortCut <> 0) then
+      sTmp := ShortCutToText(ShortCut);
 
     liTmp.SubItems.Add(sTmp);
   end;
 end;
-
+       }
 procedure TfrmAppOptions.pmColorClick(Sender: TObject);
 var
   C: TColor;
 
 begin
-  C:= GetColor(TMenuItem(Sender));
-  //Set the color based on where it was "popped from"
-  if (cpFrom = cpGutter) then sGutterColor.Brush.Color:= C
-  else if (cpFrom = cpRightEdge) then sRightEdgeColor.Brush.Color:= C;
+  C := GetColor(TMenuItem(Sender));
+  // Set the color based on where it was "popped from"
+  if (cpFrom = cpGutter) then
+    sGutterColor.Brush.Color := C
+  else if (cpFrom = cpRightEdge) then
+    sRightEdgeColor.Brush.Color := C;
 end;
 
 function TfrmAppOptions.GetColor(Item: TMenuItem): TColor;
 begin
- if (Item.Tag = -1) or
-    (Item.Tag > 24) then Result:= clNone
-                    else Result:= TColor(Byte(Item.Tag) or $80000000);
+  if (Item.Tag = -1) or (Item.Tag > 24) then
+    Result := clNone
+  else
+    Result := TColor(Byte(Item.Tag) or $80000000);
 end;
 
-//J.C.Faria: perhaps it is not the best option... but works!
-procedure TfrmAppOptions.ShowAdjustedFont(lbl: TLabel;
-                                          pan: TPanel);
+// J.C.Faria: perhaps it is not the best option... but works!
+procedure TfrmAppOptions.ShowAdjustedFont(lbl: TLabel; pan: TPanel);
 var
-  x: integer;
+  X: Integer;
 
 begin
-  x:= lbl.Font.Size;
-  if (lbl.Width > pan.Width) then begin
-    lbl.Left:= pan.Left;
+  X := lbl.Font.Size;
+  if (lbl.Width > pan.Width) then
+  begin
+    lbl.Left := pan.Left;
     // I made a quadratic regression, r2=0,99
-    lbl.Top := Round(22.69 - 0.7216*x + 0.0021*Sqr(x));
+    lbl.Top := Round(22.69 - 0.7216 * X + 0.0021 * Sqr(X));
   end
-  else begin
-    lbl.Left:= (pan.Width div 2) - (lbl.Width div 2);
+  else
+  begin
+    lbl.Left := (pan.Width div 2) - (lbl.Width div 2);
     lbl.Top := 24;
   end;
 end;
 
 end.
-(*
-procedure TfrmAppOptions.btnRemKeyClick(Sender: TObject);
-var
-  ix,
-   ic: integer;
-
-begin
-  with lvKeystrokes do
-    if (Selected = nil) then Exit;
-
-  bChanging:= True;
-
-  TSynEditKeyStroke(lvKeystrokes.Selected.Data).Free;
-
-  with lvKeystrokes do begin
-    ix:= ItemIndex;
-    Selected.Delete;
-    ic:= Items.Count
-  end;
-
-  bChanging:= False;
-
-  if (ic = 0) then Exit;
-
-  // Select the index of the old selected (and deleted)
-  with lvKeystrokes do
-    if (ix < ic) then Items[ix].Selected    := True
-                 else Items[ic - 1].Selected:= True;
-end;
-*)
-
-(*
-{$IFNDEF SYN_COMPILER_4_UP}
-procedure TfrmAppOptions.OverridingWndProc(var Message: TMessage);
-var
-  li: TListItem;
-
-begin
-  FOldWndProc(Message);
-
-  if (Message.Msg = CN_NOTIFY) then
-    with TWMNotify(Message) do
-      if NMHdr.code = LVN_ITEMCHANGED then
-        with PNMListView(NMHdr)^ do
-        begin
-          li:= lvKeystrokes.Items[iItem];
-
-          if Assigned(FOnSelectItem) and (uChanged = LVIF_STATE) then
-          begin
-            if (uOldState and LVIS_SELECTED <> 0) and
-               (uNewState and LVIS_SELECTED = 0) then
-              FOnSelectItem(Self,
-                            li,
-                            False)
-            else if (uOldState and LVIS_SELECTED = 0) and
-                    (uNewState and LVIS_SELECTED <> 0) then
-              FOnSelectItem(Self,
-                            li,
-                            True);
-          end;
-        end;
-end;
-{$ENDIF}
-*)
 

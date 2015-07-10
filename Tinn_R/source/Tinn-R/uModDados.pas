@@ -1,45 +1,45 @@
 (*
- Tinn is a ASCII file editor primarily intended as a better replacement
- of the default Notepad.exe under Windows.
+  Tinn is a ASCII file editor primarily intended as a better replacement
+  of the default Notepad.exe under Windows.
 
- This software is distributed under the terms of the GNU General
- Public License, either Version 2, June 1991 or Version 3, June 2007.
- The terms of version 2 and of the license are in a folder called
- doc (licence_gpl2.txt and licence_gpl2.txt)
- which you should have received with this software.
+  This software is distributed under the terms of the GNU General
+  Public License, either Version 2, June 1991 or Version 3, June 2007.
+  The terms of version 2 and of the license are in a folder called
+  doc (licence_gpl2.txt and licence_gpl2.txt)
+  which you should have received with this software.
 
- See http://www.opensource.org/licenses/gpl-license.html or
- http://www.fsf.org/copyleft/gpl.html for further information.
+  See http://www.opensource.org/licenses/gpl-license.html or
+  http://www.fsf.org/copyleft/gpl.html for further information.
 
- Copyright
+  Copyright
   Russell May - http://www.solarvoid.com
 
- Tinn-R is an extension of Tinn that provides additional tools to control R
- (http://cran.r-project.org). The project is coordened by José Cláudio Faria
- (joseclaudio.faria@gmail.com).
+  Tinn-R is an extension of Tinn that provides additional tools to control R
+  (http://cran.r-project.org). The project is coordened by José Cláudio Faria
+  (joseclaudio.faria@gmail.com).
 
- As such, Tinn-R is a feature-rich replacement of the basic script editor
- provided with Rgui. It provides syntax-highlighting, submission of code in
- whole, or line-by-line, and many other useful tools to ease writting and
- debugging of R code.
+  As such, Tinn-R is a feature-rich replacement of the basic script editor
+  provided with Rgui. It provides syntax-highlighting, submission of code in
+  whole, or line-by-line, and many other useful tools to ease writting and
+  debugging of R code.
 
- Copyright
+  Copyright
   Tinn-R team October/2005
   Tinn-R team October/2013
 
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 2 and 3 of the License, or
- (at your option) any later version.
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 and 3 of the License, or
+  (at your option) any later version.
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *)
 
 unit uModDados;
@@ -48,30 +48,21 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  DBClient, DB, MidasLib, FMTBcd, SqlExpr, WideStrings, System.Actions; //Adding System.Actions solves "assuspended/asnormal undefined" issue
+  DBClient, DB, MidasLib, FMTBcd, SqlExpr, WideStrings, System.Actions, System.UITypes,
+  Data.DbxSqlite, Datasnap.Provider, trCommon, ufrmEditor;
+// Adding System.Actions solves "assuspended/asnormal undefined" issue
+
+
+
+
 
 type
   TmodDados = class(TDataModule)
-    cdCache: TClientDataSet;
-    cdCacheCursor: TIntegerField;
-    cdCacheCursorY: TIntegerField;
-    cdCacheFile: TStringField;
-    cdCacheMarks: TMemoField;
-    cdCacheTop: TIntegerField;
     cdComments: TClientDataSet;
     cdCommentsBegin: TStringField;
     cdCommentsEnd: TStringField;
     cdCommentsLanguage: TStringField;
     cdCommentsLine: TStringField;
-    cdCompletion: TClientDataSet;
-    cdCompletionCompletion: TMemoField;
-    cdCompletionFunction: TStringField;
-    cdCompletionGroup: TStringField;
-    cdCompletionTrigger: TStringField;
-    cdRcard: TClientDataSet;
-    cdRcardDescription: TMemoField;
-    cdRcardFunction: TStringField;
-    cdRcardGroup: TStringField;
     cdRmirrors: TClientDataSet;
     cdRmirrorsCity: TStringField;
     cdRmirrorsCode: TStringField;
@@ -86,70 +77,130 @@ type
     cdShortcutsImageIndex: TIntegerField;
     cdShortcutsIndex: TIntegerField;
     cdShortcutsShortcut: TStringField;
-    dsCache: TDataSource;
     dsComments: TDataSource;
-    dsCompletion: TDataSource;
-    dsRcard: TDataSource;
     dsRmirrors: TDataSource;
     dsShortcuts: TDataSource;
+    dsEditors: TDataSource;
+    SQLConnection: TSQLConnection;
+    sqldsRObjects: TSQLDataSet;
+    dspRObjects: TDataSetProvider;
+    cdRObjects: TClientDataSet;
+    dsRObjects: TDataSource;
+    sqldsRTest: TSQLDataSet;
+    dspRTest: TDataSetProvider;
+    cdRTest: TClientDataSet;
+    sqlLexerConnection: TSQLConnection;
+    sqldsLexers: TSQLDataSet;
+    dspLexers: TDataSetProvider;
+    cdLexers: TClientDataSet;
+    dsLexers: TDataSource;
+    dspIdentifiers: TDataSetProvider;
+    sqldsIdentifiers: TSQLDataSet;
+    cdIdentifiers: TClientDataSet;
+    dsIdentifiers: TDataSource;
+    sqldsLexers2: TSQLDataSet;
+    dspLexers2: TDataSetProvider;
+    cdLexers2: TClientDataSet;
+    dsLexers2: TDataSource;
+    sqlIdentifiersCurrent: TSQLDataSet;
+    dspIdentifiersCurrent: TDataSetProvider;
+    cdIdentifiersCurrent: TClientDataSet;
+    dsIdentifiersCurrent: TDataSource;
+    sqldsRUser: TSQLDataSet;
+    dspRUser: TDataSetProvider;
+    cdRUser: TClientDataSet;
+    sqlCache: TSQLConnection;
+    sqldsCache: TSQLDataSet;
+    sqlMainBase: TSQLConnection;
+    sqldsMainBase: TSQLDataSet;
+    dspMainBase: TDataSetProvider;
+    sqldsMainBaseTools: TSQLDataSet;
+    cdMainBase: TClientDataSet;
+    dsMainBase: TDataSource;
+    sqlBaseKeywords: TSQLDataSet;
+    sqldsCategories: TSQLDataSet;
+    sqldsCategoriesDetails: TSQLDataSet;
+    sqldsMainCheck: TSQLDataSet;
+    sqldsExplorerTip: TSQLDataSet;
+    sqlEditors: TSQLConnection;
+    sqlDSEditors: TSQLDataSet;
 
     procedure cdCommentsAfterPost(DataSet: TDataSet);
     procedure cdCommentsAfterScroll(DataSet: TDataSet);
     procedure cdCommentsBeforeEdit(DataSet: TDataSet);
-    procedure cdCommentsPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
-    procedure cdCompletionAfterPost(DataSet: TDataSet);
-    procedure cdCompletionAfterScroll(DataSet: TDataSet);
-    procedure cdCompletionBeforeEdit(DataSet: TDataSet);
-    procedure cdCompletionPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
-    procedure cdRcardAfterPost(DataSet: TDataSet);
-    procedure cdRcardAfterScroll(DataSet: TDataSet);
-    procedure cdRcardBeforeEdit(DataSet: TDataSet);
-    procedure cdRcardFilterRecord(DataSet: TDataSet; var Accept: Boolean);
-    procedure cdRcardPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
+    procedure cdCommentsPostError(DataSet: TDataSet; E: EDatabaseError;
+      var Action: TDataAction);
+    procedure cdRcardPostError(DataSet: TDataSet; E: EDatabaseError;
+      var Action: TDataAction);
     procedure cdRmirrorsAfterPost(DataSet: TDataSet);
     procedure cdRmirrorsAfterScroll(DataSet: TDataSet);
     procedure cdRmirrorsBeforeEdit(DataSet: TDataSet);
-    procedure cdRmirrorsPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
-    procedure cdRtipPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
+    procedure cdRmirrorsPostError(DataSet: TDataSet; E: EDatabaseError;
+      var Action: TDataAction);
+    procedure cdRtipPostError(DataSet: TDataSet; E: EDatabaseError;
+      var Action: TDataAction);
     procedure cdShortcutsAfterPost(DataSet: TDataSet);
     procedure cdShortcutsAfterScroll(DataSet: TDataSet);
     procedure cdShortcutsBeforeEdit(DataSet: TDataSet);
     procedure cdShortcutsNewRecord(DataSet: TDataSet);
-    procedure cdShortcutsPostError(DataSet: TDataSet; E: EDatabaseError; var Action: TDataAction);
-    procedure DataModuleCreate(Sender: TObject);
+    procedure cdShortcutsPostError(DataSet: TDataSet; E: EDatabaseError;
+      var Action: TDataAction);
     procedure DataModuleDestroy(Sender: TObject);
+    procedure InitiateRObjectDatabase;
+    procedure ResetRObjectDatabase;
+    procedure sqldsRObjectsAfterRefresh(DataSet: TDataSet);
 
+    procedure LoadRHelpSystem;
+    procedure LoadShortcuts;
+    procedure LoadMirrors;
+    procedure LoadCache;
+    procedure LoadComments;
+    procedure LoadEditors;
+    procedure dsLexersDataChange(Sender: TObject; Field: TField);
+    procedure dsIdentifiersDataChange(Sender: TObject; Field: TField);
+    procedure cdIdentifiersBeforeRefresh(DataSet: TDataSet);
+    procedure dsMainBaseDataChange(Sender: TObject; Field: TField);
   private
+    sCurDescription: String;
     { Private declarations }
 
   public
     { Public declarations }
-    slCompletion_Groups : TStringList;  //Stores groups of Completion
-    slRcard_Groups      : TStringList;  //Stores groups of R card
-    slRmirrors_Countries: TStringList;  //Stores countries of R mirrors
-    slShortcuts_Groups  : TStringList;  //Stores groups of Shortcuts
+    slCompletion_Groups: TStringList; // Stores groups of Completion
+    slRcard_Groups: TStringList; // Stores groups of R card
+    slRmirrors_Countries: TStringList; // Stores countries of R mirrors
+    slShortcuts_Groups: TStringList; // Stores groups of Shortcuts
 
-    function ActionlistToDataset: boolean;
-    function LoadFileState(sFile: string; var sMarks: string; var iTopLine: integer; var iCaretX: integer; var iCaretY: integer): boolean;
-    function Rmirrors_Update(sFile: string): boolean;
-    function SaveFileState(sFile, sMarks: string; iTopLine, iCaretX, iCaretY: integer): boolean;
+    function ActionlistToDataset: Boolean;
+    procedure BackupFiles;
+    function LoadFileState(var EditorFile: TEditorFile): Boolean;
+    function Rmirrors_Update(sFile: string): Boolean;
+    function SaveFileState(EditorFile: TEditorFile): Boolean;
+    function  SaveEditorFile(EditorFile: TEditorFile): Boolean;
     procedure CompletionGroupsFilter(Sender: TObject);
+    procedure LookupWord(sKey: String; cdDataBase: TClientDataSet);
     procedure RcardGroupsFilter(Sender: TObject);
     procedure RmirrorsCountriesFilter(Sender: TObject);
     procedure SetCurrentHighlighter(sLanguage: string);
     procedure ShortcutsGroupsFilter(Sender: TObject);
     procedure ShortcutsValidation(sOldShortcutsFile, sNewShortcutsFile: string);
-  end;
-
+    procedure DeleteEditorEntry(EditorId: integer; sBackupFile: String);
+    procedure LoadLexerDB;
+    function  GetLexerNameById(iLexerId: Integer): String;
+    function  GetLexerIdByName(sLexerName: String): Integer;
+    procedure CheckForNewPackages;
+    function  GetFileTypeIndexOfLexer(iLexerId: Integer): Integer;
+    function  FindTipText(sWord: String): String;
+   end;
+   
 var
   modDados: TmodDados;
-
+  sCurDwellText: String;
 implementation
 
 uses
   ufrmMain,
   ufrmRcard,
-  ufrmCompletion,
   ufrmTools,
   ufrmShortcuts,
   Variants,
@@ -157,139 +208,167 @@ uses
   ActnList,
   ufrmHotKeys,
   ufrmComments,
+  ufrmColors,
   trUtils,
-  ufrmRmirrors;
+  ufrmRmirrors, uLexerCommands;
 
 {$R *.DFM}
 
 procedure TmodDados.SetCurrentHighlighter(sLanguage: string);
+var
+  bFound: Boolean;
 begin
-  with modDados.cdComments do begin
+  with modDados.cdComments do
+  begin
     DisableControls;
 
-    Locate('Language',
-           sLanguage,
-           []);
+    Locate('Language', sLanguage, []);
 
     EnableControls;
   end;
 end;
 
-function TmodDados.SaveFileState(sFile,
-                                 sMarks: string;
-                                 iTopLine,
-                                 iCaretX,
-                                 iCaretY: integer): boolean;
+
+function TmodDados.SaveFileState(EditorFile: TEditorFile): Boolean;
+  var stmp: String;
 begin
   try
-    with cdCache do begin
-      First;
-      if Locate('File',
-                sFile,
-                [loCaseInsensitive]) then Edit
-                                     else Append;
-      Fields[0].AsString := sFile;
-      Fields[1].AsString := sMarks;
-      Fields[2].AsInteger:= iTopLine;
-      Fields[3].AsInteger:= iCaretX;
-      Fields[4].AsInteger:= iCaretY;
-      Post;
-      MergeChangeLog;
-      SaveToFile();
-    end;
-  except
-    //todo
-  end;
-  Result:= True
+   with sqlCache, EditorFile do
+   begin
+
+
+     ExecuteDirect('DELETE FROM FileCache WHERE File like '+AnsiQuotedStr(ansilowercase(sFile),'"'));
+
+     stmp := 'INSERT INTO FileCache (File, Marks, Topline, CaretPosition, Folding, LexerId) Values(';
+     stmp := stmp + AnsiQuotedStr(ansilowercase(sFile),'"')+ ', '+  AnsiQuotedStr(sMarks,'"') + ', ' + inttostr(iTopLine)+ ', '  +
+             inttostr(iCaretPosition)+ ', ' + AnsiQuotedStr(sFolding,'"')+ ', '     +
+             inttostr(iLexerId)+' )'; // WHERE File like '+quotedstr(ansilowercase(sFile));
+
+
+     ExecuteDirect(stmp);
+   end;
+   Finally
+   end;
 end;
 
-function TmodDados.LoadFileState(sFile: string;
-                                 var sMarks: string;
-                                 var iTopLine: integer;
-                                 var iCaretX: integer;
-                                 var iCaretY: integer): boolean;
+
+function TmodDados.LoadFileState(var EditorFile: TEditorFile): Boolean;
+begin
+
+  try
+   with sqldsCache do
+   begin
+     Close;
+     CommandText := 'SELECT * FROM FileCache WHERE File like '+AnsiQuotedStr(ansilowercase(EditorFile.sFile), '"');
+     Open;
+     First;
+
+     if NOT Eof then
+     with EditorFile do
+     begin
+      sMarks := FieldByName('Marks').AsString;
+      iTopLine := FieldByName('TopLine').AsInteger;
+      iCaretPosition := FieldByName('CaretPosition').AsInteger;
+      sFolding := FieldByName('Folding').AsString;
+      iLexerId := FieldByName('LexerId').AsInteger;
+      Result := true;
+     end;
+   end;
+  Except //On E: EDatabaseError Do showmessage(e.Message);
+  end;
+end;
+
+
+function TmodDados.SaveEditorFile(EditorFile: TEditorFile): Boolean;
+  var stmp: String;
 begin
   try
-    with cdCache do begin
-      First;
-      if not Locate('File',
-                    sFile,
-                    [loCaseInsensitive]) then begin
-        Result:= False;
-        Exit;
-      end;
-      sMarks  := Fields[1].AsString;
-      iTopLine:= Fields[2].AsInteger;
-      iCaretX := Fields[3].AsInteger;
-      iCaretY := Fields[4].AsInteger;
-    end;
-  except
-    //todo
-  end;
-  Result:= True
+   with sqlEditors, EditorFile do
+   begin
+
+       ExecuteDirect('DELETE FROM Editors WHERE EditorId = '+inttostr(iId));
+
+
+       stmp := 'INSERT INTO Editors (File, NewFile, Modified, UnsavedChanges, TempFile, TabPosition, EditorId, Marks, Topline, CaretPosition, Folding, LexerId) Values(';
+       stmp := stmp + AnsiQuotedStr(ansilowercase(sFile),'"')+ ', ' + inttostr(iNewFile)+ ', '  + inttostr(iModified)+ ', ' + inttostr(iUnsavedChanges)+ ', ';
+       stmp := stmp + AnsiQuotedStr(sTempFile,'"') + ', ' + inttostr(iTabPosition)+ ', '  + inttostr(iId)+ ', ';
+       stmp := stmp + AnsiQuotedStr(sMarks,'"') + ', ' + inttostr(iTopLine)+ ', '  +
+               inttostr(iCaretPosition)+ ', '  + AnsiQuotedStr(sFolding,'"')+ ', '     +
+               inttostr(iLexerId)+' )'; // WHERE File like '+quotedstr(ansilowercase(sFile));
+
+     ExecuteDirect(stmp);
+   end;
+   Finally
+   end;
 end;
+
+
 
 procedure TmodDados.ShortcutsValidation(sOldShortcutsFile,
-                                        sNewShortcutsFile: string);
+  sNewShortcutsFile: string);
 var
-  cdOld,
-   cdNew: TClientDataSet;
+  cdOld, cdNew: TClientDataSet;
 
-  sGroupOld,
-   sCaptionOld,
-   sHintOld   : string;
+  sGroupOld, sCaptionOld, sHintOld: string;
 
 begin
   try
-    cdOld:= TClientDataSet.Create(Self);
-    cdNew:= TClientDataSet.Create(Self);
+    cdOld := TClientDataSet.Create(Self);
+    cdNew := TClientDataSet.Create(Self);
 
-    with cdOld do begin
-      Active   := False;
+    with cdOld do
+    begin
+      Active := False;
       FileName := sOldShortcutsFile;
-      Active   := True;
+      Active := True;
       IndexDefs.Clear;
       with IndexDefs.AddIndexDef do
       begin
-        Name   := 'ShortcutsDefaultIndex';
+        Name := 'ShortcutsDefaultIndex';
         Fields := 'Index';
-        Options:= [ixPrimary, ixUnique];
+        Options := [ixPrimary, ixUnique];
       end;
-      IndexName:= 'ShortcutsDefaultIndex';
+      IndexName := 'ShortcutsDefaultIndex';
     end;
 
-    with cdNew do begin
+    with cdNew do
+    begin
       DisableControls;
-      Active   := False;
+      Active := False;
       FileName := sNewShortcutsFile;
-      Active   := True;
+      Active := True;
       IndexDefs.Clear;
       with IndexDefs.AddIndexDef do
       begin
-        Name   := 'ShortcutsDefaultIndex';
+        Name := 'ShortcutsDefaultIndex';
         Fields := 'Index';
-        Options:= [ixPrimary, ixUnique];
+        Options := [ixPrimary, ixUnique];
       end;
-      IndexName:= 'ShortcutsDefaultIndex';
+      IndexName := 'ShortcutsDefaultIndex';
     end;
 
     cdOld.First;
-    while not cdOld.Eof do begin
-      sGroupOld   := cdOld.FieldByName('Group').Value;
+    while not cdOld.Eof do
+    begin
+      sGroupOld := cdOld.FieldByName('Group').Value;
       sCaptionOld := cdOld.FieldByName('Caption').Value;
-      sHintOld    := cdOld.FieldByName('Hint').Value;
+      sHintOld := cdOld.FieldByName('Hint').Value;
       if cdNew.Locate('Group;Caption;Hint',
-                      VarArrayOf([sGroupOld,sCaptionOld,sHintOld]),
-                      []) then begin
-        if (cdNew.FieldByName('Shortcut').Value <> cdOld.FieldByName('Shortcut').Value) then begin
-           cdNew.Edit;
-           cdNew.FieldByName('Shortcut').Value:= cdOld.FieldByName('Shortcut').Value;
-           cdNew.Post;
+        VarArrayOf([sGroupOld, sCaptionOld, sHintOld]), []) then
+      begin
+        if (cdNew.FieldByName('Shortcut').Value <> cdOld.FieldByName('Shortcut')
+          .Value) then
+        begin
+          cdNew.Edit;
+          cdNew.FieldByName('Shortcut').Value :=
+            cdOld.FieldByName('Shortcut').Value;
+          cdNew.Post;
         end;
       end;
       cdOld.Next;
     end;
-    with cdNew do begin
+    with cdNew do
+    begin
       MergeChangeLog;
       SaveToFile();
     end;
@@ -299,52 +378,42 @@ begin
   end;
 end;
 
+procedure TmodDados.sqldsRObjectsAfterRefresh(DataSet: TDataSet);
+begin
+   cdRObjects.Active := true;
+   cdRObjects.Refresh;
+end;
+
 procedure TmodDados.RcardGroupsFilter(Sender: TObject);
-var
+{var
   i: integer;
 
   strTemp: string;
-
+                    }
 begin
-  slRcard_Groups:= TStringList.Create;
-  slRcard_Groups.CaseSensitive:= True;
-
-  with cdRcard do begin
+ { slRcard_Groups := TStringList.Create;
+  slRcard_Groups.CaseSensitive := True;
+  slRcard_Groups.Add('All');
+  with cdRcard do
+  begin
     DisableControls;
     First;
-    for i:=1 to RecordCount do begin
-      strTemp:= cdRcardGroup.Value;
+    for i := 1 to RecordCount do
+    begin
+      strTemp := cdRcardGroup.Value;
       with slRcard_Groups do
         if (IndexOf(strTemp) = -1) then
           Add(strTemp);
       Next;
     end;
     EnableControls;
-  end;
+  end;   }
 end;
 
 procedure TmodDados.CompletionGroupsFilter(Sender: TObject);
-var
-  i: integer;
-
-  strTemp: string;
 
 begin
-  slCompletion_Groups:= TStringList.Create;
-  slCompletion_Groups.CaseSensitive:= True;
 
-  with cdCompletion do begin
-    DisableControls;
-    First;
-    for i:=1 to RecordCount do begin
-      strTemp:= cdCompletionGroup.Value;
-      with slCompletion_Groups do
-        if (IndexOf(strTemp) = -1) then
-          Add(strTemp);
-      Next;
-    end;
-    EnableControls;
-  end;
 end;
 
 procedure TmodDados.RmirrorsCountriesFilter(Sender: TObject);
@@ -354,14 +423,16 @@ var
   strTemp: string;
 
 begin
-  slRmirrors_Countries:= TStringList.Create;
-  //slRmirrors_Countries.CaseSensitive:= True;
+  slRmirrors_Countries := TStringList.Create;
+  // slRmirrors_Countries.CaseSensitive:= True;
 
-  with cdRmirrors do begin
+  with cdRmirrors do
+  begin
     DisableControls;
     First;
-    for i:=1 to RecordCount do begin
-      strTemp:= cdRmirrorsCountry.Value;
+    for i := 1 to RecordCount do
+    begin
+      strTemp := cdRmirrorsCountry.Value;
       with slRmirrors_Countries do
         if (IndexOf(strTemp) = -1) then
           Add(strTemp);
@@ -378,14 +449,16 @@ var
   strTemp: string;
 
 begin
-  slShortcuts_Groups:= TStringList.Create;
-  slShortcuts_Groups.CaseSensitive:= True;
+  slShortcuts_Groups := TStringList.Create;
+  slShortcuts_Groups.CaseSensitive := True;
 
-  with cdShortcuts do begin
+  with cdShortcuts do
+  begin
     DisableControls;
     First;
-    for i:=1 to RecordCount do begin
-      strTemp:= cdShortcutsGroup.Value;
+    for i := 1 to RecordCount do
+    begin
+      strTemp := cdShortcutsGroup.Value;
       with slShortcuts_Groups do
         if (IndexOf(strTemp) = -1) then
           Add(strTemp);
@@ -395,169 +468,96 @@ begin
   end;
 end;
 
-procedure TmodDados.DataModuleCreate(Sender: TObject);
+procedure TmodDados.InitiateRObjectDatabase;
+var sCommand: String;
 begin
-  // R card
-  with cdRcard do begin
-    Active   := False;
-    FileName := frmTinnMain.sPathData +
-                '\Rcard.xml';
-    Active   := True;
-    IndexDefs.Clear;
-    with IndexDefs.AddIndexDef do
-    begin
-      Name   := 'RcardDefaultIndex';
-      Fields := 'Group;Function';
-      Options:= [ixPrimary, ixUnique];
-    end;
-    IndexName:= 'RcardDefaultIndex';
-  end;
+  frmTinnMain.bRExplorerActive := true;
+  SQLConnection.LibraryName := IncludeTrailingBackslash(frmTinnMain.sPathTinnRExe)+'sqlite3.dll';
 
-  // R Mirrors
-  with cdRmirrors do begin
-    Active   := False;
-    FileName := frmTinnMain.sPathData +
-                '\Rmirrors.xml';
-    Active   := True;
-    IndexDefs.Clear;
-    with IndexDefs.AddIndexDef do
-    begin
-      Name   := 'RmirrorsDefaultIndex';
-      Fields := 'Country;Name;URL';
-      Options:= [ixPrimary, ixUnique];
-    end;
-    IndexName:= 'RmirrorsDefaultIndex';
-  end;
+  if fileexists(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt') then
+    deletefile(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt');
 
-  // Completion
-  with cdCompletion do begin
-    Active   := False;
-    FileName := frmTinnMain.sPathData +
-                '\Completion.xml';
-    Active   := True;
-    IndexDefs.Clear;
-    with IndexDefs.AddIndexDef do
-    begin
-      Name   := 'CompletionDefaultIndex';
-      Fields := 'Trigger';
-      Options:= [ixPrimary, ixUnique];
-    end;
-    IndexName:= 'CompletionDefaultIndex';
-  end;
+  SQLConnection.Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt';
+  SQLConnection.Params.Values['FailIfMissing'] := 'False';
+  SQLConnection.Connected := True;
 
-  // Shortcuts
-  with cdShortcuts do begin
-    Active   := False;
-    FileName := frmTinnMain.sShortcutsInUse;
-    Active   := True;
-    IndexDefs.Clear;
-    with IndexDefs.AddIndexDef do
-    begin
-      Name   := 'ShortcutsDefaultIndex';
-      Fields := 'Index';
-      Options:= [ixPrimary, ixUnique];
-    end;
-    IndexName:= 'ShortcutsDefaultIndex';
-  end;
+  SQLConnection.ExecuteDirect('CREATE TABLE Objects (ObjID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name VARCHAR(100) NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR(100) NOT NULL, Class VARCHAR(100) NOT NULL, Envir VARCHAR(100) NOT NULL)');
+  SQLConnection.ExecuteDirect('INSERT INTO Objects (Name, Dim, [Group], Class, Envir) VALUES ("empty","empty","empty","empty","empty")');
 
-  // Cache
-  with cdCache do begin
-    Active   := False;
-    FileName := frmTinnMain.sPathData +
-                '\Cache.xml';
-    Active   := True;
-    IndexDefs.Clear;
-    with IndexDefs.AddIndexDef do
-    begin
-      Name   := 'CacheDefaultIndex';
-      Fields := 'File';
-      Options:= [ixPrimary, ixUnique];
-    end;
-    IndexName:= 'CacheDefaultIndex';
-  end;
 
-  // Comments
-  with cdComments do begin
-    Active   := False;
-    FileName := frmTinnMain.sPathData +
-                '\Comments.xml';
-    Active   := True;
-    IndexDefs.Clear;
-    with IndexDefs.AddIndexDef do
-    begin
-      Name   := 'CommentsDefaultIndex';
-      Fields := 'Language';
-      Options:= [ixPrimary, ixUnique];
-    end;
-    IndexName:= 'CommentsDefaultIndex';
-  end;
+  sqldsRObjects.Active := true;
+  sqldsRObjects.Refresh;
+  SQLConnection.Close;
+  cdRObjects.Refresh;
 
-  with frmTinnMain do begin
-    if not bDatabaseRestored then begin
-      cdRcard.SavePoint     := iRcardBeforeChanges;
-      cdRmirrors.SavePoint  := iRmirrorsBeforeChanges;
-      cdCompletion.SavePoint:= iCompletionBeforeChanges;
-      cdShortcuts.SavePoint := iShortcutsBeforeChanges;
-    end
-    else begin
-      iRcardBeforeChanges     := cdRcard.SavePoint;
-      iRmirrorsBeforeChanges  := cdRmirrors.SavePoint;
-      iCompletionBeforeChanges:= cdCompletion.SavePoint;
-      iShortcutsBeforeChanges := cdShortcuts.SavePoint;
-      bDatabaseRestored       := False
-    end;
-  end;
+  if assigned(frmTools) then
+    frmTools.ResetRExplorerFilter;
 
-  RcardGroupsFilter(self);
-  CompletionGroupsFilter(self);
-  RmirrorsCountriesFilter(self);
-  ShortcutsGroupsFilter(self);
 end;
+
+
+procedure TmodDados.ResetRObjectDatabase;
+var sCommand: String;
+begin
+
+  SQLConnection.Close;
+
+  if fileexists(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt') then
+    deletefile(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt');
+
+  SQLConnection.Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt';
+  SQLConnection.Params.Values['FailIfMissing'] := 'False';
+  SQLConnection.Connected := True;
+
+
+  SQLConnection.ExecuteDirect('CREATE TABLE Objects (ObjID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name VARCHAR(100) NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR(100) NOT NULL, Class VARCHAR(100) NOT NULL, Envir VARCHAR(100) NOT NULL)');
+  SQLConnection.ExecuteDirect('INSERT INTO Objects (Name, Dim, [Group], Class, Envir) VALUES ("empty","empty","empty","empty","empty")');
+
+
+  sqldsRObjects.Active := true;
+  sqldsRObjects.Refresh;
+  SQLConnection.Close;
+  cdRObjects.Refresh;
+
+  if assigned(frmTools) then
+    frmTools.ResetRExplorerFilter;
+
+end;
+
 
 procedure TmodDados.DataModuleDestroy(Sender: TObject);
 begin
-  with cdRcard do
-    Close; //Will also save to file whether any change was made!
-
   with cdRmirrors do
-    Close; //Will also save to file whether any change was made!
+    Close; // Will also save to file whether any change was made!
 
-  with cdCompletion do
-    Close; //Will also save to file whether any change was made!
+  with cdShortcuts do
+    Close; // Will also save to file whether any change was made!
 
-  with cdSHortcuts do
-    Close; //Will also save to file whether any change was made!
+  sqlCache.Close;
 
-  with cdCache do
-    Close; //Will also save to file whether any change was made!
 
   with cdComments do
-    Close; //Will also save to file whether any change was made!
+    Close; // Will also save to file whether any change was made!
 end;
 
-procedure TmodDados.cdRcardPostError(DataSet: TDataSet;
-                                     E: EDatabaseError;
-                                     var Action: TDataAction);
+procedure TmodDados.cdRcardPostError(DataSet: TDataSet; E: EDatabaseError;
+  var Action: TDataAction);
 begin
-  MessageDlg(DataSet.Fields.Fields[0].Value +
-             '  |  ' +
-             DataSet.Fields.Fields[1].Value + #13 + #13 +
-             'Key violation.' + #13 +
-             'Latest insertion (or change) will be lost!',
-             mtError,
-             [MBOK],
-             0);
+  MessageDlg(DataSet.Fields.Fields[0].Value + '  |  ' + DataSet.Fields.Fields[1]
+    .Value + #13 + #13 + 'Key violation.' + #13 +
+    'Latest insertion (or change) will be lost!', mtError, [MBOK], 0);
 
-  Dataset.Cancel;
-  Action:= daAbort;
+  DataSet.Cancel;
+  Action := daAbort;
 end;
 
 procedure TmodDados.cdRmirrorsAfterPost(DataSet: TDataSet);
 begin
   if Assigned(frmRmirrors) then
-    with frmRmirrors do begin
-      stbRmirrors.Panels[0].Text:= 'Browse mode';
-      frmRmirrors.bbtRmirrorsClose.Enabled:= True;
+    with frmRmirrors do
+    begin
+      stbRmirrors.Panels[0].Text := 'Browse mode';
+      frmRmirrors.bbtRmirrorsClose.Enabled := True;
     end;
 end;
 
@@ -565,127 +565,128 @@ procedure TmodDados.cdRmirrorsAfterScroll(DataSet: TDataSet);
 begin
   if Assigned(frmRmirrors) then
     with frmRmirrors.stbRmirrors do
-      if Visible then Panels[0].Text:= 'Browse mode';
+      if Visible then
+        Panels[0].Text := 'Browse mode';
 end;
 
 procedure TmodDados.cdRmirrorsBeforeEdit(DataSet: TDataSet);
 begin
   if Assigned(frmRmirrors) then
     with frmRmirrors.stbRmirrors do
-      Panels[0].Text:= 'Edit mode';
+      Panels[0].Text := 'Edit mode';
 end;
 
-procedure TmodDados.cdRmirrorsPostError(DataSet: TDataSet;
-                                        E: EDatabaseError;
-                                        var Action: TDataAction);
+procedure TmodDados.cdRmirrorsPostError(DataSet: TDataSet; E: EDatabaseError;
+  var Action: TDataAction);
 begin
-  MessageDlg(DataSet.Fields.Fields[3].Value + #13 + #13 +
-             'Key violation.' + #13 +
-             'Latest insertion (or change) will be lost!',
-             mtError,
-             [MBOK],
-             0);
+  MessageDlg(DataSet.Fields.Fields[3].Value + #13 + #13 + 'Key violation.' + #13
+    + 'Latest insertion (or change) will be lost!', mtError, [MBOK], 0);
 
-  Dataset.Cancel;
-  Action:= daAbort;
+  DataSet.Cancel;
+  Action := daAbort;
 end;
 
-procedure TmodDados.cdRtipPostError(DataSet: TDataSet;
-                                    E: EDatabaseError;
-                                    var Action: TDataAction);
+procedure TmodDados.cdRtipPostError(DataSet: TDataSet; E: EDatabaseError;
+  var Action: TDataAction);
 begin
-  MessageDlg(DataSet.Fields.Fields[0].Value + '  |  ' + DataSet.Fields.Fields[1].Value + #13 + #13 +
-             'Key violation.' + #13 +
-             'Latest insertion (or change) will be lost!',
-             mtError,
-             [MBOK],
-             0);
+  MessageDlg(DataSet.Fields.Fields[0].Value + '  |  ' + DataSet.Fields.Fields[1]
+    .Value + #13 + #13 + 'Key violation.' + #13 +
+    'Latest insertion (or change) will be lost!', mtError, [MBOK], 0);
 
-  Dataset.Cancel;
-  Action:= daAbort;
+  DataSet.Cancel;
+  Action := daAbort;
 end;
 
-procedure TmodDados.cdShortcutsPostError(DataSet: TDataSet;
-                                         E: EDatabaseError;
-                                         var Action: TDataAction);
+procedure TmodDados.cdShortcutsPostError(DataSet: TDataSet; E: EDatabaseError;
+  var Action: TDataAction);
 begin
-  MessageDlg(DataSet.Fields.Fields[4].Value + #13 + #13 +
-             'Key violation.' + #13 +
-             'Latest insertion (or change) will be lost!',
-             mtError,
-             [MBOK],
-             0);
+  MessageDlg(DataSet.Fields.Fields[4].Value + #13 + #13 + 'Key violation.' + #13
+    + 'Latest insertion (or change) will be lost!', mtError, [MBOK], 0);
 
-  Dataset.Cancel;
-  Action:= daAbort;
+  DataSet.Cancel;
+  Action := daAbort;
 end;
 
-procedure TmodDados.cdCompletionPostError(DataSet: TDataSet;
-                                          E: EDatabaseError;
-                                          var Action: TDataAction);
+procedure TmodDados.cdIdentifiersBeforeRefresh(DataSet: TDataSet);
 begin
-  MessageDlg(DataSet.Fields.Fields[2].Value + #13 + #13 +
-             'Key violation.' + #13 +
-             'Latest insertion (or change) will be lost!',
-             mtError,
-             [MBOK],
-             0);
+  if DataSet = nil then
+    Exit;
 
-  Dataset.Cancel;
-  Action:= daAbort;
+  if TClientDataSet(DataSet).Active = False then
+    Exit;
+  if TClientDataSet(DataSet).ChangeCount > 0 then
+  begin
+    sqlLexerconnection.CloseDataSets;
+    Dataset.Open;
+    Dataset.Active := true;
+   // TClientDataSet(DataSet).Edit;
+    {showmessage(inttostr(}TClientDataSet(DataSet).ApplyUpdates(-1){))};
+   //  TClientDataSet(DataSet).Post;
+  end;
 end;
 
 procedure TmodDados.cdShortcutsAfterPost(DataSet: TDataSet);
 begin
   if Assigned(frmShortcuts) then
-    with frmShortcuts do begin
-      stbShortcuts.Panels[0].Text:= 'Browse mode';
-      frmShortcuts.bbtShortcutsClose.Enabled:= True;
+    with frmShortcuts do
+    begin
+      stbShortcuts.Panels[0].Text := 'Browse mode';
+      frmShortcuts.bbtShortcutsClose.Enabled := True;
     end;
 end;
 
 procedure TmodDados.cdShortcutsAfterScroll(DataSet: TDataSet);
 begin
   if Assigned(frmShortcuts) then
-    with frmShortcuts do begin
-      if bLocating then Exit;
-      jvhkShortcut.HotKey:= TextToShortcut(cdShortcuts.FieldByName('Shortcut').Value);
-      imgShortcut.Picture.Bitmap:= nil;
+    with frmShortcuts do
+    begin
+      if bLocating then
+        Exit;
+      jvhkShortcut.HotKey :=
+        TextToShortcut(cdShortcuts.FieldByName('Shortcut').Value);
+      imgShortcut.Picture.Bitmap := nil;
       frmTinnMain.imlTinnR.GetBitmap(cdShortcuts.FieldByName('Image').Value,
-                                     imgShortcut.Picture.Bitmap);
-      if Visible then stbShortcuts.Panels[0].Text:= 'Browse mode';
+        imgShortcut.Picture.Bitmap);
+      if Visible then
+        stbShortcuts.Panels[0].Text := 'Browse mode';
     end;
   if Assigned(frmHotkeys) then
     with frmHotkeys do
-      if bLocating then Exit;
-  if (cdShortcuts.State <> dsBrowse) then Exit;
-  frmTools.imgShortcut.Picture.Bitmap:= nil;
-  frmTinnMain.imlTinnR.GetBitmap(cdShortcuts.FieldByName('Image').Value,
-                                 frmTools.imgShortcut.Picture.Bitmap);
+      if bLocating then
+        Exit;
+  if (cdShortcuts.State <> dsBrowse) then
+    Exit;
+  if assigned(frmTools) then
+  begin
+    frmTools.imgShortcut.Picture.Bitmap := nil;
+    frmTinnMain.imlTinnR.GetBitmap(cdShortcuts.FieldByName('Image').Value,
+    frmTools.imgShortcut.Picture.Bitmap);
+  end;
 end;
 
 procedure TmodDados.cdShortcutsBeforeEdit(DataSet: TDataSet);
 begin
   if Assigned(frmShortcuts) then
     with frmShortcuts.stbShortcuts do
-      Panels[0].Text:= 'Edit mode';
+      Panels[0].Text := 'Edit mode';
 end;
 
 procedure TmodDados.cdShortcutsNewRecord(DataSet: TDataSet);
 var
-  i: Integer;
+  i: integer;
 
 begin
-  i:= cdShortcuts.RecordCount;
-  cdShortcutsIndex.AsInteger:= i;
+  i := cdShortcuts.RecordCount;
+  cdShortcutsIndex.AsInteger := i;
 end;
 
 procedure TmodDados.cdCommentsAfterPost(DataSet: TDataSet);
 begin
   if Assigned(frmComments) then
-    with frmComments do begin
-      stbComments.Panels[0].Text:= 'Browse mode';
-      frmComments.bbtCommentsClose.Enabled:= True;
+    with frmComments do
+    begin
+      stbComments.Panels[0].Text := 'Browse mode';
+      frmComments.bbtCommentsClose.Enabled := True;
     end;
 end;
 
@@ -693,262 +694,204 @@ procedure TmodDados.cdCommentsAfterScroll(DataSet: TDataSet);
 begin
   if Assigned(frmComments) then
     with frmComments.stbComments do
-      if Visible then Panels[0].Text:= 'Browse mode';
+      if Visible then
+        Panels[0].Text := 'Browse mode';
 end;
 
 procedure TmodDados.cdCommentsBeforeEdit(DataSet: TDataSet);
 begin
   if Assigned(frmComments) then
     with frmComments.stbComments do
-      Panels[0].Text:= 'Edit mode';
+      Panels[0].Text := 'Edit mode';
 end;
 
-procedure TmodDados.cdCommentsPostError(DataSet: TDataSet;
-                                        E: EDatabaseError;
-                                        var Action: TDataAction);
+procedure TmodDados.cdCommentsPostError(DataSet: TDataSet; E: EDatabaseError;
+  var Action: TDataAction);
 begin
-  MessageDlg(DataSet.Fields.Fields[1].Value + #13 + #13 +
-             'Key violation.' + #13 +
-             'Latest insertion (or change) will be lost!',
-             mtError,
-             [MBOK],
-             0);
+  MessageDlg(DataSet.Fields.Fields[1].Value + #13 + #13 + 'Key violation.' + #13
+    + 'Latest insertion (or change) will be lost!', mtError, [MBOK], 0);
 
-  Dataset.Cancel;
-  Action:= daAbort;
+  DataSet.Cancel;
+  Action := daAbort;
 end;
 
-procedure TmodDados.cdCompletionAfterPost(DataSet: TDataSet);
-begin
-  if Assigned(frmCompletion) then
-    with frmCompletion do begin
-      stbCompletion.Panels[0].Text:= 'Browse mode';
-      frmCompletion.bbtCompletionClose.Enabled:= True;
-    end;
-end;
+function TmodDados.ActionlistToDataset: Boolean;
 
-procedure TmodDados.cdCompletionAfterScroll(DataSet: TDataSet);
-begin
-  if Assigned(frmCompletion) then
-    with frmCompletion.stbCompletion do
-      if Visible then Panels[0].Text:= 'Browse mode';
-end;
-
-procedure TmodDados.cdCompletionBeforeEdit(DataSet: TDataSet);
-begin
-  if Assigned(frmCompletion) then
-    with frmCompletion.stbCompletion do
-      Panels[0].Text:= 'Edit mode';
-end;
-
-procedure TmodDados.cdRcardAfterPost(DataSet: TDataSet);
-begin
-  if Assigned(frmRcard) then
-    with frmRcard do begin
-      stbRcard.Panels[0].Text:= 'Browse mode';
-      frmRcard.bbtRcardClose.Enabled:= True;
-    end;
-end;
-
-procedure TmodDados.cdRcardAfterScroll(DataSet: TDataSet);
-begin
-  if Assigned(frmRcard) then
-    with frmRcard.stbRcard do
-      if Visible then Panels[0].Text:= 'Browse mode';
-end;
-
-procedure TmodDados.cdRcardBeforeEdit(DataSet: TDataSet);
-begin
-  if Assigned(frmRcard) then
-    with frmRcard.stbRcard do
-      Panels[0].Text:= 'Edit mode';
-end;
-
-procedure TmodDados.cdRcardFilterRecord(DataSet: TDataSet;
-                                        var Accept: Boolean);
-var
-  strTemp: string;
-
-begin
-  cdRcard.DisableControls;
-  with frmTinnMain do begin
-    strTemp:= frmTools.lbRcard.Items[frmTools.lbRcard.ItemIndex];
-    Accept :=(cdRcardGroup.AsString = strTemp);
-  end;
-  cdRcard.EnableControls;
-end;
-
-function TmodDados.ActionlistToDataset: boolean;
-
-  procedure ClientDatasetStructure(cdTmp: TClientDataset);
+  procedure ClientDatasetStructure(cdTmp: TClientDataSet);
   begin
-    with cdTmp do begin
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftInteger;
-        Name    := 'Index';
+    with cdTmp do
+    begin
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftInteger;
+        Name := 'Index';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 50;
-        Name    := 'Group';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 50;
+        Name := 'Group';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 50;
-        Name    := 'Caption';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 50;
+        Name := 'Caption';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 80;
-        Name    := 'Hint';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 80;
+        Name := 'Hint';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 50;
-        Name    := 'Shortcut';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 50;
+        Name := 'Shortcut';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftInteger;
-        Name    := 'Image';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftInteger;
+        Name := 'Image';
       end;
 
-      with IndexDefs.AddIndexDef do begin
-        Name   := 'ShortcutsDefaultIndex';
+      with IndexDefs.AddIndexDef do
+      begin
+        Name := 'ShortcutsDefaultIndex';
         Fields := 'Index';
-        Options:= [ixPrimary, ixUnique];
+        Options := [ixPrimary, ixUnique];
       end;
 
-      FileName:= frmTinnMain.sPathData +
-                 '\Shortcuts.xml';
+      FileName := frmTinnMain.sPathData + '\Shortcuts.xml';
       CreateDataSet;
     end;
   end;
 
 var
-  i,
-   iImage: integer;
+  i, iImage: integer;
 
-  sShortcut,
-   sGroup,
-   sCaption,
-   sHint   : string;
+  sShortcut, sGroup, sCaption, sHint: string;
 
-  aTmp : TAction;
+  aTmp: TAction;
   cdTmp: TClientDataSet;
-  
-  procedure Update_Dataset(i: integer;
-                           sGroup,
-                           sCaption,
-                           sHint,
-                           sShortcut: string;
-                           iImage: integer);
+
+  procedure Update_Dataset(i: integer; sGroup, sCaption, sHint,
+    sShortcut: string; iImage: integer);
   begin
-    with cdTmp do begin
+    with cdTmp do
+    begin
       Append;
-      Fields[0].AsInteger:= i;
+      Fields[0].AsInteger := i;
       Fields[1].AsString := sGroup;
       Fields[2].AsString := sCaption;
       Fields[3].AsString := sHint;
       Fields[4].AsString := sShortcut;
-      Fields[5].AsInteger:= iImage;
+      Fields[5].AsInteger := iImage;
       Post;
     end;
   end;
-  
+
 begin
-  frmTinnMain.alMain.State:= asSuspended;
+  frmTinnMain.alMain.State := asSuspended;
 
   try
     try
-      cdTmp:= TClientDataSet.Create(Self);
+      cdTmp := TClientDataSet.Create(Self);
       ClientDatasetStructure(cdTmp);
 
-      for i:= 0 to frmTinnMain.alMain.ActionCount -1 do begin
-        aTmp  := TAction(frmTinnMain.alMain.Actions[i]);
-        sGroup:= aTmp.Category;
-        with aTmp do begin
+      for i := 0 to frmTinnMain.alMain.ActionCount - 1 do
+      begin
+        aTmp := TAction(frmTinnMain.alMain.Actions[i]);
+        sGroup := aTmp.Category;
+        with aTmp do
+        begin
           sCaption := Caption;
-          sHint    := Hint;
-          sShortcut:= ShortCutToText(Shortcut);
-          iImage   := ImageIndex;
-          if (sShortCut = '') then sShortCut:= 'None';
+          sHint := Hint;
+          sShortcut := ShortCutToText(Shortcut);
+          iImage := ImageIndex;
+          if (sShortcut = '') then
+            sShortcut := 'None';
         end;
-        Update_Dataset(i,
-                       sGroup,
-                       sCaption,
-                       sHint,
-                       sShortcut,
-                       iImage);
+        Update_Dataset(i, sGroup, sCaption, sHint, sShortcut, iImage);
       end;
-    frmTinnMain.alMain.State:= asNormal;
-      
-      with cdTmp do begin
+      frmTinnMain.alMain.State := asNormal;
+
+      with cdTmp do
+      begin
         MergeChangeLog;
         SaveToFile();
       end;
     except
-      //TODO
+      // TODO
     end;
   finally
-    Result:= True;
+    Result := True;
     FreeAndNil(cdTmp);
   end;
 end;
 
-function TmodDados.Rmirrors_Update(sFile: string): boolean;
+function TmodDados.Rmirrors_Update(sFile: string): Boolean;
 
-  procedure ClientDatasetStructure(cdTmp: TClientDataset);
+  procedure ClientDatasetStructure(cdTmp: TClientDataSet);
   begin
-    with cdTmp do begin
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 30;
-        Name    := 'Name';
+    with cdTmp do
+    begin
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 30;
+        Name := 'Name';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 20;
-        Name    := 'Country';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 20;
+        Name := 'Country';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 20;
-        Name    := 'City';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 20;
+        Name := 'City';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 60;
-        Name    := 'URL';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 60;
+        Name := 'URL';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 80;
-        Name    := 'Host';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 80;
+        Name := 'Host';
       end;
 
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 2;
-        Name    := 'Code';
+      with FieldDefs.AddFieldDef do
+      begin
+        DataType := ftString;
+        Size := 2;
+        Name := 'Code';
       end;
 
-      with IndexDefs.AddIndexDef do begin
-        Name   := 'RtipDefaultIndex';
+      with IndexDefs.AddIndexDef do
+      begin
+        Name := 'RtipDefaultIndex';
         Fields := 'Country;Name;URL';
-        Options:= [ixPrimary, ixUnique];
+        Options := [ixPrimary, ixUnique];
       end;
 
-      FileName:= frmTinnMain.sPathData +
-                 '\Rmirrors.xml';
+      FileName := frmTinnMain.sPathData + '\Rmirrors.xml';
 
       CreateDataSet;
     end;
@@ -957,203 +900,661 @@ function TmodDados.Rmirrors_Update(sFile: string): boolean;
 var
   i: integer;
 
-  cdTmp : TClientDataSet;
+  cdTmp: TClientDataSet;
   slTmp1: TStringList;
   slTmp2: TStringList;
 
 begin
   try
     try
-      cdTmp:= TClientDataSet.Create(Self);
+      cdTmp := TClientDataSet.Create(Self);
       ClientDatasetStructure(cdTmp);
 
-      slTmp1:= TStringList.Create;
-      slTmp2:= TStringList.Create;
+      slTmp1 := TStringList.Create;
+      slTmp2 := TStringList.Create;
       slTmp1.LoadFromFile(sFile);
 
-      StrSplit('|',
-               slTmp1.Text,
-               slTmp2);
+      StrSplit('|', slTmp1.Text, slTmp2);
 
-      cdRmirrors.Active:= False;
+      cdRmirrors.Active := False;
 
-      i:= 0;
+      i := 0;
       repeat
         { // To debug only
-        ShowMessage(slTmp2.Strings[i]   + #13 +
-                    slTmp2.Strings[i+1] + #13 +
-                    slTmp2.Strings[i+2] + #13 +
-                    slTmp2.Strings[i+3] + #13 +
-                    slTmp2.Strings[i+4] + #13 +
-                    slTmp2.Strings[i+5]
-                    );
+          ShowMessage(slTmp2.Strings[i]   + #13 +
+          slTmp2.Strings[i+1] + #13 +
+          slTmp2.Strings[i+2] + #13 +
+          slTmp2.Strings[i+3] + #13 +
+          slTmp2.Strings[i+4] + #13 +
+          slTmp2.Strings[i+5]
+          );
         }
-        with cdTmp do begin
+        with cdTmp do
+        begin
           Append;
-          Fields[0].AsString:= slTmp2.Strings[i];
-          Fields[1].AsString:= slTmp2.Strings[i+1];
-          Fields[2].AsString:= slTmp2.Strings[i+2];
-          Fields[3].AsString:= slTmp2.Strings[i+3];
-          Fields[4].AsString:= slTmp2.Strings[i+4];
-          Fields[5].AsString:= slTmp2.Strings[i+5];
+          Fields[0].AsString := slTmp2.Strings[i];
+          Fields[1].AsString := slTmp2.Strings[i + 1];
+          Fields[2].AsString := slTmp2.Strings[i + 2];
+          Fields[3].AsString := slTmp2.Strings[i + 3];
+          Fields[4].AsString := slTmp2.Strings[i + 4];
+          Fields[5].AsString := slTmp2.Strings[i + 5];
           Post;
         end;
 
-        i:= i + 6;
-      until (i = 6*slTmp1.Count);  // slTmp1.Count = Total of mirrors (lines of the file sFile = Rmirrors.txt)
+        i := i + 6;
+      until (i = 6 * slTmp1.Count);
+      // slTmp1.Count = Total of mirrors (lines of the file sFile = Rmirrors.txt)
 
-      with cdTmp do begin
+      with cdTmp do
+      begin
         MergeChangeLog;
         SaveToFile();
       end;
 
-      Result:= True;
+      Result := True;
     except
-      Result:= False;
+      Result := False;
     end;
   finally
-    cdRmirrors.Active:= True;
+    cdRmirrors.Active := True;
     FreeAndNil(cdTmp);
     FreeAndNil(slTmp1);
     FreeAndNil(slTmp2);
   end;
 end;
+{
+procedure TmodDados.SetFieldByEditorId(EditorId: integer; FieldName: String;
+  Value: Variant);
+begin
+  with modDados.cdEditors do
+  begin
+    if Locate('EditorId', EditorId, [loCaseInsensitive]) then
+    begin
+      Edit;
+      FieldValues[FieldName] := Value;
+      Post;
+    end;
+  end;
+end;
+
+function TmodDados.GetFieldByEditorId(EditorId: integer;
+  FieldName: String): Variant;
+begin
+  with modDados.cdEditors do
+  begin
+    if Locate('EditorId', EditorId, [loCaseInsensitive]) then
+      Result := modDados.cdEditors.FieldByName(FieldName).asVariant;
+  end;
+end;
+ }
+
+
+        {
+procedure TmodDados.ReRecordTabOrder;
+var
+  i: integer;
+begin
+  with modDados.cdEditors do
+  begin
+    if frmTinnMain.pgFiles.PageCount > 0 then
+      for i := 0 to frmTinnMain.pgFiles.PageCount - 1 do
+      begin
+        if Locate('EditorId', frmTinnMain.pgFiles.Pages[i].Tag, []) then
+        begin
+          Edit;
+          FieldValues['TabPosition'] := i + 1;
+          Post;
+        end;
+      end;
+  end;
+end;   }
+
+
+procedure TmodDados.DeleteEditorEntry(EditorId: integer; sBackupFile: String);
+var
+  sTmpFile: String;
+  EditorFile: TEditorFile;
+begin
+
+
+
+
+  sqlEditors.ExecuteDirect('DELETE FROM Editors WHERE EditorId = '+inttostr(EditorId));
+  if FileExists(sBackupFile) then
+    DeleteFile(sBackupFile);
+
+
+end;
+
+procedure TmodDados.dsIdentifiersDataChange(Sender: TObject; Field: TField);
+begin
+  if not assigned(frmColors) then
+    Exit;
+  frmColors.SelectIdentifier;
+end;
+
+procedure TmodDados.dsLexersDataChange(Sender: TObject; Field: TField);
+begin
+
+  if not assigned(frmColors) then
+    Exit;
+  if cdLexers.Fields = nil then
+    Exit;
+  cdIdentifiers.Refresh;
+  cdIdentifiers.Filter := 'LexerId =' + cdLexers.FieldByName('LexerId').AsString;
+  cdIdentifiers.Filtered := true;
+  frmColors.AdjustColumnWidths(frmColors.dbgIdentifiers);
+  ApplyLexer(ModDados.cdLexers.FieldByName('LexerId').AsInteger, frmColors.sciPreview);
+end;
+
+procedure TmodDados.dsMainBaseDataChange(Sender: TObject; Field: TField);
+var sTmpDescription: String;
+begin
+  if Assigned(frmTools) then
+  begin
+    sTmpDescription := cdMainBase.FieldByName('DescriptionFormatted').AsString;
+    if sTmpDescription <> sCurDescription  then
+    begin
+      sCurDescription := sTmpDescription;
+      frmTools.RenderHTMLPage(sCurDescription);
+    end;
+  end;
+    {
+ if Assigned(frmTools) then
+    frmTools.RenderHTMLPage(inttostr(random(999)));}
+end;
+
+procedure TmodDados.LoadEditors;
+var
+    stmp: String;
+    sTables: TStringList;
+    bEditorFileExists: Boolean;
+begin
+  bEditorFileExists := FileExists(frmTinnMain.sPathData + '\Editors.txt');
+
+  try
+    with sqlEditors do
+    begin
+
+      Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathData)+'Editor.txt';
+      Params.Values['FailIfMissing'] := 'False';
+      Connected := True;
+
+      sTables := TStringList.Create;
+      GetTableNames(sTables);
+
+
+      if stables.IndexOf('Editors') < 0 then
+      begin
+
+        stmp :=
+        'CREATE TABLE Editors (File VARCHAR, NewFile INTEGER, Modified INTEGER, UnsavedChanges INTEGER, TempFile VARCHAR, TabPosition INTEGER, ';
+        stmp := stmp + 'EditorId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,  Marks VARCHAR, TopLine INTEGER, CaretPosition INTEGER, Folding VARCHAR, LexerId INTEGER  )';
+        ExecuteDirect(stmp);
+
+      end;
+      sTables.Free;
+    end;
+  except
+
+   if bEditorFileExists then
+     MessageDlg('Tinn-R encountered a damaged auto recovery database and cannot recover your files. You can try to manually recover files stored in ''' + frmTinnMain.sPathFileBackup + '''.', mtError, [mbOK], 0);
+  end;
+end;
+
+procedure TmodDados.LoadComments;
+begin
+  // Comments
+  with cdComments do
+  begin
+    Active := False;
+    FileName := frmTinnMain.sPathData + '\Comments.xml';
+    Active := True;
+    IndexDefs.Clear;
+    with IndexDefs.AddIndexDef do
+    begin
+      Name := 'CommentsDefaultIndex';
+      Fields := 'Language';
+      Options := [ixPrimary, ixUnique];
+    end;
+    IndexName := 'CommentsDefaultIndex';
+  end;
+end;
+
+procedure TmodDados.LoadCache;
+var sTables: TStringList;
+begin
+  with sqlCache do
+  begin
+
+    Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathData)+'Cache.txt';
+    Params.Values['FailIfMissing'] := 'False';
+    Connected := True;
+
+    sTables := TStringList.Create;
+    GetTableNames(sTables);
+
+
+    if stables.IndexOf('FileCache') < 0 then
+      ExecuteDirect('CREATE TABLE FileCache (File VARCHAR, Marks VARCHAR, TopLine INTEGER, CaretPosition INTEGER, Folding VARCHAR, LexerId INTEGER  )');
+
+    sTables.Free;
+  end;
+end;
+
+procedure TmodDados.LoadMirrors;
+begin
+  // R Mirrors
+  with cdRmirrors do
+  begin
+    Active := False;
+    FileName := frmTinnMain.sPathData + '\Rmirrors.xml';
+    Active := True;
+    IndexDefs.Clear;
+    with IndexDefs.AddIndexDef do
+    begin
+      Name := 'RmirrorsDefaultIndex';
+      Fields := 'Country;Name;URL';
+      Options := [ixPrimary, ixUnique];
+    end;
+    IndexName := 'RmirrorsDefaultIndex';
+  end;
+
+  with frmTinnMain do
+  begin
+    if not bDatabaseRestored then
+      cdRmirrors.SavePoint := iRmirrorsBeforeChanges
+    else
+      iRmirrorsBeforeChanges := cdRmirrors.SavePoint;
+  end;
+  RmirrorsCountriesFilter(Self);
+end;
+
+procedure TmodDados.LoadShortcuts;
+begin
+
+  // Shortcuts
+  if not fileexists(frmTinnMain.sShortcutsInUse) then
+    ActionlistToDataset;
+
+  with cdShortcuts do
+  begin
+    Active := False;
+    FileName := frmTinnMain.sShortcutsInUse;
+    Active := True;
+    IndexDefs.Clear;
+    with IndexDefs.AddIndexDef do
+    begin
+      Name := 'ShortcutsDefaultIndex';
+      Fields := 'Index';
+      Options := [ixPrimary, ixUnique];
+    end;
+    IndexName := 'ShortcutsDefaultIndex';
+  end;
+
+  with frmTinnMain do
+  begin
+    if not bDatabaseRestored then
+      cdShortcuts.SavePoint := iShortcutsBeforeChanges
+    else
+      iShortcutsBeforeChanges := cdShortcuts.SavePoint;
+  end;
+
+  ShortcutsGroupsFilter(Self);
+end;
+
+procedure TmodDados.LoadRHelpSystem;
+var sCommand: String;
+    sTables: TStringList;
+    sCreateIdentifiers: String;
+    i: Integer;
+begin
+  with sqlMainBase do
+  begin
+
+    Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathData)+'RHelpSystem.txt';
+    Params.Values['FailIfMissing'] := 'False';
+    Connected := True;
+
+
+    sTables := TStringList.Create;
+    GetTableNames(sTables);
+
+    if stables.IndexOf('Environments') < 0 then
+      ExecuteDirect('CREATE TABLE Environments (Environment VARCHAR, Version VARCHAR DEFAULT "", CheckUpdate INTGER DEFAULT 1)');
+
+
+    if stables.IndexOf('Objects') < 0 then
+    begin
+      sCommand := 'CREATE TABLE Objects ';
+      sCommand := sCommand + '(DisplayName VARCHAR NOT NULL, Name VARCHAR NOT NULL, InsertText VARCHAR NOT NULL, Description VARCHAR NOT NULL, ';
+
+      sCommand := sCommand + 'DescriptionFormatted VARCHAR NOT NULL, Title VARCHAR NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR NOT NULL, ';
+      sCommand := sCommand + 'Class VARCHAR NOT NULL, Arguments VARCHAR, HasArguments INTEGER, Envir VARCHAR NOT NULL, PrettyPackage NOT NULL)';
+
+      ExecuteDirect(sCommand);
+      //  showmessage(sCommand) ;
+
+    end;
+
+    if stables.IndexOf('UserDefined') < 0 then
+    begin
+
+      ExecuteDirect('CREATE TABLE UserDefined (Name VARCHAR NOT NULL, Envir VARCHAR NOT NULL, Completion VARCHAR NOT NULL, Trigger VARCHAR NOT NULL)');
+      ExecuteDirect('INSERT INTO  UserDefined (Name, Envir, Completion, Trigger) VALUES ("as.data.frame",  "package:base", "as.data.frame(|)", "asdf")');
+      ExecuteDirect('INSERT INTO  UserDefined (Name, Envir, Completion, Trigger) VALUES ("merge",  "package:base","merge(x, y, by = "")", "mrg")');
+     end;
+
+    if stables.IndexOf('Categories') < 0 then
+    begin
+                     //     , CategoryDescription VARCHAR NOT NULL
+      ExecuteDirect('CREATE TABLE Categories (Category VARCHAR NOT NULL)');
+      ExecuteDirect('INSERT INTO  Categories (Category) VALUES ("Basic and help")');
+      ExecuteDirect('INSERT INTO  Categories (Category) VALUES ("Data creation")');
+      ExecuteDirect('INSERT INTO  Categories (Category) VALUES ("Export data")');
+     end;
+
+    if stables.IndexOf('CategoriesObjects') < 0 then
+    begin
+                     //     , CategoryDescription VARCHAR NOT NULL
+      ExecuteDirect('CREATE TABLE CategoriesObjects (Category VARCHAR NOT NULL, Name VARCHAR NOT NULL, Envir NOT NULL)');
+
+ //     ExecuteDirect('INSERT INTO  UserDefined (Name, Envir, Completion, Trigger) VALUES ("merge",  "package:base","merge(x, y, by = "")", "mrg")');
+     end;
+
+    sqldsMainBaseTools.Active := true;
+    sqldsMainBaseTools.Refresh;
+
+
+   // Close;
+    cdMainBase.Active := true;
+    cdMainBase.Refresh;
+    Connected := false;
+
+
+    sqldsCategories.Active := true;
+    sqldsCategories.Refresh;
+
+    sTables.Free;
+  end;
+
+
+
+
+  RcardGroupsFilter(Self);
+end;
+
+
+procedure TmodDados.LoadLexerDB;
+var sCommand: String;
+    sTables: TStringList;
+    sCreateIdentifiers: String;
+    i: Integer;
+begin
+  with sqlLexerConnection do
+  begin
+
+    Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathData)+'Lexer.txt';
+    Params.Values['FailIfMissing'] := 'False';
+    Connected := True;
+
+
+    sTables := TStringList.Create;
+    GetTableNames(sTables);
+
+    if stables.IndexOf('Lexers') < 0 then
+    begin
+      ExecuteDirect('CREATE TABLE Lexers (LexerId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, LexerName VARCHAR(100) NOT NULL, Extensions VARCHAR(500) DEFAULT "")');
+      ExecuteDirect('INSERT INTO Lexers (LexerName, LexerId, Extensions) VALUES ("Text", 0, "*.txt")');
+      ExecuteDirect('INSERT INTO Lexers (LexerName, LexerId, Extensions) VALUES ("R", 86, "*.r; *.rd")');
+      ExecuteDirect('INSERT INTO Lexers (LexerName, LexerId, Extensions) VALUES ("SQL", 7, "*.txt")');
+
+    end;
+
+  //  for i := 1 to 150 do
+   //    ExecuteDirect('INSERT INTO Lexers (LexerName, LexerId) VALUES ("Test the limits '+inttostr(i)+'", '+inttostr(1000+i)+')');
+
+    if stables.IndexOf('Identifiers') < 0 then
+    begin
+      sCreateIdentifiers := 'CREATE TABLE Identifiers (LexerId INTEGER, IdentifierId INTEGER, ';
+      sCreateIdentifiers := sCreateIdentifiers + ' IdentifierName VARCHAR(100) NOT NULL, ';
+      sCreateIdentifiers := sCreateIdentifiers + ' IdentifierType INTEGER DEFAULT -1, FGColor INTEGER DEFAULT '+inttostr(clWindowText)+', BGColor INTEGER DEFAULT'+inttostr(clWindow)+', ';
+      sCreateIdentifiers := sCreateIdentifiers + ' FontSize INTEGER DEFAULT 10, Bold BOOLEAN DEFAULT 0, Italic BOOLEAN DEFAULT 0, Underline BOOLEAN DEFAULT 0, FontName VARCHAR(100) DEFAULT  "Courier New")';
+      ExecuteDirect(sCreateIdentifiers);
+
+
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 0, "Default",        1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 1, "Comments",        1, 0,'+inttostr(clGray)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 2, "Key-words",      1, 1,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 3, "Keywords base packages", 1, 1,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 4, "Keywords user environment",    1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 5, "Numbers",        1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 6, "Strings",        1, 0,'+inttostr(clNavy)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 7, "Strings 2",      1, 0,'+inttostr(clGreen)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 8, "Operators",       1, 0,'+inttostr(clRed)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 9, "Identifiers",     1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 10, "Infix",         1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 11, "Infixeol",      1, 0,'+inttostr(clWindowText)+')');
+
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 34, "Matched bracket",         1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 35, "Unmatched bracket",      1, 0,'+inttostr(clWindowText)+')');
+
+      {
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 12, "t12",     1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 13, "t13",         1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 14, "t14",      1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 15, "t15",     1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 16, "t16",         1, 0,'+inttostr(clWindowText)+')');
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (86, 17, "t17",      1, 0,'+inttostr(clWindowText)+')');
+}
+
+
+      ExecuteDirect('INSERT INTO  Identifiers (LexerId, IdentifierId, IdentifierName, IdentifierType, Bold, FGColor) VALUES (7, 0, "Identifiers",        1, 1,'+inttostr(clWindowText)+')');
+
+    end;
+
+    sTables.Free;
+
+
+    sqldsLexers.Active := true;
+    sqldsLexers.Refresh;
+
+    cdLexers.Active := true;
+    cdLexers2.Active := true;
+
+    sqldsIdentifiers.Active := true;
+    sqldsIdentifiers.Refresh;
+    cdIdentifiers.Active := true;
+
+    sqlIdentifiersCurrent.Active := true;
+    sqlIdentifiersCurrent.Refresh;
+    cdIdentifiersCurrent.Active := true;
+
+   end;
+end;
+
+function TmodDados.GetLexerNameById(iLexerId: Integer): String;
+begin
+ if cdLexers2.Locate('LexerId', iLexerId, []) then
+   Result := cdLexers2.FieldByName('LexerName').AsString
+ else Result := '';
+end;
+
+function TmodDados.GetLexerIdByName(sLexerName: String): Integer;
+begin
+ if cdLexers2.Locate('LexerName', sLexerName, [loCaseInsensitive]) then
+   Result := cdLexers2.FieldByName('LexerId').AsInteger
+ else Result := -1;
+end;
+
+procedure TmodDados.CheckForNewPackages;
+var i: Integer;
+    bNeedsUpdate: Boolean;
+begin
+  if not assigned(frmTools) then
+    exit;
+  if not assigned(frmTools.cbbToolsREnvironment) then
+    exit;
+
+  sqlMainBase.Connected:= true;
+
+  for i := 0 to frmTools.cbbToolsREnvironment.Items.Count-1 do
+  if frmTools.cbbToolsREnvironment.Items[i] <> '.GlobalEnv' then
+  with sqldsMainBase do
+  begin
+    Close;
+    CommandText := 'SELECT * FROM Environments WHERE Environment like '+AnsiQuotedStr(frmTools.cbbToolsREnvironment.Items[i], '"');
+    Open;
+    First;
+    if EOF then
+    begin
+      sqlMainBase.ExecuteDirect('Insert INTO Environments (Environment) Values('+  AnsiQuotedStr(frmTools.cbbToolsREnvironment.Items[i], '"')+')');
+      bNeedsUpdate := true;
+    end else if sqldsMainBase.FieldByName('CheckUpdate').AsInteger = 1 then
+      bNeedsUpdate := true;
+
+
+  end;
+  sqlMainBase.Close;
+  sqlMainBase.CloseDataSets;
+  sqlMainBase.Connected := false;
+
+  if bNeedsUpdate then
+    frmTinnMain.SendLibraryUpdate;
+
+end;
+
+
+
+function TmodDados.GetFileTypeIndexOfLexer(iLexerId: Integer): Integer;
+begin
+  Result := 1;
+
+  ModDados.cdLexers2.First;
+
+  while not ModDados.cdLexers2.Eof do
+  begin
+    if ModDados.cdLexers2.FieldByName('LexerId').AsInteger = iLexerId then
+    begin
+      Result := Result + 1;
+      Exit;
+    end else Result := Result + 1;
+
+
+
+    ModDados.cdLexers2.Next;
+  end;
+end;
+
+procedure TmodDados.LookupWord(sKey: String; cdDataBase: TClientDataSet);
+      var
+    sCompare: String;
+    bMatched: Boolean;
+    iCurrent: Integer;
+  begin
+    with cdDataBase do
+    begin
+      DisableControls;
+
+      iCurrent := RecNo;
+      bMatched := false;
+
+      while not bMatched do
+      begin
+
+        sCompare := ansilowercase(FieldByName('Name').AsString);
+
+        if ansipos(sKey, sCompare) = 1 then
+          bMatched := true;
+
+        if not bMatched then
+        begin
+         if not eof then
+           next
+         else first
+        end;
+
+        if RecNo = iCurrent then
+        begin
+          bMatched := true;
+        end;
+
+      end;
+      EnableControls;
+    end;
+end;
+
+function TmodDados.FindTipText(sWord: String): String;
+begin
+  with sqldsExplorerTip do
+  begin
+    if sCurDwellText <> sWord then
+    begin
+      sCurDwellText := sWord;
+      Active := false;
+      CommandText := 'SELECT Name, Dim, Class FROM objects WHERE name like ' + AnsiQuotedStr(ansilowercase(sWord),'"');
+      Active := true;
+    end;
+
+    if Active then
+    begin
+      First;
+      if not FieldByName('Dim').IsNull  then
+
+        Result := sWord +': '+FieldByName('Class').AsString+#10+'Dims: '+FieldByName('Dim').AsString;
+
+    end;
+  end;
+end;
+
+
+
+
+procedure TmodDados.BackupFiles;
+var
+  i: integer;
+  bSaved: Boolean;
+
+  function CreateUniqueTempName(sfilename: String): String;
+  var
+    i: integer;
+  begin
+    i := 1;
+    while (FileExists(frmTinnMain.sPathFileBackup + 'autosave-' + IntToStr(i) + '-' +
+      sfilename)) do
+      inc(i);
+    Result := frmTinnMain.sPathFileBackup + 'autosave-' + IntToStr(i) + '-' + sfilename;
+  end;
+
+begin
+    for i := 0 to frmTinnMain.MDIChildCount - 1 do
+    with (frmTinnMain.MDIChildren[i] as TfrmEditor), (frmTinnMain.MDIChildren[i] as TfrmEditor).EditorFile do
+    begin
+      if iUnsavedChanges = 1 then
+      begin
+        if sTempFile = '' then
+            sTempFile := CreateUniqueTempName(StripPath(sFile));
+        bSaved := SaveBackup(sTempFile);
+        if bSaved then
+        begin
+          iUnsavedChanges := 0;
+          bBackupUnsaved := False;
+          sMarks := GetMarkerString;
+          sFolding := GetToggleString;
+          WriteCursorAndWindoInfo(EditorFile);
+        end;
+      end;
+      moddados.SaveEditorFile(EditorFile);
+    end;
+
+
+    if frmTinnMain.MDIChildCount = 0 then
+      if FileExists(frmTinnMain.sPathData + '\Editors.txt') then
+         DeleteFile(frmTinnMain.sPathData + '\Editors.txt');
+end;
+
+
+
 
 end.
 
-(*
-if not FileExists(frmTinnMain.sFileDataOrigin) then Exit;
-try
-  modDados.cdRmirrors.Active:= False;
-  with frmTinnMain.zipKit do begin
-    FileName     := frmTinnMain.sFileDataOrigin;
-    BaseDirectory:= frmTinnMain.sPathData;
-    ExtractFiles('Rmirrors.xml');
-    CloseArchive;
-  end;
-  modDados.cdRmirrors.Active:= True;
-  frmTinnMain.iRmirrorsBeforeChanges:= modDados.cdRmirrors.SavePoint;
-
-  MessageDlg('The original ''Rmirrors.xml'' was successfully restored.',
-             mtInformation,
-             [MBOK],
-             0);
-except
-  // todo!
-end;
-*)
-
-(*
-function TmodDados.RmirrorsToDataset(sFile: string): boolean;
-
-  procedure ClientDatasetStructure(cdTmp: TClientDataset);
-  begin
-    with cdTmp do begin
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 30;
-        Name    := 'Name';
-      end;
-
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 20;
-        Name    := 'Country';
-      end;
-
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 20;
-        Name    := 'City';
-      end;
-
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 60;
-        Name    := 'URL';
-      end;
-
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 60;
-        Name    := 'Host';
-      end;
-
-      with FieldDefs.AddFieldDef do begin
-        DataType:= ftString;
-        Size    := 2;
-        Name    := 'Code';
-      end;
-
-      with IndexDefs.AddIndexDef do begin
-        Name   := 'RtipDefaultIndex';
-        Fields := 'Country;Name;URL';
-        Options:= [ixPrimary, ixUnique];
-      end;
-
-      FileName:= frmTinnMain.sPathData +
-                 '\Rmirrors_tmp.xml';
-      CreateDataSet;
-    end;
-  end;
-
-var
-  i     : integer;
-  cdTmp : TClientDataSet;
-  slTmp1: TStringList;
-  slTmp2: TStringList;
-
-begin
-  try
-    try
-      cdTmp:= TClientDataSet.Create(Self);
-      ClientDatasetStructure(cdTmp);
-
-      slTmp1:= TStringList.Create;
-      slTmp2:= TStringList.Create;
-      slTmp1.LoadFromFile(sFile);
-
-      StrSplit('|',
-               slTmp1.Text,
-               slTmp2);
-
-      i:= 0;
-      repeat
-        { // To debug only
-        ShowMessage(slTmp2.Strings[i]   + #13 +
-                    slTmp2.Strings[i+1] + #13 +
-                    slTmp2.Strings[i+2] + #13 +
-                    slTmp2.Strings[i+3] + #13 +
-                    slTmp2.Strings[i+4] + #13 +
-                    slTmp2.Strings[i+5]
-                    );
-        *}
-        with cdTmp do begin
-          Append;
-          Fields[0].AsString:= slTmp2.Strings[i];
-          Fields[1].AsString:= slTmp2.Strings[i+1];
-          Fields[2].AsString:= slTmp2.Strings[i+2];
-          Fields[3].AsString:= slTmp2.Strings[i+3];
-          Fields[4].AsString:= slTmp2.Strings[i+4];
-          Fields[5].AsString:= slTmp2.Strings[i+5];
-          Post;
-        end;
-
-        i:= i + 6;
-      until (i = 6*slTmp1.Count);  // slTmp1.Count = Total of mirrors (lines of the file sFile = Rmirrors.txt)
-
-      with cdTmp do begin
-        MergeChangeLog;
-        SaveToFile();
-      end;
-    except
-      //TODO
-    end;
-  finally
-    Result:= True;
-    FreeAndNil(cdTmp);
-    FreeAndNil(slTmp1);
-    FreeAndNil(slTmp2);
-  end;
-end;
-*)

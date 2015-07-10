@@ -248,7 +248,6 @@ object frmConfigurePrint: TfrmConfigurePrint
     Height = 25
     Caption = 'Preview'
     TabOrder = 1
-    OnClick = bbtPreviewClick
   end
   object acConfigurePrint: TActionList
     Images = frmTinnMain.imlTinnR

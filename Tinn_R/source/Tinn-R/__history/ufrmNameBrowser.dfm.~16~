@@ -1,0 +1,89 @@
+object frmNameBrowser: TfrmNameBrowser
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  Caption = 'Name browser'
+  ClientHeight = 482
+  ClientWidth = 265
+  Color = clBtnFace
+  DockSite = True
+  DragKind = dkDock
+  DragMode = dmAutomatic
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  FormStyle = fsStayOnTop
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnDeactivate = FormDeactivate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object panHeader: TPanel
+    Left = 0
+    Top = 0
+    Width = 265
+    Height = 27
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+    object edNameSearch: TButtonedEdit
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 259
+      Height = 21
+      Align = alClient
+      TabOrder = 0
+      OnChange = edNameSearchChange
+      OnKeyDown = edNameSearchKeyDown
+    end
+  end
+  object lvNames: TListView
+    Left = 0
+    Top = 27
+    Width = 265
+    Height = 455
+    Align = alClient
+    Columns = <
+      item
+        AutoSize = True
+        Caption = 'Names'
+      end
+      item
+        Caption = 'Dim'
+      end
+      item
+        Caption = 'Class'
+        Width = 65
+      end>
+    Items.ItemData = {
+      051A0000000100000000000000FFFFFFFFFFFFFFFF00000000FFFFFFFF000000
+      0000}
+    MultiSelect = True
+    ReadOnly = True
+    PopupMenu = popmenInsert
+    TabOrder = 1
+    ViewStyle = vsReport
+    OnDblClick = lvNamesDblClick
+    OnKeyDown = lvNamesKeyDown
+  end
+  object JvDockClientNameBrowser: TJvDockClient
+    DirectDrag = False
+    RightDock = False
+    DockStyle = frmTinnMain.JvDockVSNetStyle
+    Left = 88
+    Top = 384
+  end
+  object popmenInsert: TPopupMenu
+    Left = 112
+    Top = 208
+    object Insertandclose1: TMenuItem
+      Caption = 'Insert and close'
+      OnClick = Insertandclose1Click
+    end
+  end
+end

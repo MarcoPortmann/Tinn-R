@@ -34,7 +34,6 @@ object frmSearchDialog: TfrmSearchDialog
     BevelInner = bvNone
     BevelOuter = bvNone
     Ctl3D = False
-    ItemHeight = 13
     ParentCtl3D = False
     TabOrder = 0
   end
