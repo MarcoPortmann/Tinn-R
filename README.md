@@ -19,7 +19,7 @@ In particular, the project aims at migrating the source code of Tinn-R to Delphi
 - Remove all line breaks within the current text selection (> main menu > edit).
 - Tools window/panel > file management > file list of the current folder, right-click context menu: copy-file list inserts the name of all files into the editor (very preliminary, there is no option to select files).
 - Alt+down key in the R term opens a popup menu with recently used commands (very preliminary).
-- **Bugs, bugs, bugs, and missing features:** Don’t click on “auto hide” or “reformat”! There is no category or package filter for the library at the moment. “Printing”, “search in multiple files”, “apply filter” in the toolbar, invert case, LaTeX support etc. etc. doesn’t work at the moment. Only the R highlighter works at the moment, the style descriptions in the highlighter menu are probably wrong or weird.  
+- **Bugs, bugs, bugs, and missing features:** There is no category or package filter for the library at the moment. Printing, LaTeX, Sweave, Knit, etc. etc. doesn’t work at the moment. Only the R highlighter works at the moment, the style descriptions in the highlighter menu are probably wrong or weird.  
 
 ## Installation
 The app is **available [here](https://github.com/MarcoPortmann/Tinn-R/blob/Delphi-XE/Tinn_R/install_setup/bin/Tinn-R_3.0.3.6_setup.exe?raw=true)**
