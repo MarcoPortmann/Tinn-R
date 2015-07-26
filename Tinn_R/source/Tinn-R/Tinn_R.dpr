@@ -104,7 +104,8 @@ uses
   SciSupport in 'SciSupport.pas',
   ufrmCloneLexer in 'ufrmCloneLexer.pas' {frmCloneDialog},
   uLaTeX in 'uLaTeX.pas',
-  trCommon in 'trCommon.pas';
+  trCommon in 'trCommon.pas',
+  ufrmTidyAbort in 'ufrmTidyAbort.pas' {frmTidyAbort};
 
 {$R Tinn_R.KLR}
 {$R *.RES}
@@ -247,6 +248,7 @@ begin
   Application.HelpFile := '';
   Application.CreateForm(TfrmTinnMain, frmTinnMain);
   Application.CreateForm(TfrmCloneDialog, frmCloneDialog);
+  Application.CreateForm(TfrmTidyAbort, frmTidyAbort);
   // The only place i found so far where no timing issues to create the MDI children occur.
   frmTinnMain.InitialBackup;
   if (ParamCount > 0) then

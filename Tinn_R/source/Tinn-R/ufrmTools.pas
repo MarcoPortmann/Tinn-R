@@ -63,10 +63,6 @@ uses
 
 type
   TfrmTools = class(TForm)
-
-    dbgShortcuts: TDBGrid;
-    DBNavigator4: TDBNavigator;
-    dbShortcutsMemo: TDBMemo;
     GroupBox1: TGroupBox;
     GroupBox10: TGroupBox;
     GroupBox11: TGroupBox;
@@ -95,7 +91,6 @@ type
     GroupBox7: TGroupBox;
     GroupBox8: TGroupBox;
     GroupBox9: TGroupBox;
-    imgShortcut: TImage;
     JvDockClientTools: TJvDockClient;
     jvivAccents: TJvImagesViewer;
     jvivArrowBoth: TJvImagesViewer;
@@ -135,22 +130,16 @@ type
     jvivSkyVar: TJvImagesViewer;
     jvivUserCustom: TJvImagesViewer;
     JvPoweredByJCL1: TJvPoweredByJCL;
-    lbShortcuts: TListBox;
-    Panel11: TPanel;
-    Panel12: TPanel;
-    Panel13: TPanel;
     Panel3: TPanel;
     panExplorerHeader: TPanel;
     panRcard1: TPanel;
     panRcard4: TPanel;
-    panShortcuts: TPanel;
     pgLatex: TJvgPageControl;
     ScrollBox1: TScrollBox;
     ScrollBox2: TScrollBox;
     ScrollBox3: TScrollBox;
     ScrollBox4: TScrollBox;
     ScrollBox5: TScrollBox;
-    splShortcuts: TSplitter;
     stbProject: TStatusBar;
     stbSearch: TStatusBar;
     tbsLatexAccent: TTabSheet;
@@ -243,8 +232,6 @@ type
     Label82: TLabel;
     Label83: TLabel;
     Label84: TLabel;
-    JvNavPanelDivider13: TJvNavPanelDivider;
-    panShort: TPanel;
     JvNavPanelDivider15: TJvNavPanelDivider;
     panComments: TPanel;
     GroupBox30: TGroupBox;
@@ -340,7 +327,6 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure lbCountriesClick(Sender: TObject);
     procedure lbRcardClick(Sender: TObject);
-    procedure lbShortcutsClick(Sender: TObject);
     procedure pgDatabaseChange(Sender: TObject);
     procedure pgMiscChange(Sender: TObject);
     procedure pgToolsChange(Sender: TObject);
@@ -414,6 +400,7 @@ type
       Shift: TShiftState);
     procedure cgObjectsStartDrag(Sender: TObject; var DragObject: TDragObject);
     procedure cgObjectsKeyPress(Sender: TObject; var Key: Char);
+    procedure npToolsChange(Sender: TObject);
 
   private
     { Private declarations }
@@ -1218,20 +1205,16 @@ end;
 
 procedure TfrmTools.FormResize(Sender: TObject);
 begin
-  AdjustColumnWidths(dbgShortcuts);
   AdjustColumnWidths(dbgRmirrors);
   // AdjustColumnWidths(dbgCompletion);
   AdjustColumnWidths(dbgComments);
 
-
   ResizeMainBase;
   ResizeObjects;
-
 end;
 
 procedure TfrmTools.FormShow(Sender: TObject);
 begin
-  AdjustColumnWidths(dbgShortcuts);
   AdjustColumnWidths(dbgRmirrors);
   // AdjustColumnWidths(dbgCompletion);
   AdjustColumnWidths(dbgComments);
@@ -1710,7 +1693,6 @@ end;
 procedure TfrmTools.lbRcardClick(Sender: TObject);
 var
   sFilter, sOldFilter: String;
-
 begin
 
   sFilter := trim(edCardSearch.Text);
@@ -1740,23 +1722,17 @@ begin
      DisableControls;
      Filter := sFilter;
      Filtered := length(Filter)>0;
-     
+
      First;
      EnableControls;
    end;
   end
 end;
 
-procedure TfrmTools.lbShortcutsClick(Sender: TObject);
+procedure TfrmTools.npToolsChange(Sender: TObject);
 begin
-  frmTinnMain.iShortcutsFilter := lbShortcuts.ItemIndex;
-  with modDados.cdShortcuts do
-  begin
-    Filter := 'Group = ' + QuotedStr(lbShortcuts.Items.Strings
-      [frmTinnMain.iShortcutsFilter]);
-    Filtered := true;
-    First;
-  end;
+  ResizeMainBase;
+  ResizeObjects;
 end;
 
 procedure TfrmTools.npToolsResize(Sender: TObject);
@@ -1801,7 +1777,6 @@ begin
     else if (ActivePage = tbsRMirrors)   then lbCountries.SetFocus;
   }
 
-  AdjustColumnWidths(dbgShortcuts);
   // AdjustColumnWidths(dbgCompletion);
   AdjustColumnWidths(dbgRmirrors);
   AdjustColumnWidths(dbgComments);
@@ -1818,7 +1793,6 @@ end;
 
 procedure TfrmTools.pgToolsChange(Sender: TObject);
 begin
-  AdjustColumnWidths(dbgShortcuts);
   // AdjustColumnWidths(dbgCompletion);
   AdjustColumnWidths(dbgRmirrors);
   AdjustColumnWidths(dbgComments);

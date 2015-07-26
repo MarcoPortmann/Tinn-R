@@ -2,11 +2,20 @@
 err.txt <- ""
 if (require("RSQLite",character.only = T, quietly = F)==F) err.txt <- paste(err.txt, "RSQLite", sep='|')
 if (require("svSocket",character.only = T, quietly = F)==F) err.txt <- paste(err.txt, "svSocket", sep='|')
-   
+if (require("formatR",character.only = T, quietly = F)==F) err.txt <- paste(err.txt, "formatR", sep='|')   
+
 if (nchar(err.txt)>0) stop(paste('TinnRMSG:MissingPackage:',err.txt,'<',  sep=''))
 rm(err.txt)
 
 
+#! Tidy Wrapper
+
+TinnR$TinnRTidy <- function(sourcefile, targetfile)
+{
+  tryCatch({tidyDone <- F; tidy.source(source = sourcefile, file = targetfile); tidyDone <- T},
+           finally = {if (tidyDone) print('TinnRMSG:TidyReady') else print('TinnRMSG:TidyFailed')}
+          )           
+}   
 
 
 #! trObjInfo

@@ -39,7 +39,7 @@ object frmTools: TfrmTools
     Top = 0
     Width = 351
     Height = 689
-    ActivePage = ppR
+    ActivePage = ppMisc
     Align = alClient
     Background.Stretch = False
     Background.Proportional = False
@@ -66,6 +66,7 @@ object frmTools: TfrmTools
     ParentStyleManager = False
     MaximizedCount = 6
     SmallImages = frmTinnMain.imlTinnR
+    OnChange = npToolsChange
     OnResize = npToolsResize
     OnSplitterMoved = npToolsSplitterMoved
     object ppR: TJvNavPanelPage
@@ -956,24 +957,9 @@ object frmTools: TfrmTools
       Background.Transparent = False
       Caption = 'Misc'
       ImageIndex = 120
-      object JvNavPanelDivider13: TJvNavPanelDivider
-        Left = 0
-        Top = 0
-        Width = 349
-        Align = alTop
-        Caption = 'Shortcuts'
-        ColorFrom = 15725551
-        ColorTo = 13026246
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        StyleManager = npStyle
-      end
       object JvNavPanelDivider15: TJvNavPanelDivider
         Left = 0
-        Top = 121
+        Top = 0
         Width = 349
         Align = alTop
         Caption = 'Comments'
@@ -985,6 +971,7 @@ object frmTools: TfrmTools
         Font.Name = 'Segoe UI'
         Font.Style = []
         StyleManager = npStyle
+        ExplicitTop = 121
       end
       object JvNavPanelDivider14: TJvNavPanelDivider
         Left = 0
@@ -1002,182 +989,25 @@ object frmTools: TfrmTools
         StyleManager = npStyle
         ExplicitTop = 327
       end
-      object panShort: TPanel
+      object panComments: TPanel
         Left = 0
         Top = 19
         Width = 349
-        Height = 102
-        Align = alTop
-        TabOrder = 0
-        object splShortcuts: TSplitter
-          Left = 1
-          Top = 114
-          Width = 347
-          Height = 4
-          Cursor = crVSplit
-          Align = alTop
-          Beveled = True
-          Color = clActiveCaption
-          ParentColor = False
-          ExplicitWidth = 348
-        end
-        object Panel13: TPanel
-          Left = 1
-          Top = 1
-          Width = 347
-          Height = 26
-          Align = alTop
-          BevelOuter = bvNone
-          TabOrder = 0
-        end
-        object panShortcuts: TPanel
-          Left = 1
-          Top = 27
-          Width = 347
-          Height = 87
-          Align = alTop
-          BevelOuter = bvNone
-          Constraints.MinHeight = 15
-          TabOrder = 1
-          object lbShortcuts: TListBox
-            Left = 0
-            Top = 0
-            Width = 347
-            Height = 87
-            AutoComplete = False
-            Align = alClient
-            BevelInner = bvNone
-            BevelOuter = bvNone
-            BorderStyle = bsNone
-            Ctl3D = False
-            ItemHeight = 13
-            ParentCtl3D = False
-            Sorted = True
-            TabOrder = 0
-            OnClick = lbShortcutsClick
-          end
-        end
-        object Panel11: TPanel
-          Left = 1
-          Top = 118
-          Width = 347
-          Height = 7
-          Align = alClient
-          BevelOuter = bvNone
-          TabOrder = 2
-          object dbShortcutsMemo: TDBMemo
-            Left = 0
-            Top = -25
-            Width = 347
-            Height = 32
-            HelpType = htKeyword
-            Align = alBottom
-            BevelInner = bvNone
-            BevelOuter = bvNone
-            Constraints.MaxHeight = 120
-            Ctl3D = False
-            DataField = 'Hint'
-            DataSource = modDados.dsShortcuts
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clBlack
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentCtl3D = False
-            ParentFont = False
-            ParentShowHint = False
-            ReadOnly = True
-            ScrollBars = ssVertical
-            ShowHint = False
-            TabOrder = 0
-            WantReturns = False
-          end
-          object dbgShortcuts: TDBGrid
-            Left = 0
-            Top = 18
-            Width = 347
-            Height = 5
-            Align = alClient
-            BorderStyle = bsNone
-            Ctl3D = False
-            DataSource = modDados.dsShortcuts
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Options = [dgTitles, dgIndicator, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
-            ParentCtl3D = False
-            ParentFont = False
-            PopupMenu = frmTinnMain.pmenShortcuts
-            TabOrder = 1
-            TitleFont.Charset = DEFAULT_CHARSET
-            TitleFont.Color = clWindowText
-            TitleFont.Height = -11
-            TitleFont.Name = 'MS Sans Serif'
-            TitleFont.Style = [fsBold]
-            Columns = <
-              item
-                Expanded = False
-                FieldName = 'Caption'
-                Width = 150
-                Visible = True
-              end
-              item
-                Expanded = False
-                FieldName = 'Shortcut'
-                Title.Alignment = taRightJustify
-                Width = 50
-                Visible = True
-              end>
-          end
-          object Panel12: TPanel
-            Left = 0
-            Top = 0
-            Width = 347
-            Height = 18
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 2
-            object imgShortcut: TImage
-              Left = 0
-              Top = 0
-              Width = 18
-              Height = 18
-              Hint = 'Shortcuts: Image'
-              Align = alLeft
-              Center = True
-              Transparent = True
-            end
-            object DBNavigator4: TDBNavigator
-              Left = 18
-              Top = 0
-              Width = 329
-              Height = 18
-              DataSource = modDados.dsShortcuts
-              VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-              Align = alClient
-              TabOrder = 0
-            end
-          end
-        end
-      end
-      object panComments: TPanel
-        Left = 0
-        Top = 140
-        Width = 349
-        Height = 133
+        Height = 254
         Align = alClient
         Caption = 'panComments'
-        TabOrder = 1
+        TabOrder = 0
+        ExplicitTop = 140
+        ExplicitHeight = 133
         object GroupBox30: TGroupBox
           Left = 1
           Top = 1
           Width = 347
-          Height = 131
+          Height = 252
           Align = alClient
           Caption = ' Options '
           TabOrder = 0
+          ExplicitHeight = 131
           object cbComAutoDetect_Language: TCheckBox
             Left = 9
             Top = 19
@@ -1253,7 +1083,7 @@ object frmTools: TfrmTools
         Height = 136
         Align = alBottom
         Caption = 'panRMirrors'
-        TabOrder = 2
+        TabOrder = 1
         object Splitter1: TSplitter
           Left = 1
           Top = 114

@@ -1,0 +1,499 @@
+(*
+  Tinn is a ASCII file editor primarily intended as a better replacement
+  of the default Notepad.exe under Windows.
+
+  This software is distributed under the terms of the GNU General
+  Public License, either Version 2, June 1991 or Version 3, June 2007.
+  The terms of version 2 and of the license are in a folder called
+  doc (licence_gpl2.txt and licence_gpl2.txt)
+  which you should have received with this software.
+
+  See http://www.opensource.org/licenses/gpl-license.html or
+  http://www.fsf.org/copyleft/gpl.html for further information.
+
+  Copyright
+  Russell May - http://www.solarvoid.com
+
+  Tinn-R is an extension of Tinn that provides additional tools to control R
+  (http://cran.r-project.org). The project is coordened by José Cláudio Faria
+  (joseclaudio.faria@gmail.com).
+
+  As such, Tinn-R is a feature-rich replacement of the basic script editor
+  provided with Rgui. It provides syntax-highlighting, submission of code in
+  whole, or line-by-line, and many other useful tools to ease writting and
+  debugging of R code.
+
+  Copyright
+  Tinn-R team October/2005
+  Tinn-R team October/2013
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 and 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*)
+
+unit ufrmShortcuts;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, Db, DBTables,
+  Buttons, ComCtrls, JvExComCtrls, JvHotKey, System.UITypes ;
+
+type
+  TfrmShortcuts = class(TForm)
+    bbHelp: TBitBtn;
+    bbtShortcutsClose: TBitBtn;
+    bbtShortcutsRestoreDefault: TBitBtn;
+    gbEdit: TGroupBox;
+    jvhkShortcut: TJvHotKey;
+    GroupBox2: TGroupBox;
+    Panel3: TPanel;
+    Splitter2: TSplitter;
+    edShortcutSearch: TButtonedEdit;
+    cbShortcuts: TComboBox;
+    Panel4: TPanel;
+    Label9: TLabel;
+    jvShortcutSearch: TJvHotKey;
+    dbgShortcuts: TDBGrid;
+    Splitter1: TSplitter;
+    bUpdate: TButton;
+    Label1: TLabel;
+    Bevel1: TBevel;
+    lWarning: TLabel;
+
+    procedure bbHelpClick(Sender: TObject);
+    procedure bbtShortcutsCloseClick(Sender: TObject);
+    procedure bbtShortcutsLoadClick(Sender: TObject);
+    procedure bbtShortcutsRestoreDefaultClick(Sender: TObject);
+    procedure bbtShortcutsSaveClick(Sender: TObject);
+    procedure dbgShortcutsTitleClick(Column: TColumn);
+    procedure FormShow(Sender: TObject);
+    procedure jvhkShortcutKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure jvhkShortcutKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure dbgShortcutsDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure edShortcutSearchChange(Sender: TObject);
+    procedure cbShortcutsChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure jvShortcutSearchChange(Sender: TObject);
+    procedure bUpdateClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+
+  private
+    { Private declarations }
+    bNothing: Boolean;
+    bShortcutInUse: Boolean;
+    sSortList: TStringList;
+
+    procedure UpdateSearchFilters;
+  public
+    { Public declarations }
+    bLocating: Boolean;
+
+  end;
+
+var
+  frmShortcuts: TfrmShortcuts;
+
+implementation
+
+uses
+  ufrmMain,
+  uModDados,
+  ufrmTools,
+  Menus,
+  // FMTBcd,
+  SqlExpr;
+
+{$R *.dfm}
+
+
+procedure TfrmShortcuts.cbShortcutsChange(Sender: TObject);
+begin
+  UpdateSearchFilters;
+end;
+
+procedure TfrmShortcuts.edShortcutSearchChange(Sender: TObject);
+begin
+  UpdateSearchFilters;
+end;
+
+procedure TfrmShortcuts.UpdateSearchFilters;
+var
+  sFilter, sOldFilter, sTextFilter, sCatFilter, sShortcutFilter, sHotKey: String;
+begin
+  with modDados.cdMainBase do
+  begin
+    FilterOptions := [foCaseInsensitive];
+
+    sFilter := (trim(edShortcutSearch.Text));
+    if sFilter <> '' then
+      sTextFilter := ' Caption Like ' +QuotedStr('%' + sFilter + '%')+' OR Hint Like ' +QuotedStr('%' + sFilter + '%')  else
+      sTextFilter := '';
+
+    if cbShortcuts.ItemIndex > 0  then
+      sCatFilter := ' Category Like ' +QuotedStr(cbShortcuts.Items[cbShortcuts.ItemIndex]) else
+        sCatFilter := '';
+
+    sHotKey := ( StringReplace(ShortcutToText(jvShortcutSearch.HotKey), ' ', '', []));
+
+    if sHotKey <> ''   then
+      sShortcutFilter := ' Shortcut Like ' +QuotedStr(sHotKey) else
+        sShortcutFilter := '';
+
+
+    if (length(sTextFilter) > 0) and (length(sCatFilter)>0) then
+      sFilter := sTextFilter + ' AND ' + sCatFilter
+    else
+      sFilter := sTextFilter + sCatFilter;
+
+    if (length(sFilter) > 0) and (length(sShortcutFilter)>0) then
+      sFilter := sFilter + ' AND ' + sShortcutFilter
+    else
+      sFilter := sFilter + sShortcutFilter;
+
+    with modDados.cdShortcuts do
+    begin
+      sOldFilter := Filter;
+     if sOldFilter <> sFilter then
+     begin
+       DisableControls;
+       Filter := sFilter;
+       Filtered := length(Filter)>0;
+
+       First;
+       EnableControls;
+     end;
+    end;
+  end;
+end;
+
+
+
+procedure TfrmShortcuts.FormCreate(Sender: TObject);
+begin
+  cbShortCuts.Items.Add('All categories');
+  cbShortCuts.Items.AddStrings(modDados.slShortcuts_Groups);
+  cbShortCuts.ItemIndex := 0;
+  dbgShortcuts.DataSource.DataSet.First;
+
+  sSortList := TStringList.Create;
+  sSortList.CommaText :='"Category COLLATE NOCASE","Caption COLLATE NOCASE","Hint COLLATE NOCASE","Shortcut COLLATE NOCASE"';
+
+end;
+
+procedure TfrmShortcuts.FormDestroy(Sender: TObject);
+begin
+sSortList.Free;
+end;
+
+procedure TfrmShortcuts.FormShow(Sender: TObject);
+begin
+  AlphaBlendValue := frmTinnMain.iAlphaBlendValue;
+end;
+
+procedure TfrmShortcuts.jvhkShortcutKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_BACK) or (Key = VK_DELETE) or (Key = VK_SPACE) then
+  begin
+    Key := 0;
+    bNothing := True;
+    lWarning.Caption := '';
+    bUpdate.Enabled := true;
+  end;
+end;
+
+procedure TfrmShortcuts.jvhkShortcutKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  bShortCutInUse := false;
+
+  if Key = 0 then
+  begin
+    bNothing := true;
+    lWarning.Caption := '';
+    bUpdate.Enabled := true;
+  end else bNothing := false;
+
+
+ modDados.sqldsShortcuts.First;
+
+ if modDados.sqldsShortcuts.Locate('Shortcut',    StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []), [loCaseInsensitive]) = True then
+    if (modDados.sqldsShortcuts.FieldByName('Caption').AsString <> modDados.cdShortcuts.FieldByName('Caption').AsString) OR
+        (modDados.sqldsShortcuts.FieldByName('Category').AsString <> modDados.cdShortcuts.FieldByName('Category').AsString) then
+           bShortcutInUse := True;
+
+
+  if bShortcutInUse then
+  begin
+    lWarning.Caption := 'The shortcut is already in use for '''+ modDados.sqldsShortcuts.FieldByName('Caption').AsString+'''.';
+    bUpdate.Enabled := false;
+  end
+  else
+  begin
+    lWarning.Caption := '';
+    bUpdate.Enabled := true;
+  end;
+end;
+
+procedure TfrmShortcuts.jvShortcutSearchChange(Sender: TObject);
+begin
+  UpdateSearchFilters;
+end;
+
+procedure TfrmShortcuts.bbtShortcutsLoadClick(Sender: TObject);
+var
+  od: TOpenDialog;
+  sFile, sOldFile: string;
+
+begin
+{  od := TOpenDialog.Create(Self);
+
+  try
+    with od do
+    begin
+      InitialDir := frmTinnMain.sPathData;
+      Filter := 'Text (*.txt)|*.txt';
+
+      if Execute then
+      begin
+        sFile := od.FileName;
+
+        try
+          with modDados.cdShortcuts do
+          begin
+            sOldFile := FileName;
+            Active := False;
+            FileName := sFile;
+            Active := True;
+          end;
+        except
+          on EDatabaseError do
+          begin
+            MessageDlg(sFile + #13 + #13 +
+              'The above is not a valid file with Tinn-R shortcuts!', mtError,
+              [MBOK], 0);
+            with modDados.cdShortcuts do
+            begin
+              Active := False;
+              FileName := sOldFile;
+              Active := True;
+            end;
+            Exit;
+          end;
+        end;
+
+        with frmTinnMain do
+        begin
+          iShortcutsBeforeChanges := modDados.cdShortcuts.SavePoint;
+          sShortcutsInUse := sFile;
+        end;
+
+
+        MessageDlg(sFile + #13 + #13 + 'The file above was successfully loaded.'
+          + #13 + 'It will be, from now, the default shortcuts!', mtInformation,
+          [MBOK], 0);
+      end;
+    end;
+  finally
+    FreeAndNil(od);
+  end;}
+end;
+
+procedure TfrmShortcuts.bbtShortcutsSaveClick(Sender: TObject);
+begin
+{  with modDados.cdShortcuts do
+  begin
+    Edit;
+    try
+      Post;
+      MergeChangeLog;
+      SaveToFile();
+      frmTinnMain.iShortcutsBeforeChanges := SavePoint;
+    except
+    end;
+  end; }
+end;
+
+procedure TfrmShortcuts.bUpdateClick(Sender: TObject);
+var stmp: String;
+begin
+ modDados.sqldsShortcuts.First;
+
+ if modDados.sqldsShortcuts.Locate('Shortcut',    StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []), [loCaseInsensitive]) = True then
+    if (modDados.sqldsShortcuts.FieldByName('Caption').AsString <> modDados.cdShortcuts.FieldByName('Caption').AsString) OR
+        (modDados.sqldsShortcuts.FieldByName('Category').AsString <> modDados.cdShortcuts.FieldByName('Category').AsString) then
+           Exit;
+
+ stmp := StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []);
+ if stmp = '' then
+   stmp := 'None';
+
+ with modDados.cdShortcuts do
+ begin
+   Edit;
+   FieldByName('Shortcut').AsString := stmp;
+   Post;
+   ApplyUpdates(-1);
+ end;
+
+end;
+
+
+
+
+
+procedure TfrmShortcuts.bbtShortcutsCloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmShortcuts.dbgShortcutsDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+ icon : Ticon;
+ fixRect : TRect;
+ iImageIndex : integer;
+ sFieldText: String;
+ iIndex : integer;
+begin
+with (Sender as TDbGrid).Canvas do
+begin
+  if  (gdFocused in State) or (gdRowSelected in State) or (gdSelected in State) then
+    Brush.Color  := clHighlight else
+    Brush.Color  := clWindow;
+
+    FillRect(Rect);
+
+  fixRect := Rect;
+  if (Sender as TDbGrid).DataSource.DataSet.RecordCount = 0 then
+    Exit;
+
+  if Column.FieldName <>'' then
+    sFieldText := (Sender as TDbGrid).DataSource.DataSet.FieldByName(Column.FieldName).AsString
+  else sFieldText := '';
+
+  if Column.FieldName = 'Caption' then
+  begin
+    iIndex := (Sender as TDbGrid).DataSource.DataSet.FieldByName('Image').AsInteger;
+
+    if iIndex > -1 then
+    begin
+      try
+        icon := TIcon.Create;
+        frmTinnMain.imlTinnR.GetIcon(iIndex,icon);
+
+
+        icon.Transparent := True;
+        Draw(Rect.Left, Rect.Top, icon);
+      finally
+        icon.Free;
+      end;
+    end;
+    fixRect.Left := fixRect.Left + 18;
+  end;
+
+  TextRect(fixRect, sFieldText, [tfEndEllipsis]);
+end;
+end;
+
+procedure TfrmShortcuts.dbgShortcutsTitleClick(Column: TColumn);
+const PreviousColumnIndex : integer = -1;
+var iIndex: Integer;
+begin
+
+  if PreviousColumnIndex > -1 then
+  begin
+    dbgShortcuts.Columns[PreviousColumnIndex].title.Font.Style :=
+    dbgShortcuts.Columns[PreviousColumnIndex].title.Font.Style - [fsBold];
+  end;
+
+  Column.title.Font.Style :=
+  Column.title.Font.Style + [fsBold];
+  PreviousColumnIndex := Column.Index;
+
+
+  // Attention: Delete and Insert are also used in system - don't mix them up!
+  if sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE') > -1 then
+  begin
+    if sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE') = 0 then
+    begin
+      sSortList.Delete(0);
+      sSortList.Insert(0, Column.FieldName+' COLLATE NOCASE DESC');
+    end else
+    begin
+      sSortList.Delete(sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE'));
+      sSortList.Insert(0, Column.FieldName+' COLLATE NOCASE');
+    end;
+
+  end else
+  begin
+      sSortList.Delete(sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE DESC'));
+      sSortList.Insert(0, Column.FieldName+' COLLATE NOCASE');
+  end;
+
+
+  dbgShortcuts.DataSource.DataSet.DisableControls;
+  modDados.sqldsShortcuts.Close;
+  modDados.sqldsShortcuts.CommandText := 'SELECT * FROM Shortcuts ORDER BY '+ StringReplace(sSortList.CommaText, '"', '', [rfReplaceAll
+]);
+  modDados.sqldsShortcuts.Open;
+  modDados.cdShortcuts.Refresh;
+  dbgShortcuts.DataSource.DataSet.EnableControls;
+
+end;
+
+
+procedure TfrmShortcuts.bbHelpClick(Sender: TObject);
+begin
+  frmTinnMain.OpenUserGuidePDF('"Shortcuts"');
+end;
+
+procedure TfrmShortcuts.bbtShortcutsRestoreDefaultClick(Sender: TObject);
+var bTryDelete: Boolean;
+begin
+
+ if FileExists(frmTinnMain.sFileDataOrigin) then
+  try
+    modDados.cdShortcuts.Active := False;
+    modDados.sqldsShortcuts.Active := False;
+    modDados.sqlShortcuts.Close;
+
+
+    with frmTinnMain.zipKit do
+    begin
+      FileName := frmTinnMain.sFileDataOrigin;
+      BaseDirectory := frmTinnMain.sPathData;
+      ExtractFiles('Shortcuts.txt');
+      CloseArchive;
+    end;
+
+    modDados.LoadShortcuts;
+    frmTinnMain.SetShortcuts;
+  except
+    bTryDelete := true;
+  end else  bTryDelete := true;
+
+  if bTryDelete then
+  begin
+    MessageDlg('Tinn-R needs to restart in order to restore the shortcuts.', mtInformation, [mbOk],0);
+
+  end;
+end;
+
+end.

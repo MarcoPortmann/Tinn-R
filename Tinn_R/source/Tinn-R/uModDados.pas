@@ -70,16 +70,8 @@ type
     cdRmirrorsHost: TStringField;
     cdRmirrorsName: TStringField;
     cdRmirrorsURL: TStringField;
-    cdShortcuts: TClientDataSet;
-    cdShortcutsCaption: TStringField;
-    cdShortcutsGroup: TStringField;
-    cdShortcutsHint: TStringField;
-    cdShortcutsImageIndex: TIntegerField;
-    cdShortcutsIndex: TIntegerField;
-    cdShortcutsShortcut: TStringField;
     dsComments: TDataSource;
     dsRmirrors: TDataSource;
-    dsShortcuts: TDataSource;
     dsEditors: TDataSource;
     SQLConnection: TSQLConnection;
     sqldsRObjects: TSQLDataSet;
@@ -124,6 +116,11 @@ type
     sqldsExplorerTip: TSQLDataSet;
     sqlEditors: TSQLConnection;
     sqlDSEditors: TSQLDataSet;
+    sqlShortcuts: TSQLConnection;
+    sqldsShortcuts: TSQLDataSet;
+    dspShortcuts: TDataSetProvider;
+    dsShortcuts: TDataSource;
+    cdShortcuts: TClientDataSet;
 
     procedure cdCommentsAfterPost(DataSet: TDataSet);
     procedure cdCommentsAfterScroll(DataSet: TDataSet);
@@ -139,10 +136,7 @@ type
       var Action: TDataAction);
     procedure cdRtipPostError(DataSet: TDataSet; E: EDatabaseError;
       var Action: TDataAction);
-    procedure cdShortcutsAfterPost(DataSet: TDataSet);
     procedure cdShortcutsAfterScroll(DataSet: TDataSet);
-    procedure cdShortcutsBeforeEdit(DataSet: TDataSet);
-    procedure cdShortcutsNewRecord(DataSet: TDataSet);
     procedure cdShortcutsPostError(DataSet: TDataSet; E: EDatabaseError;
       var Action: TDataAction);
     procedure DataModuleDestroy(Sender: TObject);
@@ -173,6 +167,7 @@ type
 
     function ActionlistToDataset: Boolean;
     procedure BackupFiles;
+    procedure CreateShortcutsCategoriesList;
     function LoadFileState(var EditorFile: TEditorFile): Boolean;
     function Rmirrors_Update(sFile: string): Boolean;
     function SaveFileState(EditorFile: TEditorFile): Boolean;
@@ -442,14 +437,41 @@ begin
   end;
 end;
 
-procedure TmodDados.ShortcutsGroupsFilter(Sender: TObject);
+
+procedure TmodDados.CreateShortcutsCategoriesList;
 var
   i: integer;
-
   strTemp: string;
 
 begin
   slShortcuts_Groups := TStringList.Create;
+  slShortcuts_Groups.CaseSensitive := True;
+
+  with sqldsShortcuts do
+  begin
+    First;
+    slShortcuts_Groups.Clear;
+    while not eof do
+    begin
+      strTemp := trim(FieldByName('Category').asString);
+      if strTemp <>'' then
+      with slShortcuts_Groups do
+        if (IndexOf(strTemp) = -1) then
+          Add(strTemp);
+      Next;
+    end;
+  end;
+end;
+
+
+
+procedure TmodDados.ShortcutsGroupsFilter(Sender: TObject);
+var
+  i: integer;
+  strTemp: string;
+
+begin
+{  slShortcuts_Groups := TStringList.Create;
   slShortcuts_Groups.CaseSensitive := True;
 
   with cdShortcuts do
@@ -465,7 +487,7 @@ begin
       Next;
     end;
     EnableControls;
-  end;
+  end; }
 end;
 
 procedure TmodDados.InitiateRObjectDatabase;
@@ -527,17 +549,11 @@ end;
 
 procedure TmodDados.DataModuleDestroy(Sender: TObject);
 begin
-  with cdRmirrors do
-    Close; // Will also save to file whether any change was made!
-
-  with cdShortcuts do
-    Close; // Will also save to file whether any change was made!
+  cdRmirrors.Close;
+  cdShortcuts.Close;
 
   sqlCache.Close;
-
-
-  with cdComments do
-    Close; // Will also save to file whether any change was made!
+  cdComments.Close;
 end;
 
 procedure TmodDados.cdRcardPostError(DataSet: TDataSet; E: EDatabaseError;
@@ -625,59 +641,41 @@ begin
   end;
 end;
 
-procedure TmodDados.cdShortcutsAfterPost(DataSet: TDataSet);
-begin
-  if Assigned(frmShortcuts) then
-    with frmShortcuts do
-    begin
-      stbShortcuts.Panels[0].Text := 'Browse mode';
-      frmShortcuts.bbtShortcutsClose.Enabled := True;
-    end;
-end;
-
 procedure TmodDados.cdShortcutsAfterScroll(DataSet: TDataSet);
 begin
+
   if Assigned(frmShortcuts) then
-    with frmShortcuts do
+    with frmShortcuts, Dataset do
     begin
-      if bLocating then
-        Exit;
-      jvhkShortcut.HotKey :=
-        TextToShortcut(cdShortcuts.FieldByName('Shortcut').Value);
-      imgShortcut.Picture.Bitmap := nil;
-      frmTinnMain.imlTinnR.GetBitmap(cdShortcuts.FieldByName('Image').Value,
-        imgShortcut.Picture.Bitmap);
-      if Visible then
-        stbShortcuts.Panels[0].Text := 'Browse mode';
+//      if bLocating then
+//        Exit;
+
+
+      if not Dataset.Eof then
+      begin
+        gbEdit.enabled := true;
+        gbEdit.Caption := 'Edit shortcut of '''+ FieldByName('Caption').AsString+'''';
+        jvhkShortcut.HotKey := TextToShortcut(FieldByName('Shortcut').Value);
+        lWarning.Caption := '';
+        bUpdate.Enabled := true;
+      end else
+      begin
+        jvhkShortcut.HotKey := TextToShortcut('');
+        gbEdit.enabled := false;
+        gbEdit.Caption := 'Edit shortcut';
+        lWarning.Caption := '';
+        bUpdate.Enabled := true;
+      end;
+
     end;
-  if Assigned(frmHotkeys) then
+ { if Assigned(frmHotkeys) then
     with frmHotkeys do
       if bLocating then
+
         Exit;
   if (cdShortcuts.State <> dsBrowse) then
     Exit;
-  if assigned(frmTools) then
-  begin
-    frmTools.imgShortcut.Picture.Bitmap := nil;
-    frmTinnMain.imlTinnR.GetBitmap(cdShortcuts.FieldByName('Image').Value,
-    frmTools.imgShortcut.Picture.Bitmap);
-  end;
-end;
-
-procedure TmodDados.cdShortcutsBeforeEdit(DataSet: TDataSet);
-begin
-  if Assigned(frmShortcuts) then
-    with frmShortcuts.stbShortcuts do
-      Panels[0].Text := 'Edit mode';
-end;
-
-procedure TmodDados.cdShortcutsNewRecord(DataSet: TDataSet);
-var
-  i: integer;
-
-begin
-  i := cdShortcuts.RecordCount;
-  cdShortcutsIndex.AsInteger := i;
+               }
 end;
 
 procedure TmodDados.cdCommentsAfterPost(DataSet: TDataSet);
@@ -1171,36 +1169,78 @@ begin
 end;
 
 procedure TmodDados.LoadShortcuts;
+var sCommand: String;
+    sTables: TStringList;
+    i: Integer;
+    sShortcut, sGroup, sCaption, sImage, sHint, sActionIndex: string;
 begin
-
-  // Shortcuts
-  if not fileexists(frmTinnMain.sShortcutsInUse) then
-    ActionlistToDataset;
-
-  with cdShortcuts do
+  with sqlShortcuts do
   begin
-    Active := False;
-    FileName := frmTinnMain.sShortcutsInUse;
-    Active := True;
-    IndexDefs.Clear;
-    with IndexDefs.AddIndexDef do
+
+    Params.Values['Database']:= frmTinnMain.sPathShortcuts;
+    Params.Values['FailIfMissing'] := 'False';
+    Connected := True;
+
+    sTables := TStringList.Create;
+    GetTableNames(sTables);
+
+    if stables.IndexOf('Shortcuts') < 0 then
     begin
-      Name := 'ShortcutsDefaultIndex';
-      Fields := 'Index';
-      Options := [ixPrimary, ixUnique];
+      ExecuteDirect('CREATE TABLE Shortcuts (Category VARCHAR, Caption VARCHAR, Hint VARCHAR, Shortcut VARCHAR, Image INTEGER, ActionIndex INTEGER,  Version  VARCHAR DEFAULT "", PRIMARY KEY (Category, Caption))');
+      frmTinnMain.bUpdate_Shortcuts := true;
     end;
-    IndexName := 'ShortcutsDefaultIndex';
   end;
 
-  with frmTinnMain do
+  with sqldsShortcuts do
   begin
-    if not bDatabaseRestored then
-      cdShortcuts.SavePoint := iShortcutsBeforeChanges
-    else
-      iShortcutsBeforeChanges := cdShortcuts.SavePoint;
-  end;
+    Active := true;
+    Refresh;
+    First;
+    if eof OR frmTinnMain.bUpdate_Shortcuts then
+    begin
+      frmTinnMain.alMain.State := asSuspended;
 
-  ShortcutsGroupsFilter(Self);
+      for i := 0 to frmTinnMain.alMain.ActionCount - 1 do
+      begin
+
+        with frmTinnMain.alMain.Actions[i] do
+        begin
+          sCaption := Caption;
+          sGroup := Category;
+          sActionIndex := inttostr(i);
+          sShortcut := ShortCutToText(Shortcut);
+          if (sShortcut = '') then
+            sShortcut := 'None';
+          sImage := inttostr(ImageIndex);
+          sHint := Hint;
+        end;
+        sqlShortcuts.ExecuteDirect('UPDATE Shortcuts SET ActionIndex = '+sActionIndex+', Version = '+AnsiQuotedStr(frmTinnMain.sCurrentVersion_Shortcuts, '"')
+        + 'WHERE Category = '+AnsiQuotedStr(sGroup, '"')+' AND Caption = '+ AnsiQuotedStr(sCaption, '"'));
+
+        sqlShortcuts.ExecuteDirect('INSERT OR IGNORE INTO Shortcuts (Category, Caption, Hint, Shortcut, Image, ActionIndex, Version) VALUES('+AnsiQuotedStr(sGroup, '"')+', '
+          +AnsiQuotedStr(sCaption, '"')+', '
+          +AnsiQuotedStr(sHint, '"')+', '
+          +AnsiQuotedStr(sShortCut, '"')+', '
+          +sImage+', '
+          +sActionIndex+', '
+          +AnsiQuotedStr(frmTinnMain.sCurrentVersion_Shortcuts, '"')+ ')' );
+
+
+      end;
+      sqlShortcuts.ExecuteDirect('DELETE FROM Shortcuts WHERE NOT Version Like '+AnsiQuotedStr(frmTinnMain.sCurrentVersion_Shortcuts, '"')   );
+
+      frmTinnMain.alMain.State := asNormal;
+
+      Active := false;
+      sqlShortcuts.Close;
+      sqlShortcuts.Open;
+      Active := true;
+      Refresh;
+    end;
+  end;
+  cdShortcuts.Open;
+  CreateShortcutsCategoriesList;
+
 end;
 
 procedure TmodDados.LoadRHelpSystem;

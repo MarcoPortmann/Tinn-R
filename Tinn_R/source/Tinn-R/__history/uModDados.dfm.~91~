@@ -1,0 +1,464 @@
+object modDados: TmodDados
+  OldCreateOrder = False
+  OnDestroy = DataModuleDestroy
+  Height = 629
+  Width = 941
+  object cdComments: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    BeforeEdit = cdCommentsBeforeEdit
+    AfterPost = cdCommentsAfterPost
+    AfterScroll = cdCommentsAfterScroll
+    OnPostError = cdCommentsPostError
+    Left = 22
+    Top = 167
+    object cdCommentsLanguage: TStringField
+      FieldName = 'Language'
+      ReadOnly = True
+      Required = True
+    end
+    object cdCommentsLine: TStringField
+      Alignment = taCenter
+      DisplayWidth = 5
+      FieldName = 'Line'
+      Size = 3
+    end
+    object cdCommentsBegin: TStringField
+      Alignment = taCenter
+      DisplayWidth = 5
+      FieldName = 'Begin'
+      Required = True
+      Size = 4
+    end
+    object cdCommentsEnd: TStringField
+      Alignment = taCenter
+      DisplayWidth = 5
+      FieldName = 'End'
+      Required = True
+      Size = 4
+    end
+  end
+  object dsComments: TDataSource
+    DataSet = cdComments
+    Left = 89
+    Top = 167
+  end
+  object cdRmirrors: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    BeforeEdit = cdRmirrorsBeforeEdit
+    AfterPost = cdRmirrorsAfterPost
+    AfterScroll = cdRmirrorsAfterScroll
+    OnPostError = cdRmirrorsPostError
+    Left = 22
+    Top = 216
+    object cdRmirrorsName: TStringField
+      FieldName = 'Name'
+      Size = 30
+    end
+    object cdRmirrorsCountry: TStringField
+      FieldName = 'Country'
+    end
+    object cdRmirrorsCity: TStringField
+      FieldName = 'City'
+    end
+    object cdRmirrorsURL: TStringField
+      FieldName = 'URL'
+      Size = 60
+    end
+    object cdRmirrorsHost: TStringField
+      FieldName = 'Host'
+      Size = 60
+    end
+    object cdRmirrorsCode: TStringField
+      FieldName = 'Code'
+      Size = 2
+    end
+  end
+  object dsRmirrors: TDataSource
+    DataSet = cdRmirrors
+    Left = 89
+    Top = 216
+  end
+  object dsEditors: TDataSource
+    Left = 328
+    Top = 360
+  end
+  object SQLConnection: TSQLConnection
+    ConnectionName = 'SQLITECONNECTION'
+    DriverName = 'Sqlite'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverName=Sqlite'
+      'Database=test.db')
+    Left = 232
+    Top = 24
+  end
+  object sqldsRObjects: TSQLDataSet
+    AfterRefresh = sqldsRObjectsAfterRefresh
+    CommandText = 'SELECT Name, Dim, [Group], class, envir FROM objects'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 232
+    Top = 72
+  end
+  object dspRObjects: TDataSetProvider
+    DataSet = sqldsRObjects
+    Left = 232
+    Top = 120
+  end
+  object cdRObjects: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRObjects'
+    Left = 232
+    Top = 168
+  end
+  object dsRObjects: TDataSource
+    DataSet = cdRObjects
+    Left = 232
+    Top = 216
+  end
+  object sqldsRTest: TSQLDataSet
+    CommandText = 'SELECT Name FROM objects WHERE envir <>  '#39'.GlobalEnv'#39
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 328
+    Top = 72
+  end
+  object dspRTest: TDataSetProvider
+    DataSet = sqldsRTest
+    Left = 328
+    Top = 120
+  end
+  object cdRTest: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRTest'
+    Left = 328
+    Top = 168
+  end
+  object sqlLexerConnection: TSQLConnection
+    ConnectionName = 'SQLITECONNECTION'
+    DriverName = 'Sqlite'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverName=Sqlite'
+      'Database=test.db')
+    Left = 544
+    Top = 24
+  end
+  object sqldsLexers: TSQLDataSet
+    CommandText = 
+      'SELECT LexerId, LexerName, Extensions FROM Lexers ORDER BY Lexer' +
+      'Name'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlLexerConnection
+    Left = 544
+    Top = 72
+  end
+  object dspLexers: TDataSetProvider
+    DataSet = sqldsLexers
+    Left = 544
+    Top = 120
+  end
+  object cdLexers: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspLexers'
+    Left = 544
+    Top = 168
+  end
+  object dsLexers: TDataSource
+    DataSet = cdLexers
+    OnDataChange = dsLexersDataChange
+    Left = 544
+    Top = 216
+  end
+  object dspIdentifiers: TDataSetProvider
+    DataSet = sqldsIdentifiers
+    Options = [poAllowMultiRecordUpdates, poAutoRefresh, poAllowCommandText, poUseQuoteChar]
+    Left = 624
+    Top = 120
+  end
+  object sqldsIdentifiers: TSQLDataSet
+    CommandText = 
+      'SELECT LexerId, IdentifierId, IdentifierName, IdentifierType, FG' +
+      'Color, BGColor, Bold, Italic, Underline, FontName, FontSize  FRO' +
+      'M Identifiers'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlLexerConnection
+    Left = 624
+    Top = 72
+  end
+  object cdIdentifiers: TClientDataSet
+    Aggregates = <>
+    FetchOnDemand = False
+    Params = <>
+    ProviderName = 'dspIdentifiers'
+    BeforeRefresh = cdIdentifiersBeforeRefresh
+    Left = 624
+    Top = 168
+  end
+  object dsIdentifiers: TDataSource
+    DataSet = cdIdentifiers
+    OnDataChange = dsIdentifiersDataChange
+    Left = 624
+    Top = 216
+  end
+  object sqldsLexers2: TSQLDataSet
+    CommandText = 
+      'SELECT LexerId, LexerName, Extensions FROM Lexers ORDER BY Lexer' +
+      'Name'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlLexerConnection
+    Left = 720
+    Top = 72
+  end
+  object dspLexers2: TDataSetProvider
+    DataSet = sqldsLexers2
+    Left = 720
+    Top = 120
+  end
+  object cdLexers2: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspLexers2'
+    Left = 720
+    Top = 168
+  end
+  object dsLexers2: TDataSource
+    DataSet = cdLexers2
+    Left = 720
+    Top = 216
+  end
+  object sqlIdentifiersCurrent: TSQLDataSet
+    CommandText = 
+      'SELECT LexerId, IdentifierId, IdentifierName, IdentifierType, FG' +
+      'Color, BGColor, Bold, Italic, Underline, FontName, FontSize  FRO' +
+      'M Identifiers'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlLexerConnection
+    Left = 808
+    Top = 72
+  end
+  object dspIdentifiersCurrent: TDataSetProvider
+    DataSet = sqlIdentifiersCurrent
+    Left = 808
+    Top = 120
+  end
+  object cdIdentifiersCurrent: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspIdentifiersCurrent'
+    Left = 808
+    Top = 168
+  end
+  object dsIdentifiersCurrent: TDataSource
+    DataSet = cdIdentifiersCurrent
+    Left = 808
+    Top = 216
+  end
+  object sqldsRUser: TSQLDataSet
+    CommandText = 'SELECT Name FROM objects WHERE envir = '#39'.GlobalEnv'#39
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 400
+    Top = 72
+  end
+  object dspRUser: TDataSetProvider
+    DataSet = sqldsRUser
+    Left = 400
+    Top = 120
+  end
+  object cdRUser: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspRUser'
+    Left = 400
+    Top = 168
+  end
+  object sqlCache: TSQLConnection
+    DriverName = 'Sqlite'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DbxSqlite'
+      
+        'DriverPackageLoader=TDBXSqliteDriverLoader,DBXSqliteDriver170.bp' +
+        'l'
+      
+        'MetaDataPackageLoader=TDBXSqliteMetaDataCommandFactory,DbxSqlite' +
+        'Driver170.bpl'
+      'FailIfMissing=True'
+      'Database=')
+    Left = 712
+    Top = 360
+  end
+  object sqldsCache: TSQLDataSet
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlCache
+    Left = 712
+    Top = 408
+  end
+  object sqlMainBase: TSQLConnection
+    DriverName = 'Sqlite'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DbxSqlite'
+      
+        'DriverPackageLoader=TDBXSqliteDriverLoader,DBXSqliteDriver170.bp' +
+        'l'
+      
+        'MetaDataPackageLoader=TDBXSqliteMetaDataCommandFactory,DbxSqlite' +
+        'Driver170.bpl'
+      'FailIfMissing=True'
+      'Database=')
+    Left = 200
+    Top = 368
+  end
+  object sqldsMainBase: TSQLDataSet
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlMainBase
+    Left = 200
+    Top = 416
+  end
+  object dspMainBase: TDataSetProvider
+    DataSet = sqldsMainBaseTools
+    Left = 288
+    Top = 456
+  end
+  object sqldsMainBaseTools: TSQLDataSet
+    CommandText = 
+      'SELECT Objects.Name, Arguments, DisplayName, Objects.Envir, Obje' +
+      'cts.Description, Objects.DescriptionFormatted, Objects.HasArgume' +
+      'nts, Objects.PrettyPackage, Objects.InsertText, UserDefined.Trig' +
+      'ger, UserDefined.Completion FROM Objects  LEFT OUTER JOIN UserDe' +
+      'fined ON (Objects.Name = UserDefined.Name AND Objects.Envir = Us' +
+      'erDefined .Envir)'#13#10'ORDER BY  Lower(Objects.Name), Objects.Displa' +
+      'yName'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlMainBase
+    Left = 288
+    Top = 416
+  end
+  object cdMainBase: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMainBase'
+    Left = 288
+    Top = 504
+  end
+  object dsMainBase: TDataSource
+    DataSet = cdMainBase
+    OnDataChange = dsMainBaseDataChange
+    Left = 288
+    Top = 552
+  end
+  object sqlBaseKeywords: TSQLDataSet
+    CommandText = 'SELECT Name FROM objects WHERE envir <>  '#39'.GlobalEnv'#39
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlMainBase
+    Left = 384
+    Top = 416
+  end
+  object sqldsCategories: TSQLDataSet
+    CommandText = 'SELECT Category FROM Categories'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlMainBase
+    Left = 472
+    Top = 416
+  end
+  object sqldsCategoriesDetails: TSQLDataSet
+    CommandText = 'SELECT Category FROM Categories'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlMainBase
+    Left = 472
+    Top = 464
+  end
+  object sqldsMainCheck: TSQLDataSet
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlMainBase
+    Left = 120
+    Top = 416
+  end
+  object sqldsExplorerTip: TSQLDataSet
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection
+    Left = 160
+    Top = 72
+  end
+  object sqlEditors: TSQLConnection
+    DriverName = 'Sqlite'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=Data.DbxSqlite'
+      
+        'DriverPackageLoader=TDBXSqliteDriverLoader,DBXSqliteDriver170.bp' +
+        'l'
+      
+        'MetaDataPackageLoader=TDBXSqliteMetaDataCommandFactory,DbxSqlite' +
+        'Driver170.bpl'
+      'FailIfMissing=True'
+      'Database=')
+    Left = 800
+    Top = 360
+  end
+  object sqlDSEditors: TSQLDataSet
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlEditors
+    Left = 800
+    Top = 408
+  end
+  object sqlShortcuts: TSQLConnection
+    ConnectionName = 'SQLITECONNECTION'
+    DriverName = 'Sqlite'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverName=Sqlite'
+      'Database=test.db')
+    Left = 712
+    Top = 504
+  end
+  object sqldsShortcuts: TSQLDataSet
+    CommandText = 'SELECT * FROM Shortcuts ORDER BY Category, Caption'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = sqlShortcuts
+    Left = 712
+    Top = 552
+  end
+  object dspShortcuts: TDataSetProvider
+    DataSet = sqldsShortcuts
+    Left = 792
+    Top = 552
+  end
+  object dsShortcuts: TDataSource
+    DataSet = cdShortcuts
+    Left = 856
+    Top = 504
+  end
+  object cdShortcuts: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspShortcuts'
+    AfterScroll = cdShortcutsAfterScroll
+    Left = 792
+    Top = 504
+  end
+end

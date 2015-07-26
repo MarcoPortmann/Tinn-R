@@ -4,13 +4,18 @@ interface
 
 uses vcl.dialogs, DScintilla, DScintillaTypes, ufrmMain, ufrmEditor, ufrmRTerm, ufrmTools, uModDados, trUtils, Vcl.Graphics, PerlRegEx, windows, System.SysUtils, SciKeyBindings;
 
-procedure ApplyLexer(iLexerId: Integer; sciEditor: TDScintilla);
-//procedure SetLexer(Editor: TDSCintilla; LanguageString: String);
-procedure SetScintillaProperties(var Editor: TDScintilla);
-procedure SetScintillaKeyStrokes(var Editor: TDScintilla);
-procedure LoopAllEditorsReSetProperties;
-procedure ToggleWrapMode(Editor: TDSCintilla; iWrapStyle: Integer);
-procedure UpdateLexerKeyWords(iSet: Integer);
+  procedure ApplyLexer(iLexerId: Integer; sciEditor: TDScintilla);
+  //procedure SetLexer(Editor: TDSCintilla; LanguageString: String);
+  procedure SetScintillaProperties(var Editor: TDScintilla);
+  procedure SetScintillaKeyStrokes(var Editor: TDScintilla);
+  procedure LoopAllEditorsReSetProperties;
+  procedure ToggleWrapMode(Editor: TDSCintilla; iWrapStyle: Integer);
+  procedure UpdateLexerKeyWords(iSet: Integer);
+
+  var
+    iIOSyntax: integer;
+    iLogSyntax: integer;
+
 implementation
 
 procedure ApplyLexer(iLexerId: Integer; sciEditor: TDScintilla);
@@ -94,15 +99,17 @@ begin
   begin
   with frmTinnMain.ifEditor do
   begin
+    Editor.Lines.beginUpdate;
 
-  // Has to be updated later: for the moment just lexers given by the editor form
-  // and set it to R for the remaining editors.
-  // Add a customer option for the console later.
-
-  if (Editor.Parent.ClassName = 'TfrmEditor') then
-    ApplyLexer( (Editor.Parent AS TfrmEditor).GetEditorLexerId, Editor)
-  else ApplyLexer(86, Editor);
-
+    if (Editor.Parent.ClassName = 'TfrmEditor') then
+      ApplyLexer( (Editor.Parent AS TfrmEditor).GetEditorLexerId, Editor)
+    else
+    begin
+      if Editor.Name = 'sciIO' then
+        ApplyLexer(iIOSyntax  , Editor);
+      if Editor.Name = 'sciLog' then
+        ApplyLexer(iLogSyntax  , Editor);
+    end;
 
     SetScintillaKeyStrokes(Editor);
 
@@ -208,6 +215,8 @@ begin
     if (Editor.Name = 'sciLog')  then
       ToggleWrapMode(Editor, frmTinnMain.iLogLineWrap);
 
+    Editor.Update;
+    Editor.Lines.EndUpdate;
   end;
   end;
 end;
@@ -225,7 +234,6 @@ begin
           (frmTinnMain.MDIChildren[i] as TfrmEditor).Repaint;
     end;
 
-
   SetScintillaProperties(frmRTerm.SciIO);
   SetScintillaProperties(frmRTerm.SciLog);
 end;
@@ -234,6 +242,9 @@ procedure ToggleWrapMode(Editor: TDSCintilla; iWrapStyle: Integer);
 begin
   Editor.SetWrapMode(iWrapStyle);
   Editor.SetWrapVisualFlags(SC_WRAPVISUALFLAG_START);
+
+  if Editor = frmRTerm.sciIO then
+    frmRTerm.pgRtermResize(frmRTerm);
 end;
 
 
@@ -287,7 +298,6 @@ begin
   if iSet in [1, 3] then
   begin
 
-
     with ModDados do
     begin
       sqlMainBase.Connected := true;
@@ -295,8 +305,6 @@ begin
      // sqlBaseKeywords.Active := true;
       sqlBaseKeywords.Open;
       sqlBaseKeywords.Refresh;
-
-
 
      sqlBaseKeywords.First;
      while not sqlBaseKeywords.Eof do
@@ -317,37 +325,38 @@ begin
 
   if ( frmTinnMain.MDIChildCount > 0) then
     for i := (frmTinnMain.MDIChildCount - 1) downto 0 do
+    with    (frmTinnMain.MDIChildren[i] as TfrmEditor) do
     begin
-
-     //  if Assigned((frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor2) then
-       begin
-        with    (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor do
-        begin
-          SetPunctuationChars(StringReplace(GetPunctuationChars, '.', '',         [rfReplaceAll, rfIgnoreCase]));
-          // SetKeyWords(SCE_R_BASEKWORD, KeyWordString);
-          // SetKeyWords(1, KeyWordString);
-          if iSet in [1, 3] then
-            SetKeyWords(1, KeyWordStringBase);
-          if ModDados.cdRUser.Active then
+      with sciEditor do
+      begin
+        SetPunctuationChars(StringReplace(GetPunctuationChars, '.', '', [rfReplaceAll, rfIgnoreCase]));
+        if iSet in [1, 3] then
+           SetKeyWords(1, KeyWordStringBase);
+        if ModDados.cdRUser.Active then
           if iSet in [2, 3] then
-          SetKeyWords(2, KeyWordStringUser);
+            SetKeyWords(2, KeyWordStringUser);
+      end;
 
-          // SetKeyWords(0, KeyWordString);
+      if Assigned(sciEditor2) then
+      with sciEditor2 do
+      begin
+        SetPunctuationChars(StringReplace(GetPunctuationChars, '.', '', [rfReplaceAll, rfIgnoreCase]));
+        if iSet in [1, 3] then
+           SetKeyWords(1, KeyWordStringBase);
+        if ModDados.cdRUser.Active then
+          if iSet in [2, 3] then
+            SetKeyWords(2, KeyWordStringUser);
+      end;
+    end;
 
 
-
-        end;
+               //  if Assigned((frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor2) then
           //  (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.StyleSetFore(SCE_R_KWORD, clFuchsia);
-
-
     {           (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.StyleSetFore(0, clRed);
-
            (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.SetKeyWords(SCE_R_KWord, KeyWordString);   }
     //       (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.SetKeyWords(1, KeyWordString);
      //        (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.SetKeyWords(2, KeyWordString);
 
-       end;
-    end;
 end;
 
 end.

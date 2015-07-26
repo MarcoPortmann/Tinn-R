@@ -981,6 +981,9 @@ var
   sTmp, sToSend, sEcoString: string;
   bSingleLine: Boolean;
 begin
+  showmessage('Feature not ready.');
+  Exit;
+
   sToSend := GetContiguous(bSingleLine);
   if (sToSend = EmptyStr) then
     Exit;

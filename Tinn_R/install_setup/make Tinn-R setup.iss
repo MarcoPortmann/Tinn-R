@@ -1,5 +1,5 @@
 ; Tinn-R Inno (Installer) Setup Script
-; By: Marco Portmann (5/2015) (original version by José Cláudio Faria)
+; By: Marco Portmann (7/2015) (original version by José Cláudio Faria)
 ; Tinn-R:     http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
 ; INNO Setup: https://github.com/MarcoPortmann/Tinn-R
 
@@ -9,13 +9,13 @@ AppPublisher         = Tinn-R Team
 AppPublisherURL      = https://github.com/MarcoPortmann/Tinn-R
 AppSupportURL        = https://github.com/MarcoPortmann/Tinn-R
 AppUpdatesURL        = https://github.com/MarcoPortmann/Tinn-R
-AppVerName           = Tinn-R 3.0.3.6
+AppVerName           = Tinn-R 3.0.4.0
 ChangesAssociations  = true
 Compression          = lzma
 DefaultDirName       = {pf32}\Tinn-R
 DefaultGroupName     = Tinn-R
 LicenseFile          = ..\doc\licence_gpl3.txt
-OutputBaseFilename   = Tinn-R_3.0.3.6_setup
+OutputBaseFilename   = Tinn-R_3.0.4.0_setup
 OutputDir            = ..\install_setup\bin
 SolidCompression     = yes
 WizardImageFile      = ..\res\setup.bmp
@@ -52,8 +52,6 @@ Source: ..\doc\textdiff.hlp;                    DestDir: {app}\doc
 Source: ..\doc\Tinn-R_recognized words.r;       DestDir: {app}\doc
 Source: ..\doc\User guide.pdf;                  DestDir: {app}\doc
 Source: ..\latex\latex.zip;                     DestDir: {app}\latex
-Source: ..\package\TinnRcom_1.0.15.tar.gz;      DestDir: {app}\package
-Source: ..\package\TinnRcom_1.0.15.zip;         DestDir: {app}\package
 Source: ..\res\logo.jpg;                        DestDir: {app}\res
 Source: ..\res\sp_00.jpg;                       DestDir: {app}\res
 Source: ..\res\sp_01.jpg;                       DestDir: {app}\res

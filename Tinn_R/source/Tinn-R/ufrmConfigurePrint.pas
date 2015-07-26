@@ -129,6 +129,7 @@ type
     procedure rbAllClick(Sender: TObject);
     procedure rbSelectionClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure bbtPreviewClick(Sender: TObject);
 
   public
     iFontSize: integer;
@@ -151,7 +152,7 @@ implementation
 uses
   ufrmMain,
   ufrmEditor,
-  ufrmPrintPreview;
+  ufrmPrintPreview, ufrmRterm;
 
 {$R *.dfm}
 
@@ -201,10 +202,10 @@ procedure TfrmConfigurePrint.ShowDialog(const seEditor: TDScintilla);
 begin
 //sci //m.p.  iFontSize := seEditor.Font.Size;
   // Iy can be changed by user in ufrmPrintPreview interface
-
-//sci //m.p.   seEditorPrint := seEditor;
-
-  Caption := 'Print ' + frmTinnMain.Caption;
+  if seEditor.Parent.ClassType = TfrmEditor then
+     Caption := 'Print ' + (seEditor.Parent AS TfrmEditor).EditorFile.sFile
+  else if seEditor = frmRTerm.sciIO then
+    Caption := 'Print output';
 
   ShowModal;
 end;
@@ -226,8 +227,14 @@ begin
     else   iPrintLineWrap := SC_WRAP_NONE;
 
 
-  end;
-  Close;     }
+  end;   }
+  Close;
+end;
+
+procedure TfrmConfigurePrint.bbtPreviewClick(Sender: TObject);
+begin
+ showmessage('Feature not ready.');
+ Exit;
 end;
 
 procedure TfrmConfigurePrint.FormCreate(Sender: TObject);
@@ -355,6 +362,8 @@ end;
 
 procedure TfrmConfigurePrint.actPrintExecute(Sender: TObject);
 begin
+ showmessage('Feature not ready.');
+ Exit;
  { LoadOptions(True);
   if (edStartPage.Text <> '') or (edStartPage.Text <> '') then
     prnOptions.PrintRange(StrToInt(edStartPage.Text), StrToInt(edEndPage.Text))

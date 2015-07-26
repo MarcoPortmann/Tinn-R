@@ -89,8 +89,9 @@
         <DCC_UNIT_PLATFORM>False</DCC_UNIT_PLATFORM>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=3.0.3.6;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Release>4</VerInfo_Release>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=3.0.4.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Build>0</VerInfo_Build>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Version>7.0</Version>
@@ -553,6 +554,10 @@
         </DCCReference>
         <DCCReference Include="uLaTeX.pas"/>
         <DCCReference Include="trCommon.pas"/>
+        <DCCReference Include="ufrmTidyAbort.pas">
+            <Form>frmTidyAbort</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="Tinn_R.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

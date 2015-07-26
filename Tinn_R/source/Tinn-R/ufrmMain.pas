@@ -182,9 +182,9 @@ uses
   DateUtils, ConsoleIO, clMultiStream,
   JvDriveCtrls, JvgTypes, JvComponent, JvAppHotKey,
   DB,
-  System.Generics.Collections, Vcl.ActnColorMaps, System.Types, DScintillaTypes,
+  System.Generics.Collections, Vcl.ActnColorMaps, System.Types, DScintillaTypes,    ufrmEditor, ufrmTidyAbort,
   DScintillaCustom, DScintilla, SciKeyBindings, SciResLang, SciSupport,{ JvThread, }
-  IdBaseComponent, IdThreadComponent, Vcl.Mask{, JvExMask, JvToolEdit};
+  IdBaseComponent, IdThreadComponent, Vcl.Mask, JvThread{, JvExMask, JvToolEdit};
   {JvCustomItemViewer,} {JvExForms, }  { JvExStdCtrls, JvListBox, JvCombobox,} {JvExComCtrls,
   JvComCtrls,}
 
@@ -232,12 +232,6 @@ type
     actCommentsEdit: TAction;
     actCommentsHelp: TAction;
     actCompletion: TAction;
-    actCompletionCopyDescrition: TAction;
-    actCompletionCopyFunction: TAction;
-    actCompletionEdit: TAction;
-    actCompletionExampleSelected: TAction;
-    actCompletionHelpSelected: TAction;
-    actCompletionInsert: TAction;
     actCopyFormatted: TAction;
     actCopyFormattedHtml: TAction;
     actCopyFormattedRtf: TAction;
@@ -465,8 +459,7 @@ type
     actRtermEditorSetFocus: TAction;
     actRtermIOandLogClear: TAction;
     actRtermIOClear: TAction;
-    actRtermIOHistoryNext: TAction;
-    actRtermIOHistoryPrior: TAction;
+    actRtermIOHistory: TAction;
     actRtermIOLineWrap: TAction;
     actRtermIOPrint: TAction;
     actRtermIOSave: TAction;
@@ -554,13 +547,10 @@ type
     csRtip: TClientSocket;
     ctbMain: TControlBar;
     Edit1: TMenuItem;
-    Exampleselected1: TMenuItem;
     Exampleselected2: TMenuItem;
     Help1: TMenuItem;
-    Help2: TMenuItem;
     Help3: TMenuItem;
     Help5: TMenuItem;
-    Helpselected1: TMenuItem;
     Helpselected2: TMenuItem;
     imlProject: TImageList;
     imlRexplorer: TImageList;
@@ -584,18 +574,12 @@ type
     MenuItem9: TMenuItem;
     N102: TMenuItem;
     N102_OLD: TMenuItem;
-    N106: TMenuItem;
-    N108: TMenuItem;
     N116: TMenuItem;
     N123: TMenuItem;
-    N138: TMenuItem;
     N146: TMenuItem;
     N151: TMenuItem;
     N152: TMenuItem;
     N168: TMenuItem;
-    N169: TMenuItem;
-    N175: TMenuItem;
-    N177: TMenuItem;
     N190: TMenuItem;
     N192: TMenuItem;
     N194: TMenuItem;
@@ -607,10 +591,8 @@ type
     N43_OLD: TMenuItem;
     N44_OLD: TMenuItem;
     n45_OLD: TMenuItem;
-    N47: TMenuItem;
     N47_OLD: TMenuItem;
     N50: TMenuItem;
-    N56: TMenuItem;
     N56_OLD: TMenuItem;
     N59_OLD: TMenuItem;
     N62: TMenuItem;
@@ -624,45 +606,6 @@ type
     OpenURLcurrent1: TMenuItem;
     panInvisibleParent: TPanel;
     panProjectDockSite: TPanel;
-    pmemIOClear: TMenuItem;
-    pmemIOClearIO: TMenuItem;
-    pmemIOClearIOLog: TMenuItem;
-    pmemIOCopy: TMenuItem;
-    pmemIOCut: TMenuItem;
-    pmemIOEdit: TMenuItem;
-    pmemIOFile: TMenuItem;
-    pmemIOFilePrint: TMenuItem;
-    pmemIOFileSave: TMenuItem;
-    pmemIOFileSaveAs: TMenuItem;
-    pmemIOFocus: TMenuItem;
-    pmemIOHistory: TMenuItem;
-    pmemIOHistoryLoad: TMenuItem;
-    pmemIOHistoryNext: TMenuItem;
-    pmemIOHistoryPrior: TMenuItem;
-    pmemIOHistorySave: TMenuItem;
-    pmemIOLineWrap: TMenuItem;
-    pmemIOPaste: TMenuItem;
-    pmemIORedo: TMenuItem;
-    pmemIOSelectAll: TMenuItem;
-    pmemIOSetFocusConsole: TMenuItem;
-    pmemIOSetFocusEditor: TMenuItem;
-    pmemIOSetFocusLog: TMenuItem;
-    pmemIOSHighlighter: TMenuItem;
-    pmemIOShowHide: TMenuItem;
-    pmemIOSize: TMenuItem;
-    pmemIOSizeDivide: TMenuItem;
-    pmemIOSizeMaximize: TMenuItem;
-    pmemIOSizeMinimize: TMenuItem;
-    pmemIOSplit: TMenuItem;
-    pmemIOSplitHorizontal: TMenuItem;
-    pmemIOSplitRemove: TMenuItem;
-    pmemIOSplitVertical: TMenuItem;
-    pmemIOSyntaxR: TMenuItem;
-    pmemIOSyntaxText: TMenuItem;
-    pmemIOUndo: TMenuItem;
-    pmemIOWorkspace: TMenuItem;
-    pmemIOWorkspaceLoad: TMenuItem;
-    pmemIOWorkspaceSave: TMenuItem;
     pmemLogClear: TMenuItem;
     pmemLogClearIOLog: TMenuItem;
     pmemLogClearLog: TMenuItem;
@@ -713,7 +656,6 @@ type
     pmenGroupExpandAll: TMenuItem;
     pmenGroupNew_OLD: TMenuItem;
     pmenGroupRename_OLD: TMenuItem;
-    pmenIO: TJvPopupMenu;
     pmenLog: TJvPopupMenu;
     pmenMainMRU: TJvPopupMenu;
     pmenProject_OLD: TMenuItem;
@@ -1123,7 +1065,6 @@ type
     menOptionsShortcuts1: TMenuItem;
     menOptionColorPreference1: TMenuItem;
     menToolsDatabase1: TMenuItem;
-    menToolsDatabaseShortcuts1: TMenuItem;
     menToolsDatabaseComments1: TMenuItem;
     menToolsDatabaseMirrorsR1: TMenuItem;
     N58: TMenuItem;
@@ -1216,10 +1157,6 @@ type
     N86: TMenuItem;
     menToolsMatchBracket1: TMenuItem;
     menToolsUtils1: TMenuItem;
-    menToolsUtilsActionlistToClipboard1: TMenuItem;
-    menToolsUtilsActionlistToDataset1: TMenuItem;
-    menToolsUtilsDatasetToActionlist1: TMenuItem;
-    N87: TMenuItem;
     menToolsUtilsTesteRegex1: TMenuItem;
     N88: TMenuItem;
     menToolsUtilsStringReplace1: TMenuItem;
@@ -1413,7 +1350,6 @@ type
     tUpdateOptions: TTimer;
     tRRuning: TTimer;
     Label1: TLabel;
-    Label2: TLabel;
     Label3: TLabel;
     Invertcase2: TMenuItem;
     Uppercase1: TMenuItem;
@@ -1422,7 +1358,6 @@ type
     actAlignEqualSign: TAction;
     Align1: TMenuItem;
     Alignwithfirstline: TMenuItem;
-    Label4: TLabel;
     Insert2: TMenuItem;
     actRcardInsertNoArgs: TAction;
     Insertwithoutarguments1: TMenuItem;
@@ -1430,7 +1365,76 @@ type
     Deleteentryfromlibrary1: TMenuItem;
     acShowNotification: TAction;
     tNotifyTimer: TTimer;
-    Button1: TButton;
+    Button2: TButton;
+    actMarkColor1: TAction;
+    actMarkColor2: TAction;
+    actUnMarkColor: TAction;
+    N21: TMenuItem;
+    Markgreen1: TMenuItem;
+    Markred1: TMenuItem;
+    Removecolormarks1: TMenuItem;
+    Label5: TLabel;
+    Sendingrulesforcoloredmarkers1: TMenuItem;
+    actSendMarkColor1Only: TAction;
+    actSendMarkColor2Only: TAction;
+    Sendgreenmarkedtextonly1: TMenuItem;
+    Sendredmarkedtextonly1: TMenuItem;
+    N26: TMenuItem;
+    actExcludeMarkColor1: TAction;
+    actExcludeMarkColor2: TAction;
+    Dontsendgreenmarkedtext1: TMenuItem;
+    Dontsendredmarkedtext1: TMenuItem;
+    StartupThreadShortcuts: TIdThreadComponent;
+    pabIO: TPopupActionBar;
+    pmemIOShowHide1: TMenuItem;
+    N37: TMenuItem;
+    Helpselected4: TMenuItem;
+    Exampleselected3: TMenuItem;
+    Help4: TMenuItem;
+    N38: TMenuItem;
+    pmemIOEdit1: TMenuItem;
+    pmemIOUndo1: TMenuItem;
+    pmemIORedo1: TMenuItem;
+    N39: TMenuItem;
+    pmemIOCopy1: TMenuItem;
+    pmemIOCut1: TMenuItem;
+    pmemIOPaste1: TMenuItem;
+    N41: TMenuItem;
+    pmemIOSelectAll1: TMenuItem;
+    pmemIOFile1: TMenuItem;
+    pmemIOFileSave1: TMenuItem;
+    pmemIOFileSaveAs1: TMenuItem;
+    pmemIOFilePrint1: TMenuItem;
+    N77: TMenuItem;
+    pmemIOClear1: TMenuItem;
+    pmemIOClearIO1: TMenuItem;
+    pmemIOClearIOLog1: TMenuItem;
+    pmemIOFocus1: TMenuItem;
+    pmemIOSetFocusEditor1: TMenuItem;
+    pmemIOSetFocusConsole1: TMenuItem;
+    pmemIOSetFocusLog1: TMenuItem;
+    pmemIOSize1: TMenuItem;
+    pmemIOSizeMaximize1: TMenuItem;
+    pmemIOSizeDivide1: TMenuItem;
+    pmemIOSizeMinimize1: TMenuItem;
+    pmemIOSplit1: TMenuItem;
+    pmemIOSplitHorizontal1: TMenuItem;
+    pmemIOSplitVertical1: TMenuItem;
+    N82: TMenuItem;
+    pmemIOSplitRemove1: TMenuItem;
+    pmemIOSHighlighter1: TMenuItem;
+    pmemIOSyntaxText1: TMenuItem;
+    pmemIOSyntaxR1: TMenuItem;
+    pmemIOLineWrap1: TMenuItem;
+    N83: TMenuItem;
+    pmemIOHistory1: TMenuItem;
+    pmemIOHistorySave1: TMenuItem;
+    pmemIOHistoryLoad1: TMenuItem;
+    N85: TMenuItem;
+    pmemIOHistoryPrior1: TMenuItem;
+    pmemIOWorkspace1: TMenuItem;
+    pmemIOWorkspaceSave1: TMenuItem;
+    pmemIOWorkspaceLoad1: TMenuItem;
 
     procedure actHelpAboutExecute(Sender: TObject);
     procedure actANSIExecute(Sender: TObject);
@@ -1638,8 +1642,7 @@ type
     procedure actRtermEditorSetFocusExecute(Sender: TObject);
     procedure actRtermIOandLogClearExecute(Sender: TObject);
     procedure actRtermIOClearExecute(Sender: TObject);
-    procedure actRtermIOHistoryNextExecute(Sender: TObject);
-    procedure actRtermIOHistoryPriorExecute(Sender: TObject);
+    procedure actRtermIOHistoryExecute(Sender: TObject);
     procedure actRtermIOLineWrapExecute(Sender: TObject);
     procedure actRtermIOPrintExecute(Sender: TObject);
     procedure actRtermIOSaveAsExecute(Sender: TObject);
@@ -1747,8 +1750,6 @@ type
     procedure menHelpEnglishChanges_t2tClick(Sender: TObject);
     procedure menRtermHistoryNextClick(Sender: TObject);
     procedure menRtermHistoryPriorClick(Sender: TObject);
-    procedure menToolsUtilsActionlistToClipboardClick(Sender: TObject);
-    procedure menToolsUtilsDatasetToActionlistClick(Sender: TObject);
     procedure menWebRguiJGRClick(Sender: TObject);
     procedure menWebRGuiRStudioClick(Sender: TObject);
     procedure panProjectDockSiteDockDrop(Sender: TObject;
@@ -1774,7 +1775,6 @@ type
 
     procedure synIOClick(Sender: TObject);
     procedure synIOEnter(Sender: TObject);
-    procedure synMRStateChange(Sender: TObject);
 //    procedure synPaintTransient(Sender: TObject; Canvas: TCanvas;
  //     TransientType: TTransientType);
 
@@ -1846,8 +1846,6 @@ type
     procedure actDoCommentsExecute(Sender: TObject);
     procedure actDoRCardExecute(Sender: TObject);
     procedure actDoMirrorsExecute(Sender: TObject);
-    procedure actActionListToClipboardExecute(Sender: TObject);
-    procedure actActionListToDatasetExecute(Sender: TObject);
     procedure actTestRegExExecute(Sender: TObject);
     procedure actStringReplaceExecute(Sender: TObject);
     procedure actShowMenuHotkeysExecute(Sender: TObject);
@@ -1886,7 +1884,15 @@ type
     procedure actRLibDeleteEntryExecute(Sender: TObject);
     procedure acShowNotificationExecute(Sender: TObject);
     procedure tNotifyTimerTimer(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure actMarkColor1Execute(Sender: TObject);
+    procedure actMarkColor2Execute(Sender: TObject);
+    procedure actUnMarkColorExecute(Sender: TObject);
+
+// Refactor: move to a common file, e.g. uRSendCommands
+//    function GetSelectionToReformat(sSel: string): string;
+//    function GetFileToReformat: string;
+    procedure StartupThreadShortcutsRun(Sender: TIdThreadComponent);
 
   private
     { Private declarations }
@@ -1894,6 +1900,7 @@ type
     iLookupCursor: Integer;
     sciLookup: TDScintilla;
 
+    aOpenFileSearch: Array of Integer;
     aImg: Array [0 .. 9] of TBitmap;
     bAlreadyOrganized: Boolean;
     bAskActualizeChangedFiles: Boolean;
@@ -1913,11 +1920,11 @@ type
     bRmirros_Update: Boolean;
 
     bRsvSocket_Connect: Boolean;
-    // Variáveis de controle do TinnRcom e dependências
     bRtermCloseWithoutAsk: Boolean;
     bRtermHorizontal: Boolean; // IO disposition for IO and Log in the same view
     bRtermOptionCancel: Boolean;
-    bRtermSimple: Boolean; // IO and Log in the same view
+
+
     bRTinnRcom_Info: Boolean;
     bRTinnRcom_Install: Boolean;
     bRTinnRcom_Installed: Boolean;
@@ -1929,35 +1936,29 @@ type
     bSearchDirectory: Boolean;
     bSearchInSub: Boolean;
     bSearchOpenFiles: Boolean;
+    bShortcutsLoaded: Boolean;
     bStartingUp: Boolean;
     bStartOptionsWithProcessingPage: Boolean;
     bStartOptionsWithRPage: Boolean;
-    bUpdate_Cache: Boolean;
-    bUpdate_Comments: Boolean;
-    bUpdate_Completion: Boolean;
-    bUpdate_Latex: Boolean;
-    bUpdate_Rcard: Boolean;
-    bUpdate_Rmirrors: Boolean;
-    bUpdate_Shortcuts: Boolean;
+
     hkTinnR: TfrmHotKeys;
 
 
     iDefaultLexerId: Integer;
 
 
-    iIOSyntax: integer;
+ //   iIOSyntax: integer;
     iLastFile: integer;
     iLastSearch: integer;
 
-    iLogSyntax: integer;
+//    iLogSyntax: integer;
 
-    iLineOldCount : Integer;
     iOldHeight: integer;
     iOldLeft: integer;
     iOldTop: integer;
     iOldWidth: integer;
     iReformatRSplit: integer;
-    iRFormatted: integer;
+//    iRFormatted: integer;
     iRguiTinnRDisposition: integer;
     iRguiTinnRProportion: integer;
 
@@ -1973,13 +1974,7 @@ type
 
     sAppData: string;
 
-    sCurrentVersion_Cache: string;
-    sCurrentVersion_Comments: string;
 
-    sCurrentVersion_Latex: string;
-    sCurrentVersion_Rcard: string;
-    sCurrentVersion_Rmirrors: string;
-    sCurrentVersion_Shortcuts: string;
 
     sDataCompletion: string;
     sEncodingDefault: string;
@@ -2019,8 +2014,7 @@ type
     sPathTxt2tags_Converter: string;
     sPathTxt2tags_Interpreter: string;
     sProjectName: string;
-    sReformatR: string;
-    sReformatRd: string;
+
     sRIOSaved: string;
     sRLogSaved: string;
     sSearchDirHistory: string;
@@ -2051,10 +2045,10 @@ type
     function GenericGroupExists: Boolean;
     function GetEncodingDefault: string;
     function GetFile(var bSingleLine: Boolean): string;
-    function GetFileToReformat: string;
+
 //    function GetFocus: integer;
 
-    function GetSelectionToReformat(sSel: string): string;
+
     function GroupExistsAsNode(sGroupName: string): Boolean;
     function MessageDlg(const sMsg: string; mdType: TMsgDlgType;
       mdButtons: TMsgDlgButtons; iHelp: integer): integer;
@@ -2081,7 +2075,6 @@ type
     procedure ControlResources(bOption: Boolean);
     procedure CreateGroup(sGroupName: string);
     procedure CreateProject;
-    procedure DatasetToActionList(Sender: TObject);
     procedure DoClearConsole;
     procedure DoIPConnection(sIPHost: string; iIPPort: integer;
       bActive: Boolean);
@@ -2102,8 +2095,7 @@ type
     procedure LoadEditorKeystrokes;
 
 
-    procedure MakeTemplate(sFile: string);
-
+    procedure MakeTemplate(sTemplateFile: string; iHiglighterID: Integer);
     procedure MatchBracket(seEditor: TDScintilla);
     procedure MySort(iSort: integer);
     procedure OnTop(hHandle: HWND);
@@ -2141,7 +2133,7 @@ type
     procedure SetRcard;
     procedure SetRExplorer(bOption: Boolean);
     procedure SetRmirrors;
-    procedure SetShortcuts;
+
     procedure SetupSearchParameters(sSearchText: string);
     procedure SortProject;
 //    procedure StartSocketServer_svSocket;
@@ -2160,8 +2152,7 @@ type
     // procedure UpdateFileIntoTinn(sFile: string; iLineNumberJump: integer = 0);
     procedure UpdateOptions;
     procedure UpdateProjectMRU(var miItem: TMenuItem; sfilename: string);
-    procedure UpdateRFileReformatted(sTmp: string);
-    procedure UpdateRSelectionReformatted(sTmp: string);
+
     Procedure UpdateRterm_Appearance(bUpdate_FontSize: Boolean = True);
     procedure WMCopyData(var msg: TWMCopyData); message WM_COPYDATA;
     procedure WMDropFiles(var msg: TWMDropFiles); message WM_DROPFILES;
@@ -2177,6 +2168,7 @@ type
 
   public
     { Public declarations }
+    abortDialog: TfrmTidyAbort;
     ajavHK: array [1 .. 20] of TJvApplicationHotKey; // R Hotkeys
     ajavHKC: array [1 .. 20] of TJvApplicationHotKey; // R Hotkeys Custom
     aRC: array [1 .. 20] of string; // R Custom
@@ -2188,6 +2180,27 @@ type
     bConnectionBeepOnError: Boolean;
     bDatabaseRestored: Boolean;
     bDoInsert: Boolean;
+
+    bRtermSimple: Boolean; // IO and Log in the same view
+    bTidying: Boolean;
+
+    bUpdate_Cache: Boolean;
+    bUpdate_Comments: Boolean;
+    bUpdate_Completion: Boolean;
+    bUpdate_Latex: Boolean;
+    bUpdate_Rcard: Boolean;
+    bUpdate_Rmirrors: Boolean;
+    bUpdate_Shortcuts: Boolean;
+
+    sCurrentVersion_Cache: string;
+    sCurrentVersion_Comments: string;
+
+    sCurrentVersion_Latex: string;
+    sCurrentVersion_Rcard: string;
+    sCurrentVersion_Rmirrors: string;
+    sCurrentVersion_Shortcuts: string;
+
+
     acHighlightersCI:  Array of TActionClientItem;
     acHighlighters:  Array of TAction;
 
@@ -2304,12 +2317,16 @@ type
     iScaleMode: integer;
     iShortcutsBeforeChanges: integer;
     iShortcutsFilter: integer;
-    iSynWithFocus: integer;
+    iSciWithFocus: integer;
     iTransparency: integer;
     iZoomPreview: integer;
     RHistory: TRHistory;
     sAppSelected: string;
     sBeginComment: string;
+
+    iRFormatted: Integer;
+    sReformatR: string;
+    sReformatRd: string;
 
     sDragSource: string;
     sDragSourceLine: string;
@@ -2327,7 +2344,7 @@ type
     slFilters: TStringList;
     slFiltersDisplay: TStringList;
 
-    sLastSearchEditor: string;
+    sciLastSearchEditor: TDScintilla;
     sLineComment: string;
     sPandocHistory: string;
     sPandocHistoryFrom: string;
@@ -2352,7 +2369,7 @@ type
     sSaveAsFileExt: string;
     sSearchTextHistory: string;
     sSelectedEnvironment: string;
-    sShortcutsInUse: string;
+    sPathShortcuts: string;
     sTipToWrite: string;
     sUtilsOrigin: string;
     sWorkingDir: string;
@@ -2379,6 +2396,7 @@ type
     function FindTopWindow: integer;
     function GetBuildInfo: string;
     //function GetActiveEditorFormOrNil(var edForm: TfrmEditor): Boolean;
+    function GetTopEditorForm(var edForm:  TfrmEditor): Boolean;
     function GetActiveEditorOrNil(var seEditor: TDScintilla): Boolean;
     function GetEditorWithFocus: TDScintilla;
     function GetKeyStrokeByCommand(var KeyCommand: TSciKeyCommand; iCommand: Integer): Integer;
@@ -2430,6 +2448,7 @@ type
     procedure SetPathRgui;
     procedure SetPathRTerm;
     procedure SetReadOnlyState;
+    procedure SetShortcuts;
     procedure SetHighlighterCombo(iLexerId: Integer);
     procedure SetTabTitle(sStat: string);
     procedure SetToolbarProcessing(sFileExtension: string);
@@ -2463,7 +2482,7 @@ uses
   ufrmRterm,
   ufrmCount,
   ufrmDiffMain,
-  ufrmEditor,
+  //ufrmEditor,
   ufrmGroupRename,
   ufrmLatexDimensional,
   ufrmNewGoup,
@@ -2484,44 +2503,28 @@ uses
 
 {$R *.DFM}
 
-(*
-  ----------------------------------------------------
-  SetShortcuts: It is very important for developers!
-  ----------------------------------------------------
-*)
+
 procedure TfrmTinnMain.SetShortcuts;
 begin
-  (*
-    ----------------------------------------------------------------------------------------------
-    Will update (from dataset shortcut.xml) all actions inside of alMain:
-    1- Comment the line below (DatasetToActionList(nil)) when was done any change in the alMain
-    2- Run Tinn-R
-    3- Generate a new Dataset: Tools/Utils/Actionlist to dataset (menu visible only when compiled in debug mode)
-    4- Close Tinn-R
-    5- Change the version of sCurrentVersion_Shortcuts in procedure TfrmTinnMain.CheckVersion
-    (It is very important to the user version be updated!)
-    6- Uncomment this line newly (DatasetToActionList(nil))
-    7- It is all!
-    ----------------------------------------------------------------------------------------------
-  *)
 
-  (* ------------------------- *)
-  DatasetToActionList(nil);
-  (* ------------------------- *)
-
-  // Create items in lbShortcuts from strListShortcutsGroups create in uModDados
-  with modDados do
+  with modDados.sqldsShortcuts do
   begin
-    frmTools.lbShortcuts.Items := slShortcuts_Groups;
-    frmTools.lbShortcuts.Refresh;
-    FreeAndNil(slShortcuts_Groups);
+    alMain.State := asSuspended;
+    First;
+    while not eof do
+    begin
+      with TAction(alMain.Actions[FieldByName('ActionIndex').AsInteger]) do
+      begin
+        Category := FieldByName('Category').AsString;
+        Caption :=  FieldByName('Caption').AsString;
+        Hint :=  FieldByName('Hint').AsString;
+        ShortCut := TextToShortCut(FieldByName('ShortCut').AsString);
+        ImageIndex := FieldByName('Image').AsInteger
+      end;
+      Next;
+    end;
+    alMain.State := asNormal;
   end;
-
-  // To prevent some problem
-  if (iShortcutsFilter < 0) then
-    iShortcutsFilter := 0;
-  frmTools.lbShortcuts.Selected[iShortcutsFilter] := True;
-  frmTools.lbShortcutsClick(Self);
 end;
 
 procedure TfrmTinnMain.CheckVersion;
@@ -2541,7 +2544,18 @@ begin
   sCurrentVersion_Latex := '2.01.01.01';
   sCurrentVersion_Rcard := '2.03.00.00';
   sCurrentVersion_Rmirrors := '3.00.02.06';
-  sCurrentVersion_Shortcuts := '3.00.05.00';
+//
+//  ----------------------------------------------------------------------------
+//  Important for developers: Change the sCurrentVersion_Shortcuts whenever the
+//  action list has been changed. Otherwise SetShortcuts will fail.
+//
+//  You can also include a new shortcut database file in the data.zip. This
+//  should make the "restore shortcuts" more elegant as new restart will be
+//  required.
+//
+//  ----------------------------------------------------------------------------
+//
+  sCurrentVersion_Shortcuts := '3.00.07.00';
 
   // Released joinly with Tinn-R setup program
 
@@ -2585,8 +2599,7 @@ begin
   if (AnsiCompareStr(sVersion_Shortcuts, sCurrentVersion_Shortcuts) < 0) then
   begin
     sVersion_Shortcuts := sCurrentVersion_Shortcuts;
-    if FileExists(sPathData + '\Shortcuts.xml') then
-      bUpdate_Shortcuts := True;
+    bUpdate_Shortcuts := True;
   end;
 
 end;
@@ -2607,17 +2620,16 @@ procedure TfrmTinnMain.OpenFileIntoTinn(sFileIn: string;
   bUpdateMRU: Boolean = True; bAllowOverwrite: Boolean = False);
 var
   bFileExists, bUntitled, bLoadInNewWindows, bLoadFileFromDisk,
-    bOverwriteCurrentContents{, bSomeRestoreAction}: Boolean;
+    bOverwriteCurrentContents: Boolean;
 
-  iWin, itab, j{, iTopLine, iCaretX, iCaretY, iLexerId}: integer;
-  //iLineNumber: TPoint;
+  iWin, itab, j: integer;
+
   seEditor: TDScintilla;
   slNewFile: TStringList;
   slTmp1, slTmp2: TStringList;
- { sTmp,}sDir, sFileExt {, sMarks, sFolding}: string;
-  // userOption : TModalResult;
+  sDir, sFileExt : string;
+
   EditorFile: TEditorFile;
-  //cTmp: Char;
   edForm: TfrmEditor;
 begin
   // Check if is *.tps file, if yes, open it in the project interface
@@ -2840,7 +2852,6 @@ begin
         stvWindows.Path := sDir;
         frmTools.jvflbWinExplorer.Mask := '*.*';
         frmTools.edWinExplorerFilter.Text := '';
-
       end;
     end;
 
@@ -2849,17 +2860,18 @@ begin
   end;
 
 
-
+ {
   if (iLineNumberJump > 0) then
   begin
-    edForm := (Self.MDIChildren[FindTopWindow] as TfrmEditor);
+    GetTopEditorForm(edForm);
+
     with edForm.sciEditor do
     begin
       SetFirstVisibleLine(iLineNumberJump);
       GotoLine(iLineNumberJump);
     end;
   end;
-
+     }
 
 end;
 
@@ -2892,7 +2904,7 @@ begin
       if pgFiles.PageCount = 1 then
         ToggleAtLeastOneFileOpenOptions(true);
     end;
-  end else edForm := (Self.MDIChildren[FindTopWindow] as TfrmEditor);
+  end else GetTopEditorForm(edForm);
 
   with edForm, edForm.EditorFile do
   begin
@@ -2909,6 +2921,15 @@ begin
       if trim(sTempFile) <> '' then
         if FileExists(sTempFile) then
           sLoadFile := trim(sTempFile);
+
+
+    if (trim(sTempFile) <> '') and (iNewFile = 1) and (iModified = 0)   then
+      if FileExists(sTempFile) then
+      begin
+      // This case should only occur for templates!
+      sLoadFile := trim(sTempFile);
+      sTempFile := '';
+      end;
 
     sciEditor.Lines.BeginUpdate;
     if FileExists(sLoadFile) then
@@ -2955,12 +2976,9 @@ begin
 
     end;
 
-
     SetTitles;
     CheckSaveStatus;
     bBackupUnsaved := False;
-
-
 
     UpdateMainFormLexer;
     ApplyLexer(iLexerId, sciEditor);
@@ -2977,8 +2995,6 @@ begin
       sciEditor.SetCaretLineBack(iHighlightActiveLineColor);
       sciEditor.SetCaretLineVisible(true);
     end;
-
-
 
       // Restore all marks
     if (sMarks <> '') then
@@ -3042,6 +3058,7 @@ begin
 
     sciEditor.Lines.EndUpdate;
     sciEditor.SetFocus;
+
     UpdateCursorPos(sciEditor);
 
     frmTinnMain.SetFileSize_StatusBar(EditorFile.sFile);
@@ -3053,7 +3070,7 @@ begin
 
 
 
-    iSynWithFocus := 1;
+    iSciWithFocus := 1;
     actRtermWarningError.Visible := False;
 
 
@@ -3635,8 +3652,7 @@ begin
   iPandocTo := ifTinn.ReadInteger('App', 'iPandocTo', 7);
   iTransparency := ifTinn.ReadInteger('App', 'iTransparency', 0);
   iViewStyleRExplorer := ifTinn.ReadInteger('App', 'iViewStyleRExplorer', 1);
-  sShortcutsInUse := trim(ifTinn.ReadString('App', 'sShortcutsInUse',
-    sPathData + '\Shortcuts.xml'));
+
 
   bIPLocal := ifTinn.ReadBool('App', 'bIPLocal', True);
   iIPPortLocal := ifTinn.ReadInteger('App', 'iIPPortLocal', 8889);
@@ -3728,8 +3744,7 @@ begin
   frmTools.panRCard.Height := ifTinn.ReadInteger('App', 'iRcard.Height', 79);
   // m.p.  frmTools.panRExplorer.Width := ifTinn.ReadInteger('App',
   // 'iRExplorer.Width', 200);
-  frmTools.panShortcuts.Height := ifTinn.ReadInteger('App',
-    'iShortcuts.Height', 79);
+
   frmTools.panWinExplorer.Height := ifTinn.ReadInteger('App',
     'iWinExplorer.Height', 75);
 
@@ -3772,8 +3787,19 @@ begin
   bRtermSimple := ifTinn.ReadBool('App', 'bRtermSimple', False);
   frmRterm.iSciLog2Height := ifTinn.ReadInteger('App', 'iSciLog2.Height', 90);
   frmRterm.iSciLog2Width := ifTinn.ReadInteger('App', 'iciLog2.Width', 140);
-  iIOSyntax := ifTinn.ReadInteger('App', 'iIOSyntax', 1); // .R
-  iLogSyntax := ifTinn.ReadInteger('App', 'iLogSyntax', 0); // .txt
+
+  iIOSyntax := ifTinn.ReadInteger('App', 'iIOSyntax', SCLEX_R );
+  iLogSyntax := ifTinn.ReadInteger('App', 'iLogSyntax', SCLEX_R);
+
+  if iIOSyntax = SCLEX_R then
+     actRtermSetIOSyntaxToR.Checked := True else
+        actRtermSetIOSyntaxToText.Checked := True;
+
+  if iLogSyntax = SCLEX_R then
+     actRtermSetLogSyntaxToR.Checked := True else
+        actRtermSetLogSyntaxToText.Checked := True;
+
+
   iRtermDockHeight := ifTinn.ReadInteger('App', 'iRtermDock.Height', 200);
   iRtermDockWidth := ifTinn.ReadInteger('App', 'iRtermDock.Width', 100);
 
@@ -4503,7 +4529,7 @@ begin
       else
         seEditor := sciEditor2;
 
-  if (iSynWithFocus = 3) then
+  if (iSciWithFocus = 3) then
     GetLocLine(frmRterm.sciIO)
   else
     GetLocLine(seEditor);
@@ -4736,14 +4762,12 @@ begin
   actRSendClipboard.Enabled := bOption;
 
   // Rterm
-  actRtermIOHistoryNext.Enabled := bOption and Rterm_Running;
-  actRtermIOHistoryPrior.Enabled := bOption and Rterm_Running;
+  actRtermIOHistory.Enabled := bOption and Rterm_Running;
   actRtermLoadHistory.Enabled := bOption and Rterm_Running;
   actRtermLoadWorkspace.Enabled := bOption and Rterm_Running;
   actRtermSaveHistory.Enabled := bOption and Rterm_Running;
   actRtermSaveWorkspace.Enabled := bOption and Rterm_Running;
-  actRtermIOHistoryNext.Enabled := bOption and Rterm_Running;
-  actRtermIOHistoryPrior.Enabled := bOption and Rterm_Running;
+
 
   // Rcard
   actRCardExampleSelected.Enabled := bOption;
@@ -4794,17 +4818,8 @@ var
 begin
   i := 0;
   bMark := False;
-  if (pgFiles.PageCount > 0) then
-  begin
-    i := FindTopWindow;
-    with (Self.MDIChildren[i] as TfrmEditor) do
-      if (sActiveEditor = 'sciEditor') then
-        seEditor := sciEditor
-      else
-        seEditor := sciEditor2;
-
+  if GetActiveEditorOrNil(seEditor) then
     bMark := (seEditor.MarkerNext(-1, -1) > -1);
-  end;
 
   // Alphabetically ordered
   actRContSetWorkDirectory.Enabled := bOption and
@@ -5008,138 +5023,20 @@ begin
   OpenHelpFile('\sample\deplate.dplt');
 end;
 
-procedure TfrmTinnMain.actActionListToClipboardExecute(Sender: TObject);
-var
-  i, iImage: integer;
 
-  sShortCut, sGroup, sCaption, sHint, sTmp1, sTmp2, sBegin, sEnd: string;
-
-  aTmp: TAction;
-
-begin
-  sBegin := '<DATAPACKET Version="2.0">' + #13#10 + ' <METADATA>' + #13#10 +
-    '  <FIELDS>' + #13#10 + '   <FIELD attrname="Index" fieldtype="i4"/>' +
-    #13#10 + '   <FIELD attrname="Group" fieldtype="string" WIDTH="50"/>' +
-    #13#10 + '   <FIELD attrname="Caption" fieldtype="string" WIDTH="50"/>' +
-    #13#10 + '   <FIELD attrname="Hint" fieldtype="string" WIDTH="80"/>' +
-    #13#10 + '   <FIELD attrname="Shortcut" fieldtype="string" WIDTH="50"/>' +
-    #13#10 + '   <FIELD attrname="Image" fieldtype="i4"/>' + #13#10 +
-    '  </FIELDS>' + #13#10 + '  <PARAMS/>' + #13#10 + ' </METADATA>' + #13#10 +
-    ' <ROWDATA>' + #13#10;
-
-  sEnd := ' </ROWDATA>' + #13#10 + '</DATAPACKET>' + #13#10;
-
-  sTmp2 := sBegin;
-
-  for i := 0 to alMain.ActionCount - 1 do
-  begin
-    aTmp := TAction(alMain.Actions[i]);
-    with aTmp do
-    begin
-      sGroup := Category;
-      sHint := Hint;
-      sCaption := Caption;
-      sShortCut := ShortCutToText(ShortCut);
-      iImage := ImageIndex;
-    end;
-
-    if (sShortCut = EmptyStr) then
-      sShortCut := 'None';
-    sTmp1 := '  <ROW' + ' ' + 'Index=' + '"' + IntToStr(i) + '"' + ' ' +
-      'Group=' + '"' + sGroup + '"' + ' ' + 'Caption=' + '"' + sCaption + '"' +
-      ' ' + 'Hint=' + '"' + sHint + '"' + ' ' + 'Shortcut=' + '"' + sShortCut +
-      '"' + ' ' + 'Image=' + '"' + IntToStr(iImage) + '"' + ' ' + '/>' + #13#10;
-    sTmp2 := sTmp2 + sTmp1;
-  end;
-
-  sTmp2 := sTmp2 + sEnd;
-  Clipboard.AsText := sTmp2;
-end;
-
-procedure TfrmTinnMain.actActionListToDatasetExecute(Sender: TObject);
-
-  procedure MakeNewData_Zip;
-  var
-    sBackup: string;
-
-  begin
-    sBackup := sPathTinnR + '\data\' + 'data.zip';
-
-    DeleteFile(sBackup);
-
-    try
-      DeleteFile(sBackup);
-
-      zipKit.StoreOptions := [soRecurse];
-      // soRecurse: will include all files of all folders and sub-folders
-      with zipKit do
-      begin
-        FileName := sBackup;
-
-        with modDados do
-        begin
-          AddFiles(sPathData + '\*.*', 0);
-          CloseArchive;
-        end;
-      end;
-      MessageDlg(sBackup + #13 + #13 + 'The new file "data.zip" was created' +
-        #13 + 'successfully in the path above!', mtInformation, [mbOk], 0);
-    except
-      MessageDlg(sBackup + #13 + #13 +
-        'A problem occurred while trying to copy the file.' + #13 +
-        'The "data.zip" file has not been copied!', mtError, [mbOk], 0);
-      Exit;
-    end; // try
-  end;
-
-  procedure DoMessage(sTmp: string);
-  begin
-    MessageDlg(sTmp + #13 + #13 +
-      'A problem occurred while trying to copy the file.' + #13 +
-      'The "Shortcuts_new.xml" file has not been copied!', mtError, [mbOk], 0);
-  end;
-
-var
-  sOrigin, sDest: string;
-
-begin
-  with modDados do
-    if not ActionlistToDataset then
-      Exit;
-
-  sOrigin := sPathData + '\' + 'Shortcuts.xml';
-
-  sDest := sPathTinnR + '\data\' + 'Shortcuts.xml';
-
-  try
-    if not(CopyFile(PChar(sOrigin), PChar(sDest), False)) then
-    begin // False: replace the old file
-      DoMessage(sDest);
-      Exit;
-    end;
-  except
-    DoMessage(sDest);
-    Exit;
-  end;
-
-  MakeNewData_Zip;
-
- { with stbMain do
-  begin
-    Panels[7].Text := 'Done!';
-    Panels[8].Text := 'Shortcuts.xml replaced: ' + sPathData;
-  end;  }
-
-end;
 
 procedure TfrmTinnMain.actAlignEqualSignExecute(Sender: TObject);
+var edForm: TfrmEditor;
 begin
-  (Self.MDIChildren[FindTopWindow] as TfrmEditor).AlignEqualSign;
+  if GetTopEditorForm(edForm) then
+    edForm.AlignEqualSign;
 end;
 
 procedure TfrmTinnMain.actAlignFirstLineExecute(Sender: TObject);
+var edForm: TfrmEditor;
 begin
-  (Self.MDIChildren[FindTopWindow] as TfrmEditor).AlignWithFirstLine;
+  if GetTopEditorForm(edForm) then
+    edForm.AlignWithFirstLine;
 end;
 
 procedure TfrmTinnMain.WMDropFiles(var msg: TWMDropFiles);
@@ -5262,41 +5159,32 @@ var
   i: integer;
 
 begin
+  // m.p. REFACTOR - move content to frmEditor
+
   i := FindTopWindow;
   with (Self.MDIChildren[i] as TfrmEditor).sciEditor do
+  begin
     if GetReadOnly then
     begin
       SetReadOnly(False);
+      if Assigned((Self.MDIChildren[i] as TfrmEditor).sciEditor2) then
+        (Self.MDIChildren[i] as TfrmEditor).sciEditor2.SetReadOnly(false);
       bReadOnly := False;
       actReadOnly.ImageIndex := 292;
     end
     else
     begin
       SetReadOnly(true);
+      if Assigned((Self.MDIChildren[i] as TfrmEditor).sciEditor2) then
+        (Self.MDIChildren[i] as TfrmEditor).sciEditor2.SetReadOnly(true);
       bReadOnly := True;
       actReadOnly.ImageIndex := 169;
 
     end;
-
-  with (Self.MDIChildren[i] as TfrmEditor) do
-  begin
-    if Assigned(sciEditor2) then
-    begin
-      with sciEditor2 do
-      begin
-        if GetReadOnly then
-        begin
-          SetReadOnly(False);
-          bReadOnly := False;
-        end
-        else
-        begin
-          SetReadOnly(true);
-          bReadOnly := True;
-        end;
-      end;
-    end;
   end;
+
+
+
 
   if not bReadOnly then
     (Self.MDIChildren[i] as TfrmEditor).EnableSave;
@@ -5322,9 +5210,7 @@ procedure TfrmTinnMain.actEditCopyExecute(Sender: TObject);
 var
   cFocus: TObject;
 begin
-
   cFocus :=  GetFocusedObject;
-
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Copy else
     if cFocus.ClassName = 'TButtonedEdit' then
@@ -5338,9 +5224,7 @@ end;
 procedure TfrmTinnMain.actEditCutExecute(Sender: TObject);
 var
   cFocus: TObject;
-
 begin
-
   cFocus :=  GetFocusedObject;
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Cut else
@@ -5356,9 +5240,7 @@ procedure TfrmTinnMain.actEditPasteExecute(Sender: TObject);
 var
   cFocus: TObject;
 begin
-
   cFocus := GetFocusedObject;
-
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Paste else
     if cFocus.ClassName = 'TButtonedEdit' then
@@ -5374,10 +5256,7 @@ procedure TfrmTinnMain.actEditRedoExecute(Sender: TObject);
 var
   cFocus: TObject;
 begin
-
   cFocus :=  GetFocusedObject;
-
-
 
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Redo else
@@ -5388,17 +5267,13 @@ begin
     if cFocus.ClassName = 'TDBEdit' then
       (cFocus AS TDBEdit).Undo;
 
-
-
 end;
 
 procedure TfrmTinnMain.actEditSelectAllExecute(Sender: TObject);
 var
   cFocus: TObject;
 begin
-
   cFocus :=  GetFocusedObject;
-
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).SelectAll else
     if cFocus.ClassName = 'TButtonedEdit' then
@@ -5407,22 +5282,21 @@ begin
       (cFocus AS TMemo).SelectAll else
     if cFocus.ClassName = 'TDBEdit' then
       (cFocus AS TDBEdit).SelectAll;
-
 end;
 
 procedure TfrmTinnMain.actTemplateRFunctionExecute(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R doc_function.Rd');
+  MakeTemplate(sPathTinnR + '\templates\R doc_function.Rd', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.actTemplateRHTMLExecute(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R html.Rhtml');
+  MakeTemplate(sPathTinnR + '\templates\R html.Rhtml', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.actTemplateRScriptExecute(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R script.R');
+  MakeTemplate(sPathTinnR + '\templates\R script.R', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.actTestRegExExecute(Sender: TObject);
@@ -5464,7 +5338,7 @@ begin
   sPathIniEditor_File := sPathEditor + '\Editor.ini';
   sPathEditor_KeyStrokes := sPathEditor + '\Editor.kst';
   sPathColor_Custom := sPathColor + '\Custom_colors.ini';
-
+  sPathShortcuts := sPathData + '\Shortcuts.txt';
 
   // Files backup 1
   sPathFileBackup := sPathIni + '\recovery\';
@@ -5660,7 +5534,6 @@ begin
     SetPreferences_Application;
     SetPreferences_Editor;
 
-
     //sci //m.p.
     {SetDataCompletion(synIOTip, frmRterm.sciIO, sTriggerRtip);
 
@@ -5685,6 +5558,9 @@ begin
     Application.CreateForm(TmodDados, modDados);
     UpdateSplash('05');
 
+
+    StartupThreadShortcuts.Start;
+
     with modDados do
     begin
        UpdateSplash('06', 'Load databases...');
@@ -5693,19 +5569,6 @@ begin
         LoadRHelpSystem;
       except
         MessageDlg('R help system problem.', mtError, [mbOk], 0);
-      end;
-
-      try
-        LoadShortcuts;
-        SetShortcuts;
-      except
-        if MessageDlg('The shortcuts could not be loaded. It is likely that the problem can be solved by deleting the current shortcut settings.' + #13
-                   + 'Do you want to reset these settings before Tinn-R closes?', mtError, [mbYes, mbNo], 0) = mrYes then
-        begin
-          cdShortcuts.Active := false;
-          DeleteFile(frmTinnMain.sShortcutsInUse);
-        end;
-        Application.Terminate;
       end;
 
       try
@@ -5804,19 +5667,8 @@ begin
   frmTools.cbbToolsRExplorer.ItemIndex := 0;
   frmTools.cbbToolsREnvironment.ItemIndex := 0;
 
-  case iIOSyntax of
-    0:
-      actRtermSetIOSyntaxToTextExecute(nil); // .txt
-    1:
-      actRtermSetIOSyntaxToRExecute(nil); // .R
-  end;
 
-  case iLogSyntax of
-    0:
-      actRtermSetLogSyntaxToTextExecute(nil); // .txt
-    1:
-      actRtermSetLogSyntaxToRExecute(nil); // .R
-  end;
+  //frmTinnmain.UpdateRterm_Appearance;
 
   iRFormatted := -1;
 
@@ -5927,29 +5779,9 @@ begin
       bDoDataBackup := true;
     end else bDoDataBackup := false;
 
-    // Tinn-R\bkp
-    if (not SysUtils.DirectoryExists(sPathBkp)) then
-      CreateDir(sPathBkp);
-
-
-    // Tinn-R\colors
-    if (not SysUtils.DirectoryExists(sPathColor)) then
-      CreateDir(sPathColor);
-
-
     // Tinn-R\editor
     if (not SysUtils.DirectoryExists(sPathEditor)) then
       CreateDir(sPathEditor);
-
-
-    // Tinn-R\Syntax
-    if (not SysUtils.DirectoryExists(sPathSyntax)) then
-      CreateDir(sPathSyntax);
-
-
-    // Tinn-R\syntax bkp
-    if (not SysUtils.DirectoryExists(sPathSyntaxBKP)) then
-      CreateDir(sPathSyntaxBKP);
 
     if (not SysUtils.DirectoryExists(sPathFileBackup)) then
       CreateDir(sPathFileBackup);
@@ -5964,9 +5796,6 @@ begin
     raise;
     Exit;
   end;
-
-
-
 
   try
     if bDoDataBackup then
@@ -6064,9 +5893,9 @@ begin
         MakeDataBackup('\Comments.xml');
       if (bUpdate_Shortcuts) then
       begin
-        MakeDataBackup('\Shortcuts.xml');
+        MakeDataBackup('\Shortcuts.txt');
         // Shortcuts in use: = Shortcuts.xml
-        if (sShortcutsInUse = sPathData + '\Shortcuts.xml') then
+        if (sPathShortcuts = sPathData + '\Shortcuts.txt') then
         begin
           RenameFile(sPathData + '\Shortcuts.xml',
             sPathData + '\OldShortcuts.xml');
@@ -6088,11 +5917,11 @@ begin
 
           with modDados do
             // All useful information related to user preferences (shortcuts) will be add int the new Shortcuts.xml
-            ShortcutsValidation(sShortcutsInUse, sPathData + '\Shortcuts.xml');
-          DeleteFile(sShortcutsInUse);
+            ShortcutsValidation(sPathShortcuts, sPathData + '\Shortcuts.sShortcutsInUse');
+          DeleteFile(sPathShortcuts);
         end;
 
-        sShortcutsInUse := sPathData + '\Shortcuts.xml';
+        sPathShortcuts := sPathData + '\Shortcuts.txt';
       end;
     end;
 
@@ -6165,11 +5994,11 @@ begin
     end;
 
     // Shortcuts
-    if not FileExists(sShortcutsInUse) then
-      sShortcutsInUse := sPathData + '\Shortcuts.xml';
+    if not FileExists(sPathShortcuts) then
+      sPathShortcuts := sPathData + '\Shortcuts.txt';
     if not FileExists(sFileShortcuts) then
     begin
-      UnpackFile(sFileDataOrigin, sPathData, 'Shortcuts.xml');
+      UnpackFile(sFileDataOrigin, sPathData, 'Shortcuts.txt');
 
       frmTools.memIniLog.Lines.Add('  File - ' + ExtractFileName(sFileShortcuts)
         + '(version = ' + sCurrentVersion_Shortcuts + ')' + ': CREATED');
@@ -6636,10 +6465,7 @@ begin
     end;
   if ansipos('sciLog', Result.Name) > 0 then
   begin
-    if Assigned(frmRterm.sciLog2) then
-      Result := frmRterm.sciLog2
-    else
-      Result := frmRterm.sciLog;
+    Result := frmRterm.sciLog;
   end;
   label1.Caption := Result.Name;
 
@@ -6742,8 +6568,6 @@ begin
     WriteInteger('App', 'iRcard.Height', frmTools.panRCard.Height);
     WriteInteger('App', 'iRcard.ItemIndex', frmTools.lbRcard.ItemIndex);
     // WriteInteger('App', 'iRExplorer.Width', frmTools.panRExplorer.Width);
-    WriteInteger('App', 'iShortcuts.Height', frmTools.panShortcuts.Height);
-    WriteInteger('App', 'iShortcuts.ItemIndex', frmTools.lbShortcuts.ItemIndex);
     { WriteInteger('App', 'iSearch.Left', tobSearch.Left);
       WriteInteger('App', 'iSearch.Top', tobSearch.Top);
 
@@ -6890,7 +6714,7 @@ begin
     WriteString('App', 'sReformatR', sReformatR);
     WriteString('App', 'sReformatRd', sReformatRd);
     WriteString('App', 'sRmirror', sRmirror);
-    WriteString('App', 'sShortcutsInUse', sShortcutsInUse);
+
     WriteString('App', 'sTriggerRDataCompletion', sTriggerRDataCompletion);
     WriteString('App', 'sTriggerRtip', sTriggerRtip);
     // Search settings
@@ -7178,6 +7002,30 @@ begin
     Result := -1;
 end;
 
+function TfrmTinnMain.FindWindowById(Id: integer): integer;
+var
+  i: integer;
+  bFound: Boolean;
+begin
+  bFound := False;
+  if Id > 0 then
+    for i := (Self.MDIChildCount - 1) downto 0 do
+    begin
+      if (Self.MDIChildren[i]).Tag = Id then
+      begin
+        bFound := True;
+        break;
+      end;
+    end;
+
+
+  if bFound then
+    Result := i
+  else
+    Result := -1;
+end;
+
+
 function TfrmTinnMain.FindWindowByName(sName: string): integer;
 var
   i, Id: integer;
@@ -7197,29 +7045,6 @@ begin
     Result := i
   else
     Result := -1;
-end;
-
-function TfrmTinnMain.FindWindowById(Id: integer): integer;
-var
-  i: integer;
-  bFound: Boolean;
-begin
-  bFound := False;
-  if Id > 0 then
-    for i := (Self.MDIChildCount - 1) downto 0 do
-    begin
-      if (Self.MDIChildren[i]).Tag = Id then
-      begin
-        bFound := True;
-        break;
-      end;
-    end;
-
-  if bFound then
-    Result := i
-  else
-    Result := -1;
-
 end;
 
 function TfrmTinnMain.FindTopWindow: integer;
@@ -7242,6 +7067,36 @@ begin
   else
     Result := -1;
 end;
+
+function TfrmTinnMain.GetTopEditorForm(var edForm: TfrmEditor): Boolean;
+var
+  i: integer;
+begin
+  Result := False;
+  if Self.ActiveMDIChild <> nil then
+    if self.ActiveMDIChild is TfrmEditor then
+    begin
+      edForm := Self.ActiveMDIChild as TfrmEditor;
+      Result := true;
+    end;
+
+
+  for i := (Self.MDIChildCount - 1) downto 0 do
+  begin
+    if (Self.MDIChildren[i].Active = True) then
+    begin
+      if edForm <> Self.MDIChildren[i] as TfrmEditor  then
+        Label5.caption := 'Mismatch: ' + inttostr(random(9999));
+      edForm := Self.MDIChildren[i] as TfrmEditor;
+      Result := true;
+
+      break;
+    end;
+  end;
+
+end;
+
+
 
 procedure TfrmTinnMain.actRguiReturnFocusExecute(Sender: TObject);
 begin
@@ -7465,7 +7320,7 @@ end;
 
 procedure TfrmTinnMain.actTemplateRNoWebExecute(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R_noweb.Rnw');
+  MakeTemplate(sPathTinnR + '\templates\R_noweb.Rnw', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.OnTop(hHandle: HWND);
@@ -7509,9 +7364,13 @@ begin
   { stbMain.Panels[2].Text :=} format('%d/%d: %d', [Sender.LineFromPosition(Sender.GetCurrentPos)+1 , iLineCount,
     Sender.GetColumn(Sender.GetCurrentPos)]);
 
-  if iLineCount <> iLineOldCount then
-    SetLineTextVisibility(actLineNumbersVisible.Checked, Sender);
-  iLineOldCount := iLineCount;
+  if iLineCount <> (Sender.Parent AS TfrmEditor).iLineOldCount then
+  begin
+    SetLineTextVisibility(actLineNumbersVisible.Checked, (Sender.Parent AS TfrmEditor).sciEditor);
+    if assigned((Sender.Parent AS TfrmEditor).sciEditor2) then
+     SetLineTextVisibility(actLineNumbersVisible.Checked, (Sender.Parent AS TfrmEditor).sciEditor2);
+  end;
+  (Sender.Parent AS TfrmEditor).iLineOldCount := iLineCount;
 end;
 
 
@@ -7558,6 +7417,7 @@ begin
     FreeAndNil(slProject);
     slProjectChanges.Free;
 
+
     if Assigned(frmTools) then
       with frmTools do
       begin
@@ -7568,6 +7428,8 @@ begin
     if Assigned(frmRterm) then
       with frmRterm do
       begin
+       // FreeAndNil(sciIO);
+       // FreeAndNil(sciLog);
         Close;
         FreeAndNil(frmRterm);
       end;
@@ -7590,9 +7452,6 @@ begin
       end;
     end;
 
-    // Save custom colors
-    if FileExists(sPathColor_Custom) then
-      cdMain.CustomColors.SaveToFile(sPathColor_Custom);
 
     // Destroy StringList
     FreeAndNil(slFilters);
@@ -7667,53 +7526,47 @@ begin
   end;
 
   pgFiles.Hint := sTmp;
-  i := FindTopWindow;
+//  i := FindTopWindow;
 
   pgFiles.Visible := (pgFiles.PageCount <> 0);
   UpdateCloseFileOptions;
-
 end;
 
 procedure TfrmTinnMain.actPrintExecute(Sender: TObject);
+var
+    edForm: TfrmEditor;
+    seEditor: TDScintilla;
 begin
-  with (Self.MDIChildren[FindTopWindow] as TfrmEditor) do
-  begin
-    if (sActiveEditor = 'sciEditor2') then
-      if (sciEditor2.GetSelText <> EmptyStr) then
-        bselectedToPreview := True
-      else
-        bselectedToPreview := False
-    else if (sActiveEditor = 'sciEditor') then
-      if (sciEditor.GetSelText <> EmptyStr) then
-        bselectedToPreview := True
-      else
-        bselectedToPreview := False;
-  end;
+  if not GetTopEditorForm(edForm) then
+    Exit;
+
+  edForm.GetActiveEditorOnForm(seEditor);
+
+  if (seEditor.GetSelText <> '') then
+    bselectedToPreview := True
+    else
+    bselectedToPreview := False;
 
   frmConfigurePrint := TfrmConfigurePrint.Create(Self);
-
-  with frmConfigurePrint do
-  begin
-    try
-      if (pgFiles.PageCount <> 0) then
-      begin
-        showmessage('Printing not possible. sci #4272671');
-        exit;
-        {with (Self.MDIChildren[FindTopWindow] as TfrmEditor) do
-        begin
-          if (sActiveEditor = 'sciEditor') then
-            ShowDialog(sciEditor)
-          else if (sActiveEditor = 'sciEditor2') then
-            ShowDialog(sciEditor2);
-        end;
-        }
-      end;
-    finally
+  try
+    frmConfigurePrint.ShowDialog(seEditor);
+   finally
       FreeAndNil(frmConfigurePrint);
-      frmTinnMain.Repaint;
-      SetFocus_Main;
-    end;
   end;
+end;
+
+procedure TfrmTinnMain.actMarkColor1Execute(Sender: TObject);
+var edForm: TfrmEditor;
+begin
+  if GetTopEditorForm(edForm) then
+    edForm.MarkSelectionColor(1);
+end;
+
+procedure TfrmTinnMain.actMarkColor2Execute(Sender: TObject);
+var edForm: TfrmEditor;
+begin
+  if GetTopEditorForm(edForm) then
+    edForm.MarkSelectionColor(2);
 end;
 
 procedure TfrmTinnMain.actMarkersVisibleExecute(Sender: TObject);
@@ -8068,22 +7921,10 @@ begin
       frmTinnMain.ShowNotification(sNotify, sNotify);
 
 
-      {with atbStatus do
-      begin
-        Panels[7].Text := 'Search in file(s)';
-        if (Length(sfilename) > 100) then
-          Panels[8].Text := ExtractFileDrive(sfilename) + '\...\' +
-            ExtractFileName(sfilename)
-        else
-          Panels[8].Text := sfilename;
-        Refresh;
-      end;   }
       for j := 0 to (sciEditor.Lines.Count - 1) do
       begin
         sLine := trim(sciEditor.Lines.Strings[j]);
 
-
-        //showmessage('feature not available');
         if rsSearch.IsMatch(sLine) then
         //if rsSearch.Exec(sLine) then
         begin
@@ -8104,15 +7945,18 @@ begin
           begin
             tnOccurence := Items.AddChild(tnFile, '(' + IntToStr(j + 1) +
               '): ' + sLine);
+            SetLength(aOpenFileSearch, Length(aOpenFileSearch)+1);
+            aOpenFileSearch[Length(aOpenFileSearch)-1] := (Self.MDIChildren[i] as TfrmEditor).EditorFile.iId;
+            tnOccurence.data := @aOpenFileSearch[Length(aOpenFileSearch)-1];
             tnOccurence.ImageIndex := 3;
             tnOccurence.SelectedIndex := 3;
           end;
-        end; // if regex match
-      end; // end line loop for j:= 0
-    end; // with (Self.MDIChildren[i]
+        end;
+      end;
+    end;
     if bFileFind then
       inc(iFileCount);
-  end; // for i:= (Self.MDIChildCount - 1)
+  end;
 
   with frmTools.tvSearch do
     Items.EndUpdate;
@@ -8153,7 +7997,7 @@ var
 
   i, j, iPosSlash, iDirLen, iLinePos: integer;
 
-  seTmp: TDScintilla;
+  seTmp: TStringList;
   slFile: TStringList;
 
   sPath, lastChar, tmpLine, sNotify: string;
@@ -8176,7 +8020,7 @@ begin
 
   try
     slFile := TStringList.Create;
-    seTmp := TDScintilla.Create(Self);
+    seTmp := TStringList.Create;
     try
       // Make sure the file path has a '\' at the end
       iDirLen := Length(sDir);
@@ -8196,10 +8040,10 @@ begin
       begin
 
         if (Length(slFile[i]) > 100) then
-        sNotify:= 'Search in directory ' +  ExtractFileDrive(slFile[i]) + '\...\' +
+        sNotify:= 'Search in file ' +  ExtractFileDrive(slFile[i]) + '\...\' +
             ExtractFileName(slFile[i])
         else
-        sNotify:= 'Search in directory ' + ExtractFileName(slFile[i]);
+        sNotify:= 'Search in file ' + ExtractFileName(slFile[i]);
 
       frmTinnMain.ShowNotification(sNotify, sNotify);
 
@@ -8218,10 +8062,10 @@ begin
         bFileFind := False;
 
         j := 0;
-        seTmp.Lines.LoadFromFile(slFile.Strings[i]);
-        for iLinePos := 0 to (seTmp.Lines.Count - 1) do
+        seTmp.LoadFromFile(slFile.Strings[i]);
+        for iLinePos := 0 to (seTmp.Count - 1) do
         begin
-          tmpLine := seTmp.Lines.Strings[iLinePos];
+          tmpLine := seTmp[iLinePos];
           if rsSearch.IsMatch(tmpLine) then
           //if rsSearch.Exec(tmpLine) then
           begin
@@ -8364,16 +8208,6 @@ begin
     end;
   end;
 end;
-
-procedure TfrmTinnMain.synMRStateChange(Sender: TObject);
-begin
-{  with (Self.MDIChildren[FindTopWindow] as TfrmEditor) do
-    if (synMR.State = msRecording) then
-      alMain.OnExecute := RecordActions
-    else if Assigned(alMain.OnExecute) then
-      alMain.OnExecute := nil;     }
-end;
-
 
 procedure TfrmTinnMain.RecordActions(baAction: TBasicAction;
   var bHandled: Boolean);
@@ -8646,16 +8480,11 @@ end;
 
 procedure TfrmTinnMain.OpenProjectIntoTinn(sProjectName: string);
 begin
-  // m.p. Make project windows visible
-  showmessage('Make project windwows visible');
-  {
-    // If not panTools.Visible then actToolsVisibleToogleExecute(nil);
-    if not frmTools.tbsProject.TabVisible then
-    actProjectVisibleExecute(nil);
+    if not frmTools.Visible then
+       actToolsVisibleExecute(nil);
 
-    Application.ProcessMessages;
-    frmTools.pgTools.ActivePage := frmTools.tbsMisc;
-    frmTools.pgMisc.ActivePage := frmTools.tbsProject; }
+  frmTools.npTools.ActivePage := frmTools.ppFiles;
+
   OpenProject;
   bProjectChanged := False;
   ToolsProjectControls(True);
@@ -8717,12 +8546,42 @@ begin
   end;
 end;
 
-procedure TfrmTinnMain.Button1Click(Sender: TObject);
-var t: String;
+procedure TfrmTinnMain.Button2Click(Sender: TObject);
+var sString: String;
+    tst: TfrmEditor;
 begin
-t:= ' TestSend()'+#13#10  ;
- csMainBase.Socket.SendText(t);
 
+frmtinnmain.UpdateRterm_Appearance;
+exit;
+  if not GetTopEditorForm(tst) then
+    showmessage('no children')
+    else
+  begin
+  //   showmessage(tst.sciEditor.GetText);
+    //tst.sciEditor.mark
+    tst.sciEditor.MarkerSetBack(SC_Mark_Background, clMoneyGreen);
+    tst.sciEditor.MarkerAdd(1, SC_Mark_Background);
+  //  tst.sciEditor.MarkerAddSet(1, SC_Mark_Background);
+
+    tst.sciEditor.MarkerSetBack(SC_MARK_DOTDOTDOT, clMaroon);
+    tst.sciEditor.MarkerAdd(2, SC_MARK_DOTDOTDOT);
+ //   tst.sciEditor.MarkerAddSet(1, SC_MARK_DOTDOTDOT);
+  end;
+//frmRTerm.pgRtermResize(self);
+Exit;
+
+with frmRTerm.sciIO do
+begin
+  Lines.BeginUpdate;
+  sString := '101+2 "ABC" test'#13#10'1+2 "ABC test'+#13#10+'> "test test" more'+#13#10+'101+2 "ABC" test'+#13#10+'1+2 "ABC test'+#13#10+'> "test test" more'+#13#10+'no problem'+#13#10+'> test'+#13#10+'open ''string'+#13#10+'> test';
+  {Lines.Add(sString);
+  Update;
+  //showmessage('look');
+  ResetHighlighter(length(sString));
+  Lines.EndUpdate;
+  }
+  frmRTerm.cRTerm.OnReceiveOutput(self, sString);
+end;
 end;
 
 procedure TfrmTinnMain.cbLexersSelect(Sender: TObject);
@@ -8734,17 +8593,14 @@ end;
 
 procedure TfrmTinnMain.edFilterRightButtonClick(Sender: TObject);
 var
-  i, iStartFile, iNewFile: integer;
+  i, iNewFile: integer;
 
-//  rsGrep: TRegExpr;
-  slTmp: TStringList;
-  sTmp: string;
-
+  rsGrep: TRegEx;
+  sciOrig: TDScintilla;
 begin
-   showmessage('feature not available');
-{  if (pgFiles.PageCount = 0) then
+  if (pgFiles.PageCount = 0) then
   begin
-    MessageDlg('No archive is opened!', mtInformation, [mbOk], 0);
+    MessageDlg('No file is opened!', mtInformation, [mbOk], 0);
     edFilter.Text := EmptyStr;
     Exit;
   end;
@@ -8756,34 +8612,30 @@ begin
     Exit;
   end;
 
+
   // Grep and filter
-  rsGrep := TRegExpr.Create;
-  slTmp := TStringList.Create;
+  rsGrep := TRegEx.Create(edFilter.Text);
   try
     // For every line in the current on top window that matches, put it into another editor window
-    iStartFile := FindTopWindow;
-    slTmp.Text := (Self.MDIChildren[iStartFile] as TfrmEditor)
-      .sciEditor.Lines.Text;
+    sciOrig := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor;
+
     // Create new tab and window
     actFileNewExecute(Sender);
     iNewFile := FindTopWindow;
-    rsGrep.Expression := edFilter.Text;
 
-    for i := 0 to (slTmp.Count - 1) do
+    for i := 0 to (sciOrig.Lines.Count - 1) do
     begin
       // Look at each line and if it matches, add it to the new child
-      sTmp := slTmp.Strings[i];
-      if rsGrep.Exec(sTmp) then
-        (Self.MDIChildren[iNewFile] as TfrmEditor).sciEditor.Lines.Add(sTmp);
+
+      if rsGrep.IsMatch(sciOrig.Lines[i]) then
+        (Self.MDIChildren[iNewFile] as TfrmEditor).sciEditor.Lines.Add(sciOrig.Lines[i]);
     end;
 
     with ((Self.MDIChildren[iNewFile] as TfrmEditor).sciEditor.Lines) do
       if (Count = 0) then
         Add('No matches found.');
   finally
-    FreeAndNil(rsGrep);
-    FreeAndNil(slTmp);
-  end;    }
+  end;
 end;
 
 procedure TfrmTinnMain.UpdateProjectMRU(var miItem: TMenuItem;
@@ -8913,75 +8765,6 @@ begin
       Result := True;
 end;
 
-procedure TfrmTinnMain.menToolsUtilsActionlistToClipboardClick(Sender: TObject);
-begin
-end;
-
-// Tinn-R version (3.0.2.9): I was a bit tired of doing the below manually!
-procedure TfrmTinnMain.DatasetToActionList(Sender: TObject);
-
-  procedure Update_Action(i: integer; sGroup, sCaption, sHint,
-    sShortCut: string; iImage: integer);
-  var
-    aTmp: TAction;
-
-  begin
-    aTmp := TAction(alMain.Actions[i]);
-    with aTmp do
-    begin
-      Category := sGroup;
-      Caption := sCaption;
-      Hint := sHint;
-      ShortCut := TextToShortCut(sShortCut);
-      ImageIndex := iImage;
-      UpdateAction(aTmp);
-    end;
-  end;
-
-var
-  pTmp: Pointer;
-
-  i, iImage: integer;
-
-  sShortCut, sGroup, sCaption, sHint: string;
-
-begin
-  alMain.State := asSuspended;
-
-  with modDados.cdShortcuts do
-  begin
-    pTmp := GetBookmark;
-    DisableControls;
-    Filtered := False;
-    First;
-
-    // while not Eof do begin
-    for i := 0 to RecordCount - 1 do
-    begin
-      sGroup := Fields[1].AsString;
-      sCaption := Fields[2].AsString;
-      sHint := Fields[3].AsString;
-      sShortCut := Fields[4].AsString;
-      iImage := Fields[5].AsInteger;
-      Update_Action(i, sGroup, sCaption, sHint, sShortCut, iImage);
-      Next;
-    end;
-
-    EnableControls;
-    Filtered := True;
-    if BookmarkValid(pTmp) then
-      GoToBookmark(pTmp);
-    FreeBookmark(pTmp);
-  end;
-
-  alMain.State := asNormal;
-end;
-
-procedure TfrmTinnMain.menToolsUtilsDatasetToActionlistClick(Sender: TObject);
-begin
-  DatasetToActionList(nil);
-end;
-
 procedure TfrmTinnMain.CheckTop;
 begin
   OnTop(Application.Handle);
@@ -9000,19 +8783,15 @@ var
 
 begin
   seTmp := nil;
-  case iSynWithFocus of
+  case iSciWithFocus of
     0:
       Exit;
     1:
-      seTmp := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor;
+       seTmp := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor;
     2:
-      seTmp := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor2;
+        seTmp := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor2;
     3: seTmp := frmRterm.sciIO;
-    4: with frmRterm do
-        if Assigned(sciLog2) then
-          seTmp := sciLog2
-        else
-          seTmp := sciLog;
+    4: seTmp := frmRterm.sciLog;
   end;
 
   with seTmp do
@@ -9040,112 +8819,6 @@ begin
       if Assigned((Self.MDIChildren[i] as TfrmEditor).sciEditor2) then
         ToggleWrapMode((Self.MDIChildren[i] as TfrmEditor).sciEditor2, iEditorLineWrap);
     end;
-end;
-
-procedure TfrmTinnMain.UpdateRFileReformatted(sTmp: string);
-var
-  i, iTopLine: integer;
-
-  bcPos: Integer;
-  seEditor: TDScintilla;
-
-  sPrior, sFormatted: string;
-
-begin
-  if not FileExists(sTmp) then
-    Exit;
-
-  (*
-    iReformatRSplit = 0 -> do not split
-    iReformatRSplit = 1 -> split vertical
-    iReformatRSplit = 2 -> split horizontal
-  *)
-  case iReformatRSplit of
-    1:
-      actSplitVerticalExecute(nil); // Vertical
-    2:
-      actSplitHorizontalExecute(nil); // Horizontal
-  end;
-
-  i := FindTopWindow;
-  if ((Self.MDIChildren[i] as TfrmEditor) = nil) then
-    Exit;
-
-  with (Self.MDIChildren[i] as TfrmEditor) do
-    if sActiveEditor = 'sciEditor' then
-      seEditor := sciEditor
-    else
-      seEditor := sciEditor2;
-
-  // Will load the formatted file in sciEditor
-  with seEditor do
-  begin
-    iTopLine := GetFirstVisibleLine;
-    bcPos := GetCurrentPos;
-    SelectAll;
-
-    if GetSelText <>'' then
-    begin
-      sPrior := GetSelText;
-      sFormatted := FileToString(sTmp);
-      ReplaceSel(sFormatted);
-    end;
-
-    SetFirstVisibleLine(iTopLine);
-    SetCurrentPos(bcPos);
-  end;
-
-  // Reload the original file in sciEditor2 for comparison
-  case iReformatRSplit of
-    1, 2:
-      with (Self.MDIChildren[i] as TfrmEditor) do
-        with (sciEditor2) do
-          Lines.LoadFromFile(EditorFile.sFile);
-  end;
-
-  with (Self.MDIChildren[i] as TfrmEditor) do
-    CheckSaveStatus;
-
-  DeleteFile(sTmp);
-
-  iRFormatted := -1;
-end;
-
-procedure TfrmTinnMain.UpdateRSelectionReformatted(sTmp: string);
-var
-  seEditor: TDScintilla;
-
-  sPrior, sFormatted: string;
-
-  i: integer;
-
-begin
-  i := FindTopWindow;
-
-  if ((Self.MDIChildren[i] as TfrmEditor) = nil) then
-    Exit;
-
-  with (Self.MDIChildren[i] as TfrmEditor) do
-    if sActiveEditor = 'sciEditor' then
-      seEditor := sciEditor
-    else
-      seEditor := sciEditor2;
-
-  with seEditor do
-  begin
-    if GetSelText <> '' then
-    begin
-      sPrior := GetSelText;
-      sFormatted := FileToString(sTmp);
-      ReplaceSel(sFormatted);
-    end
-  end;
-
-  DeleteFile(sTmp);
-
-  PostMessage(TWinControl(Self.MDIChildren[i] as TfrmEditor).Handle,
-    WM_SETFOCUS, 0, 0);
-  iRFormatted := -1;
 end;
 
 procedure TfrmTinnMain.tUpdateOptionsTimer(Sender: TObject);
@@ -9254,14 +8927,6 @@ procedure TfrmTinnMain.tRRuningTimer(Sender: TObject);
       frmTinnMain.actRExplorerRefresh.Execute;
     end;
 
-    case iRFormatted of
-      - 1:
-        Exit;
-      0:
-        UpdateRFileReformatted(sPathTmp + '\reformat-output.r');
-      1:
-        UpdateRSelectionReformatted(sPathTmp + '\reformat-output.r');
-    end;
   end;
 
 // R isn't running
@@ -10021,21 +9686,17 @@ end;
 
 Procedure TfrmTinnMain.UpdateRterm_Appearance(bUpdate_FontSize: Boolean = True);
 begin
-
   SetScintillaProperties(frmRterm.sciIO);
-  if Assigned(frmRterm.sciLog2) then
-     SetScintillaProperties(frmRterm.sciLog2)
-  else
-     SetScintillaProperties(frmRterm.sciLog);
-
+  SetScintillaProperties(frmRterm.sciLog);
 end;
 
 Procedure TfrmTinnMain.UpdateAppearance(bFontSize: Boolean = True);
 begin
+  //frmtinnmain.UpdateRterm_Appearance;
   // Update transparency
-  AlphaBlendValue := iAlphaBlendValue;
+  //AlphaBlendValue := iAlphaBlendValue;
 
-  UpdateRterm_Appearance(bFontSize);
+  //UpdateRterm_Appearance(bFontSize);
   {
     // WinExpl - BG
     frmTools.edWinExplorerFilter.Color := clBGApplication;
@@ -10643,6 +10304,13 @@ begin
     seEditor.MarkerDeleteAll(i);
 end;
 
+procedure TfrmTinnMain.actUnMarkColorExecute(Sender: TObject);
+var edForm: TfrmEditor;
+begin
+  if GetTopEditorForm(edForm) then
+    edForm.MarkSelectionColor(0);
+end;
+
 procedure TfrmTinnMain.actShowAppOptionsExecute(Sender: TObject);
 var
   dlg: TfrmAppOptions;
@@ -11240,7 +10908,7 @@ begin
 
 
       // Update Rterm
-      UpdateRterm_Appearance;
+    //  UpdateRterm_Appearance;
 
     end;
   finally
@@ -11337,6 +11005,8 @@ begin
   actRContTCPConnection.Checked := True;
   //LoadTinnRCommunicationScripts;
 
+  if assigned(frmRTerm) then
+    frmRTerm.pgRtermResize(frmRTerm);
 
   if Assigned(frmRServer) then
   begin
@@ -11576,8 +11246,42 @@ var
   muStream_1, muStream_2: TMultiStream;
 
   meStream, mePriorContent: TMemoryStream;
-
+  sRec: String;
+  edForm: TfrmEditor;
 begin
+  sRec := csRGeneral.Socket.ReceiveText;
+
+  if ansipos('TinnRMSG:TidyReady', sRec)>0 then
+  begin
+    if bTidying then
+    begin
+      if assigned(frmTidyAbort) then
+      begin
+        frmTidyAbort.Close;
+        bTidying :=  false;
+        if getTopEditorForm(edForm) then
+          edForm.ProcessTidy;
+      end;
+    end;
+    Exit;
+  end
+  else
+  if ansipos('TinnRMSG:TidyFailed', sRec)>0 then
+  begin
+    if bTidying then
+    begin
+      if assigned(frmTidyAbort) then
+      begin
+        frmTidyAbort.Close;
+        MessageDlg('Tinn-R was unable to tidy your source code.', mtError, [mbOK], 0);
+        bTidying :=  false;
+      end;
+    end;
+    Exit;
+  end;
+
+
+
   meStream := TMemoryStream.Create;
   mePriorContent := TMemoryStream.Create;
   muStream_1 := TMultiStream.Create;
@@ -12194,13 +11898,10 @@ var
   seEditor: TDScintilla;
   SelAvail: Boolean;
 begin
-  with (Self.MDIChildren[FindTopWindow] as TfrmEditor) do
-    if sActiveEditor = 'sciEditor' then
-      seEditor := sciEditor
-    else
-      seEditor := sciEditor2;
 
-    SelAvail := seEditor.GetSelText <> '';
+    if GetActiveEditorOrNil(seEditor) then
+      SelAvail := seEditor.GetSelText <> ''
+    else SelAvail := false;
 
     actCopyFormattedHtml.Enabled := SelAvail;
     actCopyFormattedRtf.Enabled := SelAvail;
@@ -12387,6 +12088,8 @@ begin
         iTimerCounter := 0;
         iTotFileCount := 0;
         SetupSearchParameters(sSearchText);
+        SetLength(aOpenFileSearch, 0);
+
         if bSearchOpenFiles then
         begin
           SearchInOpenFiles(iFoundFileCount, iMatchCount);
@@ -12549,45 +12252,6 @@ begin
   end;
 end;
 
-function TfrmTinnMain.GetSelectionToReformat(sSel: string): string;
-var
-  sFilePath: string;
-
-begin
-  Result := EmptyStr;
-  if not ValidRRunning then
-    Exit;
-
-  sFilePath := sPathTmp + '\reformat-input.r';
-
-  if FileSaveFast(sFilePath, sSel) then
-  begin
-    // if (RHistory = nil) then RHistory:= TRHistory.Create;
-    // RHistory.LoadFromFile(sFilePath);
-    Result := '.trPaths[8]';
-  end;
-end;
-
-function TfrmTinnMain.GetFileToReformat: string;
-var
-  sTmp, sFilePath: string;
-
-begin
-  Result := EmptyStr;
-  if not ValidRRunning then
-    Exit;
-
-  sTmp := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor.GetText;
-
-  sFilePath := sPathTmp + '\reformat-input.r';
-  if FileSaveFast(sFilePath, sTmp) then
-  begin
-    // if (RHistory = nil) then RHistory:= TRHistory.Create;
-    // RHistory.LoadFromFile(sFilePath);
-    Result := '.trPaths[8]';
-  end;
-end;
-
 function TfrmTinnMain.GetPathFile(bFull: Boolean = False): string;
 var
   sDos: string;
@@ -12675,6 +12339,8 @@ end;
 
 procedure TfrmTinnMain.actRSendSweaveExecute(Sender: TObject);
 begin
+  showmessage('Feature not ready.');
+  Exit;
   RSendSweave;
 end;
 
@@ -12708,11 +12374,15 @@ end;
 
 procedure TfrmTinnMain.actRSendKnitPdfExecute(Sender: TObject);
 begin
+  showmessage('Feature not ready.');
+  Exit;
   RSendKnitPdf;
 end;
 
 procedure TfrmTinnMain.actRSendKnitHtmlExecute(Sender: TObject);
 begin
+  showmessage('Feature not ready.');
+  Exit;
   RSendKnitHtml;
 end;
 
@@ -13023,10 +12693,7 @@ begin
 
 
     // Log
-    if Assigned(frmRterm.sciLog2) then
-      seLog := frmRterm.sciLog2
-    else
-      seLog := frmRterm.sciLog;
+    seLog := frmRterm.sciLog;
 
     ClearAllBookmarks(seLog);
     seLog.Lines.Clear;
@@ -13110,6 +12777,9 @@ begin
   sTmp := GetWord;
   if (sTmp = EmptyStr) then
     Exit;
+  if csMainBase.Active then
+    csMainBase.Socket.SendText(sTmp+#13#10)
+  else
   DoSend(sTmp);
 end;
 
@@ -14619,19 +14289,19 @@ begin
 
   with frmShortcuts do
     try
-      RemoveShortcuts;
+  //    RemoveShortcuts;
       ShowModal;
-      with modDados.cdShortcuts do
+  {    with modDados.cdShortcuts do
       begin
         if BookmarkValid(pTmp) then
           GoToBookmark(pTmp);
         FreeBookmark(pTmp);
-      end;
+      end;      }
     finally
-      frmTinnMain.Refresh;
+{      frmTinnMain.Refresh;
       FreeAndNil(frmShortcuts);
       DatasetToActionList(Self);
-      SetFocus_Main;
+      SetFocus_Main;    }
     end;
 end;
 
@@ -14644,10 +14314,11 @@ procedure TfrmTinnMain.actFindExecute(Sender: TObject);
 var seEditor: TDScintilla;
 begin
   seEditor := frmTinnMain.GetEditorWithFocus;
+  sciLastSearchEditor :=seEditor;
+
   if seEditor = nil then
     exit;
   Find(seEditor);
-  sLastSearchEditor :=seEditor.Name;
 end;
 
 procedure TfrmTinnMain.actFindAgainExecute(Sender: TObject);
@@ -14868,38 +14539,39 @@ begin
  // SetBuffer_FileFormat(sffMAC);
 end;
 
-procedure TfrmTinnMain.MakeTemplate(sFile: string);
-var
-  i: integer;
-
-  sContent, sFileExt: string;
-
+procedure TfrmTinnMain.MakeTemplate(sTemplateFile: string; iHiglighterID: Integer);
+var EditorFile: TEditorFile;
 begin
-  actFileNewExecute(nil);
+  inc(iFileCount);
+  while FindWindowByName('Untitled' + IntToStr(iFileCount)) <> -1 do
+    inc(iFileCount);
 
-  sContent := FileToString(sFile);
-  sFileExt := ExtractFileExt(sFile);
-
-  i := FindTopWindow;
-  with (Self.MDIChildren[FindTopWindow] as TfrmEditor) do
+  with EditorFile do
   begin
-    sciEditor.SetText(sContent);
-    EditorFile.iModified := 1;
-    //scihigh //m.p.SetHighlighterFromFileExt(sFileExt);
+   iId:= GetNewUniqueEditorId;
+   sFile:= 'Untitled' + IntToStr(iFileCount);
+   iNewFile:= 1;
+   iModified:= 0;
+   iUnsavedChanges:= 0;
+   sMarks:= '';
+   sTempFile:= sTemplateFile;
+   iTopLine:= 0;
+   iCaretPosition := 0;
+   sFolding:= '';
+   iLexerId:= iHiglighterID;
+   iTabPosition:= pgFiles.PageCount + 1;
   end;
-  showmessage('Tag:= (Self.MDIChildren[i] as TfrmEditor).SetHighlighterID');
-  // with pgFiles.ActivePage do
-  // Tag:= (Self.MDIChildren[i] as TfrmEditor).SetHighlighterID;
+  LoadFile(EditorFile);
 end;
 
 procedure TfrmTinnMain.actTemplateREmptyExecute(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R doc_empty.Rd');
+  MakeTemplate(sPathTinnR + '\templates\R doc_empty.Rd', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.menFileTemplateRhtmlClick(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R html.Rhtml');
+  MakeTemplate(sPathTinnR + '\templates\R html.Rhtml', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.actMatchBracketExecute(Sender: TObject);
@@ -14948,10 +14620,7 @@ begin
     iLogLineWrap := SC_WRAP_WORD
   else  iLogLineWrap := SC_WRAP_NONE;
 
-  if Assigned(frmRterm.sciLog2) then
-    seLog := frmRterm.sciLog2
-  else
-    seLog := frmRterm.sciLog;
+  seLog := frmRterm.sciLog;
 
   ToggleWrapMode(seLog, iLogLineWrap);
 end;
@@ -14971,7 +14640,6 @@ begin
   else  iIOLineWrap := SC_WRAP_NONE;
 
    ToggleWrapMode(frmRterm.sciIO, iIOLineWrap);
-
 end;
 
 procedure TfrmTinnMain.GetComments;
@@ -16866,10 +16534,7 @@ procedure TfrmTinnMain.actRContTermStartCloseExecute(Sender: TObject);
 
   procedure CloseRterm;
   begin
-    if Assigned(frmRterm.sciLog2) then
-      frmRterm.sciLog2.Clear
-    else
-      frmRterm.sciLog.Clear;
+     frmRterm.sciLog.Clear;
 
     //stbMain.Panels[8].Text := EmptyStr;
 
@@ -16925,16 +16590,12 @@ begin
       RHistory := TRHistory.Create;
 
     CheckRterm;
-
-    if Assigned(frmRterm.sciLog2) then
-      frmRterm.sciLog2.Clear
-    else
-      frmRterm.sciLog.Clear;
+    frmRterm.sciLog.Clear;
 
     with frmRterm do
     begin
       sciIO.Lines.Clear;
-      iSynWithFocus := 3;
+      iSciWithFocus := 3;
       cRterm.RunProcess(sPathRterm + ' ' + sParRterm);
     end;
 
@@ -17010,21 +16671,32 @@ begin
 end;
 
 procedure TfrmTinnMain.DoUndoAutoHideRterm;
-//var cfocus: TWinControl;
+
+  // Source: http://stackoverflow.com/questions/14193967/how-can-you-tell-if-a-tjvdockserver-form-is-unpinned-or-pinned
+  function IsUnpinned(jvClient: TJVDockClient):Boolean;
+  begin
+    result := false;
+   if Assigned(jvClient) then
+      if jvClient.DockState = JvDockState_Docking then
+      begin
+        // it's docked, so now try to determine if it's pinned (default state,
+        // returns false) or unpinned (collapsed/hidden) and if unpinned, return true.
+        if jvClient.DockStyle is TJvDockVSNetStyle then
+        begin
+          if Assigned(jvClient.ParentForm) and (jvClient.ParentForm.Parent.ClassName = 'TJvDockVSPopupPanel') then
+          begin
+            result := true;
+          end;
+        end;
+      end;
+  end;
+
 begin
-
-  //cfocus := getFocusedObject;
-  with JvDockVSNetStyle do
-    if GetDockFormVisible(frmRterm.JvDockClientRterm) then
-      DoUnAutoHideDockForm(frmRterm);
-
-
- {
-  if assigned(cfocus) then
-    if getFocusedObject <> cfocus then
-      if cfocus.Visible then
-        if cfocus.Enabled then
-          cfocus.SetFocus;    }
+   if IsUnpinned(frmRTerm.JvDockClientRterm) then
+   begin
+     JvDockVSNetStyle.DoUnAutoHideDockForm(frmRterm);
+     frmTinnmain.UpdateRterm_Appearance;
+   end;
 end;
 
 procedure TfrmTinnMain.DoUndoAutoHideTools;
@@ -17189,46 +16861,60 @@ end;
 
 procedure TfrmTinnMain.OpenFileFromSearch;
 var
-  iPos, iEnd: integer;
-
+  iPos, iEnd, iEdId: integer;
+  pid: ^Integer;
   sFile, sTmp, sLineNumber: string;
-
+  Editor: TFrmEditor;
+  bFoundFile: Boolean;
 begin
   with frmTools.tvSearch do
   begin
+    bFoundFile := false;
     if (Selected = nil) or (Selected.Level < 2) then
       Exit;
-
     sTmp := Selected.Text;
-
     sFile := Selected.Parent.Text;
-
     iPos := pos('(', sTmp);
 
     if (iPos > 0) then
     begin
       iEnd := pos('):', sTmp);
-
       sLineNumber := copy(sTmp, iPos + 1, ((iEnd - iPos) - 1));
     end;
-  end;
-  if FileExists(trim(sFile)) then
-    OpenFileIntoTinn(sFile, StrToIntDef(sLineNumber, 0))
-  else
-    MessageDlg(trim(sFile) + #13 + #13 + 'The file above was not found!',
-      mtWarning, [mbOk], 0);
 
-  Sleep(iDelay div 2);
-
-  if (pgFiles.PageCount > 0) then
-    with TfrmEditor(MDIChildren[0]).sciEditor do
+    if Selected.Parent.Parent.Text = 'Opened files' then
     begin
-      SetFirstVisibleLine(StrToInt(sLineNumber));
-      LineEnd;
-      //ExecuteCommand(ecLineEnd, #0, nil);
-      SelectToLineStart(TfrmEditor(MDIChildren[0]).sciEditor);
-      //ExecuteCommand(ecSelLineStart, #0, nil);
+      pid := Selected.Data;
+      iEdId := pid^;
+      bFoundFile := GetEditorById(iEdId, Editor);
     end;
+
+    if bFoundFile = false then
+    begin
+      if FileExists(trim(sFile)) then
+      begin
+        OpenFileIntoTinn(sFile, StrToIntDef(sLineNumber, 0));
+        Editor := MDIChildren[FindTopWindow] as TfrmEditor;
+        if trim(ansilowercase((Editor.EditorFile.sFile))) = trim(ansilowercase((sFile))) then
+          bFoundFile := true;
+      end;
+    end;
+  end;
+
+  if not bFoundFile then
+  begin
+    MessageDlg(trim(sFile) + #13 + #13 + 'The file above was not found!',
+    mtWarning, [mbOk], 0);
+    Exit;
+  end;
+
+  with Editor.sciEditor do
+  begin
+    Editor.SetFocus;
+    GotoLine(StrToInt(sLineNumber)-1);
+    VerticalCentreCaret;
+    SetFocus;
+  end;
 end;
 
 procedure TfrmTinnMain.pmenResultsOpenLinkClick(Sender: TObject);
@@ -17599,13 +17285,14 @@ var
   sPriorLog: string;
 
 begin
-  if Assigned(frmRterm.sciLog2) then
+{  if Assigned(frmRterm.sciLog2) then
     sPriorLog := frmRterm.sciLog2.GetText
   else
     sPriorLog := frmRterm.sciLog.GetText;
-
+}
   frmRterm.RtermSplit;
-  if Assigned(frmRterm.sciLog2) then
+
+{  if Assigned(frmRterm.sciLog2) then
 
     with frmRterm.sciLog2 do
     begin
@@ -17622,90 +17309,27 @@ begin
       //ExecuteCommand(ecEditorBottom, #0, nil);
       Lines.EndUpdate;
 
-    end;
+    end;  }
 
-  frmRterm.tbsLog.TabVisible := False;
-  actRtermIOSplitHorizontal.Checked := Assigned(frmRterm.sciLog2);
+    actRtermIOSplitHorizontal.Checked := true;//Assigned(frmRterm.sciLog2);
   bRtermSimple := True;
   bRtermHorizontal := True;
   // m.p. frmRterm.TBToolbarRterm.Left := 52;
 end;
 
 procedure TfrmTinnMain.actRtermIOSplitVerticalExecute(Sender: TObject);
-var
-  sPriorLog: string;
-
 begin
-  if Assigned(frmRterm.sciLog2) then
-    sPriorLog := frmRterm.sciLog2.GetText
-  else
-    sPriorLog := frmRterm.sciLog.GetText;
-
   frmRterm.RtermSplit(False);
-
-  if Assigned(frmRterm.sciLog2) then
-    with frmRterm.sciLog2 do
-    begin
-      Lines.BeginUpdate;
-      SetWrapVisualFlags(SC_WRAPVISUALFLAG_START);
-      SetWrapMode(iLogLineWrap);
-
-      SetText(sPriorLog);
-
-      //PostMessage(TWinControl(frmRterm.sciLog2).Handle, WM_SETFOCUS, 0, 0);
-      // Will force ecEditorBottom below
-
-      SetCursorToBottom(frmRterm.sciLog2);
-      //ExecuteCommand(ecEditorBottom, #0, nil);
-
-      Lines.EndUpdate;
-    end;
-
-  frmRterm.tbsLog.TabVisible := False;
-  actRtermIOSplitVertical.Checked := Assigned(frmRterm.sciLog2);
+  actRtermIOSplitVertical.Checked := true;
   bRtermSimple := True;
   bRtermHorizontal := False;
-  // m.p. frmRterm.TBToolbarRterm.Left := 52;
 end;
 
 procedure TfrmTinnMain.actRtermIOSplitRemoveExecute(Sender: TObject);
-var
-  sPriorLog: string;
-
 begin
-
-  if Assigned(frmRterm.sciLog2) then
-    sPriorLog := frmRterm.sciLog2.GetText
-  else
-    sPriorLog := frmRterm.sciLog.GetText;
-
-  if Assigned(frmRterm.splRIO) then
-    FreeAndNil(frmRterm.splRIO);
-
-  if Assigned(frmRterm.sciLog2) then
-    FreeAndNil(frmRterm.sciLog2);
-
-  with frmRterm.sciLog do
-  begin
-    Lines.BeginUpdate;
-    SetWrapVisualFlags(SC_WRAPVISUALFLAG_START);
-    SetWrapMode(iLogLineWrap);
-    SetText(sPriorLog);
-
-    //PostMessage(TWinControl(frmRterm.sciLog).Handle, WM_SETFOCUS, 0, 0);
-    // Will force ecEditorBottom below
-
-    //ExecuteCommand(ecEditorBottom, #0, nil);
-    SetCursorToBottom(frmRterm.sciLog);
-    Lines.EndUpdate;
-  end;
-
-  frmRterm.sciIO.Align := alClient;
-  frmRterm.tbsLog.TabVisible := True;
-  actRtermIOSplitRemove.Checked := (frmRterm.sciLog2 = nil);
+  frmRTerm.RtermRemoveSplit;
+  actRtermIOSplitRemove.Checked := true;
   bRtermSimple := False;
-  UpdateRterm_Appearance;
-  // m.p.frmRterm.TBToolbarRterm.Left := 92;
 end;
 
 procedure TfrmTinnMain.actRtermLogSetFocusExecute(Sender: TObject);
@@ -17713,13 +17337,12 @@ begin
 
   if not frmRterm.Visible then
     Exit;
-  if Assigned(frmRterm.sciLog2) then
-    frmRterm.sciLog2.SetFocus
-  else
-  begin
+
+  if not frmTinnMain.bRtermSimple then
     frmRterm.pgRterm.ActivePage := frmRterm.tbsLog;
-    frmRterm.sciLog.SetFocus;
-  end;
+  frmRterm.sciLog.SetFocus;
+
+
   actRtermLogSetFocus.Checked := True;
 end;
 
@@ -17748,41 +17371,39 @@ begin
   actRtermIOSetFocus.Checked := True;
 end;
 
+
+
 procedure TfrmTinnMain.actRtermSetIOSyntaxToTextExecute(Sender: TObject);
 begin
-  ApplyLexer(86, frmRterm.sciIO);
-  iIOSyntax := 0;
+  iIOSyntax := SCLEX_CONTAINER;
   actRtermSetIOSyntaxToText.Checked := True;
+  ApplyLexer(iIOSyntax, frmRterm.sciIO);
 end;
 
 procedure TfrmTinnMain.actRtermSetLogSyntaxToTextExecute(Sender: TObject);
 begin
-{ //sci //m.p.
-  if Assigned(frmRterm.sciLog2) then
-    frmRterm.sciLog2.Highlighter := dmSyn.synText_term;
-  frmRterm.sciLog.Highlighter := dmSyn.synText_term; }
-  iLogSyntax := 0;
+  iLogSyntax := SCLEX_CONTAINER;
   actRtermSetLogSyntaxToText.Checked := True;
+  ApplyLexer(iLogSyntax, frmRterm.sciLog);
 end;
 
 procedure TfrmTinnMain.actRtermSetIOSyntaxToRExecute(Sender: TObject);
 begin
-  //sci //m.p.
-  ApplyLexer(86, frmRterm.sciIO);
-  //frmRterm.sciIO.SetLexer(SCLEX_R);
-  iIOSyntax := 1;
+  iIOSyntax := SCLEX_R;
   actRtermSetIOSyntaxToR.Checked := True;
+  ApplyLexer(iIOSyntax, frmRterm.sciIO);
 end;
 
 procedure TfrmTinnMain.actRtermSetLogSyntaxToRExecute(Sender: TObject);
 begin
-{ //sci //m.p.
-  if Assigned(frmRterm.sciLog2) then
-    frmRterm.sciLog2.Highlighter := dmSyn.synR_term;
-  frmRterm.sciLog.Highlighter := dmSyn.synR_term;   }
-  iLogSyntax := 1;
+  iLogSyntax := SCLEX_R;
   actRtermSetLogSyntaxToR.Checked := True;
+  ApplyLexer(iLogSyntax, frmRterm.sciLog);
 end;
+
+
+
+
 
 procedure TfrmTinnMain.actRtermIOClearExecute(Sender: TObject);
 var
@@ -17805,55 +17426,16 @@ begin
   DoClearConsole;
 end;
 
-procedure TfrmTinnMain.actRtermIOHistoryNextExecute(Sender: TObject);
+procedure TfrmTinnMain.actRtermIOHistoryExecute(Sender: TObject);
 begin
-//sci //m.p.
-
   if not Rterm_Running then
     Exit;
-  with frmRterm do
+  with frmRterm.sciIO do
   begin
-
-
-    sciIO.DocumentEnd;
-    sciIO.AutoCSetSeparator(#16);
-    //sciIO.AutoCShow(0, RHistory.ASStringList);
-    //sciIO.
-    sciIO.UserListShow(0,  RHistory.ASStringList);
-
-  {  if (synIO.SelText <> EmptyStr) then
-      Exit;
-    if bRterm_Plus then
-      synIO.LineText := '+ ' + RHistory.GetNext
-    else if bRUnderDebug_Function or bRUnderDebug_Package then
-      synIO.LineText := frmRterm.sRDebugPrefix + ' ' + RHistory.GetNext
-    else
-      synIO.LineText := '> ' + RHistory.GetNext;
-    synIO.ExecuteCommand(ecLineEnd, #0, nil); }
+    DocumentEnd;
+    AutoCSetSeparator(#16);
+    UserListShow(0,  RHistory.ASStringList);
   end;
-end;
-
-procedure TfrmTinnMain.actRtermIOHistoryPriorExecute(Sender: TObject);
-begin
-//sci //m.p.
-{
-  if not Rterm_Running then
-    Exit;
-
-  with frmRterm do
-  begin
-    synIO.CaretY := synIO.Lines.Count;
-    if (synIO.SelText <> EmptyStr) then
-      Exit;
-    if bRterm_Plus then
-      synIO.LineText := '+ ' + RHistory.GetPrior
-    else if bRUnderDebug_Function or bRUnderDebug_Package then
-      synIO.LineText := frmRterm.sRDebugPrefix + ' ' + RHistory.GetPrior
-    else
-      synIO.LineText := '> ' + RHistory.GetPrior;
-
-    synIO.ExecuteCommand(ecLineEnd, #0, nil);
-  end;    }
 end;
 
 procedure TfrmTinnMain.actRtermLogClearExecute(Sender: TObject);
@@ -17869,10 +17451,7 @@ begin
     Checked := False;
   end;
 
-  if Assigned(frmRterm.sciLog2) then
-    seLog := frmRterm.sciLog2
-  else
-    seLog := frmRterm.sciLog;
+  seLog := frmRterm.sciLog;
 
 {  //sci //m.p.
   with seLog do
@@ -17890,25 +17469,20 @@ begin
 end;
 
 procedure TfrmTinnMain.actRtermIOPrintExecute(Sender: TObject);
+var seEditor: TDScintilla;
 begin
-//sci //m.p.
-  with frmRterm.sciIO do
-    if (GetSelText <> '') then
-      bselectedToPreview := True
+  seEditor := frmRTerm.sciIO;
+
+  if (seEditor.GetSelText <> '') then
+    bselectedToPreview := True
     else
-      bselectedToPreview := False;
+    bselectedToPreview := False;
 
   frmConfigurePrint := TfrmConfigurePrint.Create(Self);
-
-  with frmConfigurePrint do
-  begin
-    try
-      with frmRterm.sciIO do
-        ShowDialog(frmRterm.sciIO);
-    finally
+  try
+    frmConfigurePrint.ShowDialog(seEditor);
+   finally
       FreeAndNil(frmConfigurePrint);
-      frmTinnMain.Repaint;
-    end;
   end;
 end;
 
@@ -17917,10 +17491,7 @@ var
   seLog: TDScintilla;
 
 begin
-  if Assigned(frmRterm.sciLog2) then
-    seLog := frmRterm.sciLog2
-  else
-    seLog := frmRterm.sciLog;
+ seLog := frmRterm.sciLog;
 
   with seLog do
     if (seLog.GetSelText <> '') then
@@ -17977,10 +17548,7 @@ var
 
 begin
   sTmp := RemoveFileExtension(pgFiles.ActivePage.Caption);
-  if Assigned(frmRterm.sciLog2) then
-    seLog := frmRterm.sciLog2
-  else
-    seLog := frmRterm.sciLog;
+  seLog := frmRterm.sciLog;
 
   FileSaveGeneric(sTmp + '_log.txt', seLog);
 end;
@@ -18040,12 +17608,12 @@ end;
 
 procedure TfrmTinnMain.actTemplateRDatasetExecute(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R doc_dataset.Rd');
+  MakeTemplate(sPathTinnR + '\templates\R doc_dataset.Rd', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.actTemplateRMarkdownExecute(Sender: TObject);
 begin
-  MakeTemplate(sPathTinnR + '\templates\R markdown.Rmd');
+  MakeTemplate(sPathTinnR + '\templates\R markdown.Rmd', SCLEX_R);
 end;
 
 procedure TfrmTinnMain.actRComplexDefaultExecute(Sender: TObject);
@@ -18164,8 +17732,7 @@ var
   i: integer;
 
 begin
-   label2.Caption := inttostr(iSynWithFocus);
-  case iSynWithFocus of
+  case iSciWithFocus of
     1 .. 2:
       begin
         i := FindTopWindow;
@@ -18319,76 +17886,10 @@ begin
 end;
 
 procedure TfrmTinnMain.actReformatRExecute(Sender: TObject);
-var
-  seEditor: TDScintilla;
-
-  sTmp, sToSend, sSel: string;
-
-  i: integer;
-
-  procedure SendToRReformat(bFile: Boolean);
-  begin
-    sTmp := 'tidy.source(' + sToSend + ', ' + 'file=' + '.trPaths[9]' + ', ' +
-      sReformatR + ')';
-
-    DoSend(sTmp);
-
-    if bFile then // Do not remove from the end of the procedure!
-      iRFormatted := 0
-    else
-      iRFormatted := 1;
-  end;
-
-// File to reformat
-  procedure RReformatFile;
-  begin
-    sToSend := GetFileToReformat;
-    if (sToSend = EmptyStr) then
-      Exit;
-    SendToRReformat(True);
-  end;
-
-// Selection to reformat
-  procedure RReformatSelection;
-  begin
-    with (Self.MDIChildren[i] as TfrmEditor) do
-      if sActiveEditor = 'sciEditor' then
-        seEditor := sciEditor
-      else
-        seEditor := sciEditor2;
-
-    with seEditor do
-    begin
-      if GetSelText <> '' then
-      begin
-        sSel := GetSelText;
-      end;
-
-      sToSend := GetSelectionToReformat(sSel);
-      if (sToSend = EmptyStr) then
-        Exit;
-      SendToRReformat(False);
-    end;
-  end;
-
+var edForm: TfrmEditor;
 begin
-  i := FindTopWindow;
-  if ((Self.MDIChildren[i] as TfrmEditor) = nil) then
-    Exit;
-
-  with (Self.MDIChildren[i] as TfrmEditor) do
-    if sActiveEditor = 'sciEditor' then
-      seEditor := sciEditor
-    else
-      seEditor := sciEditor2;
-
-  with seEditor do
-  begin
-    if not (GetSelText <> '') then
-      RReformatFile
-    else
-      RReformatSelection;
-  end;
+  if GetTopEditorForm(edForm) then
+    edForm.RReformat;
 end;
   {
 function TfrmTinnMain.CheckConnection: Boolean;
@@ -18494,6 +17995,27 @@ try
 finally
   IdLookupThread.Stop;
 end;
+end;
+
+procedure TfrmTinnMain.StartupThreadShortcutsRun(Sender: TIdThreadComponent);
+begin
+with modDados do
+begin
+      try
+        LoadShortcuts;
+        SetShortcuts;
+      except
+        if MessageDlg('The shortcuts could not be loaded. It is likely that the problem can be solved by deleting the current shortcut settings.' + #13
+                   + 'Do you want to reset these settings before Tinn-R closes?', mtError, [mbYes, mbNo], 0) = mrYes then
+        begin
+
+          DeleteFile(frmTinnMain.sPathShortcuts);
+        end;
+        Application.Terminate;
+      end;
+  bShortcutsLoaded := true;
+end;
+Sender.Free;
 end;
 
 procedure TfrmTinnMain.InitialBackup;
@@ -18838,12 +18360,8 @@ begin
 end;
 
 function TfrmTinnMain.GetEditorWithFocus: TDScintilla;
-var
-  iFocus: integer;
-  seLog: TDScintilla;
-
 begin
-
+ {
   if not GetActiveEditorOrNil(Result) then
   begin
     if Assigned(frmRterm.sciLog2) then
@@ -18855,25 +18373,16 @@ begin
     if frmRterm.sciIO.Focused then
       Result := frmRterm.sciIO;
   end;
- {
-  if True then
-
-
+   }
   Result := nil;
-  iFocus := GetFocus;
-  if Assigned(frmRterm.sciLog2) then
-    seLog := frmRterm.sciLog2
-  else
-    seLog := frmRterm.sciLog;
-  case iFocus of
+
+  case iSciWithFocus of
     1: Result := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor;
     2: Result := (Self.MDIChildren[FindTopWindow] as TfrmEditor).sciEditor2;
     3: Result := frmRterm.sciIO;
-    4: Result := seLog;
-  end;    }
+    4: Result := frmRterm.sciLog;
+  end;
 end;
-
-
 
 
 function TfrmTinnMain.GetActiveEditorOrNil(var seEditor: TDScintilla): Boolean;
@@ -19026,7 +18535,6 @@ begin
     actRemoveLineBreaks.Enabled := bOption;
     actComment.Enabled := bOption;
     actCompletion.Enabled := bOption;
-    actCompletionInsert.Enabled := bOption;
     actDateStamp.Enabled := bOption;
     actFileClose.Enabled := bOption;
     actFileSaveAs.Enabled := bOption;

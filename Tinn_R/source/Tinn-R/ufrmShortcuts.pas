@@ -54,76 +54,52 @@ uses
 type
   TfrmShortcuts = class(TForm)
     bbHelp: TBitBtn;
-    bbtShortcutsCancel: TBitBtn;
-    bbtShortcutsCancelAll: TBitBtn;
     bbtShortcutsClose: TBitBtn;
-    bbtShortcutsEdit: TBitBtn;
-    bbtShortcutsLoad: TBitBtn;
     bbtShortcutsRestoreDefault: TBitBtn;
-    bbtShortcutsSave: TBitBtn;
-    bbtShortcutsSaveDefault: TBitBtn;
-    dbeCaption: TDBEdit;
-    dbeGroup: TDBEdit;
-    dbgShortcuts: TDBGrid;
-    dbmHint: TDBMemo;
-    DBNavigator1: TDBNavigator;
-    edtCaptionSearch: TEdit;
-    edtGroupSearch: TEdit;
-    GroupBox1: TGroupBox;
-    imgShortcut: TImage;
+    gbEdit: TGroupBox;
     jvhkShortcut: TJvHotKey;
-    jvhkShortcutSearch: TJvHotKey;
+    GroupBox2: TGroupBox;
+    Panel3: TPanel;
+    Splitter2: TSplitter;
+    edShortcutSearch: TButtonedEdit;
+    cbShortcuts: TComboBox;
+    Panel4: TPanel;
+    Label9: TLabel;
+    jvShortcutSearch: TJvHotKey;
+    dbgShortcuts: TDBGrid;
+    Splitter1: TSplitter;
+    bUpdate: TButton;
     Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Panel2: TPanel;
-    stbShortcuts: TStatusBar;
+    Bevel1: TBevel;
+    lWarning: TLabel;
 
     procedure bbHelpClick(Sender: TObject);
-    procedure bbtShortcutsCancelAllClick(Sender: TObject);
-    procedure bbtShortcutsCancelClick(Sender: TObject);
     procedure bbtShortcutsCloseClick(Sender: TObject);
-    procedure bbtShortcutsEditClick(Sender: TObject);
     procedure bbtShortcutsLoadClick(Sender: TObject);
     procedure bbtShortcutsRestoreDefaultClick(Sender: TObject);
     procedure bbtShortcutsSaveClick(Sender: TObject);
-    procedure bbtShortcutsSaveDefaultClick(Sender: TObject);
-    procedure dbeCaptionEnter(Sender: TObject);
-    procedure dbeGroupEnter(Sender: TObject);
-    procedure dbgShortcutsEnter(Sender: TObject);
-    procedure dbgShortcutsKeyPress(Sender: TObject; var Key: Char);
     procedure dbgShortcutsTitleClick(Column: TColumn);
-    procedure dbmHintEnter(Sender: TObject);
-    procedure DBNavigator1Click(Sender: TObject; Button: TNavigateBtn);
-    procedure edtCaptionSearchChange(Sender: TObject);
-    procedure edtCaptionSearchEnter(Sender: TObject);
-    procedure edtGroupSearchChange(Sender: TObject);
-    procedure edtGroupSearchEnter(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormShow(Sender: TObject);
-    procedure jvhkShortcutEnter(Sender: TObject);
     procedure jvhkShortcutKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure jvhkShortcutKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure jvhkShortcutSearchChange(Sender: TObject);
-    procedure jvhkShortcutSearchEnter(Sender: TObject);
+    procedure dbgShortcutsDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure edShortcutSearchChange(Sender: TObject);
+    procedure cbShortcutsChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure jvShortcutSearchChange(Sender: TObject);
+    procedure bUpdateClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
 
   private
     { Private declarations }
     bNothing: Boolean;
     bShortcutInUse: Boolean;
+    sSortList: TStringList;
 
-    procedure ActualizeGroups;
-    procedure ClearWarnings;
-
+    procedure UpdateSearchFilters;
   public
     { Public declarations }
     bLocating: Boolean;
@@ -145,188 +121,84 @@ uses
 
 {$R *.dfm}
 
-procedure TfrmShortcuts.ClearWarnings;
+
+procedure TfrmShortcuts.cbShortcutsChange(Sender: TObject);
 begin
-  with stbShortcuts do
-  begin
-    Panels[3].Text := '';
-    Panels[4].Text := '';
-  end;
+  UpdateSearchFilters;
 end;
 
-procedure TfrmShortcuts.edtGroupSearchChange(Sender: TObject);
+procedure TfrmShortcuts.edShortcutSearchChange(Sender: TObject);
 begin
-  ClearWarnings;
-  with edtGroupSearch do
-  begin
-    if (Text = '') then
-    begin
-      Color := clWindow;
-      Font.Color := clBlack;
-      Font.Style := [];
-      Exit;
-    end;
-
-    if (modDados.cdShortcuts.Locate('Group', Text, [loPartialKey]) = True) then
-    begin
-      Color := clWindow;
-      Font.Color := clBlack;
-      Font.Style := [];
-    end
-    else
-    begin
-      Color := clRed;
-      Font.Color := clWhite;
-      Font.Style := [fsBold];
-    end;
-  end;
+  UpdateSearchFilters;
 end;
 
-procedure TfrmShortcuts.edtGroupSearchEnter(Sender: TObject);
-begin
-  ClearWarnings;
-end;
-
-procedure TfrmShortcuts.edtCaptionSearchChange(Sender: TObject);
-begin
-  ClearWarnings;
-  with edtCaptionSearch do
-  begin
-    if (Text = '') then
-    begin
-      Color := clWindow;
-      Font.Color := clBlack;
-      Font.Style := [];
-      Exit;
-    end;
-
-    if (modDados.cdShortcuts.Locate('Caption', Text, [loPartialKey]) = True)
-    then
-    begin
-      Color := clWindow;
-      Font.Color := clBlack;
-      Font.Style := [];
-    end
-    else
-    begin
-      Color := clRed;
-      Font.Color := clWhite;
-      Font.Style := [fsBold];
-    end;
-  end;
-end;
-
-procedure TfrmShortcuts.edtCaptionSearchEnter(Sender: TObject);
-begin
-  ClearWarnings;
-end;
-
-procedure TfrmShortcuts.FormActivate(Sender: TObject);
+procedure TfrmShortcuts.UpdateSearchFilters;
 var
-  pTmp: pointer;
-
+  sFilter, sOldFilter, sTextFilter, sCatFilter, sShortcutFilter, sHotKey: String;
 begin
-  ClearWarnings;
-  with frmTinnMain do
+  with modDados.cdMainBase do
   begin
-    with dbeGroup do
+    FilterOptions := [foCaseInsensitive];
+
+    sFilter := (trim(edShortcutSearch.Text));
+    if sFilter <> '' then
+      sTextFilter := ' Caption Like ' +QuotedStr('%' + sFilter + '%')+' OR Hint Like ' +QuotedStr('%' + sFilter + '%')  else
+      sTextFilter := '';
+
+    if cbShortcuts.ItemIndex > 0  then
+      sCatFilter := ' Category Like ' +QuotedStr(cbShortcuts.Items[cbShortcuts.ItemIndex]) else
+        sCatFilter := '';
+
+    sHotKey := ( StringReplace(ShortcutToText(jvShortcutSearch.HotKey), ' ', '', []));
+
+    if sHotKey <> ''   then
+      sShortcutFilter := ' Shortcut Like ' +QuotedStr(sHotKey) else
+        sShortcutFilter := '';
+
+
+    if (length(sTextFilter) > 0) and (length(sCatFilter)>0) then
+      sFilter := sTextFilter + ' AND ' + sCatFilter
+    else
+      sFilter := sTextFilter + sCatFilter;
+
+    if (length(sFilter) > 0) and (length(sShortcutFilter)>0) then
+      sFilter := sFilter + ' AND ' + sShortcutFilter
+    else
+      sFilter := sFilter + sShortcutFilter;
+
+    with modDados.cdShortcuts do
     begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
+      sOldFilter := Filter;
+     if sOldFilter <> sFilter then
+     begin
+       DisableControls;
+       Filter := sFilter;
+       Filtered := length(Filter)>0;
+
+       First;
+       EnableControls;
+     end;
     end;
-
-    with dbeCaption do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbmHint do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with jvhkShortcut do
-    begin
-      // Color     := clBGApplication;
-      // Font.Color:= clFGApplication;
-    end;
-
-    with dbgShortcuts do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-  end;
-
-  with stbShortcuts do
-  begin
-    Panels[0].Text := 'Browse mode';
-    Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
-  end;
-
-  with modDados.cdShortcuts do
-  begin
-    pTmp := GetBookmark;
-    Filtered := False;
-  end;
-
-  frmTools.lbShortcuts.Selected[frmTinnMain.iShortcutsFilter] := False;
-
-  with modDados.cdShortcuts do
-  begin
-    if BookmarkValid(pTmp) then
-      GoToBookmark(pTmp);
-    FreeBookmark(pTmp);
-  end;
-
-  edtGroupSearch.SetFocus;
-end;
-
-procedure TfrmShortcuts.ActualizeGroups;
-begin
-  ClearWarnings;
-  // Actualize Groups in frmTinnMain
-  with modDados do
-  begin
-    ShortcutsGroupsFilter(nil);
-
-    with frmTinnMain do
-    begin
-      frmTools.lbShortcuts.Items := slShortcuts_Groups;
-      frmTools.lbShortcuts.Refresh;
-    end;
-
-    FreeAndNil(slShortcuts_Groups);
   end;
 end;
 
-procedure TfrmShortcuts.FormClose(Sender: TObject; var Action: TCloseAction);
+
+
+procedure TfrmShortcuts.FormCreate(Sender: TObject);
 begin
-  with frmTinnMain do
-  begin
-    frmTools.lbShortcuts.ItemIndex := iShortcutsFilter;
-    frmTools.lbShortcutsClick(Self);
-  end;
+  cbShortCuts.Items.Add('All categories');
+  cbShortCuts.Items.AddStrings(modDados.slShortcuts_Groups);
+  cbShortCuts.ItemIndex := 0;
+  dbgShortcuts.DataSource.DataSet.First;
+
+  sSortList := TStringList.Create;
+  sSortList.CommaText :='"Category COLLATE NOCASE","Caption COLLATE NOCASE","Hint COLLATE NOCASE","Shortcut COLLATE NOCASE"';
+
 end;
 
-procedure TfrmShortcuts.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TfrmShortcuts.FormDestroy(Sender: TObject);
 begin
-  with modDados.cdShortcuts do
-  begin
-    IndexDefs.Clear;
-
-    with IndexDefs.AddIndexDef do
-    begin
-      Name := 'ShortcutsDefaultIndex';
-      Fields := 'Index';
-      Options := [ixPrimary, ixUnique];
-    end;
-
-    IndexName := 'ShortcutsDefaultIndex';
-  end;
-  ActualizeGroups;
+sSortList.Free;
 end;
 
 procedure TfrmShortcuts.FormShow(Sender: TObject);
@@ -340,129 +212,48 @@ begin
   if (Key = VK_BACK) or (Key = VK_DELETE) or (Key = VK_SPACE) then
   begin
     Key := 0;
-    bNothing := True
+    bNothing := True;
+    lWarning.Caption := '';
+    bUpdate.Enabled := true;
   end;
 end;
 
 procedure TfrmShortcuts.jvhkShortcutKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
-var
-  pTmp: pointer;
-
 begin
-  if bNothing then
+  bShortCutInUse := false;
+
+  if Key = 0 then
   begin
-    bNothing := False;
-    Exit;
-  end;
+    bNothing := true;
+    lWarning.Caption := '';
+    bUpdate.Enabled := true;
+  end else bNothing := false;
 
-  if (Key = VK_CONTROL) or (Key = VK_MENU) or (Key = VK_SHIFT) or
-    (Key = VK_SPACE) then
+
+ modDados.sqldsShortcuts.First;
+
+ if modDados.sqldsShortcuts.Locate('Shortcut',    StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []), [loCaseInsensitive]) = True then
+    if (modDados.sqldsShortcuts.FieldByName('Caption').AsString <> modDados.cdShortcuts.FieldByName('Caption').AsString) OR
+        (modDados.sqldsShortcuts.FieldByName('Category').AsString <> modDados.cdShortcuts.FieldByName('Category').AsString) then
+           bShortcutInUse := True;
+
+
+  if bShortcutInUse then
   begin
-    jvhkShortcut.HotKey :=
-      TextToShortcut(modDados.cdShortcuts.FieldByName('Shortcut').Value);
-    Exit;
-  end;
-
-  bShortcutInUse := False;
-  with modDados.cdShortcuts do
-  begin
-    pTmp := GetBookmark;
-  end;
-
-  bLocating := True;
-  if (modDados.cdShortcuts.Locate('Shortcut',
-    StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []), []) = True)
-  then
-  begin
-
-    bShortcutInUse := True;
-
-    with modDados.cdShortcuts do
-    begin
-      if BookmarkValid(pTmp) then
-      begin
-        GoToBookmark(pTmp);
-        FreeBookmark(pTmp);
-      end;
-      Cancel;
-      Edit;
-    end;
-
-    stbShortcuts.Panels[3].Text := 'Keyboard shortcut already in use';
-    stbShortcuts.Panels[4].Text := '<' +
-      StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []) + '>';
-    bLocating := False;
+    lWarning.Caption := 'The shortcut is already in use for '''+ modDados.sqldsShortcuts.FieldByName('Caption').AsString+'''.';
+    bUpdate.Enabled := false;
   end
   else
   begin
-    ClearWarnings;
-    bLocating := False;
-
-    with modDados.cdShortcuts do
-    begin
-      Edit;
-      if (Key = VK_ESCAPE) then
-        FieldByName('Shortcut').Value := 'None'
-      else
-        FieldByName('Shortcut').Value := ShortcutToText(jvhkShortcut.HotKey);
-    end;
+    lWarning.Caption := '';
+    bUpdate.Enabled := true;
   end;
 end;
 
-procedure TfrmShortcuts.jvhkShortcutEnter(Sender: TObject);
+procedure TfrmShortcuts.jvShortcutSearchChange(Sender: TObject);
 begin
-  ClearWarnings;
-  with modDados.cdShortcuts do
-    Edit;
-end;
-
-procedure TfrmShortcuts.jvhkShortcutSearchChange(Sender: TObject);
-var
-  sTmp: string;
-
-begin
-  ClearWarnings;
-  with jvhkShortcutSearch do
-  begin
-    sTmp := StringReplace(ShortcutToText(HotKey), ' ', '', []);
-
-    if (sTmp = '') then
-    begin
-      Color := clWindow;
-      Font.Color := clBlack;
-      // Font.Style:= [];
-      Exit;
-    end;
-
-    if (modDados.cdShortcuts.Locate('Shortcut', sTmp, []) = True) then
-    begin
-      Color := clWindow;
-      Font.Color := clBlack;
-      // Font.Style:= [];
-    end
-    else
-    begin
-      Color := clRed;
-      Font.Color := clWhite;
-      // Font.Style:= [fsBold];
-    end;
-  end;
-end;
-
-procedure TfrmShortcuts.jvhkShortcutSearchEnter(Sender: TObject);
-begin
-  ClearWarnings;
-end;
-
-procedure TfrmShortcuts.bbtShortcutsEditClick(Sender: TObject);
-begin
-  ClearWarnings;
-  with modDados.cdShortcuts do
-    Edit;
-  dbeGroup.SetFocus;
-  with stbShortcuts do
-    Panels[0].Text := 'Edit mode';
+  UpdateSearchFilters;
 end;
 
 procedure TfrmShortcuts.bbtShortcutsLoadClick(Sender: TObject);
@@ -471,15 +262,13 @@ var
   sFile, sOldFile: string;
 
 begin
-  ClearWarnings;
-  bbtShortcutsCancelAllClick(nil);
-  od := TOpenDialog.Create(Self);
+{  od := TOpenDialog.Create(Self);
 
   try
     with od do
     begin
       InitialDir := frmTinnMain.sPathData;
-      Filter := 'XML (*.xml)|*.xml';
+      Filter := 'Text (*.txt)|*.txt';
 
       if Execute then
       begin
@@ -515,8 +304,6 @@ begin
           sShortcutsInUse := sFile;
         end;
 
-        with stbShortcuts do
-          Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
 
         MessageDlg(sFile + #13 + #13 + 'The file above was successfully loaded.'
           + #13 + 'It will be, from now, the default shortcuts!', mtInformation,
@@ -525,27 +312,12 @@ begin
     end;
   finally
     FreeAndNil(od);
-  end;
-end;
-
-procedure TfrmShortcuts.bbtShortcutsCancelClick(Sender: TObject);
-begin
-  ClearWarnings;
-
-  with modDados do
-  begin
-    cdShortcuts.Cancel;
-    cdShortcutsAfterScroll(nil);
-  end;
-  with stbShortcuts do
-    Panels[0].Text := 'Browse mode';
+  end;}
 end;
 
 procedure TfrmShortcuts.bbtShortcutsSaveClick(Sender: TObject);
 begin
-  ClearWarnings;
-
-  with modDados.cdShortcuts do
+{  with modDados.cdShortcuts do
   begin
     Edit;
     try
@@ -555,164 +327,169 @@ begin
       frmTinnMain.iShortcutsBeforeChanges := SavePoint;
     except
     end;
-  end;
+  end; }
 end;
 
-procedure TfrmShortcuts.bbtShortcutsSaveDefaultClick(Sender: TObject);
-var
-  sFile: string;
-  sd: TSaveDialog;
-
+procedure TfrmShortcuts.bUpdateClick(Sender: TObject);
+var stmp: String;
 begin
-  ClearWarnings;
-  bbtShortcutsSaveClick(nil);
-  sd := TSaveDialog.Create(Self);
-  try
-    with sd do
-    begin
-      InitialDir := frmTinnMain.sPathData;
-      Filter := 'XML (*.xml)|*.xml';
-      DefaultExt := '*.xml';
+ modDados.sqldsShortcuts.First;
 
-      if Execute then
-      begin
-        sFile := FileName;
-        if FileExists(sFile) then
-          if (MessageDlg(sFile + #13 + #13 +
-            'Do you want to overwrite this file?', mtConfirmation,
-            [mbYES, mbCANCEL], 0) <> idYES) then
-            Exit;
-        DeleteFile(sFile);
+ if modDados.sqldsShortcuts.Locate('Shortcut',    StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []), [loCaseInsensitive]) = True then
+    if (modDados.sqldsShortcuts.FieldByName('Caption').AsString <> modDados.cdShortcuts.FieldByName('Caption').AsString) OR
+        (modDados.sqldsShortcuts.FieldByName('Category').AsString <> modDados.cdShortcuts.FieldByName('Category').AsString) then
+           Exit;
 
-        with modDados.cdShortcuts do
-        begin
-          Edit;
-          Post;
-          MergeChangeLog;
-          SaveToFile(sFile);
-          bbtShortcutsSaveClick(nil);
-        end;
+ stmp := StringReplace(ShortcutToText(jvhkShortcut.HotKey), ' ', '', []);
+ if stmp = '' then
+   stmp := 'None';
 
-        with frmTinnMain do
-        begin
-          ReLoadDialogFileExtension(sdMain.FileTypes);
-          sShortcutsInUse := sFile;
-        end;
-        with stbShortcuts do
-          Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
-      end;
-    end;
-  finally
-    FreeAndNil(sd);
-  end;
+ with modDados.cdShortcuts do
+ begin
+   Edit;
+   FieldByName('Shortcut').AsString := stmp;
+   Post;
+   ApplyUpdates(-1);
+ end;
+
 end;
+
+
+
+
 
 procedure TfrmShortcuts.bbtShortcutsCloseClick(Sender: TObject);
 begin
-  with modDados.cdShortcuts do
-    SavePoint := frmTinnMain.iShortcutsBeforeChanges;
-
   Close;
-  frmTinnMain.Refresh;
 end;
 
-procedure TfrmShortcuts.dbeCaptionEnter(Sender: TObject);
+procedure TfrmShortcuts.dbgShortcutsDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+ icon : Ticon;
+ fixRect : TRect;
+ iImageIndex : integer;
+ sFieldText: String;
+ iIndex : integer;
 begin
-  ClearWarnings;
-end;
+with (Sender as TDbGrid).Canvas do
+begin
+  if  (gdFocused in State) or (gdRowSelected in State) or (gdSelected in State) then
+    Brush.Color  := clHighlight else
+    Brush.Color  := clWindow;
 
-procedure TfrmShortcuts.dbeGroupEnter(Sender: TObject);
-begin
-  ClearWarnings;
-end;
+    FillRect(Rect);
 
-procedure TfrmShortcuts.dbgShortcutsEnter(Sender: TObject);
-begin
-  ClearWarnings;
-end;
+  fixRect := Rect;
+  if (Sender as TDbGrid).DataSource.DataSet.RecordCount = 0 then
+    Exit;
 
-procedure TfrmShortcuts.dbgShortcutsKeyPress(Sender: TObject; var Key: Char);
-begin
-  ClearWarnings;
+  if Column.FieldName <>'' then
+    sFieldText := (Sender as TDbGrid).DataSource.DataSet.FieldByName(Column.FieldName).AsString
+  else sFieldText := '';
+
+  if Column.FieldName = 'Caption' then
+  begin
+    iIndex := (Sender as TDbGrid).DataSource.DataSet.FieldByName('Image').AsInteger;
+
+    if iIndex > -1 then
+    begin
+      try
+        icon := TIcon.Create;
+        frmTinnMain.imlTinnR.GetIcon(iIndex,icon);
+        Draw(Rect.Left, Rect.Top, icon);
+      finally
+        icon.Free;
+      end;
+    end;
+    fixRect.Left := fixRect.Left + 16;
+  end;
+  fixRect.Left := fixRect.Left + 2;
+  TextRect(fixRect, sFieldText, [tfEndEllipsis]);
+end;
 end;
 
 procedure TfrmShortcuts.dbgShortcutsTitleClick(Column: TColumn);
+const PreviousColumnIndex : integer = -1;
+var iIndex: Integer;
 begin
-  ClearWarnings;
 
-  with modDados do
+  if PreviousColumnIndex > -1 then
   begin
-    cdShortcuts.IndexFieldNames := Column.FieldName;
-    cdShortcutsAfterScroll(nil);
+    dbgShortcuts.Columns[PreviousColumnIndex].title.Font.Style :=
+    dbgShortcuts.Columns[PreviousColumnIndex].title.Font.Style - [fsBold];
   end;
+
+  Column.title.Font.Style :=
+  Column.title.Font.Style + [fsBold];
+  PreviousColumnIndex := Column.Index;
+
+
+  // Attention: Delete and Insert are also used in system - don't mix them up!
+  if sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE') > -1 then
+  begin
+    if sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE') = 0 then
+    begin
+      sSortList.Delete(0);
+      sSortList.Insert(0, Column.FieldName+' COLLATE NOCASE DESC');
+    end else
+    begin
+      sSortList.Delete(sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE'));
+      sSortList.Insert(0, Column.FieldName+' COLLATE NOCASE');
+    end;
+
+  end else
+  begin
+      sSortList.Delete(sSortList.IndexOf(Column.FieldName+' COLLATE NOCASE DESC'));
+      sSortList.Insert(0, Column.FieldName+' COLLATE NOCASE');
+  end;
+
+
+  dbgShortcuts.DataSource.DataSet.DisableControls;
+  modDados.sqldsShortcuts.Close;
+  modDados.sqldsShortcuts.CommandText := 'SELECT * FROM Shortcuts ORDER BY '+ StringReplace(sSortList.CommaText, '"', '', [rfReplaceAll
+]);
+  modDados.sqldsShortcuts.Open;
+  modDados.cdShortcuts.Refresh;
+  dbgShortcuts.DataSource.DataSet.EnableControls;
+
 end;
 
-procedure TfrmShortcuts.dbmHintEnter(Sender: TObject);
-begin
-  ClearWarnings;
-end;
-
-procedure TfrmShortcuts.DBNavigator1Click(Sender: TObject;
-  Button: TNavigateBtn);
-begin
-  ClearWarnings;
-end;
 
 procedure TfrmShortcuts.bbHelpClick(Sender: TObject);
 begin
   frmTinnMain.OpenUserGuidePDF('"Shortcuts"');
 end;
 
-procedure TfrmShortcuts.bbtShortcutsCancelAllClick(Sender: TObject);
-begin
-  ClearWarnings;
-
-  with modDados do
-  begin
-    cdShortcuts.SavePoint := frmTinnMain.iShortcutsBeforeChanges;
-    cdShortcutsAfterScroll(nil);
-  end;
-end;
-
 procedure TfrmShortcuts.bbtShortcutsRestoreDefaultClick(Sender: TObject);
+var bTryDelete: Boolean;
 begin
-  ClearWarnings;
-  bbtShortcutsCancelAllClick(nil);
-  if not FileExists(frmTinnMain.sFileDataOrigin) then
-    Exit;
 
+ if FileExists(frmTinnMain.sFileDataOrigin) then
   try
-    with modDados.cdShortcuts do
-      Active := False;
+    modDados.cdShortcuts.Active := False;
+    modDados.sqldsShortcuts.Active := False;
+    modDados.sqlShortcuts.Close;
+
 
     with frmTinnMain.zipKit do
     begin
       FileName := frmTinnMain.sFileDataOrigin;
       BaseDirectory := frmTinnMain.sPathData;
-      ExtractFiles('Shortcuts.xml');
+      ExtractFiles('Shortcuts.txt');
       CloseArchive;
     end;
 
-    with modDados.cdShortcuts do
-    begin
-      FileName := frmTinnMain.sPathData + '\Shortcuts.xml';
-      Active := True;
-    end;
-
-    with frmTinnMain do
-    begin
-      iShortcutsBeforeChanges := modDados.cdShortcuts.SavePoint;
-      sShortcutsInUse := frmTinnMain.sPathData + '\Shortcuts.xml';
-    end;
-
-    with stbShortcuts do
-      Panels[2].Text := ExtractFileName(frmTinnMain.sShortcutsInUse);
-
-    MessageDlg('The original ''Shortcuts.xml'' was successfully restored.' + #13
-      + #13 + 'It will be, from now, the default shortcuts!', mtInformation,
-      [MBOK], 0);
+    modDados.LoadShortcuts;
+    frmTinnMain.SetShortcuts;
   except
-    // todo!
+    bTryDelete := true;
+  end else  bTryDelete := true;
+
+  if bTryDelete then
+  begin
+    MessageDlg('Tinn-R needs to restart in order to restore the shortcuts.', mtInformation, [mbOk],0);
+
   end;
 end;
 

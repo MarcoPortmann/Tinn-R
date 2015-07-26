@@ -154,6 +154,10 @@ object frmTinnMain: TfrmTinnMain
   OldCreateOrder = False
   Position = poDesigned
   ShowHint = True
+  Touch.InteractiveGestures = [igZoom, igPan, igRotate, igTwoFingerTap, igPressAndTap]
+  Touch.InteractiveGestureOptions = [igoPanSingleFingerHorizontal, igoPanSingleFingerVertical, igoPanInertia, igoPanGutter, igoParentPassthrough]
+  Touch.ParentTabletOptions = False
+  Touch.TabletOptions = [toPressAndHold, toSmoothScrolling]
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDragDrop = FormDragDrop
@@ -208,14 +212,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Label1'
       Visible = False
     end
-    object Label2: TLabel
-      Left = 986
-      Top = 2
-      Width = 32
-      Height = 13
-      Caption = 'Label2'
-      Visible = False
-    end
     object Label3: TLabel
       Left = 1121
       Top = 2
@@ -224,12 +220,12 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Label3'
       Visible = False
     end
-    object Label4: TLabel
-      Left = 1031
+    object Label5: TLabel
+      Left = 1176
       Top = 2
-      Width = 32
+      Width = 80
       Height = 13
-      Caption = 'Label4'
+      Caption = 'ActiveFormErrors'
       Visible = False
     end
     object atbRSend: TActionToolBar
@@ -376,7 +372,7 @@ object frmTinnMain: TfrmTinnMain
     object atbView: TActionToolBar
       Left = 765
       Top = 31
-      Width = 229
+      Width = 228
       Height = 25
       ActionManager = amMain
       Align = alNone
@@ -446,15 +442,15 @@ object frmTinnMain: TfrmTinnMain
       TabOrder = 10
       OnSelect = cbLexersSelect
     end
-    object Button1: TButton
-      Left = 1024
+    object Button2: TButton
+      Left = 1104
       Top = 31
       Width = 75
       Height = 25
-      Caption = 'Button1'
+      Caption = 'Button2'
       TabOrder = 11
       Visible = False
-      OnClick = Button1Click
+      OnClick = Button2Click
     end
   end
   object atbStatus: TActionToolBar
@@ -587,7 +583,7 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 408
+    Left = 432
     Top = 512
     object pmenGroup_OLD: TMenuItem
       Caption = 'Group'
@@ -798,7 +794,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 200
     Bitmap = {
-      494C01010A0028066C0910001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A002806A40910001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -1264,10 +1260,12 @@ object frmTinnMain: TfrmTinnMain
     end
   end
   object imlTinnR: TImageList
+    BlendColor = clHighlight
+    Masked = False
     Left = 56
     Top = 160
     Bitmap = {
-      494C010125012806780910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010125012806B00910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000A0040000010020000000000000A0
       04000000000000000000000000000000000000000000369DD9003199D8002C94
       D7002890D600238CD5001E88D4001A84D3001580D200117CD1000E79D1000A76
@@ -11048,6 +11046,7 @@ object frmTinnMain: TfrmTinnMain
     Top = 272
     object actShowMenuCompletion: TAction
       Caption = 'actShowMenuShortcuts'
+      OnExecute = sdMainShow
     end
     object actRcardInsert: TAction
       Category = 'R library'
@@ -11058,34 +11057,6 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 16455
       OnExecute = actRcardInsertExecute
     end
-    object actCompletionHelpSelected: TAction
-      Category = 'dtb Completion'
-      Caption = 'Help'
-      Hint = 'Completion: help (current)'
-      ImageIndex = 27
-    end
-    object actCompletionExampleSelected: TAction
-      Category = 'dtb Completion'
-      Caption = 'Example'
-      Hint = 'Completion: example (current)'
-      ImageIndex = 26
-    end
-    object actCompletionCopyFunction: TAction
-      Category = 'dtb Completion'
-      Caption = 'Copy function'
-      Hint = 'Completion: copy function'
-    end
-    object actCompletionCopyDescrition: TAction
-      Category = 'dtb Completion'
-      Caption = 'Copy descrition'
-      Hint = 'Completion: copy descrition'
-    end
-    object actCompletionEdit: TAction
-      Category = 'dtb Completion'
-      Caption = 'Edit'
-      Hint = 'Completion: edit'
-      ImageIndex = 18
-    end
     object actRcardInsertNoArgs: TAction
       Category = 'R library'
       Caption = 'Insert without arguments'
@@ -11094,13 +11065,6 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 267
       ShortCut = 16456
       OnExecute = actRcardInsertNoArgsExecute
-    end
-    object actCompletionInsert: TAction
-      Category = 'dtb Completion'
-      Caption = 'Insert'
-      Enabled = False
-      Hint = 'Completion: insert'
-      ImageIndex = 267
     end
     object actRCardHelp: TAction
       Category = 'R library'
@@ -11149,8 +11113,8 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actShortcutsHelpExecute
     end
     object actShortcutsEdit: TAction
-      Category = 'dtb Shortcuts'
-      Caption = 'Edit'
+      Category = 'Options'
+      Caption = 'Shortcuts settings'
       Hint = 'Shortcuts: edit'
       ImageIndex = 18
       OnExecute = actShortcutsEditExecute
@@ -12642,21 +12606,13 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 265
       OnExecute = actRtermLoadHistoryExecute
     end
-    object actRtermIOHistoryPrior: TAction
+    object actRtermIOHistory: TAction
       Category = 'Rterm'
       Caption = 'Prior'
-      Hint = 'Rterm: prior (history)'
-      ImageIndex = 257
+      Hint = 'Shows a popup menul with all commands recently send to R'
+      ImageIndex = 273
       ShortCut = 32806
-      OnExecute = actRtermIOHistoryPriorExecute
-    end
-    object actRtermIOHistoryNext: TAction
-      Category = 'Rterm'
-      Caption = 'Next'
-      Hint = 'Rterm: next (history)'
-      ImageIndex = 259
-      ShortCut = 32808
-      OnExecute = actRtermIOHistoryNextExecute
+      OnExecute = actRtermIOHistoryExecute
     end
     object actRtermSaveWorkspace: TAction
       Category = 'Rterm'
@@ -13652,12 +13608,10 @@ object frmTinnMain: TfrmTinnMain
       Category = 'Developer'
       Caption = 'Actionlist to clipboard'
       Enabled = False
-      OnExecute = actActionListToClipboardExecute
     end
     object actActionListToDataset: TAction
       Category = 'Developer'
       Caption = 'Actionlist to dataset'
-      OnExecute = actActionListToDatasetExecute
     end
     object actDatasetToActionList: TAction
       Category = 'Developer'
@@ -13800,12 +13754,36 @@ object frmTinnMain: TfrmTinnMain
       Visible = False
       OnExecute = acShowNotificationExecute
     end
+    object actMarkColor1: TAction
+      Category = 'Code visualization'
+      Caption = 'Mark green'
+      ImageIndex = 107
+      OnExecute = actMarkColor1Execute
+    end
+    object actMarkColor2: TAction
+      Category = 'Code visualization'
+      Caption = 'Mark red'
+      ImageIndex = 105
+      OnExecute = actMarkColor2Execute
+    end
+    object actUnMarkColor: TAction
+      Category = 'Code visualization'
+      Caption = 'Remove color marks'
+      ImageIndex = 104
+      OnExecute = actUnMarkColorExecute
+    end
+    object actSendMarkColor1Only: TAction
+      Category = 'R send'
+      Caption = 'Send green marked text only'
+      GroupIndex = 22
+      ImageIndex = 235
+    end
   end
   object imlProject: TImageList
     Left = 56
     Top = 232
     Bitmap = {
-      494C0101050028066C0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105002806A40910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14080,7 +14058,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 264
     Bitmap = {
-      494C0101040028066C0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104002806A40910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14351,187 +14329,6 @@ object frmTinnMain: TfrmTinnMain
       000100038007FFFFFFFFFFFFFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object pmenIO: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    TextMargin = 1
-    Left = 304
-    Top = 416
-    object pmemIOShowHide: TMenuItem
-      Action = actRtermVisible
-    end
-    object N106: TMenuItem
-      Caption = '-'
-    end
-    object Helpselected1: TMenuItem
-      Action = actRContHelpSelectedWord
-    end
-    object Exampleselected1: TMenuItem
-      Action = actRContExampleSelectedWord
-    end
-    object Help2: TMenuItem
-      Action = actRContHelp
-    end
-    object N169: TMenuItem
-      Caption = '-'
-    end
-    object pmemIOEdit: TMenuItem
-      Caption = 'Edit'
-      ImageIndex = 276
-      object pmemIOUndo: TMenuItem
-        Action = actEditUndo
-      end
-      object pmemIORedo: TMenuItem
-        Action = actEditRedo
-      end
-      object N47: TMenuItem
-        Caption = '-'
-      end
-      object pmemIOCopy: TMenuItem
-        Action = actEditCopy
-      end
-      object pmemIOCut: TMenuItem
-        Action = actEditCut
-      end
-      object pmemIOPaste: TMenuItem
-        Action = actEditPaste
-      end
-      object N56: TMenuItem
-        Caption = '-'
-      end
-      object pmemIOSelectAll: TMenuItem
-        Action = actEditSelectAll
-      end
-    end
-    object pmemIOFile: TMenuItem
-      Caption = 'File'
-      ImageIndex = 32
-      object pmemIOFileSave: TMenuItem
-        Action = actRtermIOSave
-      end
-      object pmemIOFileSaveAs: TMenuItem
-        Action = actRtermIOSaveAs
-      end
-      object pmemIOFilePrint: TMenuItem
-        Action = actRtermIOPrint
-      end
-    end
-    object N138: TMenuItem
-      Caption = '-'
-    end
-    object pmemIOClear: TMenuItem
-      Caption = 'Clear'
-      ImageIndex = 20
-      object pmemIOClearIO: TMenuItem
-        Action = actRtermIOClear
-      end
-      object pmemIOClearIOLog: TMenuItem
-        Action = actRtermIOandLogClear
-      end
-    end
-    object pmemIOFocus: TMenuItem
-      Caption = 'Focus'
-      ImageIndex = 274
-      object pmemIOSetFocusEditor: TMenuItem
-        Action = actRtermEditorSetFocus
-        AutoCheck = True
-      end
-      object pmemIOSetFocusConsole: TMenuItem
-        Action = actRtermIOSetFocus
-        AutoCheck = True
-      end
-      object pmemIOSetFocusLog: TMenuItem
-        Action = actRtermLogSetFocus
-        AutoCheck = True
-      end
-    end
-    object pmemIOSize: TMenuItem
-      Caption = 'Size'
-      ImageIndex = 248
-      object pmemIOSizeMaximize: TMenuItem
-        Action = actRtermMaximize
-      end
-      object pmemIOSizeDivide: TMenuItem
-        Action = actRtermDivide
-      end
-      object pmemIOSizeMinimize: TMenuItem
-        Action = actRtermMinimize
-      end
-    end
-    object pmemIOSplit: TMenuItem
-      Caption = 'Split'
-      ImageIndex = 255
-      object pmemIOSplitHorizontal: TMenuItem
-        Action = actRtermIOSplitHorizontal
-        AutoCheck = True
-      end
-      object pmemIOSplitVertical: TMenuItem
-        Action = actRtermIOSplitVertical
-        AutoCheck = True
-      end
-      object N177: TMenuItem
-        Caption = '-'
-      end
-      object pmemIOSplitRemove: TMenuItem
-        Action = actRtermIOSplitRemove
-        AutoCheck = True
-      end
-    end
-    object pmemIOSHighlighter: TMenuItem
-      Caption = 'Highlighter'
-      ImageIndex = 62
-      object pmemIOSyntaxText: TMenuItem
-        Action = actRtermSetIOSyntaxToText
-        AutoCheck = True
-      end
-      object pmemIOSyntaxR: TMenuItem
-        Action = actRtermSetIOSyntaxToR
-        AutoCheck = True
-      end
-    end
-    object pmemIOLineWrap: TMenuItem
-      Action = actRtermIOLineWrap
-      Caption = 'Line wrap (show/hide)'
-    end
-    object N108: TMenuItem
-      Caption = '-'
-    end
-    object pmemIOHistory: TMenuItem
-      Caption = 'History'
-      ImageIndex = 272
-      object pmemIOHistorySave: TMenuItem
-        Action = actRtermSaveHistory
-      end
-      object pmemIOHistoryLoad: TMenuItem
-        Action = actRtermLoadHistory
-      end
-      object N175: TMenuItem
-        Caption = '-'
-      end
-      object pmemIOHistoryPrior: TMenuItem
-        Action = actRtermIOHistoryPrior
-      end
-      object pmemIOHistoryNext: TMenuItem
-        Action = actRtermIOHistoryNext
-      end
-    end
-    object pmemIOWorkspace: TMenuItem
-      Caption = 'Workspace'
-      ImageIndex = 273
-      object pmemIOWorkspaceSave: TMenuItem
-        Action = actRtermSaveWorkspace
-      end
-      object pmemIOWorkspaceLoad: TMenuItem
-        Action = actRtermLoadWorkspace
-      end
-    end
-  end
   object pmenLog: TJvPopupMenu
     Images = imlTinnR
     Style = msOffice
@@ -14782,7 +14579,7 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 304
+    Left = 328
     Top = 512
     object pmenWinExplorerFoldersRefresh: TMenuItem
       Caption = 'Refresh'
@@ -14814,7 +14611,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 304
     Bitmap = {
-      494C010104001003540610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101040010038C0610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -15099,7 +14896,7 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 304
+    Left = 328
     Top = 464
     object MenuItem1: TMenuItem
       Action = actCommentsHelp
@@ -16055,8 +15852,8 @@ object frmTinnMain: TfrmTinnMain
           item
             Items = <
               item
-                Action = actSplitHorizontal
-                Caption = '&Horizontal'
+                Action = actRtermIOSplitHorizontal
+                Caption = '&Horizontal split (IO and LOG in the same view)'
                 ImageIndex = 146
               end
               item
@@ -16480,6 +16277,22 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 30
       OnExecute = actDeleteCategoryExecute
     end
+    object actSendMarkColor2Only: TAction
+      Category = 'R send'
+      Caption = 'Send red marked text only'
+      GroupIndex = 22
+      ImageIndex = 234
+    end
+    object actExcludeMarkColor1: TAction
+      Category = 'R send'
+      Caption = 'Don'#39't send green marked text'
+      ImageIndex = 22
+    end
+    object actExcludeMarkColor2: TAction
+      Category = 'R send'
+      Caption = 'Don'#39't send red marked text'
+      ImageIndex = 22
+    end
   end
   object pabWinExplorerFiles: TPopupActionBar
     Left = 880
@@ -16830,6 +16643,41 @@ object frmTinnMain: TfrmTinnMain
     object Editorshowhide2: TMenuItem
       Action = actEditorLineWrap
       Caption = 'Line wrap (show/hide)'
+    end
+    object N21: TMenuItem
+      Caption = '-'
+    end
+    object Markgreen1: TMenuItem
+      Action = actMarkColor1
+    end
+    object Markred1: TMenuItem
+      Action = actMarkColor2
+    end
+    object Removecolormarks1: TMenuItem
+      Action = actUnMarkColor
+    end
+    object Sendingrulesforcoloredmarkers1: TMenuItem
+      Caption = 'Sending rules for color markers'
+      object Sendgreenmarkedtextonly1: TMenuItem
+        Action = actSendMarkColor1Only
+        GroupIndex = 34
+      end
+      object Sendredmarkedtextonly1: TMenuItem
+        Action = actSendMarkColor2Only
+        GroupIndex = 34
+      end
+      object N26: TMenuItem
+        Caption = '-'
+        GroupIndex = 34
+      end
+      object Dontsendgreenmarkedtext1: TMenuItem
+        Action = actExcludeMarkColor1
+        GroupIndex = 34
+      end
+      object Dontsendredmarkedtext1: TMenuItem
+        Action = actExcludeMarkColor2
+        GroupIndex = 34
+      end
     end
   end
   object jvMenMain: TMainMenu
@@ -17412,10 +17260,6 @@ object frmTinnMain: TfrmTinnMain
       object menToolsDatabase1: TMenuItem
         Caption = 'Database'
         GroupIndex = 1
-        object menToolsDatabaseShortcuts1: TMenuItem
-          Action = actShortcutsEdit
-          Caption = 'Shortcuts'
-        end
         object menToolsDatabaseComments1: TMenuItem
           Action = actDoComments
           GroupIndex = 1
@@ -17725,22 +17569,6 @@ object frmTinnMain: TfrmTinnMain
       object menToolsUtils1: TMenuItem
         Caption = 'Utils'
         GroupIndex = 12
-        object menToolsUtilsActionlistToClipboard1: TMenuItem
-          Action = actActionListToClipboard
-          GroupIndex = 12
-        end
-        object menToolsUtilsActionlistToDataset1: TMenuItem
-          Action = actActionListToDataset
-          GroupIndex = 12
-        end
-        object menToolsUtilsDatasetToActionlist1: TMenuItem
-          Action = actDatasetToActionList
-          GroupIndex = 12
-        end
-        object N87: TMenuItem
-          Caption = '-'
-          GroupIndex = 12
-        end
         object menToolsUtilsTesteRegex1: TMenuItem
           Action = actTestRegEx
           GroupIndex = 12
@@ -17949,10 +17777,14 @@ object frmTinnMain: TfrmTinnMain
             Caption = '-'
           end
           object menRtermHistoryPrior1: TMenuItem
-            Action = actRtermIOHistoryPrior
+            Action = actRtermIOHistory
           end
           object menRtermHistoryNext1: TMenuItem
-            Action = actRtermIOHistoryNext
+            Caption = 'Show command history'
+            Hint = 'Shows a popup menul with all commands recently send to R'
+            ImageIndex = 259
+            ShortCut = 32808
+            OnClick = actRtermIOHistoryExecute
           end
         end
         object menRtermWorkspace1: TMenuItem
@@ -18353,7 +18185,7 @@ object frmTinnMain: TfrmTinnMain
     Port = 0
     OnRead = csMainBaseRead
     OnError = csMainBaseError
-    Left = 312
+    Left = 328
     Top = 104
   end
   object pabLibrary: TPopupActionBar
@@ -18407,5 +18239,184 @@ object frmTinnMain: TfrmTinnMain
     OnTimer = tNotifyTimerTimer
     Left = 160
     Top = 352
+  end
+  object StartupThreadShortcuts: TIdThreadComponent
+    Active = False
+    Loop = False
+    Priority = tpNormal
+    StopMode = smTerminate
+    OnRun = StartupThreadShortcutsRun
+    Left = 232
+    Top = 360
+  end
+  object pabIO: TPopupActionBar
+    Images = imlTinnR
+    Left = 880
+    Top = 408
+    object pmemIOShowHide1: TMenuItem
+      Action = actRtermVisible
+    end
+    object N37: TMenuItem
+      Caption = '-'
+    end
+    object Helpselected4: TMenuItem
+      Action = actRContHelpSelectedWord
+    end
+    object Exampleselected3: TMenuItem
+      Action = actRContExampleSelectedWord
+    end
+    object Help4: TMenuItem
+      Action = actRContHelp
+    end
+    object N38: TMenuItem
+      Caption = '-'
+    end
+    object pmemIOEdit1: TMenuItem
+      Caption = 'Edit'
+      ImageIndex = 276
+      object pmemIOUndo1: TMenuItem
+        Action = actEditUndo
+      end
+      object pmemIORedo1: TMenuItem
+        Action = actEditRedo
+      end
+      object N39: TMenuItem
+        Caption = '-'
+      end
+      object pmemIOCopy1: TMenuItem
+        Action = actEditCopy
+      end
+      object pmemIOCut1: TMenuItem
+        Action = actEditCut
+      end
+      object pmemIOPaste1: TMenuItem
+        Action = actEditPaste
+      end
+      object N41: TMenuItem
+        Caption = '-'
+      end
+      object pmemIOSelectAll1: TMenuItem
+        Action = actEditSelectAll
+      end
+    end
+    object pmemIOFile1: TMenuItem
+      Caption = 'File'
+      ImageIndex = 32
+      object pmemIOFileSave1: TMenuItem
+        Action = actRtermIOSave
+      end
+      object pmemIOFileSaveAs1: TMenuItem
+        Action = actRtermIOSaveAs
+      end
+      object pmemIOFilePrint1: TMenuItem
+        Action = actRtermIOPrint
+      end
+      object pmemIOWorkspace1: TMenuItem
+        Caption = 'Workspace'
+        ImageIndex = 273
+        object pmemIOWorkspaceSave1: TMenuItem
+          Action = actRtermSaveWorkspace
+        end
+        object pmemIOWorkspaceLoad1: TMenuItem
+          Action = actRtermLoadWorkspace
+        end
+      end
+      object pmemIOHistory1: TMenuItem
+        Caption = 'History'
+        ImageIndex = 272
+        object pmemIOHistorySave1: TMenuItem
+          Action = actRtermSaveHistory
+        end
+        object pmemIOHistoryLoad1: TMenuItem
+          Action = actRtermLoadHistory
+        end
+        object N85: TMenuItem
+          Caption = '-'
+        end
+      end
+    end
+    object N77: TMenuItem
+      Caption = '-'
+    end
+    object pmemIOClear1: TMenuItem
+      Caption = 'Clear'
+      ImageIndex = 20
+      object pmemIOClearIO1: TMenuItem
+        Action = actRtermIOClear
+      end
+      object pmemIOClearIOLog1: TMenuItem
+        Action = actRtermIOandLogClear
+      end
+    end
+    object pmemIOFocus1: TMenuItem
+      Caption = 'Focus'
+      ImageIndex = 274
+      object pmemIOSetFocusEditor1: TMenuItem
+        Action = actRtermEditorSetFocus
+        AutoCheck = True
+      end
+      object pmemIOSetFocusConsole1: TMenuItem
+        Action = actRtermIOSetFocus
+        AutoCheck = True
+      end
+      object pmemIOSetFocusLog1: TMenuItem
+        Action = actRtermLogSetFocus
+        AutoCheck = True
+      end
+    end
+    object pmemIOSize1: TMenuItem
+      Caption = 'Size'
+      ImageIndex = 248
+      object pmemIOSizeMaximize1: TMenuItem
+        Action = actRtermMaximize
+      end
+      object pmemIOSizeDivide1: TMenuItem
+        Action = actRtermDivide
+      end
+      object pmemIOSizeMinimize1: TMenuItem
+        Action = actRtermMinimize
+      end
+    end
+    object pmemIOSplit1: TMenuItem
+      Caption = 'Split'
+      ImageIndex = 255
+      object pmemIOSplitHorizontal1: TMenuItem
+        Action = actRtermIOSplitHorizontal
+        AutoCheck = True
+      end
+      object pmemIOSplitVertical1: TMenuItem
+        Action = actRtermIOSplitVertical
+        AutoCheck = True
+      end
+      object N82: TMenuItem
+        Caption = '-'
+      end
+      object pmemIOSplitRemove1: TMenuItem
+        Action = actRtermIOSplitRemove
+        AutoCheck = True
+      end
+    end
+    object pmemIOSHighlighter1: TMenuItem
+      Caption = 'Highlighter'
+      ImageIndex = 62
+      object pmemIOSyntaxText1: TMenuItem
+        Action = actRtermSetIOSyntaxToText
+        AutoCheck = True
+      end
+      object pmemIOSyntaxR1: TMenuItem
+        Action = actRtermSetIOSyntaxToR
+        AutoCheck = True
+      end
+    end
+    object pmemIOLineWrap1: TMenuItem
+      Action = actRtermIOLineWrap
+    end
+    object N83: TMenuItem
+      Caption = '-'
+    end
+    object pmemIOHistoryPrior1: TMenuItem
+      Action = actRtermIOHistory
+      Caption = 'Show command history'
+    end
   end
 end

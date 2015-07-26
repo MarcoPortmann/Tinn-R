@@ -48,7 +48,7 @@ interface
 
 uses
   Windows, SysUtils, Dialogs, Classes, Clipbrd, Registry, Graphics, Controls, Datasnap.DBClient,
-  StrUtils,
+  StrUtils,          ufrmEditor,
   ActiveX, ShlObj, ComObj, PerlRegEx, WinInet, StdCtrls, System.UITypes, DScintilla, DScintillaTypes;
 
   const
@@ -115,7 +115,7 @@ procedure RestorePriorClipboardText;
 procedure StrSplit(const cDelimiter: Char; sInput: string;
   const tsStrings: TStrings);
 
-
+function GetEditorById(Id: integer; var editor: TFrmEditor): Boolean;
 // Editor function
 procedure InsertDatabaseEntry(sInsertField: String; Database: TClientDataSet;  AllArguments: Boolean = True);
 procedure SetCursorInInsertion(sText: String; var iStart, iEnd: Integer; var bDeleteSelection: Boolean);
@@ -140,7 +140,8 @@ procedure SelectToLineStart(Editor: TDScintilla);
 procedure SetWordInvertCase(Editor: TDScintilla);
 procedure SetInvertCase(Editor: TDScintilla);
 procedure AlignChar(sAlignChar: String; sciEditor: TDScintilla);
-
+procedure InvertCaseScintilla(sciEditor: TDScintilla);
+function InvertCaseText(sText: String): String;
 
 
 // Find
@@ -157,7 +158,7 @@ uses
   ShellAPI,
   SHDocVw,
   Forms,
-  ufrmEditor,
+
   ufrmReplaceText,
   ufrmSearchText,
   ufrmMain;
@@ -206,6 +207,27 @@ begin
     FreeMem(chTmp);
   end;
 end;
+
+function GetEditorById(Id: integer; var editor: TFrmEditor): Boolean;
+var
+  i: integer;
+  bFound: Boolean;
+begin
+  editor := nil;
+
+  Result := False;
+  if Id >= 0 then
+    for i := (frmTinnMain.MDIChildCount - 1) downto 0 do
+    begin
+      if (frmTinnMain.MDIChildren[i]).Tag = Id then
+      begin
+        editor := (frmTinnMain.MDIChildren[i] AS TFrmEditor);
+        Result := True;
+        break;
+      end;
+    end;
+end;
+
 
 function IsGuiRunning(var hRgui: HWND; var sCaption: string;
   var iRecognitionCaption, iRecognitionType: Integer): boolean;
@@ -1395,6 +1417,7 @@ end;
 
 procedure SetLineTextVisibility(bVisible: Boolean; Editor: TDScintilla);
 begin
+//  frmTinnMain.Label6.caption := inttostr(random(99999))+' '+Editor.Parent.Name+' - '+Editor.Name;
   if bVisible then
     Editor.SetMarginWidthN(MARGIN_LINE_NUMBERS, Editor.TextWidth(Editor.MarginGetStyle(Editor.GetLineCount), inttostr(Editor.GetLineCount) )+8)
   else  Editor.SetMarginWidthN(MARGIN_LINE_NUMBERS, 0);
@@ -1672,6 +1695,10 @@ begin
 
         if (frmTinnMain.sSearchText <> EmptyStr) then
           DoSearchReplaceText(seEditor, bReplace, False);
+
+        if frmTinnMain.sciLastSearchEditor <> nil then
+         frmTinnMain.sciLastSearchEditor.SetFocus;
+
       end;
 
     finally
@@ -2103,7 +2130,7 @@ begin
 
   if seEditor = nil then
     exit;
-  // For while, it is impossible to search with F3 any old selection!
+
   frmTinnMain.bSearchSelectionOnly := False;
 
   if (frmTinnMain.sSearchText = EmptyStr) then
@@ -2235,7 +2262,37 @@ begin
 end;
 
 
+procedure InvertCaseScintilla(sciEditor: TDScintilla);
+var i: Integer;
+begin
+with sciEditor do
+begin
+  for i := GetSelections-1 downto 0 do
+  begin
+   SetTargetStart(GetSelectionNStart(i));
+   SetTargetEnd(GetSelectionNEnd(i));
+   ReplaceTarget(InvertCaseText(GetTextRange(GetSelectionNStart(i), GetSelectionNEnd(i))));
+  end;
+end;
+end;
 
+
+
+function InvertCaseText(sText: String): String;
+ var i : Integer;
+begin
+  //source: http://www.delphipages.com/forum/showthread.php?t=71302
+  Result := '';
+  for i := 1 to Length(sText) do
+  begin
+    if (sText[i] = Uppercase(sText[i])) then
+    begin
+      Result := Result + LowerCase(sText[i]);
+    end
+    else
+      Result := Result + UpperCase(sText[i]);
+  end;
+end;
 
 
 end.

@@ -125,15 +125,13 @@ object frmAppOptions: TfrmAppOptions
         00200028006C0061007400650078002900}
       LineColor = clScrollBar
       PageControl = pgApp
-      ExplicitLeft = -39
-      ExplicitTop = -109
     end
     object pgApp: TJvgPageControl
       Left = 183
       Top = 1
       Width = 340
       Height = 487
-      ActivePage = tbsEditorKeystrokes
+      ActivePage = tbsAppReformatR
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -2731,6 +2729,7 @@ object frmAppOptions: TfrmAppOptions
             Height = 43
             Caption = ' Split the editor after reformatting (to compare) '
             Columns = 3
+            Enabled = False
             ItemIndex = 1
             Items.Strings = (
               'Not split'

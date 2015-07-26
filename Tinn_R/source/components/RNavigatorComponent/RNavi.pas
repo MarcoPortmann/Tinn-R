@@ -528,10 +528,14 @@ procedure TRNavigator.GoToSelected;
 begin
  if  (self.Selected <> nil) and (FEditor <> nil) then
    begin
-     FEditor.GotoLine(pstructdata(self.Selected.Data)^.Line);
-     FEditor.EnsureVisible(pstructdata(self.Selected.Data)^.Line);
-     FEditor.GotoLine(pstructdata(self.Selected.Data)^.Line);
-     FEditor.SetFocus();
+     with FEditor do
+     begin
+       GotoLine(pstructdata(self.Selected.Data)^.Line);
+       EnsureVisible(pstructdata(self.Selected.Data)^.Line);
+       GotoLine(pstructdata(self.Selected.Data)^.Line);
+       VerticalCentreCaret;
+       SetFocus();
+     end;
       //self.Canvas.TextOut(1,100,inttostr(random(1000))   );
 
    end;

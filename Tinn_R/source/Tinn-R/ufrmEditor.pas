@@ -134,9 +134,11 @@ type
     bEditorFormIsLoading: Boolean;
     // procedure MatchBracket;
     // procedure RtermSplit(bSplitHoriz: boolean = True);
+    iLineOldCount : Integer;
 
+    procedure AlignWithFirstLine;
+    procedure AlignEqualSign;
     procedure CheckSaveStatus;
-
     procedure Comment(sStartComment, sEndComment: string);
     procedure CopyFormattedHTML;
     procedure CopyFormattedRTF;
@@ -145,6 +147,9 @@ type
     procedure DoCardInsert;
     procedure DoCompletionInsert(bSearch: Boolean = False);
     procedure DoTipInsert;
+    procedure EdInvertCase;
+    procedure EdLowerCase;
+    procedure EdUpperCase;
     procedure EditorRemoveSplit;
     procedure EditorSplit(bSplitHoriz: Boolean = True);
     procedure EnableSave;
@@ -154,31 +159,29 @@ type
     procedure FullPathUnix;
     procedure FullPathWindows;
     procedure GetActiveEditorOnForm(var seEditor: TDScintilla);
+    procedure GetCursorTo(sWay: string);
     function  GetEditorLexerId: Integer;
     function  GetEditorLexerName: String;
-
     function  GetMarkerString: string;
     function  GetToggleString: String;
-    procedure GetCursorTo(sWay: string);
     procedure GotoLine;
     procedure IndentBlock;
-    procedure EdInvertCase;
     procedure InvertSelection;
-
-
+    procedure MarkSelectionColor(iMarkerNumber: Integer);
+    procedure ProcessTidy;
+    procedure QuoteWords;
+    procedure RemoveLineBreaks;
+    procedure RReformat;
+    function  SaveBackup(sTempFile: String): Boolean;
     procedure SearchError(sTmp: string);
     procedure SetEditorLexerById(LexerId: Integer);
     procedure SetEditorLexerByName(LexerName: String);
-    procedure RemoveLineBreaks;
-    procedure QuoteWords;
     procedure ToogleSpecialChars(bChecked: Boolean);
     procedure Uncomment(sStartComment, sEndComment: string);
     procedure UnindentBlock;
-    procedure EdUpperCase;
-    procedure EdLowerCase;
-    procedure AlignWithFirstLine;
-    procedure AlignEqualSign;
-    function SaveBackup(sTempFile: String): Boolean;
+
+
+
     procedure WriteCursorAndWindoInfo(var EditorFile: TEditorFile);
 
   protected
@@ -199,7 +202,7 @@ uses
   ufrmMain,
   ufrmPrintPreview,
   uModDados,
-  ufrmTools, ufrmNameBrowser, uLexerCommands;
+  ufrmTools, ufrmNameBrowser, uLexerCommands, uRSendCommands, ufrmTidyAbort;
 
 {$R *.DFM}
 
@@ -448,7 +451,7 @@ begin
     EditorFile.iUnsavedChanges := 1;
   end;
   // m.p.  EnableSave;
-  if Assigned(sciEditor2) then
+{  if Assigned(sciEditor2) then
   begin
     if (sActiveEditor = 'sciEditor') then
     begin
@@ -467,7 +470,7 @@ begin
       sciEditor.Lines.EndUpdate;
     end;
   end;
-
+ }
 end;
 
 procedure TfrmEditor.sciEditorCharAdded(ASender: TObject; ACh: Integer);
@@ -572,7 +575,11 @@ end;
 
 procedure TfrmEditor.sciEditorEnter(Sender: TObject);
 begin
-  sciEditor.AssignCmdKey(0, SCI_LINEDUPLICATE);
+  if (Sender as TDScintilla).Name = 'sciEditor' then
+    sActiveEditor := 'sciEditor'
+  else sActiveEditor := 'sciEditor2';
+
+  (Sender as TDScintilla).AssignCmdKey(0, SCI_LINEDUPLICATE);
   frmTinnMain.actRtermEditorSetFocus.Checked := True;
 end;
 
@@ -590,6 +597,7 @@ var
   seEditor: TDScintilla;
   Key2: Char;
 begin
+  seEditor := Sender as TDScintilla;
 
   Key2 := Chr(Key);
 
@@ -652,7 +660,7 @@ begin
           VK_BACK:
             begin
               //sci //m.p.
-              if sciEditor.GetSelectionStart - 2 < frmNameBrowser.iSelStart then
+              if seEditor.GetSelectionStart - 2 < frmNameBrowser.iSelStart then
                 frmNameBrowser.CloseNamePopup;
             end;
           VK_Escape, VK_Space:
@@ -662,11 +670,9 @@ begin
         end;
     end;
 
-  // Define the active editor
-  if (sActiveEditor = 'sciEditor') then
-    seEditor := sciEditor
-  else
-    seEditor := sciEditor2;
+
+  //GetActiveEditorOnForm(seEditor);
+
 
   // SHIFT + Ins is the default 'paste' shortcut of synEdit (!!!!!)
   if (Shift = [ssShift]) and (Key = VK_INSERT) then
@@ -743,7 +749,10 @@ begin
 end;
 
 procedure TfrmEditor.sciEditorKeyPress(Sender: TObject; var Key: Char);
+var seEditor: TDScintilla;
 begin
+  seEditor := Sender as TDScintilla;
+
   if frmTinnMain.bNameFormActive then
   begin
     if CharInSet(Key, ['°', '+', '"', '*', 'ç', '%', '&', '/', '(', ')', '=',
@@ -754,25 +763,27 @@ begin
       Exit;
     end;
     //sci //m.p.
-    if (ord(Key) >= 32) and (ord(Key) <= 126) then
-      frmNameBrowser.edNameSearch.Text :=
-        copy(sciEditor.GetText, frmNameBrowser.iSelStart + 1,
-        sciEditor.GetSelectionStart - frmNameBrowser.iSelStart) + Key
-    else
-      frmNameBrowser.edNameSearch.Text :=
-        copy(sciEditor.GetText, frmNameBrowser.iSelStart + 1,
-        sciEditor.GetSelectionStart - frmNameBrowser.iSelStart);
+    with seEditor do
+    begin
+      if (ord(Key) >= 32) and (ord(Key) <= 126) then
+        frmNameBrowser.edNameSearch.Text :=
+          System.copy(GetText, frmNameBrowser.iSelStart + 1,
+          GetSelectionStart - frmNameBrowser.iSelStart) + Key
+      else
+        frmNameBrowser.edNameSearch.Text :=
+          System.copy(GetText, frmNameBrowser.iSelStart + 1,
+          GetSelectionStart - frmNameBrowser.iSelStart);
+    end;
   end;
-
 end;
 
 procedure TfrmEditor.sciEditorKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Sender = sciEditor) then
-    frmTinnMain.iSynWithFocus := 1
+    frmTinnMain.iSciWithFocus := 1
   else
-    frmTinnMain.iSynWithFocus := 2;
+    frmTinnMain.iSciWithFocus := 2;
 end;
 
 procedure TfrmEditor.sciEditorMarginClick(ASender: TObject; AModifiers,
@@ -797,9 +808,9 @@ procedure TfrmEditor.sciEditorMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   if (Sender = sciEditor) then
-    frmTinnMain.iSynWithFocus := 1
+    frmTinnMain.iSciWithFocus := 1
   else
-    frmTinnMain.iSynWithFocus := 2;
+    frmTinnMain.iSciWithFocus := 2;
 
   if not frmTinnMain.bNameFormLoading then
     if not frmNameBrowser.Active then
@@ -809,19 +820,21 @@ end;
 procedure TfrmEditor.sciEditorSCNotificationEvent(ASender: TObject;
   const ASCN: TDSciSCNotification; var AHandled: Boolean);
 var ipos, iBrace: Integer;
+    seEditor: TDScintilla;
 begin
+  seEditor := ASender AS TDScintilla;
   if bEditorFormIsLoading then
     exit;
   // Ignore notifications which are unrelated to content and cursor position changes
   if ASCN.NotifyHeader.code = SCN_UPDATEUI then
   begin
 
-    frmTinnMain.UpdateCursorPos(ASender as TDScintilla);
+    frmTinnMain.UpdateCursorPos(seEditor);
 
     frmTools.RNavigator.UpdateSectionPosition;
 
 
-    iLine := GetCaretX(ASender as TDScintilla);
+    iLine := GetCaretX(seEditor);
 
     with ASender AS TDScintilla do
     begin
@@ -840,7 +853,7 @@ begin
   //    exit;
 
   //  if SCN_MODIFIED = ASCN.NotifyHeader.code  then
-      if (ASender as TDScintilla).GetModify then
+      if (seEditor).GetModify then
         if EditorFile.iModified = 0 then
           EnableSave;
 
@@ -850,8 +863,8 @@ end;
 procedure TfrmEditor.sciEditorZoom(ASender: TObject);
 begin
   SetLineTextVisibility(frmTinnMain.actLineNumbersVisible.Checked, sciEditor);
-        if Assigned(sciEditor2) then
-         SetLineTextVisibility(frmTinnMain.actLineNumbersVisible.Checked, sciEditor);
+  if Assigned(sciEditor2) then
+    SetLineTextVisibility(frmTinnMain.actLineNumbersVisible.Checked, sciEditor2);
 end;
 
 function GetEncoding_ToSave: TEncoding;
@@ -1223,10 +1236,8 @@ var
 
 begin
   // Define the active editor
-  if (sActiveEditor = 'sciEditor') then
-    seEditor := sciEditor
-  else
-    seEditor := sciEditor2;
+  GetActiveEditorOnForm(seEditor);
+
 
   if not SavePriorClipboardText then
     Exit;
@@ -1315,10 +1326,7 @@ begin
       pLineNumber := gotoBox.spLine.AsInteger;
 
       // Define the active editor
-      if (sActiveEditor = 'sciEditor') then
-        seEditor := sciEditor
-      else
-        seEditor := sciEditor2;
+      GetActiveEditorOnForm(seEditor);
 
       seEditor.GotoLine(pLineNumber);
       //seEditor.ExecuteCommand(17, 'A', @pLineNumber);
@@ -1342,10 +1350,7 @@ begin
 
   Include(synSearchOptions, ssoWholeWord);
                                             }
-  if (sActiveEditor = 'sciEditor') then
-    seEditor := sciEditor
-  else
-    seEditor := sciEditor2;
+  GetActiveEditorOnForm(seEditor);
 
   with seEditor do
   begin
@@ -1407,15 +1412,15 @@ begin
 end;
 
 procedure TfrmEditor.AlignWithFirstLine;
-var sciEditor: TDScintilla;
+var seEditor: TDScintilla;
      i, j, iLine, iLine1, iLine2, iFirstPos, iIndent: Integer;
 begin
   if ReadOnlyWarning('Align with first line') then
     exit;
 
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
-  with sciEditor do
+  with seEditor do
   begin
     Lines.BeginUpdate;
 
@@ -1450,18 +1455,18 @@ begin
 end;
 
 procedure TfrmEditor.AlignEqualSign;
-var sciEditor: TDScintilla;
+var seEditor: TDScintilla;
     iPos: Integer;
 begin
   if ReadOnlyWarning('Align equal sign') then
     exit;
 
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
   with sciEditor do
   begin
     Lines.BeginUpdate;
-    AlignChar('=', sciEditor);
+    AlignChar('=', seEditor);
     Lines.EndUpdate;
   end;
   EnableSave;
@@ -1469,15 +1474,15 @@ end;
 
 
 procedure TfrmEditor.EdUpperCase;
-var sciEditor: TDScintilla;
+var seEditor: TDScintilla;
     iPos: Integer;
 begin
   if ReadOnlyWarning('Upper case') then
     exit;
 
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
-  with sciEditor do
+  with seEditor do
   begin
     Lines.BeginUpdate;
 
@@ -1500,15 +1505,15 @@ begin
 end;
 
 procedure TfrmEditor.EdLowerCase;
-var sciEditor: TDScintilla;
+var seEditor: TDScintilla;
     iPos: Integer;
 begin
   if ReadOnlyWarning('Lower case') then
     exit;
 
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
-  with sciEditor do
+  with seEditor do
   begin
     Lines.BeginUpdate;
 
@@ -1532,16 +1537,15 @@ end;
 
 
 procedure TfrmEditor.EdInvertCase;
-var sciEditor: TDScintilla;
+var seEditor: TDScintilla;
     iPos: Integer;
 begin
   if ReadOnlyWarning('Invert case') then
     exit;
 
-  GetActiveEditorOnForm(sciEditor);
-  showmessage('sci magic invert case function not ready');
-  exit;{
-  with sciEditor do
+  GetActiveEditorOnForm(seEditor);
+
+  with seEditor do
   begin
     Lines.BeginUpdate;
 
@@ -1550,19 +1554,20 @@ begin
       iPos := GetSelectionStart;
       SetSelectionStart(WordStartPosition(iPos, true));
       SetSelectionEnd(WordEndPosition(iPos, true));
-       sciEditor.ExecuteCommand(ecToggleCase, 'A', @sciEditor.Lines);
+      InvertCaseScintilla(sciEditor);
       SetSelectionStart(iPos);
       SetSelectionEnd(iPos);
-    end else  sciEditor.ExecuteCommand(ecToggleCase, 'A', @sciEditor.Lines);;
+    end else InvertCaseScintilla(seEditor);
 
     Lines.EndUpdate;
   end;
-  }
   EnableSave;
 end;
 
 procedure TfrmEditor.EditorSplit(bSplitHoriz: Boolean = True);
 begin
+  //showmessage('Coming soon - second editor does not work correctly yet.');
+//Exit;
   if Assigned(spEditor) then
     FreeAndNil(spEditor);
 
@@ -1605,48 +1610,46 @@ begin
     OnMouseDown := SplitMouseDown;
     OnMouseUp := SplitMouseUp;
     OnMouseMove := SplitMouseMove;
+
+
+
+
     Parent := self;
   end;
 
   sciEditor2 := TDScintilla.Create(self);
-  //sci //m.p.
-  {
+
   with sciEditor2 do
   begin
-    ActiveLineColor := sciEditor.ActiveLineColor;
     Align := alClient;
     BorderStyle := bsNone;
-    Color := sciEditor.Color;
-    Font := sciEditor.Font;
-    Gutter := sciEditor.Gutter;
-    Gutter.ShowlineNumbers := sciEditor.Gutter.ShowlineNumbers;
-    HideSelection := False;
-    Highlighter := sciEditor.Highlighter;
-    Lines.Text := sciEditor.Lines.Text;
-    OnChange := sciEditorChange;
-    onClick := sciEditorClick;
-    onEndDrag := sciEditorEndDrag;
-    onGutterClick := sciEditorGutterClick;
-    OnKeyDown := sciEditorKeyDown;
-    OnKeyUp := sciEditor.OnKeyUp;
-    OnMouseUp := sciEditor.OnMouseUp;
-    onPaintTransient := frmTinnMain.synPaintTransient;
-    OnStatusChange := sciEditorStatusChange;
-    Options := sciEditor.Options;
-    Options := sciEditor.Options;
     Parent := self;
-    PopupMenu := frmTinnMain.pmenEditor;
-    ReadOnly := sciEditor.ReadOnly;
-    RightEdge := sciEditor.RightEdge;
-    RightEdgeColor := sciEditor.RightEdgeColor;
-    SelectionMode := sciEditor.SelectionMode;
-    TabWidth := sciEditor.TabWidth;
-    WantTabs := sciEditor.WantTabs;
-    WordWrap := sciEditor.WordWrap;
-  end;
+    sciEditor2.SetDocPointer(sciEditor.GetDocPointer);
+    SetScintillaProperties(sciEditor2);
+    PopupMenu := frmTinnMain.pabEditor;
 
-  with frmTinnMain do
-    coEditor.AssignTo(sciEditor2);   }
+    OnEnter := sciEditor.OnEnter;
+    OnExit  := sciEditor.OnEnter;
+    OnZoom := sciEditor.OnZoom;
+    OnDwellStart := sciEditor.OnDwellStart;
+
+    OnChange := sciEditor.OnChange;;
+    OnCharAdded := sciEditor.OnCharAdded;
+    OnClick :=  sciEditor.OnClick;
+    OnDragDrop := sciEditor.OnDragDrop;
+    OnDragOver := sciEditor.OnDragOver;
+
+    OnKeyDown := sciEditor.OnKeyDown;
+    OnKeyPress :=  sciEditor.OnKeyPress;
+    OnKeyUp := sciEditor.OnKeyUp;
+    OnMarginClick := sciEditor.OnMarginClick;
+    OnModified :=  sciEditor.OnModified;
+    OnMouseUp :=  sciEditor.OnMouseUp;
+    OnSCNotificationEvent :=  sciEditor.OnSCNotificationEvent;
+    SetReadOnly(sciEditor.GetReadOnly);
+
+    Visible := true;
+  end;
 
   sActiveEditor := 'sciEditor';
 end;
@@ -1834,154 +1837,6 @@ begin
   Height := frmTinnMain.Height;
 end;
 
-{procedure TfrmEditor.ToogleWordWrap(iWrapStyle: Integer);
-begin  }
-{  if Assigned(sciEditor2) then
-  begin
-    sciEditor.WordWrap := bChecked;
-    sciEditor2.WordWrap := bChecked;
-
-    if bChecked then
-    begin
-      sciEditor.Options := sciEditor.Options - [eoTrimTrailingSpaces];
-      sciEditor2.Options := sciEditor2.Options - [eoTrimTrailingSpaces];
-    end
-    else
-    begin
-      sciEditor.Options := sciEditor.Options + [eoTrimTrailingSpaces];
-      sciEditor2.Options := sciEditor2.Options + [eoTrimTrailingSpaces];
-    end;
-  end
-  else
-  begin
-    sciEditor.WordWrap := bChecked;
-    if bChecked then
-      sciEditor.Options := sciEditor.Options - [eoTrimTrailingSpaces]
-    else
-      sciEditor.Options := sciEditor.Options + [eoTrimTrailingSpaces];
-  end;
-}
-  {
-    sciEditor.SetWrapMode(iWrapStyle);
-    sciEditor.SetWrapVisualFlags(SC_WRAPVISUALFLAG_START);
-    if Assigned(sciEditor2) then
-      begin
-        sciEditor2.SetWrapMode(iWrapStyle);
-        sciEditor2.SetWrapVisualFlags(SC_WRAPVISUALFLAG_START);
-      end; }
-//sci //m.p.
-{
-    if bChecked then
-    begin
-      sciEditor.Options := sciEditor.Options - [eoTrimTrailingSpaces];
-      sciEditor2.Options := sciEditor2.Options - [eoTrimTrailingSpaces];
-    end
-    else
-    begin
-      sciEditor.Options := sciEditor.Options + [eoTrimTrailingSpaces];
-      sciEditor2.Options := sciEditor2.Options + [eoTrimTrailingSpaces];
-    end;
-  end
-  else
-  begin
-    sciEditor.WordWrap := bChecked;
-    if bChecked then
-      sciEditor.Options := sciEditor.Options - [eoTrimTrailingSpaces]
-    else
-      sciEditor.Options := sciEditor.Options + [eoTrimTrailingSpaces]; }
-//end;
-{
-function TfrmEditor.GetBBHighLighter: TSynCustomHighlighter;
-var
-  i: Integer;
-
-  seEditor: TDScintilla;
-
-begin
-  if (sActiveEditor = 'sciEditor') then
-    seEditor := sciEditor
-  else
-    seEditor := sciEditor2;
-
-  with seEditor do
-    if Highlighter is TSynMultiSyn then
-    begin
-      i := (Integer(TSynEditStringList(Lines).Ranges[BlockBegin.Line - 2])
-        and $F) - 9;
-
-      if (i < 0) or (i = 7) then // R markdown
-        Result := TSynMultiSyn(Highlighter).DefaultHighLighter
-      else
-        Result := TSynMultiSyn(Highlighter).Schemes[i].Highlighter
-    end
-    else
-      Result := Highlighter;
-end;
-
-function TfrmEditor.GetBEHighLighter: TSynCustomHighlighter;
-var
-  i: Integer;
-
-  seEditor: TDScintilla;
-
-begin
-  if (sActiveEditor = 'sciEditor') then
-    seEditor := sciEditor
-  else
-    seEditor := sciEditor2;
-
-  with seEditor do
-    if Highlighter is TSynMultiSyn then
-    begin
-      i := (Integer(TSynEditStringList(Lines).Ranges[BlockEnd.Line - 2])
-        and $F) - 9;
-
-      if (i < 0) or (i = 7) then // R markdown
-        Result := TSynMultiSyn(Highlighter).DefaultHighLighter
-      else
-        Result := TSynMultiSyn(Highlighter).Schemes[i].Highlighter
-    end
-    else
-      Result := Highlighter;
-end;
-
-function TfrmEditor.GetCurrentHighLighter: TSynCustomHighlighter;
-var
-  i: Integer;
-
-  seEditor: TDScintilla;
-
-begin
-  if (sActiveEditor = 'sciEditor') then
-    seEditor := sciEditor
-  else
-    seEditor := sciEditor2;
-
-  with seEditor do
-    if Highlighter is TSynMultiSyn then
-    begin
-      // Below the more pure Vodoo suggested by Jan Fiala and adapted by me ;)
-      // Please, do not change if you do not know what you're doing! :(
-      i := (Integer(TSynEditStringList(Lines).Ranges[BlockEnd.Line - 2])
-        and $F) - 1;
-
-      case i of
-        - 99 .. -1:
-          Result := TSynMultiSyn(Highlighter).DefaultHighLighter;
-        7:
-          Result := TSynMultiSyn(Highlighter).DefaultHighLighter;
-        // Related to Markdown
-        8:
-          Result := TSynMultiSyn(Highlighter).Schemes[0].Highlighter;
-        // Related to all R TSynMultiSyn
-      else
-        Result := TSynMultiSyn(Highlighter).Schemes[i].Highlighter
-      end;
-    end // if Highlighter is TSynMultiSyn
-    else
-      Result := Highlighter;
-end;
-                   }
 procedure TfrmEditor.GetCursorTo(sWay: string);
 var
   bWordWrapOption: Boolean;
@@ -2068,20 +1923,13 @@ end;
 
 begin
 
-    if (sActiveEditor = 'sciEditor2') then
-      seEditor := sciEditor2
-    else
-      seEditor := sciEditor;
+  if ReadOnlyWarning('Removing line breaks') then
+    exit;
+
+  GetActiveEditorOnForm(seEditor);
 
   if Length(Trim(seEditor.GetSelText)) = 0 then
     Exit;
-
-  if sciEditor.GetReadOnly then
-  begin
-    MessageDlg(EditorFile.sFile + #13 + #13 + 'The file is set as read only.' + #13 +
-      '''Quote'' will not work!', mtWarning, [mbOK], 0);
-    Exit;
-  end;
 
   with seEditor do
   begin
@@ -2099,7 +1947,7 @@ end;
 
 procedure TfrmEditor.QuoteWords;
 var
- sciEditor: TDScintilla;
+ seEditor: TDScintilla;
  i: Integer;
 
 function GetFirstLetterOrGoToEnd(str: String; start: Integer): Integer;
@@ -2141,9 +1989,9 @@ begin
   if ReadOnlyWarning('Quote') then
     exit;
 
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
-  with sciEditor do
+  with seEditor do
   begin
     for i := GetSelections-1 downto 0 do
     begin
@@ -2157,7 +2005,7 @@ end;
 
 procedure TfrmEditor.Comment(sStartComment, sEndComment: string);
 var
-  sciEditor: TDScintilla;
+  seEditor: TDScintilla;
   is1, is2: array of Integer;
      i: Integer;
 
@@ -2165,7 +2013,7 @@ var
   procedure GetAllSelections;
     var i: Integer;
   begin
-    with sciEditor do
+    with seEditor do
     begin
       Setlength(is1, GetSelections);
       Setlength(is2, GetSelections);
@@ -2184,7 +2032,7 @@ var
       slist: TStringList;
       j: Integer;
   begin
-    with sciEditor do
+    with seEditor do
     begin
       if iStart = iEnd then
         iEnd :=  iStart + Length(Lines[LineFromPosition(iStart)]);
@@ -2213,7 +2061,7 @@ begin
 
   if ReadOnlyWarning('Comment') then
     exit;
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
   if (sStartComment = '') then
   begin
@@ -2225,7 +2073,7 @@ begin
   end;
 
 
-  with sciEditor do
+  with seEditor do
   begin
     Lines.BeginUpdate;
 
@@ -2251,12 +2099,12 @@ end;
 procedure TfrmEditor.Uncomment(sStartComment, sEndComment: string);
 var  is1, is2: array of Integer;
      i: Integer;
-     sciEditor: TDScintilla;
+     seEditor: TDScintilla;
 
   procedure GetAllSelections;
     var i: Integer;
   begin
-    with sciEditor do
+    with seEditor do
     begin
       Setlength(is1, GetSelections);
       Setlength(is2, GetSelections);
@@ -2275,7 +2123,7 @@ var  is1, is2: array of Integer;
       slist: TStringList;
       j: Integer;
   begin
-    with sciEditor do
+    with seEditor do
     begin
       if iStart = iEnd then
         iEnd :=  iStart + Length(Lines[LineFromPosition(iStart)]);
@@ -2298,7 +2146,7 @@ begin
 
   if ReadOnlyWarning('Uncomment') then
     exit;
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
   if (sStartComment = '') then
   begin
@@ -2310,7 +2158,7 @@ begin
 
 
 
-  with sciEditor do
+  with seEditor do
   begin
   Lines.BeginUpdate;
 
@@ -2582,12 +2430,12 @@ begin
 end;
 
 procedure TfrmEditor.UnindentBlock;
-var sciEditor: TDScintilla;
+var seEditor: TDScintilla;
 begin
   if ReadOnlyWarning('Block indent') then
     exit;
 
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
   sciEditor.BackTab;
   EnableSave;
 end;
@@ -2633,16 +2481,121 @@ end;
 
 
 procedure TfrmEditor.WriteCursorAndWindoInfo(var EditorFile: TEditorFile);
-var sciEditor: TDScintilla;
+var seEditor: TDScintilla;
 begin
-  GetActiveEditorOnForm(sciEditor);
+  GetActiveEditorOnForm(seEditor);
 
   with EditorFile do
   begin
-    iCaretPosition := sciEditor.GetCurrentPos;
-    iTopLine := sciEditor.GetFirstVisibleLine;
+    iCaretPosition := seEditor.GetCurrentPos;
+    iTopLine := seEditor.GetFirstVisibleLine;
   end;
 end;
+
+procedure TfrmEditor.RReformat;
+var seEditor: TDScintilla;
+  bSaveSuccess: Boolean;
+  sToSend, sFilePath: string;
+begin
+  if ReadOnlyWarning('Reformat') then
+    exit;
+
+  GetActiveEditorOnForm(seEditor);
+
+  if seEditor.GetSelections > 1 then
+  begin
+    MessageDlg('Reformatting does not work in column selection mode.' , mtInformation, [mbOk], 0);
+    Exit;
+  end else
+    begin
+      sFilePath := frmTinnMain.sPathTmp + '\reformat-input.r';
+      if not (seEditor.GetSelText <> '') then
+        bSaveSuccess := FileSaveFast(sFilePath, seEditor.GetText)
+        else bSaveSuccess := FileSaveFast(sFilePath, seEditor.GetSelText);
+
+      if bSaveSuccess then
+      with frmTinnMain do
+      begin
+        if Rterm_Running then
+          if (csRGeneral.Active) then
+          begin
+            bTidying := true;
+            frmTidyAbort := TfrmTidyAbort.Create(Application);
+            sToSend := 'TinnR$TinnRTidy(.trPaths[8], .trPaths[9])' + #13#10;
+            csRGeneral.Socket.SendText(sToSend);
+            frmTidyAbort.ShowModal;
+          end;
+      end;
+
+    end;
+end;
+
+procedure TfrmEditor.ProcessTidy;
+var
+  i, iTopLine: integer;
+
+  bcPos: Integer;
+  seEditor: TDScintilla;
+
+  sPrior, sFormatted, sFilePath: string;
+
+begin
+   sFilePath := frmTinnMain.sPathTmp + '\reformat-output.r';
+
+   GetActiveEditorOnForm(seEditor);
+
+  if not FileExists(sFilePath) then
+    Exit;
+
+  with seEditor do
+  begin
+    if GetSelText = '' then
+      setText(FileToString(sFilePath)) else
+      ReplaceSel(FileToString(sFilePath));
+    DeleteFile(sFilePath);
+  end;
+
+end;
+
+
+
+
+procedure TfrmEditor.MarkSelectionColor(iMarkerNumber: Integer);
+var seEditor: TDScintilla;
+    i, j, iMaNum: Integer;
+begin
+
+  GetActiveEditorOnForm(seEditor);
+
+  with seEditor do
+  begin
+    MarkerSetBack(SC_Mark_Background, clMoneyGreen);
+    MarkerSetBack(SC_MARK_DOTDOTDOT,  clWebIndianRed);
+
+    if iMarkerNumber = 1 then
+      iMaNum := SC_Mark_Background;
+
+    if iMarkerNumber = 2 then
+      iMaNum := SC_MARK_DOTDOTDOT;
+
+    if iMarkerNumber > 0 then
+      for i := GetSelections-1 downto 0 do
+        for j := LineFromPosition(GetSelectionNStart(i))  to LineFromPosition(GetSelectionNEnd(i)) do
+          MarkerAdd(j, iMaNum);
+
+    if iMarkerNumber = 0 then
+      for i := GetSelections-1 downto 0 do
+        for j := LineFromPosition(GetSelectionNStart(i))  to LineFromPosition(GetSelectionNEnd(i)) do
+        begin
+         MarkerDelete(j, SC_Mark_Background);
+         MarkerDelete(j, SC_MARK_DOTDOTDOT);
+        end;
+
+  end;
+
+end;
+
+
 
 end.
 

@@ -112,7 +112,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsDropDown
       end
       object udZoom: TUpDown
-        Left = 217
+        Left = 219
         Top = 0
         Width = 16
         Height = 22
@@ -127,7 +127,7 @@ object frmPrintPreview: TfrmPrintPreview
         OnMouseDown = udZoomMouseDown
       end
       object ToolButton2: TToolButton
-        Left = 233
+        Left = 235
         Top = 0
         Width = 8
         Caption = 'ToolButton2'
@@ -135,7 +135,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsSeparator
       end
       object tbLineNumber: TToolButton
-        Left = 241
+        Left = 243
         Top = 0
         Action = frmConfigurePrint.actLineNumber
         ParentShowHint = False
@@ -143,7 +143,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsCheck
       end
       object tbWordWrap: TToolButton
-        Left = 264
+        Left = 266
         Top = 0
         Action = frmConfigurePrint.actLineWrap
         ParentShowHint = False
@@ -151,7 +151,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsCheck
       end
       object tbSyntaxColor: TToolButton
-        Left = 287
+        Left = 289
         Top = 0
         Action = frmConfigurePrint.actSyntaxColor
         ParentShowHint = False
@@ -159,7 +159,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsCheck
       end
       object tbImpressionColored: TToolButton
-        Left = 310
+        Left = 312
         Top = 0
         Action = frmConfigurePrint.actImpressionColored
         ParentShowHint = False
@@ -167,7 +167,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsCheck
       end
       object ToolButton4: TToolButton
-        Left = 333
+        Left = 335
         Top = 0
         Width = 8
         Caption = 'ToolButton4'
@@ -175,7 +175,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsSeparator
       end
       object tbImpressionFontIncrease: TToolButton
-        Left = 341
+        Left = 343
         Top = 0
         Hint = 'Font (increase)'
         Caption = 'Font (increase)'
@@ -185,7 +185,7 @@ object frmPrintPreview: TfrmPrintPreview
         OnClick = tbImpressionFontIncreaseClick
       end
       object tbImpressionFontDecrease: TToolButton
-        Left = 364
+        Left = 366
         Top = 0
         Hint = 'Font (decrease)'
         Caption = 'Font (decrease)'
@@ -195,7 +195,7 @@ object frmPrintPreview: TfrmPrintPreview
         OnClick = tbImpressionFontDecreaseClick
       end
       object ToolButton5: TToolButton
-        Left = 387
+        Left = 389
         Top = 0
         Width = 8
         Caption = 'ToolButton5'
@@ -203,21 +203,21 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsSeparator
       end
       object tbPrintConfigure: TToolButton
-        Left = 395
+        Left = 397
         Top = 0
         Action = frmConfigurePrint.actPrintConfig
         ParentShowHint = False
         ShowHint = True
       end
       object tbPrint: TToolButton
-        Left = 418
+        Left = 420
         Top = 0
         Action = frmConfigurePrint.actPrint
         ParentShowHint = False
         ShowHint = True
       end
       object ToolButton9: TToolButton
-        Left = 441
+        Left = 443
         Top = 0
         Width = 8
         Caption = 'ToolButton9'
@@ -225,7 +225,7 @@ object frmPrintPreview: TfrmPrintPreview
         Style = tbsSeparator
       end
       object tbClose: TToolButton
-        Left = 449
+        Left = 451
         Top = 0
         Hint = 'Exit'
         ImageIndex = 155
@@ -238,7 +238,7 @@ object frmPrintPreview: TfrmPrintPreview
   object popZoom: TPopupMenu
     Images = frmTinnMain.imlTinnR
     Left = 48
-    Top = 44
+    Top = 52
     object Pagewidth1: TMenuItem
       Action = actZoomPageWidth
     end
@@ -249,7 +249,7 @@ object frmPrintPreview: TfrmPrintPreview
   object alPrintPreview: TActionList
     Images = frmTinnMain.imlTinnR
     Left = 48
-    Top = 77
+    Top = 109
     object actZoomPageWidth: TAction
       Caption = 'Page width'
       ImageIndex = 136

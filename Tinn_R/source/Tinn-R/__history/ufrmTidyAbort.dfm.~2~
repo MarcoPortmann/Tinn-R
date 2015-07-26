@@ -1,0 +1,41 @@
+object frmTidyAbort: TfrmTidyAbort
+  Left = 0
+  Top = 0
+  BorderStyle = bsDialog
+  Caption = 'Updating source code'
+  ClientHeight = 46
+  ClientWidth = 352
+  Color = clBtnFace
+  TransparentColor = True
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 8
+    Top = 8
+    Width = 233
+    Height = 33
+    Caption = 
+      'Tinn-R is tidying your source code. If this process takes too lo' +
+      'ng you can abort it.'
+    WordWrap = True
+  end
+  object bAbort: TButton
+    Left = 264
+    Top = 8
+    Width = 75
+    Height = 25
+    Cancel = True
+    Caption = 'Abort'
+    Default = True
+    ModalResult = 3
+    TabOrder = 0
+    OnClick = bAbortClick
+  end
+end
