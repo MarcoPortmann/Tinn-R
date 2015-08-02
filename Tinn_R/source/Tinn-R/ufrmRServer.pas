@@ -260,7 +260,7 @@ end;
 
 procedure TfrmRServer.FormActivate(Sender: TObject);
 begin
-  with frmTinnMain do
+{  with frmTinnMain do
   begin
     pgRserver.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
     pgIP.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
@@ -270,7 +270,7 @@ begin
       Color := clBGApplication;
       Font.Color := clFGApplication;
     end;
-  end;
+  end;    }
 end;
 
 procedure TfrmRServer.rdgIPTypeClick(Sender: TObject);

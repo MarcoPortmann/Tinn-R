@@ -205,7 +205,7 @@ object frmTinnMain: TfrmTinnMain
     RowSnap = False
     TabOrder = 2
     object Label1: TLabel
-      Left = 1076
+      Left = 1120
       Top = 2
       Width = 32
       Height = 13
@@ -213,7 +213,7 @@ object frmTinnMain: TfrmTinnMain
       Visible = False
     end
     object Label3: TLabel
-      Left = 1121
+      Left = 1165
       Top = 2
       Width = 32
       Height = 13
@@ -221,9 +221,9 @@ object frmTinnMain: TfrmTinnMain
       Visible = False
     end
     object Label5: TLabel
-      Left = 1176
+      Left = 1210
       Top = 2
-      Width = 80
+      Width = 60
       Height = 13
       Caption = 'ActiveFormErrors'
       Visible = False
@@ -443,7 +443,7 @@ object frmTinnMain: TfrmTinnMain
       OnSelect = cbLexersSelect
     end
     object Button2: TButton
-      Left = 1104
+      Left = 1008
       Top = 31
       Width = 75
       Height = 25
@@ -451,6 +451,25 @@ object frmTinnMain: TfrmTinnMain
       TabOrder = 11
       Visible = False
       OnClick = Button2Click
+    end
+    object Edit4: TEdit
+      Left = 986
+      Top = 2
+      Width = 121
+      Height = 21
+      TabOrder = 12
+      Text = 'Edit4'
+      Visible = False
+    end
+    object Button1: TButton
+      Left = 1104
+      Top = 31
+      Width = 75
+      Height = 25
+      Caption = 'Button1'
+      TabOrder = 13
+      Visible = False
+      OnClick = Button1Click
     end
   end
   object atbStatus: TActionToolBar
@@ -499,8 +518,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 632
-    Top = 528
+    Left = 544
+    Top = 584
     object pmenViewToolbarsShowall: TMenuItem
       Action = actShowAllBars
     end
@@ -583,8 +602,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 432
-    Top = 512
+    Left = 472
+    Top = 472
     object pmenGroup_OLD: TMenuItem
       Caption = 'Group'
       SubMenuImages = imlTinnR
@@ -743,8 +762,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 120
-    Top = 464
+    Left = 312
+    Top = 480
     object Help5: TMenuItem
       Action = actRCardHelp
     end
@@ -785,7 +804,7 @@ object frmTinnMain: TfrmTinnMain
     Port = 0
     OnRead = csREnvironmentRead
     OnError = csREnvironmentError
-    Left = 232
+    Left = 248
     Top = 264
   end
   object imlRexplorer: TImageList
@@ -794,7 +813,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 200
     Bitmap = {
-      494C01010A002806A40910001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A002806CC0910001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -1205,7 +1224,7 @@ object frmTinnMain: TfrmTinnMain
     OnRead = csRExplorerRead
     OnWrite = csRExplorerWrite
     OnError = csRExplorerError
-    Left = 232
+    Left = 248
     Top = 208
   end
   object csRGeneral: TClientSocket
@@ -1216,7 +1235,7 @@ object frmTinnMain: TfrmTinnMain
     OnDisconnect = csRGeneralDisconnect
     OnRead = csRGeneralRead
     OnError = csRGeneralError
-    Left = 232
+    Left = 248
     Top = 104
   end
   object csRTip: TClientSocket
@@ -1224,7 +1243,7 @@ object frmTinnMain: TfrmTinnMain
     ClientType = ctNonBlocking
     Port = 0
     OnError = csRTipError
-    Left = 232
+    Left = 248
     Top = 152
   end
   object zipKit: TAbZipKit
@@ -1245,8 +1264,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 40
-    Top = 416
+    Left = 240
+    Top = 480
     object pmenResultsOpenLink: TMenuItem
       Caption = 'Locate link'
       OnClick = pmenResultsOpenLinkClick
@@ -1265,7 +1284,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 160
     Bitmap = {
-      494C010125012806B00910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010125012806D80910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000A0040000010020000000000000A0
       04000000000000000000000000000000000000000000369DD9003199D8002C94
       D7002890D600238CD5001E88D4001A84D3001580D200117CD1000E79D1000A76
@@ -11051,7 +11070,6 @@ object frmTinnMain: TfrmTinnMain
     object actRcardInsert: TAction
       Category = 'R library'
       Caption = 'Insert'
-      Enabled = False
       Hint = 'Card (R): insert'
       ImageIndex = 267
       ShortCut = 16455
@@ -11060,7 +11078,6 @@ object frmTinnMain: TfrmTinnMain
     object actRcardInsertNoArgs: TAction
       Category = 'R library'
       Caption = 'Insert without arguments'
-      Enabled = False
       Hint = 'Card (R): insert'
       ImageIndex = 267
       ShortCut = 16456
@@ -11391,7 +11408,6 @@ object frmTinnMain: TfrmTinnMain
     object actCompletion: TAction
       Category = 'Insert'
       Caption = 'Completion'
-      Enabled = False
       Hint = 'Insert: completion'
       ImageIndex = 267
       ShortCut = 16458
@@ -12205,7 +12221,7 @@ object frmTinnMain: TfrmTinnMain
     object actRExplorerHelp: TAction
       Category = 'R explorer'
       Caption = 'Help'
-      Hint = 'Explorer (R): help'
+      Hint = 'Tinn-R help on R explorer'
       ImageIndex = 25
       OnExecute = actRExplorerHelpExecute
     end
@@ -12213,7 +12229,7 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Help'
       Enabled = False
-      Hint = 'Explorer (R): help (selected)'
+      Hint = 'Lookup R help for the selected object'
       ImageIndex = 27
       OnExecute = actRExplorerHelpSelectedExecute
     end
@@ -12221,34 +12237,34 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Example'
       Enabled = False
-      Hint = 'Explorer (R): example (selected)'
+      Hint = 'Show an example from the R documentation for the selected object'
       ImageIndex = 26
       OnExecute = actRExplorerExampleSelectedExecute
     end
     object actRExplorerBasic: TAction
       Category = 'R explorer'
       Caption = 'Object (basic action)'
-      Hint = 'Explorer (R): basic action'
+      Hint = 'Basic actions for R objects'
       ImageIndex = 193
       OnExecute = actRExplorerBasicExecute
     end
     object actRExplorerSummary: TAction
       Category = 'R explorer'
       Caption = 'Summary'
-      Hint = 'Explorer (R): summary'
+      Hint = 'Summary'
       OnExecute = actRExplorerSummaryExecute
     end
     object actRExplorerRemove: TAction
       Category = 'R explorer'
       Caption = 'Remove'
-      Hint = 'Explorer (R): remove'
+      Hint = 'Remove the selected object from the environment'
       ImageIndex = 194
       OnExecute = actRExplorerRemoveExecute
     end
     object actRExplorerRemoveAllObjects: TAction
       Category = 'R explorer'
       Caption = 'Remove all objects'
-      Hint = 'Explorer (R): remove all objects'
+      Hint = 'Remove all objects from the environment'
       ImageIndex = 22
       OnExecute = actRExplorerRemoveAllObjectsExecute
     end
@@ -12256,7 +12272,7 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Content'
       Enabled = False
-      Hint = 'Explorer (R): print content'
+      Hint = 'Print the content of the selected object to the console'
       ImageIndex = 15
       OnExecute = actRExplorerContentExecute
     end
@@ -12264,7 +12280,7 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Names'
       Enabled = False
-      Hint = 'Explorer (R): list names'
+      Hint = 'List names'
       ImageIndex = 16
       OnExecute = actRExplorerNamesExecute
     end
@@ -12272,7 +12288,7 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Structure'
       Enabled = False
-      Hint = 'Explorer (R): list structure'
+      Hint = 'List structure'
       ImageIndex = 17
       OnExecute = actRExplorerStructureExecute
     end
@@ -12280,7 +12296,7 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Edit'
       Enabled = False
-      Hint = 'Explorer (R): edit'
+      Hint = 'Open the selected object in the R editor'
       ImageIndex = 18
       OnExecute = actRExplorerEditExecute
     end
@@ -12288,7 +12304,7 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Fix'
       Enabled = False
-      Hint = 'Explorer (R): fix'
+      Hint = 'Fix the selected object'
       ImageIndex = 19
       OnExecute = actRExplorerFixExecute
     end
@@ -12296,32 +12312,34 @@ object frmTinnMain: TfrmTinnMain
       Category = 'R explorer'
       Caption = 'Plot'
       Enabled = False
-      Hint = 'Explorer (R): plot'
+      Hint = 'Plot the selected object'
       ImageIndex = 253
       OnExecute = actRExplorerPlotExecute
     end
     object actRExplorerSendNameToEditor: TAction
       Category = 'R explorer'
       Caption = 'Insert name into editor'
-      Hint = 'R Explorer: Insert name into editor'
+      Hint = 'Insert the name of the selected object into the editor'
+      ImageIndex = 85
+      ShortCut = 16453
       OnExecute = actRExplorerSendNameToEditorExecute
     end
     object actRExplorerSendNameToClipboard: TAction
       Category = 'R explorer'
       Caption = 'Copy name to clipboard'
-      Hint = 'R Explorer: Copy name to clipboard'
+      Hint = 'Copy the name the selected object to the clipboard'
       OnExecute = actRExplorerSendNameToClipboardExecute
     end
     object actRExplorerExpRaw: TAction
       Category = 'R explorer'
       Caption = 'Raw (export)'
-      Hint = 'Explorer (R): raw (export)'
+      Hint = 'Export the selected object (raw)'
       OnExecute = actRExplorerExpRawExecute
     end
     object actRExplorerExpASCII: TAction
       Category = 'R explorer'
       Caption = 'ASCII (export)'
-      Hint = 'Explorer (R): ASCII (export)'
+      Hint = 'Export the selected object as ASCII file'
       OnExecute = actRExplorerExpASCIIExecute
     end
     object actRExplorerExpHTML: TAction
@@ -12348,7 +12366,6 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Refresh environment'
       Hint = 'Explorer (R): refresh environment'
       ImageIndex = 86
-      ShortCut = 16453
       OnExecute = actREnvironmentRefreshExecute
     end
     object actRExplorerRefresh: TAction
@@ -13783,7 +13800,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 232
     Bitmap = {
-      494C010105002806A40910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010105002806CC0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14058,7 +14075,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 264
     Bitmap = {
-      494C010104002806A40910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104002806CC0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14339,8 +14356,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 120
-    Top = 512
+    Left = 320
+    Top = 576
     object pmemLogShowHide: TMenuItem
       Action = actRtermVisible
     end
@@ -14555,8 +14572,8 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 552
-    Top = 480
+    Left = 544
+    Top = 408
   end
   object pmenMainMRU: TJvPopupMenu
     Style = msOffice
@@ -14566,8 +14583,8 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 552
-    Top = 528
+    Left = 576
+    Top = 472
   end
   object pmenWinExplorerFolders: TJvPopupMenu
     Images = imlTinnR
@@ -14579,39 +14596,18 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 328
-    Top = 512
+    Left = 408
+    Top = 520
     object pmenWinExplorerFoldersRefresh: TMenuItem
       Caption = 'Refresh'
       ImageIndex = 86
-    end
-  end
-  object pmenShortcuts: TJvPopupMenu
-    Images = imlTinnR
-    Style = msOffice
-    ImageMargin.Left = 0
-    ImageMargin.Top = 0
-    ImageMargin.Right = 0
-    ImageMargin.Bottom = 0
-    ImageSize.Height = 0
-    ImageSize.Width = 0
-    Left = 120
-    Top = 416
-    object Help1: TMenuItem
-      Action = actShortcutsHelp
-    end
-    object N192: TMenuItem
-      Caption = '-'
-    end
-    object Edit1: TMenuItem
-      Action = actShortcutsEdit
     end
   end
   object imlStatusBar: TImageList
     Left = 56
     Top = 304
     Bitmap = {
-      494C0101040010038C0610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104001003B40610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14896,8 +14892,8 @@ object frmTinnMain: TfrmTinnMain
     ImageMargin.Bottom = 0
     ImageSize.Height = 0
     ImageSize.Width = 0
-    Left = 328
-    Top = 464
+    Left = 408
+    Top = 472
     object MenuItem1: TMenuItem
       Action = actCommentsHelp
     end
@@ -14918,8 +14914,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 208
-    Top = 512
+    Left = 488
+    Top = 528
     object MenuItem3: TMenuItem
       Action = actRmirrorsHelp
     end
@@ -16306,15 +16302,6 @@ object frmTinnMain: TfrmTinnMain
     object Refresh1: TMenuItem
       Action = actExplorerRefresh
     end
-  end
-  object IdLookupThread: TIdThreadComponent
-    Active = False
-    Loop = False
-    Priority = tpNormal
-    StopMode = smTerminate
-    OnRun = IdLookupThreadRun
-    Left = 232
-    Top = 312
   end
   object pabRExplorer: TPopupActionBar
     Images = imlTinnR
@@ -18185,7 +18172,7 @@ object frmTinnMain: TfrmTinnMain
     Port = 0
     OnRead = csMainBaseRead
     OnError = csMainBaseError
-    Left = 328
+    Left = 320
     Top = 104
   end
   object pabLibrary: TPopupActionBar

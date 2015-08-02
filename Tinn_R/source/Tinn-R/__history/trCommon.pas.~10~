@@ -1,0 +1,178 @@
+unit trCommon;
+
+interface
+
+uses System.SysUtils, DScintillaCustom, DScintilla, DScintillaTypes,  System.Character,Dialogs;
+
+type
+  TEditorFile = record
+   iId:   Integer;
+   sFile: String;
+   iNewFile: Integer;
+   iModified: Integer;
+   iUnsavedChanges: Integer;
+   sMarks: String;
+   sTempFile: String;
+   iTopLine, iCaretPosition: Integer;
+   sFolding: String;
+   iLexerId: Integer;
+   iTabPosition: Integer;
+end;
+  function GetRComplexExpression(FEditor: TDScintilla; iPos: Integer; var sExpression: String): Integer;
+  function GetRWord(FEditor: TDScintilla; iPos: Integer; var sWord: String): Integer;
+  function IsValidRWord(sWord: String): Boolean;
+  function GetRWordEndPosition(iPos: Integer; Editor: TDScintilla): Integer;
+  procedure ShowBracketTip(seEditor: TDScintilla);
+implementation
+
+uses uModDados;
+
+function GetRWord(FEditor: TDScintilla; iPos: Integer; var sWord: String): Integer;
+var  sLine, sWo: String;
+  i: Integer;
+
+  function NonValidFirstChar(str: String): Boolean;
+  var ach: Char;
+  begin
+    Result := false;
+    if length(str) = 0 then
+      Exit;
+    ach :=  system.copy(str,1, 1)[1];
+    if CharInSet(ach, ['0' .. '9', '0' .. '9', '_']) then
+      Result := true;
+  end;
+begin
+  with FEditor do
+  begin
+   sLine := GetTextRange(PositionFromLine(LineFromPosition(iPos)), iPos);
+   sWo := '';
+   for i := length(sLine) downto 1 do
+    if IsLetterOrDigit(sLine[i]) OR  CharInSet(sLine[i], ['.', '_']) then
+     sWo := sLine[i]+sWo
+     else break;
+
+   while NonValidFirstChar(sWo)  do
+     sWo := system.copy(sWo, 2, length(sWo)-1);
+   sWord := sWo;
+   Result := iPos - length(sWo);
+  end;
+end;
+
+
+
+function IsValidRWord(sWord: String): Boolean;
+var  sWo: String;
+  i: Integer;
+
+  function NonValidFirstChar(str: String): Boolean;
+  var ach: Char;
+  begin
+    Result := false;
+    if length(str) = 0 then
+      Exit;
+    ach :=  system.copy(str,1, 1)[1];
+    if CharInSet(ach, ['0' .. '9', '0' .. '9', '_']) then
+      Result := true;
+  end;
+begin
+  Result := true;
+  for i := length(sWord) downto 1 do
+  if not (IsLetterOrDigit(sWord[i]) OR  CharInSet(sWord[i], ['.', '_'])) then
+  begin
+    Result := false;
+    Exit;
+  end;
+
+  Result := NonValidFirstChar(sWord) = False;
+end;
+
+function GetRWordEndPosition(iPos: Integer; Editor: TDScintilla): Integer;
+
+  function IsValidRChar(ip: Integer): Boolean;
+  var ach: Char;
+      str: String;
+  begin
+    Result := false;
+    str := Editor.GetTextRange(ip, ip+1);
+    if length(str)>0 then
+    begin
+      ach := copy(str,1,1)[1];
+     // showmessage(ach);
+      if IsLetterOrDigit(ach) OR  CharInSet(ach, ['.', '_'])  then
+        Result := true;
+    end;
+  end;
+
+begin
+ Result := iPos;
+ while IsValidRChar(Result) do
+   inc(Result);
+end;
+
+
+
+procedure ShowBracketTip(seEditor: TDScintilla);
+var sTip, sWord: String;
+    iPos: Integer;
+
+begin
+  with seEditor do
+  begin
+    iPos := GetCurrentPos-1;
+
+    iPos := GetRWordEndPosition(iPos, seEditor);
+
+    GetRWord(seEditor, iPos, sWord);
+    if sWord = '' then
+      Exit;
+
+    sTip := modDados.FindLibraryTipText(sWord);
+    if sTip <> '' then
+    begin
+      CallTipShow(iPos, sTip);
+      CallTipSetHlt(0, length(sTip));
+    end;
+
+  end;
+
+
+
+
+end;
+
+
+
+
+function GetRComplexExpression(FEditor: TDScintilla; iPos: Integer; var sExpression: String): Integer;
+var iInitialPos: Integer;
+
+  function LoopBracketAndWords(iSubStart: Integer): Integer;
+  var stmp: String;
+  begin
+  with FEditor do
+  begin
+    if ( GetTextRange(iSubStart-1, iSubStart) = ']'   ) or ( GetTextRange(iSubStart-1, iSubStart) = ')'  ) then
+    begin
+
+      iPos := Feditor.BraceMatch(iSubStart-1);
+      if iPos >-1 then
+      begin
+        Result := LoopBracketAndWords(iPos-1);
+      end else Result := iSubStart;
+    end else Result := GetRWord(FEditor, iSubStart, stmp);
+  end;
+  end;
+
+begin
+  with FEditor do
+  begin
+    iInitialPos := iPos;
+    iPos :=  LoopBracketAndWords(iInitialPos);
+    sExpression := GetTextRange(iPos, iInitialPos);
+    Result := iPos;
+
+  end;
+end;
+
+
+end.

@@ -549,14 +549,14 @@ var
 begin
 with frmTinnMain do
 begin
-  if (pgFiles.PageCount = 0) then
+{  if (pgFiles.PageCount = 0) then
     Exit;
   i := FindTopWindow;
-
+   }
   actRExplorerSendNameToEditorExecute(nil);
-
+  {
   PostMessage(TWinControl(frmTinnMain.MDIChildren[i] as TfrmEditor).Handle,
-    WM_SETFOCUS, 0, 0);
+    WM_SETFOCUS, 0, 0); }
 end;
 end;
 

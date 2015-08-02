@@ -80,7 +80,6 @@ type
     procedure btnClearAllHotKeysClick(Sender: TObject);
     procedure btnOKClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure jvhkHotkeyKeyDown(Sender: TObject; var Key: Word;
@@ -751,23 +750,6 @@ begin
       if Assigned(ajavHKC[iRow]) then
         jvhkHotkey.HotKey := ajavHKC[iRow].HotKey;
   end;
-end;
-
-procedure TfrmHotKeys.FormActivate(Sender: TObject);
-begin
-  with strgDefault do
-  begin
-    Color := frmTinnMain.clBGApplication;
-    Font.Color := frmTinnMain.clFGApplication;
-  end;
-
-  with strgCustom do
-  begin
-    Color := frmTinnMain.clBGApplication;
-    Font.Color := frmTinnMain.clFGApplication;
-  end;
-
-  pgHotkeys.TabSelectedStyle.BackgrColor := frmTinnMain.clBGTabSelectedNew;
 end;
 
 end.

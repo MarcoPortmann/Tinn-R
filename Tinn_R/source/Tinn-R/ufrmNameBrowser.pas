@@ -166,7 +166,13 @@ begin
   iInsertPosition := iSelStart;
   iPosNow := SciInsertEd.GetCurrentPos;
   if lvNames.SelCount = 1 then
+  begin
+    if SciInsertEd.GetTextRange(iInsertPosition-1, iInsertPosition) = '[' then
+      sInsert := ', c('''+lvNames.Selected.Caption+''')]'
+    else
     sInsert := lvNames.Selected.Caption;
+  end;
+
 
   if lvNames.SelCount > 1 then
   begin
@@ -180,6 +186,10 @@ begin
 
     sInsert := '[, c(' + sInsert + ')]';
   end;
+
+  if SInsert = '' then
+    if trim(edNameSearch.Text) <> ''  then
+      sInsert := edNameSearch.Text;
 
   if sInsert <> '' then
   begin
@@ -198,6 +208,8 @@ end;
 
 procedure TfrmNameBrowser.CloseNamePopup;
 begin
+  if assigned(SciInsertEd) then
+    SciInsertEd.IndicatorClearRange(0, SciInsertEd.getCurrentPos);
   Visible := false;
   frmTinnMain.bNameFormLoading := false;
   frmTinnMain.bNameFormActive := false;

@@ -207,50 +207,6 @@ end;
 
 procedure TfrmRmirrors.FormActivate(Sender: TObject);
 begin
-  with frmTinnMain do
-  begin
-    with dbeCountry do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeName do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeCity do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeHost do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeURL do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeCode do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbgRmirrors do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-  end;
 
   stbRmirrors.Panels[0].Text := 'Browse mode';
   with modDados do

@@ -2,7 +2,7 @@ unit uLexerCommands;
 
 interface
 
-uses vcl.dialogs, DScintilla, DScintillaTypes, ufrmMain, ufrmEditor, ufrmRTerm, ufrmTools, uModDados, trUtils, Vcl.Graphics, PerlRegEx, windows, System.SysUtils, SciKeyBindings;
+uses vcl.dialogs, DScintilla, DScintillaTypes, ufrmMain, ufrmEditor, ufrmRTerm, ufrmTools, uModDados, trUtils, Vcl.Graphics, PerlRegEx, windows, System.SysUtils, SciKeyBindings, trCommon;
 
   procedure ApplyLexer(iLexerId: Integer; sciEditor: TDScintilla);
   //procedure SetLexer(Editor: TDSCintilla; LanguageString: String);
@@ -252,19 +252,20 @@ procedure UpdateLexerKeyWords(iSet: Integer);
 var
   i: integer;
   KeyWordStringBase, KeyWordStringUser, sWord: String;
-  function AlphaOnly(sstr: String): Boolean;
-  var i: Integer;
 
+  procedure UpdateEditor(seEditor: TDScintilla);
   begin
-    result := true;
-    for i := 1 to length(sstr) do
-      if not CharInSet(sstr[i], ['A' .. 'Z', 'a' .. 'z', '.', '0'..'9']) then
-      begin
-        result := false;
-        break;
-      end;
-
+  with seEditor do
+  begin
+    SetPunctuationChars(StringReplace(GetPunctuationChars, '.', '', [rfReplaceAll, rfIgnoreCase]));
+    if iSet in [1, 3] then
+      SetKeyWords(1, KeyWordStringBase);
+    if ModDados.cdRUser.Active then
+      if iSet in [2, 3] then
+        SetKeyWords(2, KeyWordStringUser);
   end;
+  end;
+
 begin
 
   if iSet in [2, 3] then
@@ -285,8 +286,8 @@ begin
      begin
        sWord := cdRUser.FieldByName('Name').AsString;
 
-        if AlphaOnly(sWord) then
-
+       // if AlphaOnly(sWord) then
+        if IsValidRWord(sWord) then
        //if (ansipos(',', sWord)=0) AND (ansipos('.', sWord)=0) AND (ansipos('_', sWord)=0) AND (ansipos('<', sWord)=0) then
          KeyWordStringUser := KeyWordStringUser + ' ' + sWord;
        cdRUser.Next;
@@ -311,8 +312,8 @@ begin
      begin
        sWord := sqlBaseKeywords.FieldByName('Name').AsString;
 
-        if AlphaOnly(sWord) then
-
+        //if AlphaOnly(sWord) then
+        if IsValidRWord(sWord) then
        //if (ansipos(',', sWord)=0) AND (ansipos('.', sWord)=0) AND (ansipos('_', sWord)=0) AND (ansipos('<', sWord)=0) then
          KeyWordStringBase := KeyWordStringBase + ' ' + sWord;
        sqlBaseKeywords.Next;
@@ -327,27 +328,17 @@ begin
     for i := (frmTinnMain.MDIChildCount - 1) downto 0 do
     with    (frmTinnMain.MDIChildren[i] as TfrmEditor) do
     begin
-      with sciEditor do
-      begin
-        SetPunctuationChars(StringReplace(GetPunctuationChars, '.', '', [rfReplaceAll, rfIgnoreCase]));
-        if iSet in [1, 3] then
-           SetKeyWords(1, KeyWordStringBase);
-        if ModDados.cdRUser.Active then
-          if iSet in [2, 3] then
-            SetKeyWords(2, KeyWordStringUser);
-      end;
+      UpdateEditor(sciEditor);
 
       if Assigned(sciEditor2) then
-      with sciEditor2 do
-      begin
-        SetPunctuationChars(StringReplace(GetPunctuationChars, '.', '', [rfReplaceAll, rfIgnoreCase]));
-        if iSet in [1, 3] then
-           SetKeyWords(1, KeyWordStringBase);
-        if ModDados.cdRUser.Active then
-          if iSet in [2, 3] then
-            SetKeyWords(2, KeyWordStringUser);
-      end;
+         UpdateEditor(sciEditor2);
+
     end;
+
+  if assigned(frmRTerm) then
+    if iIOSyntax = SCLEX_R  then
+      UpdateEditor(frmRTerm.sciIO);
+
 
 
                //  if Assigned((frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor2) then

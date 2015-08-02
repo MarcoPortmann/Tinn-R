@@ -121,6 +121,7 @@ type
     dspShortcuts: TDataSetProvider;
     dsShortcuts: TDataSource;
     cdShortcuts: TClientDataSet;
+    sqldsLibraryTip: TSQLDataSet;
 
     procedure cdCommentsAfterPost(DataSet: TDataSet);
     procedure cdCommentsAfterScroll(DataSet: TDataSet);
@@ -156,6 +157,9 @@ type
     procedure dsMainBaseDataChange(Sender: TObject; Field: TField);
   private
     sCurDescription: String;
+    sCurDwellTextExplorer: String;
+    sCurDwellTextLibrary: String;
+
     { Private declarations }
 
   public
@@ -185,12 +189,12 @@ type
     function  GetLexerIdByName(sLexerName: String): Integer;
     procedure CheckForNewPackages;
     function  GetFileTypeIndexOfLexer(iLexerId: Integer): Integer;
-    function  FindTipText(sWord: String): String;
+    function  FindLibraryTipText(sWord: String; HasArguments: Boolean = False): String;
+    function  FindRObjectTipText(sWord: String): String;
    end;
    
 var
   modDados: TmodDados;
-  sCurDwellText: String;
 implementation
 
 uses
@@ -1490,10 +1494,11 @@ procedure TmodDados.LookupWord(sKey: String; cdDataBase: TClientDataSet);
       var
     sCompare: String;
     bMatched: Boolean;
-    iCurrent: Integer;
+    iCurrent, iTestRecNo: Integer;
   begin
     with cdDataBase do
     begin
+      sKey := ansilowercase(sKey);
       DisableControls;
 
       iCurrent := RecNo;
@@ -1501,6 +1506,7 @@ procedure TmodDados.LookupWord(sKey: String; cdDataBase: TClientDataSet);
 
       while not bMatched do
       begin
+        iTestRecNo := recno;
 
         sCompare := ansilowercase(FieldByName('Name').AsString);
 
@@ -1509,9 +1515,10 @@ procedure TmodDados.LookupWord(sKey: String; cdDataBase: TClientDataSet);
 
         if not bMatched then
         begin
-         if not eof then
-           next
-         else first
+         Next;
+         // eof method was unreliable
+         if recno = iTestRecNo then
+          First;
         end;
 
         if RecNo = iCurrent then
@@ -1524,13 +1531,13 @@ procedure TmodDados.LookupWord(sKey: String; cdDataBase: TClientDataSet);
     end;
 end;
 
-function TmodDados.FindTipText(sWord: String): String;
+function TmodDados.FindRObjectTipText(sWord: String): String;
 begin
   with sqldsExplorerTip do
   begin
-    if sCurDwellText <> sWord then
+    if sCurDwellTextExplorer <> sWord then
     begin
-      sCurDwellText := sWord;
+      sCurDwellTextExplorer := sWord;
       Active := false;
       CommandText := 'SELECT Name, Dim, Class FROM objects WHERE name like ' + AnsiQuotedStr(ansilowercase(sWord),'"');
       Active := true;
@@ -1546,6 +1553,36 @@ begin
     end;
   end;
 end;
+
+
+
+
+function TmodDados.FindLibraryTipText(sWord: String; HasArguments: Boolean = False): String;
+begin
+  with sqldsLibraryTip do
+  begin
+    if sCurDwellTextLibrary <> sWord then
+    begin
+      sCurDwellTextLibrary := sWord;
+      Active := false;
+      CommandText := 'SELECT Name, InsertText, HasArguments FROM objects WHERE name like ' + AnsiQuotedStr((sWord),'"');
+      Active := true;
+    end;
+
+    if Active then
+    begin
+      First;
+      if not FieldByName('InsertText').IsNull  then
+      begin
+        Result := FieldByName('InsertText').AsString;
+        if HasArguments then
+          if FieldByName('HasArguments').AsInteger = 0 then
+            Result := '';
+      end;
+    end;
+  end;
+end;
+
 
 
 

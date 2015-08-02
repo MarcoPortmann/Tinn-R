@@ -403,6 +403,10 @@ type
     btnResetDefault: TButton;
     Memo2: TMemo;
     edPath_Pandoc: TButtonedEdit;
+    cbColorMark1: TJvOfficeColorButton;
+    cbColorMark2: TJvOfficeColorButton;
+    Label21: TLabel;
+    Label22: TLabel;
 
     procedure bbHelpClick(Sender: TObject);
     procedure bbtConPathDeplateClick(Sender: TObject);
@@ -688,7 +692,7 @@ end;
 
 procedure TfrmAppOptions.FormActivate(Sender: TObject);
 begin
-  with frmTinnMain do
+ { with frmTinnMain do
   begin
     pgIP.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
     with jtvAppOptions do
@@ -696,7 +700,7 @@ begin
       Color := clBGApplication;
       Font.Color := clFGApplication;
     end;
-  end;
+  end;  }
 
   // Force all to be executed
   tbDelayPosChange(nil);

@@ -546,9 +546,7 @@ type
     csRGeneral: TClientSocket;
     csRtip: TClientSocket;
     ctbMain: TControlBar;
-    Edit1: TMenuItem;
     Exampleselected2: TMenuItem;
-    Help1: TMenuItem;
     Help3: TMenuItem;
     Help5: TMenuItem;
     Helpselected2: TMenuItem;
@@ -581,7 +579,6 @@ type
     N152: TMenuItem;
     N168: TMenuItem;
     N190: TMenuItem;
-    N192: TMenuItem;
     N194: TMenuItem;
     N196: TMenuItem;
     N197: TMenuItem;
@@ -680,7 +677,6 @@ type
     pmenResultsOpenLink: TMenuItem;
     pmenRmirrors: TJvPopupMenu;
     pmenSearch: TJvPopupMenu;
-    pmenShortcuts: TJvPopupMenu;
     pmenViewToolbars: TJvPopupMenu;
     pmenViewToolbarsEdit: TMenuItem;
     pmenViewToolbarsFile: TMenuItem;
@@ -751,7 +747,6 @@ type
     actUnfoldAll: TAction;
     actQuote: TAction;
     actRemoveLineBreaks: TAction;
-    IdLookupThread: TIdThreadComponent;
     pabRExplorer: TPopupActionBar;
     Help6: TMenuItem;
     Help7: TMenuItem;
@@ -1435,6 +1430,8 @@ type
     pmemIOWorkspace1: TMenuItem;
     pmemIOWorkspaceSave1: TMenuItem;
     pmemIOWorkspaceLoad1: TMenuItem;
+    Edit4: TEdit;
+    Button1: TButton;
 
     procedure actHelpAboutExecute(Sender: TObject);
     procedure actANSIExecute(Sender: TObject);
@@ -1831,7 +1828,6 @@ type
     procedure SaveEditorKeystrokes;
     procedure actQuoteExecute(Sender: TObject);
     procedure actRemoveLineBreaksExecute(Sender: TObject);
-    procedure IdLookupThreadRun(Sender: TIdThreadComponent);
     procedure csRExplorerWrite(Sender: TObject; Socket: TCustomWinSocket);
     procedure csRExplorerRead(Sender: TObject; Socket: TCustomWinSocket);
     procedure actnHighlighterPesudoExecute(Sender: TObject);
@@ -1893,12 +1889,13 @@ type
 //    function GetSelectionToReformat(sSel: string): string;
 //    function GetFileToReformat: string;
     procedure StartupThreadShortcutsRun(Sender: TIdThreadComponent);
+    procedure Button1Click(Sender: TObject);
 
   private
     { Private declarations }
-    sLookupName: String;
+  {  sLookupName: String;
     iLookupCursor: Integer;
-    sciLookup: TDScintilla;
+    sciLookup: TDScintilla;      }
 
     aOpenFileSearch: Array of Integer;
     aImg: Array [0 .. 9] of TBitmap;
@@ -1918,6 +1915,8 @@ type
     bRget_Info: Boolean;
     bRKnitr: Boolean;
     bRmirros_Update: Boolean;
+
+    bBackgroundConnectionErrorWarning: Boolean;
 
     bRsvSocket_Connect: Boolean;
     bRtermCloseWithoutAsk: Boolean;
@@ -1946,8 +1945,6 @@ type
 
     iDefaultLexerId: Integer;
 
-
- //   iIOSyntax: integer;
     iLastFile: integer;
     iLastSearch: integer;
 
@@ -2225,6 +2222,13 @@ type
     iHighlightActiveLineColor: Integer;
     ifTinn: TIniFile;
 
+    // Names popup
+    iObjectCallID: Integer;
+
+    iActivePopupPosition: Integer;
+    sciActivePopupEditor: TDScintilla;
+    sActivePopupObject: String;
+    iActivePopupIndicatorStart: Integer;
 
 
     bEchoOn: Boolean;
@@ -2268,20 +2272,16 @@ type
     bselectedToPreview: Boolean;
     bTinnRHotKeysActive: Boolean;
     bUndoAfterSave: Boolean;
-
-    clBGApplication: TColor;
-    clBGForAllHighlighters: TColor;
-    clBGPreferred: TColor;
-    clBGTabSelectedNew: TColor;
-    clBrackets: TColor;
-    clFGApplication: TColor;
     hRgui: HWND;
     iAlphaBlendValue: integer;
     iBackupInterval: integer;
     iCommentsBeforeChanges: integer;
     iCompletionBeforeChanges: integer;
- //   iCompletionFilter: integer;
     iCountriesFilter: integer;
+
+    iColorMark1: Integer;
+    iColorMark2: Integer;
+
 
 {
     iCols: integer;
@@ -2439,6 +2439,7 @@ type
     procedure ReLoadLexersAndExtensions;
     procedure ReLoadDialogFileExtension(FileTypes : TFileTypeItems);
     procedure RemoveTab(iId: integer);
+    procedure ShowNamesPopup;
     procedure SendLibraryUpdate;
     procedure SendRCustom(sRC: string);
     procedure SendToConsole(sTmp: string);
@@ -3240,6 +3241,9 @@ begin
     WriteBool('Gutter', 'bFolding', actFoldingVisible.Checked);
     WriteBool('Gutter', 'bMarkers', actMarkersVisible.Checked);
 
+    WriteInteger('Gutter', 'iColorMark1', iColorMark1);
+    WriteInteger('Gutter', 'iColorMark2', iColorMark2);
+
     // Line breaks
 
     WriteInteger('Editor', 'iEditorLineWrap', iEditorLineWrap);
@@ -3504,6 +3508,9 @@ begin
 
   iDefaultLexerId := ifTinn.ReadInteger('App', 'iDefaultLexerId', 86);
 
+
+  bBackgroundConnectionErrorWarning := ifTinn.ReadBool('App', 'bBackgroundConnectionErrorWarning', false);
+
   // m.p.  SET NEW TOOOLBAR PROPERTIES HERE!
 
   {
@@ -3636,7 +3643,7 @@ begin
   //clActiveLine := ifTinn.ReadInteger('App', 'clActiveLine', TColor(clInfoBk));
 
 
-  clBGApplication := ifTinn.ReadInteger('App', 'clBGApplication',
+{  clBGApplication := ifTinn.ReadInteger('App', 'clBGApplication',
     TColor(clWindow));
   clBGForAllHighlighters := ifTinn.ReadInteger('App', 'clBGForAllHighlighters',
     TColor(clWindow));
@@ -3645,7 +3652,7 @@ begin
     TColor(clMedGray));
   clBrackets := ifTinn.ReadInteger('App', 'clBrackets', TColor(clRed));
   clFGApplication := ifTinn.ReadInteger('App', 'clFGApplication',
-    TColor(clBlack));
+    TColor(clBlack));}
   iBackupInterval := ifTinn.ReadInteger('App', 'iBackupInterval', 30);
   iDelay := ifTinn.ReadInteger('App', 'iDelay', 100);
   iPandocFrom := ifTinn.ReadInteger('App', 'iPandocFrom', 4);
@@ -4148,7 +4155,8 @@ begin
     actLineNumbersVisible.Checked := ReadBool('Gutter', 'bLineNumber', True);
     actMarkersVisible.Checked := ReadBool('Gutter', 'bMarkers', True);
     actFoldingVisible.Checked := ReadBool('Gutter', 'bFolding', True);
-
+    iColorMark1 := ReadInteger('Gutter', 'iColorMark1', 14680063);
+    iColorMark2 := ReadInteger('Gutter', 'iColorMark2', 11908584);
 
     // Line wrap
 
@@ -4164,6 +4172,7 @@ begin
     // CurrentLine
     bHighlightActiveLine := ReadBool('Editor', 'bHighlightActiveLine', True);
     iHighlightActiveLineColor := ReadInteger('Editor', 'iHighlightActiveLineColor', 14680063);
+
   end;
 
 
@@ -6499,6 +6508,8 @@ begin
 
   with ifFile do
   begin
+
+    WriteBool('App', 'bBackgroundConnectionErrorWarning', bBackgroundConnectionErrorWarning);
     // Version control
     WriteString('App', 'sCacheVersion', sVersion_Cache);
     WriteString('App', 'sCommentsVersion', sVersion_Comments);
@@ -6667,13 +6678,13 @@ begin
     WriteBool('App', 'bTinnRHotKeysActive', bTinnRHotKeysActive);
     WriteBool('App', 'bUndoAfterSave', bUndoAfterSave);
 
-    WriteInteger('App', 'clBGApplication', TColor(clBGApplication));
+{    WriteInteger('App', 'clBGApplication', TColor(clBGApplication));
     WriteInteger('App', 'clBGForAllHighlighters',
       TColor(clBGForAllHighlighters));
     WriteInteger('App', 'clBGPreferred', TColor(clBGPreferred));
     WriteInteger('App', 'clBGTabSelectedNew', TColor(clBGTabSelectedNew));
     WriteInteger('App', 'clBrackets', TColor(clBrackets));
-    WriteInteger('App', 'clFGApplication', TColor(clFGApplication));
+    WriteInteger('App', 'clFGApplication', TColor(clFGApplication));}
     WriteInteger('App', 'Delay', iDelay);
     WriteInteger('App', 'iBackupInterval', iBackupInterval);
     WriteInteger('App', 'iIPPortLocal', iIPPortLocal);
@@ -8546,11 +8557,33 @@ begin
   end;
 end;
 
-procedure TfrmTinnMain.Button2Click(Sender: TObject);
+procedure TfrmTinnMain.Button1Click(Sender: TObject);
 var sString: String;
     tst: TfrmEditor;
 begin
 
+  if not GetTopEditorForm(tst) then
+     Exit;
+    tst.sciEditor.SetMarginWidthN(3, 3);
+   tst.sciEditor.SetMarginTypeN(3, SC_MARGIN_BACK);
+     tst.sciEditor.SetMarginMaskN(3, SC_MARGIN_SYMBOL);
+
+        tst.sciEditor.MarkerSetBack(SC_MARK_FULLRECT, clGreen);;
+   tst.sciEditor.MarkerSetFore(SC_MARK_FULLRECT, clGreen);
+ //   tst.sciEditor.MarkerSetBack(SC_MARK_LEFTRECT, clGreen);
+    tst.sciEditor.MarkerAdd(1, SC_MARK_LEFTRECT);
+    tst.sciEditor.MarkerAdd(2, SC_MARK_LEFTRECT);
+   tst.sciEditor.MarkerAdd(3, SC_MARK_LEFTRECT);
+
+end;
+
+procedure TfrmTinnMain.Button2Click(Sender: TObject);
+var sString: String;
+    tst: TfrmEditor;
+begin
+ csREnvironment.Socket.SendText(Edit4.Text+#13#10);
+
+ Exit ;
 frmtinnmain.UpdateRterm_Appearance;
 exit;
   if not GetTopEditorForm(tst) then
@@ -9698,165 +9731,7 @@ begin
 
   //UpdateRterm_Appearance(bFontSize);
   {
-    // WinExpl - BG
-    frmTools.edWinExplorerFilter.Color := clBGApplication;
-    frmTools.jvdcWinExplorer.Color := clBGApplication;
-    frmTools.jvdlbWinExplorer.Color := clBGApplication;
-    frmTools.jvflbWinExplorer.Color := clBGApplication;
-
-    // WinExpl - FG
-    frmTools.edWinExplorerFilter.Font.Color := clFGApplication;
-    frmTools.jvdcWinExplorer.Font.Color := clFGApplication;
-    frmTools.jvdlbWinExplorer.Font.Color := clFGApplication;
-    frmTools.jvflbWinExplorer.Font.Color := clFGApplication;
-
-    // WorkExpl - BG
-    frmTools.edWorkExplorerFilter.Color := clBGApplication;
-    frmTools.jvdcWorkExplorer.Color := clBGApplication;
-    frmTools.jvdlbWorkExplorer.Color := clBGApplication;
-    frmTools.jvflbWorkExplorer.Color := clBGApplication;
-
-    // WorkExpl - FG
-    frmTools.edWorkExplorerFilter.Font.Color := clFGApplication;
-    frmTools.jvdcWorkExplorer.Font.Color := clFGApplication;
-    frmTools.jvdlbWorkExplorer.Font.Color := clFGApplication;
-    frmTools.jvflbWorkExplorer.Font.Color := clFGApplication;
-
-    // Project - BG
-    frmTools.tvProject.Color := clBGApplication;
-
-    // Project - FG
-    frmTools.tvProject.Font.Color := clFGApplication;
-
-    // Markup - BG
-    frmTools.jvivAccents.Color := clBGApplication;
-    frmTools.jvivArrowBoth.Color := clBGApplication;
-    frmTools.jvivArrowBox.Color := clBGApplication;
-    frmTools.jvivArrowDown.Color := clBGApplication;
-    frmTools.jvivArrowLeft.Color := clBGApplication;
-    frmTools.jvivArrowRight.Color := clBGApplication;
-    frmTools.jvivArrowSloped.Color := clBGApplication;
-    frmTools.jvivArrowUp.Color := clBGApplication;
-    frmTools.jvivBar.Color := clBGApplication;
-    frmTools.jvivBracket.Color := clBGApplication;
-    frmTools.jvivDot.Color := clBGApplication;
-    frmTools.jvivGeometryAngle.Color := clBGApplication;
-    frmTools.jvivGeometryBox.Color := clBGApplication;
-    frmTools.jvivGeometryCircle.Color := clBGApplication;
-    frmTools.jvivGeometryDiamond.Color := clBGApplication;
-    frmTools.jvivGeometryLine.Color := clBGApplication;
-    frmTools.jvivGeometryMisc.Color := clBGApplication;
-    frmTools.jvivGeometryStar.Color := clBGApplication;
-    frmTools.jvivGeometryTriangle.Color := clBGApplication;
-    frmTools.jvivGeometryVar.Color := clBGApplication;
-    frmTools.jvivGreekLower.Color := clBGApplication;
-    frmTools.jvivGreekMisc.Color := clBGApplication;
-    frmTools.jvivGreekUpper.Color := clBGApplication;
-    frmTools.jvivGreekVar.Color := clBGApplication;
-    frmTools.jvivMathFunction.Color := clBGApplication;
-    frmTools.jvivMathLogical.Color := clBGApplication;
-    frmTools.jvivMathMisc.Color := clBGApplication;
-    frmTools.jvivMathSet.Color := clBGApplication;
-    frmTools.jvivMathVar.Color := clBGApplication;
-    frmTools.jvivMisc.Color := clBGApplication;
-    frmTools.jvivNegation.Color := clBGApplication;
-    frmTools.jvivOperator.Color := clBGApplication;
-    frmTools.jvivRelation.Color := clBGApplication;
-    frmTools.jvivSkyAstrology.Color := clBGApplication;
-    frmTools.jvivSkySolar.Color := clBGApplication;
-    frmTools.jvivSkyVar.Color := clBGApplication;
-    frmTools.jvivUserCustom.Color := clBGApplication; }
-  { m.p. SET COLOR
-    // Results - BG
-    frmTools.memIniLog.Color := clBGApplication;
-    frmTools.tvSearch.Color := clBGApplication;
-
-    // Results - FG
-    frmTools.memIniLog.Font.Color := clFGApplication;
-    frmTools.tvSearch.Font.Color := clFGApplication;
-
-    // Spell - BG
-    frmTools.memSpell.Color := clBGApplication;
-
-    // Spell - FG
-    frmTools.memSpell.Font.Color := clFGApplication;
-
-    // Rcard - BG
-    frmTools.dbgRcard.Color := clBGApplication;
-    frmTools.dbRcardMemo.Color := clBGApplication;
-    frmTools.lbRcard.Color := clBGApplication;
-
-    // Rcard - FG
-    frmTools.dbgRcard.Font.Color := clFGApplication;
-    frmTools.dbRcardMemo.Font.Color := clFGApplication;
-    frmTools.lbRcard.Font.Color := clFGApplication;
-  }
-  { m.p. SET COLORS HERE
-
-    // Rmirrors - BG
-    frmTools.dbeRmirrorsCode.Color := clBGApplication;
-    frmTools.dbeRmirrorsHost.Color := clBGApplication;
-    frmTools.dbeRmirrorsURL.Color := clBGApplication;
-    frmTools.dbgRmirrors.Color := clBGApplication;
-    frmTools.lbCountries.Color := clBGApplication;
-
-    // Rmirrors - FG
-    frmTools.dbeRmirrorsCode.Font.Color := clFGApplication;
-    frmTools.dbeRmirrorsHost.Font.Color := clFGApplication;
-    frmTools.dbeRmirrorsURL.Font.Color := clFGApplication;
-    frmTools.dbgRmirrors.Font.Color := clFGApplication;
-    frmTools.lbCountries.Font.Color := clFGApplication;
-
-    // Completion - BG
-    frmTools.dbCompletionMemo.Color := clBGApplication;
-    frmTools.dbgCompletion.Color := clBGApplication;
-    frmTools.lbCompletion.Color := clBGApplication;
-
-    // Completion - FG
-    frmTools.dbCompletionMemo.Font.Color := clFGApplication;
-    frmTools.dbgCompletion.Font.Color := clFGApplication;
-    frmTools.lbCompletion.Font.Color := clFGApplication;
-
-    // Comments - BG
-    frmTools.dbgComments.Color := clBGApplication;
-
-    // Comments - FG
-    frmTools.dbgComments.Font.Color := clFGApplication;
-
-    // Shortcuts - BG
-    frmTools.dbgShortcuts.Color := clBGApplication;
-    frmTools.dbShortcutsMemo.Color := clBGApplication;
-    frmTools.lbShortcuts.Color := clBGApplication;
-
-    // Completion - FG
-    frmTools.dbgShortcuts.Font.Color := clFGApplication;
-    frmTools.dbShortcutsMemo.Font.Color := clFGApplication;
-    frmTools.lbShortcuts.Font.Color := clFGApplication;
-
-    // R explorer - BG
-    frmTools.cbbToolsREnvironment.Color := clBGApplication;
-    frmTools.cbbToolsRExplorer.Color := clBGApplication;
-    frmTools.edToolsRExplorerFilter.Color := clBGApplication;
-
-
-    // R explorer - FG
-    // edToolsRExplorerFilter.Font.Color:= clFGApplication;
-    frmTools.cbbToolsREnvironment.Font.Color := clFGApplication;
-    frmTools.cbbToolsRExplorer.Font.Color := clFGApplication;
-
-    // TabSelected - BG
-    pgFiles.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-    with frmTools do
-    begin
-    pgDatabase.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-    pgLatex.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-    pgMarkup.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-    pgMisc.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-    pgR.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-    pgResults.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-    pgTools.TabSelectedStyle.BackgrColor := clBGTabSelectedNew;
-
-    end; }
+ }
 
 end;
 
@@ -10334,7 +10209,7 @@ begin
       else
         rdgRTCPIPType.ItemIndex := 1;
 
-      // Main (not complete list, still messy)
+    // Main (not complete list, still messy)
       // -- Remember
       tbLastFile.Position := iLastFile;
       tbLastSearch.Position := iLastSearch;
@@ -10356,6 +10231,13 @@ begin
       // bellow
       // -- Sync
       tbDelay.Position := iDelay;
+
+
+    // Editor options
+
+      // Marks
+      cbColorMark1.SelectedColor := iColorMark1;
+      cbColorMark2.SelectedColor := iColorMark2;
 
 
       // Messy
@@ -10403,10 +10285,10 @@ begin
       edtIPPortRemote.Text := IntToStr(iIPPortRemote);
       rgRguiTinnRDisposition.ItemIndex := iRguiTinnRDisposition;
 
-      // Appearance
+{      // Appearance
       cbTab.SelectedColor := clBGTabSelectedNew;
       cbBackground.SelectedColor := clBGApplication;
-      cbForeground.SelectedColor := clFGApplication;
+      cbForeground.SelectedColor := clFGApplication; }
 
       // Send to R
       cbRCurrentLineToTop.Checked := actRCurrentLineToTop.Visible;
@@ -10612,6 +10494,15 @@ begin
     begin
       with dlg do
       begin
+
+
+    // Editor options
+
+      // Marks
+      iColorMark1 := cbColorMark1.SelectedColor;
+      iColorMark2 := cbColorMark2.SelectedColor;
+
+
         // Send to R alphabetically ordered
         actRCurrentLineToTop.Visible := cbRCurrentLineToTop.Checked;
         actRSendBlockMarked.Visible := cbRSendBlockMarked.Checked;
@@ -10674,9 +10565,9 @@ begin
         bRTCPIPConsoleEcho := cbRTCPIPConsoleEcho.Checked;
         bRTCPIPConsoleUse := cbRTCPIPConsoleUse.Checked;
         bUndoAfterSave := cbUndoAfterSave.Checked;
-        clBGApplication := cbBackground.SelectedColor;
+ {       clBGApplication := cbBackground.SelectedColor;
         clFGApplication := cbForeground.SelectedColor;
-        frmTinnMain.clBGTabSelectedNew := cbTab.SelectedColor;
+        frmTinnMain.clBGTabSelectedNew := cbTab.SelectedColor; }
         iIPPortLocal := StrToInt(edtIPPortLocal.Text);
         iIPPortRemote := StrToInt(edtIPPortRemote.Text);
         iLastFile := tbLastFile.Position;
@@ -11079,13 +10970,11 @@ var
   sRecText, sOldSelection: String;
 begin
   sRecText := trim(Socket.ReceiveText);
-//  showmessage(sRecText);
   if ansipos('!!update!!', sRecText)>0 then
     AfterLibraryUpdate;
 
-  if ansipos('!!TinnRMSG:Adding', sRecText)>0 then
-  ShowNotification(copy(sRecText, ansipos('!!TinnRMSG:Adding', sRecText)+11, 999), copy(sRecText, ansipos('!!TinnRMSG:Adding', sRecText)+11, 999)+' This might takes a while.');
-
+  //if ansipos('!!TinnRMSG:Adding', sRecText)>0 then
+  //ShowNotification(copy(sRecText, ansipos('!!TinnRMSG:Adding', sRecText)+11, 999), copy(sRecText, ansipos('!!TinnRMSG:Adding', sRecText)+11, 999)+' This might takes a while.');
 end;
 
 procedure TfrmTinnMain.csREnvironmentError(Sender: TObject;
@@ -11119,12 +11008,11 @@ begin
     exit;
   sRecText := trim(Socket.ReceiveText);
 
+  // Explorer update
   iMsgPos := ansipos('TinnRMSG:update:', sRecText);
 
   if iMsgPos>0 then
   if copy(sRecText,iMsgPos + 16 ,ansipos('<',sRecText)-iMsgPos-16) = frmTools.cbbToolsREnvironment.Items[ frmTools.cbbToolsREnvironment.ItemIndex]  then
-
-  begin
   with modDados do
   begin
     try
@@ -11133,7 +11021,7 @@ begin
       try
         SQLConnection.Open;
         //sTables := TStringList.Create;
-       
+
         //SQLConnection.GetTableNames(sTables);
         //if sTables.IndexOf('Objects') > -1 then
         //begin
@@ -11142,22 +11030,27 @@ begin
           SQLConnection.Close;
           cdRObjects.Refresh;
           UpdateLexerKeyWords(2);
-        //end else  tDataConflict.Enabled := true; 
+        //end else  tDataConflict.Enabled := true;
       except
-         tDataConflict.Enabled := true;  
+         tDataConflict.Enabled := true;
       end;
-      
-      
+
+
     finally
       SQLConnection.Close;
       //sTables.Free;
     end;
   end;
 
-{    sRecText := copy(sRecText, ansipos('!!update!!', sRecText)+11, length(sRecText));
-    sRecText := copy(sRecText, 1, length(sRecText)-1);
-    showmessage('');  }
-  end;
+
+
+  // Names popup
+  iMsgPos := ansipos('TinnRMSG:ObjectInfo:', sRecText);
+   if iMsgPos>0 then
+  if iMsgPos>0 then
+  if copy(sRecText,iMsgPos + 20 ,ansipos('<',sRecText)-iMsgPos-20) = inttostr(iObjectCallID)  then
+    ShowNamesPopup;
+
 end;
 
 procedure TfrmTinnMain.csRExplorerWrite(Sender: TObject;
@@ -12845,9 +12738,8 @@ end;
 
 procedure TfrmTinnMain.SendLibraryUpdate;
 var
- sToSend: string;
+ sToSend, smessage: string;
 begin
- //  showmessage('needs update');
   if not Assigned(frmTools) then
     Exit;
 
@@ -12855,13 +12747,24 @@ begin
   begin
     Exit;
   end;
-   // showmessage('does update');
   try
     if Rterm_Running then
       if (csMainBase.Active) then
       begin
-       //  showmessage('does update');
-        sToSend := 'TinnRLibraryUpdate()' + #13#10;
+        if not bBackgroundConnectionErrorWarning then
+        begin
+         sMessage:= 'Due to an unsolved bug, Tinn-R’s communication that should take place in the background blocks the terminal. ';
+         SMessage:= sMessage + 'Generally, this should not disturb your work – unless you load packages that have not yet been imported into Tinn-R’s library.'+#13#10;
+         sMessage:= sMessage +'Unfortunately, this is happening right now. Depending on the number of packages, your R terminal might be blocked for several minutes. ';
+         sMessage:= sMessage +'There are two ways to deal with this bug in future: a) Start R via Tinn-R and load all your packages at once during a coffee break.  B) Go to GitHub and solve the bug.';
+         MessageDlg(sMessage, mtWarning, [mbOK], 0);
+
+
+         bBackgroundConnectionErrorWarning := true;
+        end;
+
+
+        sToSend := 'TinnR$TinnRLibraryUpdate()' + #13#10;
         csMainBase.Socket.SendText(sToSend);
       end;
 
@@ -14598,12 +14501,7 @@ begin
 end;
 
 procedure TfrmTinnMain.actCompletionExecute(Sender: TObject);
-var
-  i: integer;
-
 begin
-  i := FindTopWindow;
-  with (Self.MDIChildren[i] as TfrmEditor) do
     DoCompletionInsert(True);
 end;
 
@@ -17988,15 +17886,6 @@ except
 end;
 end;
 
-procedure TfrmTinnMain.IdLookupThreadRun(Sender: TIdThreadComponent);
-begin
-try
-  LookupRObjectNames(sLookupName, sciLookup, iLookupCursor);
-finally
-  IdLookupThread.Stop;
-end;
-end;
-
 procedure TfrmTinnMain.StartupThreadShortcutsRun(Sender: TIdThreadComponent);
 begin
 with modDados do
@@ -18054,43 +17943,19 @@ end;
 procedure TfrmTinnMain.InstantLookup(Sender: TObject);
 var
   seEditor: TDScintilla;
-  sLine, sWord: String;
-  ilength, icpos: integer;
-
-  function GetRWord: String;
-  var
-    i: integer;
-  begin
-    GetRWord := '';
-    icpos := seEditor.GetCurLine(sLine);
-    sLine := trim(copy(sLine, 1, icpos+1));
-
-    if sLine = '' then
-      Exit;
-
-    ilength := Length(sLine);
-
-    for i := ilength downto 0 do
-    begin
-      if not CharInSet(sLine[i], ['a' .. 'z', 'A' .. 'Z', '0' .. '9', '0' .. '9', '.',
-        '_']) then
-        break;
-    end;
-    GetRWord := copy(sLine, i + 1, ilength - i);
-  end;
+  sWord: String;
+  iCurPos, iStart: Integer;
 
 begin
-
   if Sender.ClassName <> 'TDScintilla' then
     Exit;
   seEditor := Sender as TDScintilla;
 
-  CheckNamesLookup(Sender);
+  iCurPos := seEditor.GetCurrentPos;
+  iStart := GetRWord(seEditor, iCurPos, sWord);
 
-  sWord := GetRWord;
   if sWord = '' then
     Exit;
-
 
   if modDados.cdMainBase.Active then
     modDados.LookupWord(sWord, modDados.cdMainBase);
@@ -18104,46 +17969,8 @@ end;
 procedure TfrmTinnMain.CheckNamesLookup(Sender: TObject);
 var
   seEditor: TDScintilla;
-  sLine, sWord: String;
-  ilength, icpos: integer;
-
-  function GetRWord: String;
-  var
-    i: integer;
-  begin
-    GetRWord := '';
-    icpos := seEditor.GetCurLine(sLine);
-    sLine := trim(copy(sLine, 1, icpos+1));
-
-    if sLine = '' then
-      Exit;
-
-    if not(sLine[Length(sLine)] = '$') then
-      Exit;
-
-    sLine := trim(copy(sLine, 1, Length(sLine) - 1));
-
-    if sLine = '' then
-      Exit;
-
-    ilength := Length(sLine);
-
-
-//    caption :=       RegEx(sLine,
-//      '[_a-zA-Z0-9.-]+(?=\((?:[^()]*\([^()]*\))*[^()]*$)',
-//      // R has function with complex names: '_' '.' '-' 'numbers', ...
-//      False);
-
-
-    for i := ilength downto 0 do
-    begin
-      if not CharInSet(sLine[i], ['a' .. 'z', 'A' .. 'Z', '0' .. '9', '0' .. '9', '.',
-        '_']) then
-        break;
-    end;
-    GetRWord := copy(sLine, i + 1, ilength - i);
-  end;
-
+  sWord: String;
+  iCurPos: Integer;
 begin
   if Sender.ClassName <> 'TDScintilla' then
     Exit;
@@ -18152,24 +17979,34 @@ begin
   if not ValidRRunning then
     Exit;
 
-  sWord := GetRWord;
+  iCurPos := seEditor.GetCurrentPos -1;
+  iActivePopupIndicatorStart := GetRComplexExpression(seEditor, iCurPos, sWord);
+
   if sWord = '' then
     Exit;
 
-  sLookupName:= sWord;
-  iLookupCursor:= seEditor.GetCurrentPos;
-  sciLookup:= seEditor;
-
-  //IDLookupThread.Start;
   LookupRObjectNames(sWord, seEditor, -2);
 end;
 
 procedure TfrmTinnMain.LookupRObjectNames(sRObject: string; Sender: TDScintilla; curpos: Integer);
+var sToSend: String;
+begin
+    iActivePopupPosition := Sender.GetCurrentPos;
+    sciActivePopupEditor := Sender;
+    sActivePopupObject := sRObject;
+
+    iObjectCallID := random(9999);
+    sToSend := 'trObjInfo(''' + StringReplace(sRObject, #13#10, '', [rfReplaceAll]) + ''', path=.trPaths[10], CallID ='+inttostr(iObjectCallID)+')';
+    sToSend := sToSend + #13#10;
+    if (csRExplorer.Active) then
+      csRExplorer.Socket.SendText(sToSend);
+end;
+
+
+procedure TfrmTinnMain.ShowNamesPopup;
 var
   i, iFocus: integer;
-
   bFileExists: Boolean;
-
   sRFile, sTmp, sToSend, sGroup: string;
 
   procedure MakeNamesView_TmpFile(slRObjects: TStringList);
@@ -18189,7 +18026,7 @@ var
 
     slTmp: TStringList;
     dcoord: TPoint;
-    sTmp, sRObjName, sRObjDim, sRObjClass: string;
+    sTmp, sRObjName, sRObjDim, sRObjClass, sTitleName: string;
     liItem: TListItem;
   begin
     try
@@ -18198,12 +18035,21 @@ var
       begin
         with frmNameBrowser do
         begin
+             with sciActivePopupEditor do
+             begin
+               SetIndicatorCurrent(0);
+               IndicSetStyle(0, INDIC_STRAIGHTBOX);
+               IndicatorFillRange(iActivePopupIndicatorStart,getCurrentPos-1-iActivePopupIndicatorStart);
+             end;
           lvNames.Items.BeginUpdate;
           lvNames.Items.Clear;
 
           slTmp := TStringList.Create;
 
-          Caption := 'Names for ''' + sRObject + '''';
+          sTitleName :=  sActivePopupObject;
+          if length(sTitleName)> 25 then
+            sTitleName := copy(sTitleName, 1, 22)+'...';
+          Caption := 'Names for ''' + sTitleName + '''';
           if not Assigned(liAllNames) then
           begin
             liAllNames := TListView.Create(Self);
@@ -18224,7 +18070,7 @@ var
           end;
           bNameFormActive := True;
           bNameFormLoading := True;
-          SciInsertEd := Sender;
+          SciInsertEd := sciActivePopupEditor;
           edNameSearch.Text := '';
           lvNames.Items.Clear;
           lvNames.Items := liAllNames.Items;
@@ -18249,7 +18095,7 @@ var
           FormStyle := fsNormal;
           FormStyle := fsStayOnTop;
           SetWindowPos(Handle, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE + SWP_NOSIZE);
-
+          ednameSearch.SetFocus;
 
           bNameFormLoading := False;
           lvNames.Items.EndUpdate;
@@ -18277,8 +18123,6 @@ var
         on EFOpenError do
         begin
           FreeAndNil(strlFromR);
-          Sleep(iDelay);
-          ReadTmpFile(sRFile);
         end;
       end;
     finally
@@ -18287,65 +18131,21 @@ var
   end;
 
 begin
-
-
   try
     sRFile := sPathTmp + '\nameslookup.r';
-    sTmp := 'trObjInfo(''' + sRObject + ''', path=.trPaths[10] )';
 
-    // Rterm: priority 2.1
-    if Rterm_Running then
+    if not FileExists(sRFile) then
     begin
-      sToSend := sTmp + #13#10;
-
-      if (csRExplorer.Active) then
-        csRExplorer.Socket.SendText(sToSend)
-      else
-      begin
-     {   CheckRterm;
-        frmRterm.cRterm.SendInput(sToSend);
-        SendToConsole(sTmp);      }
-      end;
-    end
-    else // Rgui: priority 2.2
-      if Rgui_Running then
-      begin
-        sToSend := sTmp;
-
-        if (csRExplorer.Active) then
-          csRExplorer.Socket.SendText(sToSend + #13#10)
-        else
-          fCodeSender.SendChar(sToSend, hRgui);
-        SetFocus_Rgui(iDelay div 4);
-      end;
-
-    i := 0;
-    repeat
-      bFileExists := False;
-      Sleep(iDelay);
-      if FileExists(sRFile) then
-      begin
-        bFileExists := True;
-        ReadTmpFile(sRFile);
-      end;
-      inc(i);
-    until bFileExists or (i = 10);
-    DeleteFile(sRFile);
-
-    if not bFileExists then
       frmNameBrowser.CloseNamePopup;
-
-  except
-
+      Exit;
+    end;
+      if sciActivePopupEditor.GetCurrentPos = frmTinnMain.iActivePopupPosition then
+        ReadTmpFile(sRFile);
+      DeleteFile(sRFile);
+  finally
   end;
 end;
- {
-function TfrmTinnMain.BufferToDisplayCoord(coordIn: TBufferCoord)
-  : TDisplayCoord;
-begin
-  Result.Column := coordIn.Char;
-  Result.Row := coordIn.Line;
-end;     }
+
 
 procedure TfrmTinnMain.SetReadOnlyState;
 begin
@@ -18534,12 +18334,9 @@ begin
     actQuote.Enabled := bOption;
     actRemoveLineBreaks.Enabled := bOption;
     actComment.Enabled := bOption;
-    actCompletion.Enabled := bOption;
     actDateStamp.Enabled := bOption;
     actFileClose.Enabled := bOption;
     actFileSaveAs.Enabled := bOption;
-    //actFind.Enabled := bOption;
-    //actFindAgain.Enabled := bOption;
     actFullPathUnix.Enabled := bOption;
     actFullPathWindows.Enabled := bOption;
     actGotoLine.Enabled := bOption;
@@ -18583,8 +18380,6 @@ begin
     actMatchBracket.Enabled := bOption;
 
     actPrint.Enabled := bOption;
-    actRcardInsert.Enabled := bOption;
-    actRcardInsertNoArgs.Enabled := bOption;
     actReadOnly.Enabled := bOption;
     actReload.Enabled := bOption;
     actReplace.Enabled := bOption;

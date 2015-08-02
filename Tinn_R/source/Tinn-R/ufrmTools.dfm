@@ -39,7 +39,7 @@ object frmTools: TfrmTools
     Top = 0
     Width = 351
     Height = 689
-    ActivePage = ppMisc
+    ActivePage = ppR
     Align = alClient
     Background.Stretch = False
     Background.Proportional = False
@@ -997,8 +997,6 @@ object frmTools: TfrmTools
         Align = alClient
         Caption = 'panComments'
         TabOrder = 0
-        ExplicitTop = 140
-        ExplicitHeight = 133
         object GroupBox30: TGroupBox
           Left = 1
           Top = 1
@@ -1007,7 +1005,6 @@ object frmTools: TfrmTools
           Align = alClient
           Caption = ' Options '
           TabOrder = 0
-          ExplicitHeight = 131
           object cbComAutoDetect_Language: TCheckBox
             Left = 9
             Top = 19

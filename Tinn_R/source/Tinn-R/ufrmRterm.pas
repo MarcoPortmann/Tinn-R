@@ -50,7 +50,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ComCtrls, JvDockTree, JvDockControlForm,
   JvComponentBase,  ExtCtrls, ConsoleIO,
-  DScintillaCustom, DScintillaTypes, DScintilla, Vcl.StdCtrls;
+  DScintillaCustom, DScintillaTypes, DScintilla, Vcl.StdCtrls, trCommon;
 
 type
   TfrmRterm = class(TForm)
@@ -87,6 +87,7 @@ type
     procedure FormEndDock(Sender, Target: TObject; X, Y: Integer);
     procedure FormResize(Sender: TObject);
     procedure FormPaint(Sender: TObject);
+    procedure sciIOCharAdded(ASender: TObject; ACh: Integer);
   private
     { Private declarations }
     bDockedStatus, bPinnedStatus: Boolean;
@@ -793,6 +794,48 @@ begin
       Align := alRight;
       Width := 3;
       Cursor := crHSplit;
+    end;
+  end;
+end;
+
+procedure TfrmRterm.sciIOCharAdded(ASender: TObject; ACh: Integer);
+var ipos, ibm, ind, iline, iLastOpenBracket: Integer;
+begin
+ // Bracket highlighting
+  with ASender AS TDScintilla do
+  begin
+    if CharInSet(chr(ACh), ['(','[','{','}',']',')']) then
+    begin
+      if chr(ACh) = ')'  then
+      begin
+        (ASender AS TDScintilla).CallTipCancel;
+        iLastOpenBracket := FindLastOpenBracket(ASender AS TDScintilla, getCurrentPos-1);
+        if iLastOpenBracket > -1 then
+         begin
+          ShowBracketTip(ASender AS TDScintilla, iLastOpenBracket-1);
+         end;
+      end;
+
+      ipos := GetCurrentPos-1;
+       ibm := BraceMatch(ipos);
+           Update;
+    if BraceMatch(ipos)>-1 then
+      BraceHighlight(BraceMatch(ipos), ipos)
+        else BraceBadLight(ipos);
+    end;
+
+
+
+  if not frmTinnMain.bDoInsert then
+    begin
+      if (ACh = integer('[')) OR  (ACh = integer('$')) then
+        frmTinnMain.CheckNamesLookup(ASender);
+
+      frmTinnMain.InstantLookup(ASender AS TDScintilla);
+
+      if (ACh = integer('(')) then
+        ShowBracketTip(ASender AS TDScintilla, (ASender AS TDScintilla).GetCurrentPos-1);
+
     end;
   end;
 end;

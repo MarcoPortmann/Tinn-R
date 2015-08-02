@@ -145,7 +145,7 @@ type
     procedure CopyFormattedTeX;
     procedure DateStamp;
     procedure DoCardInsert;
-    procedure DoCompletionInsert(bSearch: Boolean = False);
+//    procedure DoCompletionInsert(bSearch: Boolean = False);
     procedure DoTipInsert;
     procedure EdInvertCase;
     procedure EdLowerCase;
@@ -474,13 +474,23 @@ begin
 end;
 
 procedure TfrmEditor.sciEditorCharAdded(ASender: TObject; ACh: Integer);
-var ipos, ibm, ind, iline: Integer;
+var ipos, ibm, ind, iline, iLastOpenBracket: Integer;
 begin
  // Bracket highlighting
   with ASender AS TDScintilla do
   begin
     if CharInSet(chr(ACh), ['(','[','{','}',']',')']) then
     begin
+      if chr(ACh) = ')'  then
+      begin
+        (ASender AS TDScintilla).CallTipCancel;
+        iLastOpenBracket := FindLastOpenBracket(ASender AS TDScintilla, getCurrentPos-1);
+        if iLastOpenBracket > -1 then
+         begin
+          ShowBracketTip(ASender AS TDScintilla, iLastOpenBracket-1);
+         end;
+      end;
+
       ipos := GetCurrentPos-1;
        ibm := BraceMatch(ipos);
            Update;
@@ -508,11 +518,13 @@ begin
 
   if not frmTinnMain.bDoInsert then
     begin
-      //if Char(ACh) = '$' then
-      //  frmTinnMain.CheckNamesLookup(ASender);
+      if (ACh = integer('[')) OR  (ACh = integer('$')) then
+        frmTinnMain.CheckNamesLookup(ASender);
 
       frmTinnMain.InstantLookup(ASender AS TDScintilla);
 
+      if (ACh = integer('(')) then
+        ShowBracketTip(ASender AS TDScintilla, (ASender AS TDScintilla).GetCurrentPos-1);
 
     end;
 end;
@@ -559,18 +571,8 @@ end;
 
 procedure TfrmEditor.sciEditorDwellStart(ASender: TObject; APosition, X,
   Y: Integer);
-var sTip, sWord: String;
-    iPos: Integer;
 begin
-  iPos := (ASender as TDScintilla).GetCurrentPos;
-  sWord := GetWordFromPos(iPos, (ASender as TDScintilla));
-
-  sTip := modDados.FindTipText(sWord);
-  if sTip <> '' then
-  begin
-    (ASender as TDScintilla).CallTipShow(iPos, sTip);
-    (ASender as TDScintilla).CallTipSetHlt(0, length(sTip));
-  end;
+  CheckDwell(ASender as TDScintilla);
 end;
 
 procedure TfrmEditor.sciEditorEnter(Sender: TObject);
@@ -1266,7 +1268,7 @@ begin
 
   RestorePriorClipboardText;
 end;
-
+{
 procedure TfrmEditor.DoCompletionInsert(bSearch: Boolean = False);
 var
   seEditor: TDScintilla;
@@ -1308,7 +1310,7 @@ begin
 
   EnableSave;
 end;
-
+}
 
 procedure TfrmEditor.GotoLine;
 var
@@ -2569,8 +2571,8 @@ begin
 
   with seEditor do
   begin
-    MarkerSetBack(SC_Mark_Background, clMoneyGreen);
-    MarkerSetBack(SC_MARK_DOTDOTDOT,  clWebIndianRed);
+    MarkerSetBack(SC_Mark_Background, frmTinnMain.iColorMark1);
+    MarkerSetBack(SC_MARK_DOTDOTDOT,  frmTinnMain.iColorMark2);
 
     if iMarkerNumber = 1 then
       iMaNum := SC_Mark_Background;

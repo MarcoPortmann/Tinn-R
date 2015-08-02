@@ -48,14 +48,14 @@ interface
 
 uses
   Windows, SysUtils, Dialogs, Classes, Clipbrd, Registry, Graphics, Controls, Datasnap.DBClient,
-  StrUtils,          ufrmEditor,
+  StrUtils,          ufrmEditor, System.Character,    trCommon,
   ActiveX, ShlObj, ComObj, PerlRegEx, WinInet, StdCtrls, System.UITypes, DScintilla, DScintillaTypes;
 
   const
   MARGIN_LINE_NUMBERS = 0;
   MARGIN_CODE_FOLDING = 1;
   MARGIN_BOOKMARKS    = 2;
-
+  MARGIN_R_STATUS     = 3;
 type
   TCharSet = set of AnsiChar;
   TGuiType = (gtJGR, gtUnknown);
@@ -121,6 +121,7 @@ procedure InsertDatabaseEntry(sInsertField: String; Database: TClientDataSet;  A
 procedure SetCursorInInsertion(sText: String; var iStart, iEnd: Integer; var bDeleteSelection: Boolean);
 
 // sciEditor functions
+//function GetRWordEndPosition(iPos: Integer; Editor: TDScintilla): Integer;
 function  GetCaretX(Editor: TDScintilla): Integer;
 function  GetCaretY(Editor: TDScintilla): Integer;
 procedure SetCaretX(Position: Integer;  Editor: TDScintilla);
@@ -1409,6 +1410,30 @@ begin
   for i := 0 to 9 do
     Editor.MarkerDeleteAll(i);
 end;
+{
+function GetRWordEndPosition(iPos: Integer; Editor: TDScintilla): Integer;
+
+  function IsValidRChar(ip: Integer): Boolean;
+  var ach: Char;
+      str: String;
+  begin
+    Result := false;
+    str := Editor.GetTextRange(ip, ip+1);
+    if length(str)>0 then
+    begin
+      ach := copy(str,1,1)[1];
+     // showmessage(ach);
+      if IsLetterOrDigit(ach) OR  CharInSet(ach, ['.', '_'])  then
+        Result := true;
+    end;
+  end;
+
+begin
+ Result := iPos;
+ while IsValidRChar(Result) do
+   inc(Result);
+end;
+}
 
 function GetWordFromPos(iPos: Integer; Editor: TDScintilla): String;
 begin
@@ -2188,25 +2213,24 @@ end;
 
 procedure InsertDatabaseEntry(sInsertField: String; Database: TClientDataSet; AllArguments: Boolean = True);
 var
-  sciEditor: TDScintilla;
+  seEditor: TDScintilla;
 
   sFunction, sTmp: string;
 
   slTmp: TStringList;
   bReplaceText, bDel: Boolean;
-  iPos, iPriPos, i, iStart, iEnd: Integer;
+  iPos, iPriPos, i, iStart, iEnd, iLastOpenBracket: Integer;
 
 begin
-  sciEditor := frmTinnMain.GetEditorWithFocus;
+  seEditor := frmTinnMain.GetEditorWithFocus;
 
   if not assigned(Database) then
     Exit;
 
-  if (sciEditor = nil) OR (not Database.Active) then
+  if (seEditor = nil) OR (not Database.Active) then
     Exit;
   if Database.FieldByName(sInsertField).IsNull then
     exit;
-
 
   sFunction := Database.FieldValues[sInsertField];
 
@@ -2223,15 +2247,13 @@ begin
 
   sTmp := copy(sFunction, iPos + 1, length(sFunction) - (iPos + 1));
 
-  //Clipboard.AsText := sFunction;
-
-  with sciEditor do
+  with seEditor do
   begin
     iPos := GetCurrentPos;
-    iPriPos := GetCaretX(sciEditor);
+    iPriPos := GetCaretX(seEditor);
     for i := length(sFunction) downto 1 do
       if ansilowercase((system.copy(sFunction, 1, i)))
-        = ansilowercase((system.copy(GetCurrentLine(sciEditor), iPriPos - i + 1, i))) then
+        = ansilowercase((system.copy(GetCurrentLine(seEditor), iPriPos - i + 1, i))) then
       begin
         bReplaceText := True;
         break;
@@ -2252,13 +2274,16 @@ begin
     if bDel then
       ReplaceSel('');
 
+    if Parent.ClassName = 'TfrmEditor' then
+     (Parent as TfrmEditor).EnableSave;
+    SetFocus;
+
+    iLastOpenBracket := FindLastOpenBracket(seEditor, getCurrentPos-1);
+    if iLastOpenBracket > -1 then
+      begin
+          ShowBracketTip(seEditor, iLastOpenBracket-1);
+    end;
   end;
-
-
-
-  if sciEditor.Parent.ClassName = 'TfrmEditor' then
-    (sciEditor.Parent as TfrmEditor).EnableSave;
-  sciEditor.SetFocus;
 end;
 
 

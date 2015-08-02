@@ -200,38 +200,6 @@ end;
 
 procedure TfrmComments.FormActivate(Sender: TObject);
 begin
-  with frmTinnMain do
-  begin
-    with dbeLanguage do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeLine do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeBegin do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbeEnd do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-
-    with dbgComments do
-    begin
-      Color := clBGApplication;
-      Font.Color := clFGApplication;
-    end;
-  end;
 
   stbComments.Panels[0].Text := 'Browse mode';
   with modDados do

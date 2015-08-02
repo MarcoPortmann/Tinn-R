@@ -21,7 +21,7 @@ TinnR$TinnRTidy <- function(sourcefile, targetfile)
 #! trObjInfo
 
 TinnR$trObjInfo <-
-function (id, path,  sep = "\t")
+function (id, path, sep = "\t", CallID = 1)
 {
 
     describe <- function(name, parent) {
@@ -32,16 +32,25 @@ function (id, path,  sep = "\t")
     }
 
     res <- c()
-    id <- as.character(id)[1]
-    if (exists(id)){
+    id <- as.character(id)#[1]
+    if (exists(as.character(id))==F)
+    {
+      try({obj <- eval(parse(text=id))
+           Items <- names(obj)
+           if (length(Items) != 0)
+           res <- data.frame(t(sapply(Items, describe, parent = obj)))
+          }, silent=TRUE)
+    }else{   
+    #if (exists(id)){
         obj <- get(id)
         Items <- names(obj)
-        #parent <- obj
+        
         if (length(Items) != 0)
            res <- data.frame(t(sapply(Items, describe, parent = obj)))
 
     }
     write.table(res, file = path, row.names = FALSE, col.names = FALSE, quote = FALSE, sep =sep)
+    print(paste('TinnRMSG:ObjectInfo:', CallID, '<',  sep ='' ))
 }
 
 #! trArgs
@@ -1252,7 +1261,7 @@ TinnR$TinnRLibraryUpdate <- function(Cycle = 1){
               }else{Version <- NA; PrettyName <- envs[i, "Environment"]; Description <- ""}
             }else{Version <- NA; PrettyName <- envs[i, "Environment"]; Description <- ""}
             # To do: message should be printed and shown while function is still running not buffered at the end
-            # print(paste("!!TinnRMSG:Adding package ''",PrettyName, "' to the library. Please wait...", sep = ""))
+            print(paste("!!TinnRMSG:Adding package ''",PrettyName, "' to the library. Please wait...", sep = ""))
             # flush.console doesn't work
             # maybe message has to be send via socket.write
             
@@ -1314,11 +1323,11 @@ TinnR$TinnRLibraryUpdate <- function(Cycle = 1){
 #! attach
 attach(TinnR)                    
 
+
+
+
 invisible(startSocketServer(port=TinnPort) )
 
 stop('TinnRMSG:ConnectSockets',  sep='')
-
-
-
 
 
