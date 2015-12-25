@@ -2,7 +2,7 @@
 
 This is a fork of the **Tinn-R Editor - GUI for R Language and Environment** maintained by José Cláudio Faria.
 
-In particular, the project aims at migrating the source code of Tinn-R to Delphi XE6 and includes a bunch of new features.
+In particular, the project aims at migrating the source code of Tinn-R to Delphi 10 and includes a bunch of new features.
 ## Experimental features
 - New ribbon UI (plreliminary, most tabs are WIP) 
 - Autosave and recovery capabilities
