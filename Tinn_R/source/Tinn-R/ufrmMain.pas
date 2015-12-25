@@ -178,15 +178,16 @@ uses
   JvTimer, JvMenus, JvAppStorage, JvAppIniStorage, JvDockTree,
   JvDockControlForm, JvDockVIDStyle, JvDockVSNetStyle, JvComponentBase,
   System.Actions, Vcl.ActnCtrls, Registry,
-  Jpeg, JvPCX, JvGIF, {JvAni, JvCursor,} JvImagesViewer,
+  Jpeg, JvPCX, JvGIF, JvImagesViewer,
   DateUtils, ConsoleIO, clMultiStream,
   JvDriveCtrls, JvgTypes, JvComponent, JvAppHotKey,
   DB,
   System.Generics.Collections, Vcl.ActnColorMaps, System.Types, DScintillaTypes,    ufrmEditor, ufrmTidyAbort,
-  DScintillaCustom, DScintilla, SciKeyBindings, SciResLang, SciSupport,{ JvThread, }
-  IdBaseComponent, IdThreadComponent, Vcl.Mask, JvThread{, JvExMask, JvToolEdit};
-  {JvCustomItemViewer,} {JvExForms, }  { JvExStdCtrls, JvListBox, JvCombobox,} {JvExComCtrls,
-  JvComCtrls,}
+  DScintillaCustom, DScintilla, SciKeyBindings, SciResLang, SciSupport,
+  IdBaseComponent, IdThreadComponent, Vcl.Mask, JvThread, Vcl.JumpList,
+  System.ImageList, System.Win.TaskbarCore, Vcl.Taskbar, UIRibbon, UIRibbonCommands,
+  JvExComCtrls, JvStatusBar;
+
 
 
 
@@ -285,8 +286,6 @@ type
     actFilesRemoveAllOfProject: TAction;
     actFind: TAction;
     actFindAgain: TAction;
-    actFontDecrease: TAction;
-    actFontIncrease: TAction;
     actFullPathUnix: TAction;
     actFullPathWindows: TAction;
     actGotoLine: TAction;
@@ -301,7 +300,6 @@ type
     actHtmlOpenCurrentFile: TAction;
     actHtmlOpenFile: TAction;
     actIndentBlock: TAction;
-    actIniLogVisible: TAction;
     actInvertCase: TAction;
     actInvertSelection: TAction;
     actLatexAlgebricFrac: TAction;
@@ -352,7 +350,6 @@ type
     actOrganizeScreen: TAction;
     actPdfOpenAlways: TAction;
     actPdfOpenFile: TAction;
-    actPgFilesVisible: TAction;
     actPrint: TAction;
     actProjectClose: TAction;
     actProjectDeleteCurrent: TAction;
@@ -363,7 +360,6 @@ type
     actProjectReload: TAction;
     actProjectSave: TAction;
     actProjectSaveAs: TAction;
-    actProjectVisible: TAction;
     actRCardCopyDescription: TAction;
     actRcardCopyFunction: TAction;
     actRcardEdit: TAction;
@@ -424,7 +420,6 @@ type
     actRExplorerHelpSelected: TAction;
     actRExplorerNames: TAction;
     actRExplorerPlot: TAction;
-    actRExplorerRefresh: TAction;
     actRExplorerRemove: TAction;
     actRExplorerRemoveAllObjects: TAction;
     actRExplorerSendNameToClipboard: TAction;
@@ -493,13 +488,11 @@ type
     actSearchInFiles: TAction;
     actShortcutsEdit: TAction;
     actShortcutsHelp: TAction;
-    actShowAllBars: TAction;
     actShowAppOptions: TAction;
     actSortDate: TAction;
     actSortNumber: TAction;
     actSortString: TAction;
     actSpecialCharVisible: TAction;
-    actSpell: TAction;
     actSplitHorizontal: TAction;
     actSplitRemove: TAction;
     actSplitVertical: TAction;
@@ -535,7 +528,6 @@ type
     actWindowMinimizeAll: TWindowMinimizeAll;
     actWindowTileHorizontal: TWindowTileHorizontal;
     actWindowTileVertical: TWindowTileVertical;
-    actWinExplVisible: TAction;
     alMain: TActionList;
     cdMain: TColorDialog;
     Closeallselectedgroup2: TMenuItem;
@@ -545,7 +537,6 @@ type
     csRExplorer: TClientSocket;
     csRGeneral: TClientSocket;
     csRtip: TClientSocket;
-    ctbMain: TControlBar;
     Exampleselected2: TMenuItem;
     Help3: TMenuItem;
     Help5: TMenuItem;
@@ -697,28 +688,7 @@ type
     zipKit: TAbZipKit;
     actRSendNavigator: TAction;
     amMain: TActionManager;
-    atbRSend: TActionToolBar;
-    atbRContent: TActionToolBar;
-    atbRConsole: TActionToolBar;
-    actnReopenPseudo: TAction;
     actRsendEchoOn: TAction;
-    atbFiles: TActionToolBar;
-    edFilter: TButtonedEdit;
-    actnReopenPseudoFile: TAction;
-    acReopenFile1: TAction;
-    acReopenFile2: TAction;
-    acReopenFile3: TAction;
-    acReopenFile4: TAction;
-    acReopenFile5: TAction;
-    acReopenFile6: TAction;
-    acReopenFile7: TAction;
-    acReopenFile8: TAction;
-    acReopenFile9: TAction;
-    acReopenFile10: TAction;
-    atbFind: TActionToolBar;
-    atbMacro: TActionToolBar;
-    atbView: TActionToolBar;
-    atBookmark: TActionToolBar;
     acReopenProject1: TAction;
     acReopenProject2: TAction;
     acReopenProject3: TAction;
@@ -729,7 +699,6 @@ type
     acReopenProject8: TAction;
     acReopenProject9: TAction;
     acReopenProject10: TAction;
-    atbFormat: TActionToolBar;
     atbStatus: TActionToolBar;
     actPseudoEncoding: TAction;
     actChaLinEndWIN: TAction;
@@ -774,7 +743,6 @@ type
     Editorsend1: TMenuItem;
     Action1: TAction;
     actnHighlighterPesudo: TAction;
-    cbLexers: TComboBox;
     actTemplateRScript: TAction;
     actTemplateRFunction: TAction;
     actTemplateRDataset: TAction;
@@ -888,451 +856,6 @@ type
     summaryselection1: TMenuItem;
     namesselection1: TMenuItem;
     actFoldingVisible: TAction;
-    jvMenMain: TMainMenu;
-    menFile1: TMenuItem;
-    menFileNew1: TMenuItem;
-    menFileTemplate1: TMenuItem;
-    menFileTemplateRscript1: TMenuItem;
-    menFileTemplateRdoc1: TMenuItem;
-    menFileTemplateRdocFunction1: TMenuItem;
-    actTemplateRDatasetDiff1: TMenuItem;
-    menFileTemplateRdocEmpty1: TMenuItem;
-    menFileTemplateRhtml1: TMenuItem;
-    menFileTemplateRmarkdown1: TMenuItem;
-    menFileTemplateRsweave1: TMenuItem;
-    N3: TMenuItem;
-    menFileOpenAllMRU1: TMenuItem;
-    menFileOpen1: TMenuItem;
-    menFileRecentFiles: TMenuItem;
-    menFileReload1: TMenuItem;
-    N4: TMenuItem;
-    menFileSave1: TMenuItem;
-    menFileSaveAs1: TMenuItem;
-    menFileSaveAll1: TMenuItem;
-    N7: TMenuItem;
-    menFileClose1: TMenuItem;
-    menFileCloseAll1: TMenuItem;
-    N8: TMenuItem;
-    menFilePrint1: TMenuItem;
-    N9: TMenuItem;
-    menFileCopyFullPath1: TMenuItem;
-    menFileCopyFullPathUnix1: TMenuItem;
-    menFileCopyFullPathWindows1: TMenuItem;
-    N10: TMenuItem;
-    menFileExit1: TMenuItem;
-    menProject1: TMenuItem;
-    menProjProject1: TMenuItem;
-    menProjProjectNew1: TMenuItem;
-    menProjProjectOpen1: TMenuItem;
-    N11: TMenuItem;
-    menProjProjectSave1: TMenuItem;
-    menProjProjectSaveAs1: TMenuItem;
-    menProjProjectClose1: TMenuItem;
-    N13: TMenuItem;
-    menProjProjectDeleteCurrent1: TMenuItem;
-    N14: TMenuItem;
-    menProjGroup1: TMenuItem;
-    menProjGroupNew1: TMenuItem;
-    N15: TMenuItem;
-    menProjGroupRename1: TMenuItem;
-    N17: TMenuItem;
-    menProjGroupDeleteCurrent1: TMenuItem;
-    menProjGroupDeleteAll1: TMenuItem;
-    N19: TMenuItem;
-    menProjGroupExpandAll1: TMenuItem;
-    menProjGroupCollapseAll1: TMenuItem;
-    N20: TMenuItem;
-    menProjFiles1: TMenuItem;
-    menProjFilesOpenAll1: TMenuItem;
-    menProjFilesCloseAll1: TMenuItem;
-    N22: TMenuItem;
-    menProjFilesOpenAllOfGroup1: TMenuItem;
-    menProjFilesCloseAllOfGroup1: TMenuItem;
-    N23: TMenuItem;
-    menProjFilesAdd1: TMenuItem;
-    menProjFilesAddCurrent1: TMenuItem;
-    N24: TMenuItem;
-    menProjFilesRemoveAllOfProject1: TMenuItem;
-    menProjFilesRemoveAllOfGroup1: TMenuItem;
-    menProjFilesRemove1: TMenuItem;
-    N25: TMenuItem;
-    menFilesFullPath1: TMenuItem;
-    menFilesFullPathUnix1: TMenuItem;
-    menFilesFullPathWindows1: TMenuItem;
-    N27: TMenuItem;
-    menProjRecent: TMenuItem;
-    N29: TMenuItem;
-    menProjEdit1: TMenuItem;
-    menProjReload1: TMenuItem;
-    menEdit1: TMenuItem;
-    menEditUndo1: TMenuItem;
-    menEditRedo1: TMenuItem;
-    N31: TMenuItem;
-    menEditCopy1: TMenuItem;
-    menEditCut1: TMenuItem;
-    menEditPaste1: TMenuItem;
-    N32: TMenuItem;
-    menEditCopyFormated1: TMenuItem;
-    menEditCopyFormatedRtf1: TMenuItem;
-    menEditCopyFormatedHtml1: TMenuItem;
-    menEditCopyFormatedTex1: TMenuItem;
-    N34: TMenuItem;
-    menEditSelectAll1: TMenuItem;
-    N35: TMenuItem;
-    menEditComment1: TMenuItem;
-    menEditUncommentAll1: TMenuItem;
-    menEditQuoteWords1: TMenuItem;
-    menEditRemoveLineBreaks1: TMenuItem;
-    menFormat1: TMenuItem;
-    menFormatBlockIndent1: TMenuItem;
-    menFormatBlockUnident1: TMenuItem;
-    InvertSelection1: TMenuItem;
-    N40: TMenuItem;
-    UppercaseWord1: TMenuItem;
-    LowercaseWord1: TMenuItem;
-    InvertCase1: TMenuItem;
-    N42: TMenuItem;
-    menFormatReformat1: TMenuItem;
-    R1: TMenuItem;
-    menMarks1: TMenuItem;
-    menMarksBlock1: TMenuItem;
-    menMarksMark1: TMenuItem;
-    menMarksUnmark1: TMenuItem;
-    N43: TMenuItem;
-    menMarksUnmarkAll1: TMenuItem;
-    menInsert1: TMenuItem;
-    menInsertLatex1: TMenuItem;
-    menInsertLatexMath1: TMenuItem;
-    menInsertLatexMathDimensional1: TMenuItem;
-    N44: TMenuItem;
-    menInsertLatexMathFrac1: TMenuItem;
-    menInsertLatexMathSqrt1: TMenuItem;
-    menInsertLatexMathSqrtn1: TMenuItem;
-    N45: TMenuItem;
-    menInsertLatexHeader1: TMenuItem;
-    menInsertLatexHeaderPart1: TMenuItem;
-    menInsertLatexHeaderChapter1: TMenuItem;
-    menInsertLatexHeaderSection1: TMenuItem;
-    menInsertLatexHeaderSubsection1: TMenuItem;
-    menInsertLatexHeaderSubsubsection1: TMenuItem;
-    menInsertLatexHeaderParagraph1: TMenuItem;
-    menInsertLatexHeaderSubparagraph1: TMenuItem;
-    menInsertLatexFormat1: TMenuItem;
-    menInsertLatexFormatItemization1: TMenuItem;
-    menInsertLatexFormatEnumeration1: TMenuItem;
-    N46: TMenuItem;
-    menInsertLatexFormatLeft1: TMenuItem;
-    menInsertLatexFormatCenter1: TMenuItem;
-    menInsertLatexFormatRight1: TMenuItem;
-    menInsertLatexFont1: TMenuItem;
-    menInsertLatexFontEnphase1: TMenuItem;
-    menInsertLatexFontBold1: TMenuItem;
-    menInsertLatexFontItalic1: TMenuItem;
-    menInsertLatexFontSlatend1: TMenuItem;
-    menInsertLatexFontTypewriter1: TMenuItem;
-    menInsertLatexFontSmallcaps1: TMenuItem;
-    N48: TMenuItem;
-    menInsertLatexFontTiny1: TMenuItem;
-    menInsertLatexFontScriptsize1: TMenuItem;
-    menInsertLatexFontFootnotsize1: TMenuItem;
-    menInsertLatexFontSmall1: TMenuItem;
-    menInsertLatexFontNormal1: TMenuItem;
-    menInsertLatexFontLarge1: TMenuItem;
-    menInsertLatexFontLarger1: TMenuItem;
-    menInsertLatexFontLargest1: TMenuItem;
-    menInsertLatexFontHuge1: TMenuItem;
-    menInsertLatexFontHuger1: TMenuItem;
-    N49: TMenuItem;
-    menInserCompletion1: TMenuItem;
-    N51: TMenuItem;
-    menInsertDateTime1: TMenuItem;
-    menSearch1: TMenuItem;
-    menSearchFind1: TMenuItem;
-    menSearchFindAgain1: TMenuItem;
-    N54: TMenuItem;
-    menSearchInFiles1: TMenuItem;
-    N55: TMenuItem;
-    menSearchReplace1: TMenuItem;
-    N57: TMenuItem;
-    menSearchGoTo1: TMenuItem;
-    menOptions1: TMenuItem;
-    menOptionsApplication1: TMenuItem;
-    menOptionsShortcuts1: TMenuItem;
-    menOptionColorPreference1: TMenuItem;
-    menToolsDatabase1: TMenuItem;
-    menToolsDatabaseComments1: TMenuItem;
-    menToolsDatabaseMirrorsR1: TMenuItem;
-    N58: TMenuItem;
-    menOptionStartupFileMaximized1: TMenuItem;
-    menOptionGoBack1: TMenuItem;
-    menOptionAlwaysOnTop1: TMenuItem;
-    menOptionReadOnlyToggle1: TMenuItem;
-    Setdefaulthighlighter1: TMenuItem;
-    menTools1: TMenuItem;
-    menToolsProcessing1: TMenuItem;
-    menToolsConversion1: TMenuItem;
-    menToolsConversionDeplateTo1: TMenuItem;
-    menToolsConversionDeplateToLaTeX1: TMenuItem;
-    menToolsConversionDeplateToLaTeXdramastic1: TMenuItem;
-    menToolsConversionDeplateToSweave1: TMenuItem;
-    menToolsConversionDeplateToPlain1: TMenuItem;
-    N59: TMenuItem;
-    menToolsConversionDeplateToHTML1: TMenuItem;
-    menToolsConversionDeplateToHtmlsite1: TMenuItem;
-    menToolsConversionDeplateToHtmlslides1: TMenuItem;
-    menToolsConversionDeplateToXhtml1: TMenuItem;
-    menToolsConversionDeplateToXhtml2: TMenuItem;
-    menToolsConversionDeplateToPhp1: TMenuItem;
-    N60: TMenuItem;
-    menToolsConversionDeplateToDbkarticle1: TMenuItem;
-    menToolsConversionDeplateToDbkbook1: TMenuItem;
-    menToolsConversionDeplateToDbkref1: TMenuItem;
-    menToolsConversionPandoc: TMenuItem;
-    menToolsConversionTxt2tagsTo1: TMenuItem;
-    menToolsConversionTxt2tagsToLatex1: TMenuItem;
-    menToolsConversionTxt2tagsToSweave1: TMenuItem;
-    xt1: TMenuItem;
-    N61: TMenuItem;
-    menToolsConversionTxt2tagsToHTML1: TMenuItem;
-    XHTML1: TMenuItem;
-    SGML1: TMenuItem;
-    Lout1: TMenuItem;
-    Manpage1: TMenuItem;
-    N63: TMenuItem;
-    Wikipedia1: TMenuItem;
-    GoogleCodeWiki1: TMenuItem;
-    DokuWiki1: TMenuItem;
-    MoinMoin1: TMenuItem;
-    N64: TMenuItem;
-    MagicPoint1: TMenuItem;
-    PageMaker1: TMenuItem;
-    menToolsCompilation1: TMenuItem;
-    menToolsCompilationMinimized1: TMenuItem;
-    N66: TMenuItem;
-    menToolsCompilationLaTeXToDVISingle1: TMenuItem;
-    menToolsCompilationLaTeXToDVIBibtex1: TMenuItem;
-    N67: TMenuItem;
-    menToolsCompilationLaTeXToPDFSingle1: TMenuItem;
-    menToolsCompilationLaTeXToPDFBibtex1: TMenuItem;
-    N68: TMenuItem;
-    Makeindexmakeindex1: TMenuItem;
-    menToolsViewer1: TMenuItem;
-    menToolsViewerDVI1: TMenuItem;
-    menToolsViewerDVIOpenAlways1: TMenuItem;
-    menToolsViewerDVIOpenFile1: TMenuItem;
-    menToolsViewerPDF1: TMenuItem;
-    menToolsViewerPDFOpenAlways1: TMenuItem;
-    menToolsViewerPDFOpenFile1: TMenuItem;
-    menToolsViewerHTML1: TMenuItem;
-    menToolsViewerHTMLOpenAlways1: TMenuItem;
-    N69: TMenuItem;
-    menToolsViewerHTMLOpenCurrent1: TMenuItem;
-    menToolsViewerHTMLOpenFile1: TMenuItem;
-    N70: TMenuItem;
-    menToolsBackup1: TMenuItem;
-    menToolsBackupSystem1: TMenuItem;
-    menToolsBackupDatabase1: TMenuItem;
-    menToolsRestore1: TMenuItem;
-    menToolsRestoreSystem1: TMenuItem;
-    menToolsRestoreDatabase1: TMenuItem;
-    N71: TMenuItem;
-    menToolsMacro1: TMenuItem;
-    menToolsMacroRecord1: TMenuItem;
-    menToolsMacroPlay1: TMenuItem;
-    N73: TMenuItem;
-    menToolsASCIIChart1: TMenuItem;
-    menToolsDifferences1: TMenuItem;
-    N84: TMenuItem;
-    menToolsSpell1: TMenuItem;
-    menToolsSort1: TMenuItem;
-    menToolsSortString1: TMenuItem;
-    menToolsSortNumber1: TMenuItem;
-    menToolsSortDate1: TMenuItem;
-    actCount1: TMenuItem;
-    N86: TMenuItem;
-    menToolsMatchBracket1: TMenuItem;
-    menToolsUtils1: TMenuItem;
-    menToolsUtilsTesteRegex1: TMenuItem;
-    N88: TMenuItem;
-    menToolsUtilsStringReplace1: TMenuItem;
-    N90: TMenuItem;
-    menR1: TMenuItem;
-    menRStartClose1: TMenuItem;
-    menRTermStartClose1: TMenuItem;
-    menRGuiStartClose1: TMenuItem;
-    N91: TMenuItem;
-    menRserver1: TMenuItem;
-    N92: TMenuItem;
-    menRSet_trPaths1: TMenuItem;
-    menRGet_Info1: TMenuItem;
-    menRmirrors_update1: TMenuItem;
-    N93: TMenuItem;
-    menRterm1: TMenuItem;
-    menRtermShowHide1: TMenuItem;
-    N94: TMenuItem;
-    menRtermFile1: TMenuItem;
-    menRtermFileIO1: TMenuItem;
-    menRtermFileIOSave1: TMenuItem;
-    menRtermFileIOSaveAs1: TMenuItem;
-    menRtermFileIOPrint1: TMenuItem;
-    menRtermFileLog1: TMenuItem;
-    menRtermFileLogSave1: TMenuItem;
-    menRtermFileLogSaveAs1: TMenuItem;
-    menRtermFileLogPrint1: TMenuItem;
-    N95: TMenuItem;
-    Clear1: TMenuItem;
-    IO1: TMenuItem;
-    Log1: TMenuItem;
-    IOandLog1: TMenuItem;
-    menRtermFocus1: TMenuItem;
-    menRtermFocusEditor1: TMenuItem;
-    menRtermFocusConsole1: TMenuItem;
-    menRtermFocusLog1: TMenuItem;
-    menRtermSize1: TMenuItem;
-    menRtermSizeMaximize1: TMenuItem;
-    mmenRtermSizeDivide1: TMenuItem;
-    mmenRtermSizeMinimize1: TMenuItem;
-    menRtermSplit1: TMenuItem;
-    menRtermSplitHorizontal1: TMenuItem;
-    menRtermSplitVertical1: TMenuItem;
-    N96: TMenuItem;
-    menRtermSplitRemove1: TMenuItem;
-    menRtermHighlighter1: TMenuItem;
-    menRtermSyntaxIO1: TMenuItem;
-    menRtermSyntaxIOText1: TMenuItem;
-    menRtermSyntaxIOR1: TMenuItem;
-    menRtermSyntaxLog1: TMenuItem;
-    menRtermSyntaxLogText1: TMenuItem;
-    menRtermSyntaxLogR1: TMenuItem;
-    menRtermLineWrap1: TMenuItem;
-    IO2: TMenuItem;
-    Log2: TMenuItem;
-    N97: TMenuItem;
-    menRtermHistory1: TMenuItem;
-    menRtermHistorySave1: TMenuItem;
-    menRtermHistoryLoad1: TMenuItem;
-    N98: TMenuItem;
-    menRtermHistoryPrior1: TMenuItem;
-    menRtermHistoryNext1: TMenuItem;
-    menRtermWorkspace1: TMenuItem;
-    menRtermWorkspaceSave1: TMenuItem;
-    menRtermWorkspaceLoad1: TMenuItem;
-    N99: TMenuItem;
-    menRtermFont1: TMenuItem;
-    Increase1: TMenuItem;
-    Decrease1: TMenuItem;
-    N100: TMenuItem;
-    menControlR1: TMenuItem;
-    menControlRSetWorkDir1: TMenuItem;
-    N103: TMenuItem;
-    menControlRListAllObjects1: TMenuItem;
-    menControlRPrintVariableContent1: TMenuItem;
-    menControlRListVariableNames1: TMenuItem;
-    menControlRListVariableStructure1: TMenuItem;
-    menControlREditSelected1: TMenuItem;
-    menControlRFixSelected1: TMenuItem;
-    menControlRPlotSelected1: TMenuItem;
-    N104: TMenuItem;
-    menControlRClearConsole1: TMenuItem;
-    menControlRCloseAllGraphicDevices1: TMenuItem;
-    menControlRRemoveAllObjects1: TMenuItem;
-    N105: TMenuItem;
-    menControlRClearAll1: TMenuItem;
-    N107: TMenuItem;
-    menControlREscape1: TMenuItem;
-    N109: TMenuItem;
-    menControlRHelpSelected1: TMenuItem;
-    menControlRExampleSelected1: TMenuItem;
-    menControlRHelp1: TMenuItem;
-    N110: TMenuItem;
-    menRPackages1: TMenuItem;
-    menRPackagesInstall1: TMenuItem;
-    menRPackagesInstallfromZip1: TMenuItem;
-    N111: TMenuItem;
-    menRPackagesInstallTinnRcom1: TMenuItem;
-    menRPackagesLoadTinnRcom1: TMenuItem;
-    N112: TMenuItem;
-    menRPackagesInstalled1: TMenuItem;
-    menRPackagesLoad1: TMenuItem;
-    menRPackagesNew1: TMenuItem;
-    menRPackagesRemove1: TMenuItem;
-    menRPackagesUpdate1: TMenuItem;
-    menRPackagesStatus1: TMenuItem;
-    N114: TMenuItem;
-    memRTCPConnection1: TMenuItem;
-    N115: TMenuItem;
-    menRHotKeys1: TMenuItem;
-    menView1: TMenuItem;
-    oolsshowhide1: TMenuItem;
-    oolsmaximize1: TMenuItem;
-    oolsdivide1: TMenuItem;
-    oolsminimize1: TMenuItem;
-    N117: TMenuItem;
-    OrganizescreenTinnRRgui1: TMenuItem;
-    N118: TMenuItem;
-    Rtermshowhide1: TMenuItem;
-    Rtermmaximize1: TMenuItem;
-    Rtermdivide1: TMenuItem;
-    Rtermminimize1: TMenuItem;
-    menViewRtermSplit1: TMenuItem;
-    menViewRtermSplitHorizontal1: TMenuItem;
-    menViewRtermSplitVertical1: TMenuItem;
-    N119: TMenuItem;
-    menViewRtermSplitRemove1: TMenuItem;
-    menViewRtermSyntax1: TMenuItem;
-    menViewRtermSyntaxIO1: TMenuItem;
-    menViewRtermSyntaxIOText1: TMenuItem;
-    menViewRtermSyntaxIOR1: TMenuItem;
-    menViewRtermSyntaxLog1: TMenuItem;
-    menViewRtermSyntaxLogText1: TMenuItem;
-    menViewRtermSyntaxLogR1: TMenuItem;
-    N120: TMenuItem;
-    Wordwrap1: TMenuItem;
-    Editorshowhide1: TMenuItem;
-    RtermIOshowhide1: TMenuItem;
-    RtermLogLinewrapshowhide1: TMenuItem;
-    menViewGutter1: TMenuItem;
-    menViewLineNumbers1: TMenuItem;
-    Foldingshowhide1: TMenuItem;
-    menViewSpecialCharacters1: TMenuItem;
-    menViewStatusBar1: TMenuItem;
-    menViewSplit1: TMenuItem;
-    menViewSplitHorizontal1: TMenuItem;
-    menViewSplitVertical1: TMenuItem;
-    N121: TMenuItem;
-    menViewSplitRemove1: TMenuItem;
-    menWindow1: TMenuItem;
-    menWindowTileVertically1: TMenuItem;
-    menWindowTileHorizontally1: TMenuItem;
-    N122: TMenuItem;
-    menWindowMinimizeAll1: TMenuItem;
-    menWindowCascade1: TMenuItem;
-    menWindowArrangeIcons1: TMenuItem;
-    menWeb1: TMenuItem;
-    menWebRSearch1: TMenuItem;
-    menWebSearchSelGoogle: TMenuItem;
-    menWebSearchSelRSite: TMenuItem;
-    N124: TMenuItem;
-    N126: TMenuItem;
-    menWebRInformation1: TMenuItem;
-    menWebRInformationsCRAN: TMenuItem;
-    menWebRInformationsNews: TMenuItem;
-    menWebRInformationsRWiki: TMenuItem;
-    menWebRInformationsWebSite: TMenuItem;
-    menHelp: TMenuItem;
-    menHelUserGuide: TMenuItem;
-    menHelNews: TMenuItem;
-    menHelSecrets: TMenuItem;
-    N127: TMenuItem;
-    menHelExampleOfScript: TMenuItem;
-    menHelpRecognizedWords: TMenuItem;
-    N128: TMenuItem;
-    menHelFileConversion1: TMenuItem;
-    menHelFileConversionDeplate: TMenuItem;
-    menHelFileConversionPandoc: TMenuItem;
-    menHelFileConversionTxt2tags: TMenuItem;
-    N129: TMenuItem;
-    menHelAbout1: TMenuItem;
     csMainBase: TClientSocket;
     actRLibAddSnippet: TAction;
     N76: TMenuItem;
@@ -1344,8 +867,6 @@ type
     tBackup: TTimer;
     tUpdateOptions: TTimer;
     tRRuning: TTimer;
-    Label1: TLabel;
-    Label3: TLabel;
     Invertcase2: TMenuItem;
     Uppercase1: TMenuItem;
     Lowercase1: TMenuItem;
@@ -1358,9 +879,7 @@ type
     Insertwithoutarguments1: TMenuItem;
     actRLibDeleteEntry: TAction;
     Deleteentryfromlibrary1: TMenuItem;
-    acShowNotification: TAction;
     tNotifyTimer: TTimer;
-    Button2: TButton;
     actMarkColor1: TAction;
     actMarkColor2: TAction;
     actUnMarkColor: TAction;
@@ -1368,7 +887,6 @@ type
     Markgreen1: TMenuItem;
     Markred1: TMenuItem;
     Removecolormarks1: TMenuItem;
-    Label5: TLabel;
     Sendingrulesforcoloredmarkers1: TMenuItem;
     actSendMarkColor1Only: TAction;
     actSendMarkColor2Only: TAction;
@@ -1430,8 +948,16 @@ type
     pmemIOWorkspace1: TMenuItem;
     pmemIOWorkspaceSave1: TMenuItem;
     pmemIOWorkspaceLoad1: TMenuItem;
-    Edit4: TEdit;
-    Button1: TButton;
+    memPackage: TMemo;
+    dimselection1: TMenuItem;
+    Ribbon: TUIRibbon;
+    edFilter: TButtonedEdit;
+    jvStatusBar: TJvStatusBar;
+    FlowPanel1: TFlowPanel;
+    stTextPosition: TStaticText;
+    stSize: TStaticText;
+    cbHighlighter: TComboBox;
+    stNotification: TStaticText;
 
     procedure actHelpAboutExecute(Sender: TObject);
     procedure actANSIExecute(Sender: TObject);
@@ -1531,7 +1057,6 @@ type
     procedure actMatchBracketExecute(Sender: TObject);
     procedure actOnTopExecute(Sender: TObject);
     procedure actOpenMaximizedExecute(Sender: TObject);
-    procedure actOpenMRUExecute(Sender: TObject);
     procedure actOrganizeScreenExecute(Sender: TObject);
     procedure actPdfOpenAlwaysExecute(Sender: TObject);
     procedure actPdfOpenFileExecute(Sender: TObject);
@@ -1605,7 +1130,6 @@ type
     procedure actRExplorerHelpSelectedExecute(Sender: TObject);
     procedure actRExplorerNamesExecute(Sender: TObject);
     procedure actRExplorerPlotExecute(Sender: TObject);
-    procedure actRExplorerRefreshExecute(Sender: TObject);
     procedure actRExplorerRemoveAllObjectsExecute(Sender: TObject);
     procedure actRExplorerRemoveExecute(Sender: TObject);
     procedure actRExplorerSendNameToClipboardExecute(Sender: TObject);
@@ -1675,7 +1199,6 @@ type
     procedure actShortcutsCustomizationSaveExecute(Sender: TObject);
     procedure actShortcutsEditExecute(Sender: TObject);
     procedure actShortcutsHelpExecute(Sender: TObject);
-    procedure actShowAllBarsExecute(Sender: TObject);
     procedure actShowAppOptionsExecute(Sender: TObject);
     procedure actSortDateExecute(Sender: TObject);
     procedure actSortNumberExecute(Sender: TObject);
@@ -1796,18 +1319,6 @@ type
     procedure edFilterRightButtonClick(Sender: TObject);
     procedure edFilterKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure actnReopenPseudoFileExecute(Sender: TObject);
-    procedure acReopenFile1Execute(Sender: TObject);
-    procedure acReopenFile2Execute(Sender: TObject);
-    procedure acReopenFile3Execute(Sender: TObject);
-    procedure acReopenFile4Execute(Sender: TObject);
-    procedure acReopenFile5Execute(Sender: TObject);
-    procedure acReopenFile6Execute(Sender: TObject);
-    procedure acReopenFile7Execute(Sender: TObject);
-    procedure acReopenFile8Execute(Sender: TObject);
-    procedure acReopenFile9Execute(Sender: TObject);
-    procedure acReopenFile10Execute(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     procedure edFilterKeyPress(Sender: TObject; var Key: Char);
     procedure Action1Execute(Sender: TObject);
     procedure actPseudoEncodingExecute(Sender: TObject);
@@ -1831,7 +1342,6 @@ type
     procedure csRExplorerWrite(Sender: TObject; Socket: TCustomWinSocket);
     procedure csRExplorerRead(Sender: TObject; Socket: TCustomWinSocket);
     procedure actnHighlighterPesudoExecute(Sender: TObject);
-    procedure cbLexersSelect(Sender: TObject);
     procedure actTemplateRScriptExecute(Sender: TObject);
     procedure actTemplateRFunctionExecute(Sender: TObject);
     procedure actTemplateRDatasetExecute(Sender: TObject);
@@ -1878,7 +1388,6 @@ type
     procedure actRLibAddSnippetExecute(Sender: TObject);
     procedure actRcardInsertNoArgsExecute(Sender: TObject);
     procedure actRLibDeleteEntryExecute(Sender: TObject);
-    procedure acShowNotificationExecute(Sender: TObject);
     procedure tNotifyTimerTimer(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure actMarkColor1Execute(Sender: TObject);
@@ -1890,12 +1399,24 @@ type
 //    function GetFileToReformat: string;
     procedure StartupThreadShortcutsRun(Sender: TIdThreadComponent);
     procedure Button1Click(Sender: TObject);
+    procedure consoletestReceiveOutput(Sender: TObject; const Cmd: string);
+    procedure csRTipRead(Sender: TObject; Socket: TCustomWinSocket);
+    procedure dimselection1Click(Sender: TObject);
+    procedure RibbonCommandCreate(const Sender: TUIRibbon;
+      const Command: TUICommand);
+    procedure cbHighlighterSelect(Sender: TObject);
+    procedure stNotificationClick(Sender: TObject);
 
   private
     { Private declarations }
   {  sLookupName: String;
     iLookupCursor: Integer;
     sciLookup: TDScintilla;      }
+    FComAction: Array of TUICommandAction;
+    FFileRecent: TUICommandRecentItems;
+
+    FProjectRecent: TUICommandCollection;
+
 
     aOpenFileSearch: Array of Integer;
     aImg: Array [0 .. 9] of TBitmap;
@@ -1944,7 +1465,7 @@ type
 
 
     iDefaultLexerId: Integer;
-
+    iExplorerUpdateCounter: Integer;
     iLastFile: integer;
     iLastSearch: integer;
 
@@ -1964,6 +1485,7 @@ type
     iTimerCounter: integer;
     iToolsDockHeight: integer;
     iToolsDockWidth: integer;
+
     iViewStyleRExplorer: integer;
     mrTinnRcom_Install: TModalResult;
     pThread: Pointer;
@@ -1992,7 +1514,7 @@ type
     sParPdfBibtex: string;
     sParPdfSingle: string;
     sParRgui: string;
-    sParRterm: string;
+ //   sParRterm: string;
     sParTxt2tags: string;
     sPath_Pandoc: string;
     sPathBkp: string;
@@ -2006,7 +1528,7 @@ type
     sPathR: string;
     sPathR_Connected: string;
     sPathRgui: string;
-    sPathRterm: string;
+  //  sPathRterm: string;
     sPathTinnRcom_Installed: string;
     sPathTxt2tags_Converter: string;
     sPathTxt2tags_Interpreter: string;
@@ -2030,7 +1552,7 @@ type
     sWindowOption: string;
     tnGenericGroup: TTreeNode;
     FRecentProjectActions: TList<TAction>;
-    FRecentFileActions: TList<TAction>;
+
 
 //    function ActivePanel: integer;
 //    function CheckConnection: Boolean;
@@ -2053,8 +1575,9 @@ type
     function StripRegExPower(sSearchText: string): string;
     procedure AddFile(iFile: string);
     procedure BackupSystemConfiguration(bStarting: Boolean);
-    procedure BuildMRU(var miItem: TMenuItem);
-    procedure BuildProjectMRU(var miItem: TMenuItem);
+    procedure BuildHighlighterMenu;
+    procedure BuildMRU(sTarget: String);
+    procedure BuildProjectMRU(sTarget: String);
     procedure CheckData;
 //    procedure CheckEditorOptions;
     procedure CheckIfProjectWasChanged;
@@ -2073,8 +1596,8 @@ type
     procedure CreateGroup(sGroupName: string);
     procedure CreateProject;
     procedure DoClearConsole;
-    procedure DoIPConnection(sIPHost: string; iIPPort: integer;
-      bActive: Boolean);
+    //procedure DoIPConnection(sIPHost: string; iIPPort: integer;
+    //  bActive: Boolean);
     procedure DoShowHide(iTmp1, iTmp2: integer; bShow: Boolean = True);
     procedure DoTxt2Tag(iButton: integer);
     procedure DoUndoAutoHideRterm;
@@ -2120,16 +1643,20 @@ type
     procedure SendResources(bOption: Boolean);
 //    procedure SetBuffer_FileFormat(ff: TSynEditFileFormat);
 //    procedure SetBuffer_SaveFormat(sf: TSaveFormat);
-    procedure SetCompletion;
     procedure SetEncodingDefault(sTmp: string);
     procedure SetAllTinnRPaths;
     procedure SetIniStructure;
     procedure SetInterfaceSize(frm: TForm; iSize: integer);
     procedure SetPreferences_Application;
     procedure SetPreferences_Editor;
-    procedure SetRcard;
     procedure SetRExplorer(bOption: Boolean);
     procedure SetRmirrors;
+    procedure SelectHighlighter(const Args: TUICommandCollectionEventArgs);
+    procedure SelectRecentFile(const Command: TUICommandRecentItems;
+    const Verb: TUICommandVerb; const ItemIndex: Integer;
+    const Properties: TUICommandExecutionProperties);
+    procedure SelectRecentProject(const Args: TUICommandCollectionEventArgs);
+
 
     procedure SetupSearchParameters(sSearchText: string);
     procedure SortProject;
@@ -2148,7 +1675,7 @@ type
 //      var smOption: TSynSelectionMode);
     // procedure UpdateFileIntoTinn(sFile: string; iLineNumberJump: integer = 0);
     procedure UpdateOptions;
-    procedure UpdateProjectMRU(var miItem: TMenuItem; sfilename: string);
+    procedure UpdateProjectMRU(sTarget: String; sfilename: string);
 
     Procedure UpdateRterm_Appearance(bUpdate_FontSize: Boolean = True);
     procedure WMCopyData(var msg: TWMCopyData); message WM_COPYDATA;
@@ -2288,6 +1815,8 @@ type
     iLatexDimensionalElement: integer;
     iRows: integer;
 }
+    FHighlighterList: TUICommandCollection;
+
     // m.p. - new R connection stuff
     iServerConnectionTrial: Integer;
 
@@ -2392,6 +1921,7 @@ type
 
 
     function GetIdByFileName(sName: string): integer;
+    function GetTabById(iId: Integer): TTabSheet;
     function FindTabByName(sName: string): integer;
     function FindTopWindow: integer;
     function GetBuildInfo: string;
@@ -2408,6 +1938,7 @@ type
     procedure BackupCleanUp;
     procedure InitialBackup;
     procedure CheckFilesBackup;
+    procedure CheckFreeChildren;
     procedure CheckIfFileFromDvi(sFile: string);
     procedure CheckRterm;
     procedure ClearMRU;
@@ -2439,8 +1970,9 @@ type
     procedure ReLoadLexersAndExtensions;
     procedure ReLoadDialogFileExtension(FileTypes : TFileTypeItems);
     procedure RemoveTab(iId: integer);
+    procedure RExplorerRefresh(bForce: Boolean = False);
     procedure ShowNamesPopup;
-    procedure SendLibraryUpdate;
+    //procedure SendLibraryUpdate;
     procedure SendRCustom(sRC: string);
     procedure SendToConsole(sTmp: string);
     procedure SetFileSize_StatusBar(sfilename: string);
@@ -2451,12 +1983,11 @@ type
     procedure SetReadOnlyState;
     procedure SetShortcuts;
     procedure SetHighlighterCombo(iLexerId: Integer);
-    procedure SetTabTitle(sStat: string);
     procedure SetToolbarProcessing(sFileExtension: string);
     procedure ShowNotification(sShortText, sLongText: String);
     procedure UpdateAppearance(bFontSize: Boolean = True);
     procedure UpdateCursorPos(Sender: TDScintilla); overload;
-    procedure UpdateMRU(var miItem: TMenuItem; sfilename: string);
+    procedure UpdateMRU(sTarget: String; sfilename: string);
     procedure ToggleAtLeastOneFileOpenOptions(bOption: Boolean);
 
 
@@ -2500,10 +2031,10 @@ uses
   ufrmRmirrors,
   uRSendCommands,
   uLexerCommands,
-  uLaTeX;
+  uLaTeX, RibbonMarkup;
 
 {$R *.DFM}
-
+{$R 'Ribbon\RibbonMarkup.res'}
 
 procedure TfrmTinnMain.SetShortcuts;
 begin
@@ -2556,7 +2087,7 @@ begin
 //
 //  ----------------------------------------------------------------------------
 //
-  sCurrentVersion_Shortcuts := '3.00.07.00';
+  sCurrentVersion_Shortcuts := '3.00.08.00';
 
   // Released joinly with Tinn-R setup program
 
@@ -2676,7 +2207,7 @@ begin
   begin // if the file is already open, bring it to the front
     // !! removed, done in activate and btw, do not change if user set it manually
     if bUpdateMRU then
-      UpdateMRU(menFileRecentFiles, EditorFile.sFile);
+      UpdateMRU('RecentFilesMenu', EditorFile.sFile);
 
     seEditor := (Self.MDIChildren[iWin] as TfrmEditor).sciEditor;
 
@@ -2754,8 +2285,6 @@ begin
 
 
 
-
-
    // Load file state from Cache.xml
    if bRememberFileState then
      modDados.LoadFileState(EditorFile);
@@ -2787,6 +2316,7 @@ begin
    //
    /////////////////////////////////////////////////////////////////////////////
    /////////////////////////////////////////////////////////////////////////////
+
 
    if GetActiveEditorFormOrNil(edForm) then
    begin
@@ -2841,7 +2371,7 @@ begin
     end;
 
     if bUpdateMRU then
-      UpdateMRU(menFileRecentFiles, EditorFile.sFile);
+      UpdateMRU('RecentFilesMenu', EditorFile.sFile);
     exit;
     //cTmp := sFile[1];
     sDir := ExtractFilePath(EditorFile.sFile);
@@ -3586,7 +3116,6 @@ begin
   bUndoAfterSave := ifTinn.ReadBool('App', 'bUndoAfterSave', True);
   actOpenMaximized.Checked := ifTinn.ReadBool('App', 'bOpenMaximized', True);
 
-  actProjectVisible.Checked := ifTinn.ReadBool('App', 'bProject.Visible', True);
 
   with ifTinn do
   begin
@@ -3633,8 +3162,6 @@ begin
     frmTools.tbsWinExplorer.TabVisible := actWinExplVisible.Checked;
     frmTools.tbsWorkExplorer.TabVisible := actWorkExplVisible.Checked;
   }
-  actShowAllBars.Checked := ifTinn.ReadBool('App', 'bShowAllBars', True);
-  UpdateBars(actShowAllBars.Checked);
 
 
 
@@ -3739,7 +3266,6 @@ begin
     trim(ifTinn.ReadString('App', 'sTriggerRDataCompletion', 'SHIFT+CTRL+D'));
   sTriggerRtip := trim(ifTinn.ReadString('App', 'sTriggerRtip', 'CTRL+D'));
 
-  actPgFilesVisible.Checked := ifTinn.ReadBool('App', 'bPgFiles.Visible', True);
   actStatusBarVisible.Checked := ifTinn.ReadBool('App', 'bStatusBar', True);
   frmRterm.Visible := ifTinn.ReadBool('App', 'bRterm.Visible', True);
   frmTools.cbComAutoDetect_Language.Checked :=
@@ -3763,7 +3289,6 @@ begin
 
 
 
-  pgFiles.Visible := actPgFilesVisible.Checked;
 
   actToolsVisible.Checked := frmTools.Visible;
   actRtermVisible.Checked := frmRterm.Visible;
@@ -4092,11 +3617,11 @@ begin
 
   // Read the list of fileMRU docs and add them to the menu and the drop down menu
   ifTinn.ReadSectionValues('FileMRU', slFileMRU);
-  BuildMRU(menFileRecentFiles);
+
 
   // Do the same for Projects
   ifTinn.ReadSectionValues('ProjectMRU', slprojectMRU);
-  BuildProjectMRU(menProjRecent);
+
 
   slTextDiff := TStringList.Create;
   ifTinn.ReadSectionValues('Options TextDiff', slTextDiff);
@@ -4416,6 +3941,25 @@ begin
 
 end;
   }
+
+
+
+
+
+function TfrmTinnMain.GetTabById(iId: Integer): TTabSheet;
+var i: Integer;
+begin
+  Result := nil;
+  for i := 0 to pgFiles.PageCount -1  do
+    if pgFiles.Pages[i].Tag = iId then
+    begin
+      Result := pgFiles.Pages[i];
+      Break;
+    end;
+
+end;
+
+
 procedure TfrmTinnMain.GetCompletion(var sRObject, sRPackage,
   sCompletion: string);
 
@@ -4611,12 +4155,12 @@ end;
 procedure TfrmTinnMain.summaryselection1Click(Sender: TObject);
 var
   sTmp: string;
-  sciEditor: TDScintilla;
+  edForm: TfrmEditor;
 begin
   if not ValidRRunning then
     Exit;
 
-  if not GetActiveEditorOrNil(sciEditor) then
+  if not GetTopEditorForm(edForm) then
     exit;
 
   //sTmp := trim(sciEditor.GetSelText);
@@ -4642,6 +4186,23 @@ begin
     PostMessage(Application.Handle, WM_SYSCOMMAND, SC_RESTORE, 0)
   else
     inherited DefaultHandler(TMessage(message));
+end;
+
+procedure TfrmTinnMain.dimselection1Click(Sender: TObject);
+var
+  sTmp: string;
+  edForm: TfrmEditor;
+begin
+  if not ValidRRunning then
+    Exit;
+
+  if not GetTopEditorForm(edForm) then
+    exit;
+  sTmp := trim(FindWord);
+  if sTmp = '' then
+    exit;
+  sTmp := 'dim('+sTmp+')';
+  DoSend(sTmp);
 end;
 
 function TfrmTinnMain.GetBuildInfo: string;
@@ -4792,8 +4353,6 @@ begin
   //  modDados.ResetRObjectDatabase;
 
   actREnvironmentRefresh.Enabled := bOption;
-  actRExplorerRefresh.Enabled := bOption;
-
 
   if Assigned(frmTools) then
   begin
@@ -4827,6 +4386,7 @@ var
 begin
   i := 0;
   bMark := False;
+  // Consider  refactoring
   if GetActiveEditorOrNil(seEditor) then
     bMark := (seEditor.MarkerNext(-1, -1) > -1);
 
@@ -4846,6 +4406,7 @@ begin
   actRSendLine.Enabled := bOption;
   actRSendLinesToEndPage.Enabled := bOption;
   actRSendSweave.Enabled := bOption;
+  actRSendSelection.Enabled := bOption;
 end;
 
 procedure TfrmTinnMain.actWebSelectedTextGoogleExecute(Sender: TObject);
@@ -5010,11 +4571,6 @@ begin
   RecentProjectOpen((Sender as TAction).Caption);
 end;
 
-procedure TfrmTinnMain.acShowNotificationExecute(Sender: TObject);
-begin
-  MessageDlg(sNotifyLongText, mtInformation, [mbOk], 0);
-end;
-
 procedure TfrmTinnMain.actHelpAboutExecute(Sender: TObject);
 begin
   with TfrmAbout.Create(Self) do
@@ -5146,8 +4702,7 @@ begin
   if (ExtractFileExt(sfilename) = EmptyStr) and (pos('Untitled', sfilename) > 0)
   then
   begin
-    //stbMain.Panels[5].Text := EmptyStr;
-    atbStatus.ActionClient.Items[5].Caption := '';
+    stSize.Caption := '';
     Exit;
   end
   else
@@ -5156,10 +4711,11 @@ begin
   if (dSize > 0) and (pgFiles.PageCount > 0) then
   begin
     sSize := 'Size: ' + BytesToString(dSize);
-    atbStatus.ActionClient.Items[5].Caption := sSize;
+
+    stSize.Caption := sSize;
   end
   else
-    atbStatus.ActionClient.Items[5].Caption := '';
+    stSize.Caption := '';
 end;
 
 procedure TfrmTinnMain.actReadOnlyExecute(Sender: TObject);
@@ -5202,17 +4758,9 @@ begin
 
   with (Self.MDIChildren[i] as TfrmEditor) do
   begin
-    if sciEditor.GetModify then
-    begin
-      SetTabTitle('*');
-      CheckSaveStatus;
-    end
-    else
-    begin
-      SetTabTitle(EmptyStr);
-      CheckSaveStatus;
-    end
-  end;
+    SetTitles;
+    CheckSaveStatus;
+   end;
 end;
 
 procedure TfrmTinnMain.actEditCopyExecute(Sender: TObject);
@@ -5220,6 +4768,9 @@ var
   cFocus: TObject;
 begin
   cFocus :=  GetFocusedObject;
+  if cFocus = nil then
+    Exit;
+
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Copy else
     if cFocus.ClassName = 'TButtonedEdit' then
@@ -5235,6 +4786,9 @@ var
   cFocus: TObject;
 begin
   cFocus :=  GetFocusedObject;
+  if cFocus = nil then
+    Exit;
+
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Cut else
     if cFocus.ClassName = 'TButtonedEdit' then
@@ -5250,6 +4804,9 @@ var
   cFocus: TObject;
 begin
   cFocus := GetFocusedObject;
+  if cFocus = nil then
+    Exit;
+
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Paste else
     if cFocus.ClassName = 'TButtonedEdit' then
@@ -5266,6 +4823,8 @@ var
   cFocus: TObject;
 begin
   cFocus :=  GetFocusedObject;
+  if cFocus = nil then
+    Exit;
 
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Redo else
@@ -5275,7 +4834,6 @@ begin
       (cFocus AS TMemo).Undo else
     if cFocus.ClassName = 'TDBEdit' then
       (cFocus AS TDBEdit).Undo;
-
 end;
 
 procedure TfrmTinnMain.actEditSelectAllExecute(Sender: TObject);
@@ -5283,6 +4841,9 @@ var
   cFocus: TObject;
 begin
   cFocus :=  GetFocusedObject;
+  if cFocus = nil then
+    Exit;
+
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).SelectAll else
     if cFocus.ClassName = 'TButtonedEdit' then
@@ -5363,14 +4924,8 @@ begin
 
   ModDados.cdLexers2.First;
 
-  cbLexers.Clear;
-
   while not ModDados.cdLexers2.Eof do
   begin
-    cbLexers.Items.Add(ModDados.cdLexers2.FieldByName('LexerName').AsString);
-
-    // todo: Select default lexer menu
-
     if ModDados.cdLexers2.FieldByName('Extensions').AsString <> '' then
     begin
       slFiltersDisplay.Add(ModDados.cdLexers2.FieldByName('LexerName').AsString);
@@ -5384,54 +4939,7 @@ begin
   ReLoadDialogFileExtension(odMain.FileTypes);
   iFilterToSaveAs := 1;
 
-
-// What a pitty!!!
-
-// Highlighter menu on an actionbar is not viable due to performance issues and since
-// the popup menu doesn't have scrollbars (there are >50 highlighters)
-
-
-  //FSetHighlighter  := TList<TAction>.Create;
-{  SetLength(acHighlightersCI, ModDados.cdLexers2.RecordCount);
-  SetLength(acHighlighters, ModDados.cdLexers2.RecordCount);
-
-  SetLength(acHighlightersCIDefault, ModDados.cdLexers2.RecordCount);
-  SetLength(acHighlightersDefault, ModDados.cdLexers2.RecordCount);
-
-                    }
-{   for i := 0 to length(acHighlighters)-1 do
-  begin
-
-
-   acHighlightersCI[i] := amMain.ActionBars.ActionBars[12].Items[3].Items.Add;
-    acHighlighters[i] := TAction.Create(self);
-    acHighlightersCI[i].Action := acHighlighters[i];
-    acHighlightersCI[i].Action.GroupIndex := 1;
-    acHighlightersCI[i].Action.Caption := ModDados.cdLexers2.FieldByName('LexerName').AsString;
-    acHighlightersCI[i].Action.Tag := ModDados.cdLexers2.FieldByName('LexerId').AsInteger;
-    acHighlightersCI[i].Action.OnExecute := SetHighlighterGeneric;
-    acHighlightersCI[i].Caption := ModDados.cdLexers2.FieldByName('LexerName').AsString;
-    acHighlightersCI[i].Tag := ModDados.cdLexers2.FieldByName('LexerId').AsInteger;
-    acHighlightersCI[i].Action.Enabled := false;
-    acHighlightersCI[i].Visible := true;
-
-
-    acHighlightersCIDefault[i] := amMain.ActionBars.ActionBars[12].Items[3].Items[2].Items.Add;
-    acHighlightersDefault[i] := TAction.Create(self);
-    acHighlightersCIDefault[i].Action := acHighlightersDefault[i];
-    acHighlightersCIDefault[i].Action.GroupIndex := 1;
-    acHighlightersCIDefault[i].Action.Caption := ModDados.cdLexers2.FieldByName('LexerName').AsString;
-    acHighlightersCIDefault[i].Action.Tag := ModDados.cdLexers2.FieldByName('LexerId').AsInteger;
-    acHighlightersCIDefault[i].Action.OnExecute := SetHighlighterDefaultGeneric;
-    acHighlightersCIDefault[i].Caption := ModDados.cdLexers2.FieldByName('LexerName').AsString;
-    acHighlightersCIDefault[i].Tag := ModDados.cdLexers2.FieldByName('LexerId').AsInteger;
-    acHighlightersCIDefault[i].Visible := true;
-
-    ModDados.cdLexers2.Next;
-  end;
-
-  frmTinnMain.actnHighlighterPesudo.Destroy;
-  }
+  BuildHighlighterMenu;
 end;
 
 procedure TfrmTinnMain.FormCreate(Sender: TObject);
@@ -5466,21 +4974,6 @@ begin
   FRecentProjectActions.Add(acReopenProject9);
   FRecentProjectActions.Add(acReopenProject10);
 
-  FRecentFileActions := TList<TAction>.Create;
-  FRecentFileActions.Add(acReopenFile1);
-  FRecentFileActions.Add(acReopenFile2);
-  FRecentFileActions.Add(acReopenFile3);
-  FRecentFileActions.Add(acReopenFile4);
-  FRecentFileActions.Add(acReopenFile5);
-  FRecentFileActions.Add(acReopenFile6);
-  FRecentFileActions.Add(acReopenFile7);
-  FRecentFileActions.Add(acReopenFile8);
-  FRecentFileActions.Add(acReopenFile9);
-  FRecentFileActions.Add(acReopenFile10);
-
-
-
-
   // The below controls (automatically) the visibility of the menu Tools/Utils on build!
 //{$IFDEF DEBUG}
 //  menToolsUtils.Visible := True;
@@ -5504,7 +4997,6 @@ begin
   actReadOnly.Enabled := False;
 
   actREnvironmentRefresh.Checked := False;
-  actRExplorerRefresh.Checked := False;
 
   actRtermWarningError.Visible := False;
   actSplitHorizontal.Enabled := False;
@@ -5686,6 +5178,8 @@ begin
   bFirstActivated := True;
  // atbstatus.Visible := true;
  pgFiles.Visible := (pgFiles.PageCount <> 0);
+
+
 end;
 
 procedure TfrmTinnMain.LoadEditorKeystrokes;
@@ -6342,20 +5836,6 @@ begin
     sPathRgui := sPathR + '\bin\i386\Rgui.exe';
 end;
 
-procedure TfrmTinnMain.SetRcard;
-begin
-
-end;
-
-procedure TfrmTinnMain.SetCompletion;
-begin
-  // Create items in lbCompletion from strListCompletionGroups create in uModDados
-  with modDados do
-  begin
-    FreeAndNil(slCompletion_Groups);
-  end;
-
-end;
 
 procedure TfrmTinnMain.SetRmirrors;
 begin
@@ -6375,14 +5855,96 @@ begin
   frmTools.lbCountriesClick(Self);
 end;
 
-procedure TfrmTinnMain.BuildMRU(var miItem: TMenuItem);
+
+procedure TfrmTinnMain.BuildHighlighterMenu;
 var
   i: integer;
-  miMRU: TMenuItem;
-  sFile: string;
-  miMRUAction: TActionClientItem;
+  gcItem: TUIRecentItem;
+  sOld: String;
 begin
-  amMain.ActionBars.ActionBars[6].Items[1].Items.Clear;
+
+  sOld := cbHighlighter.SelText;
+  cbHighlighter.Items.Clear;
+
+  for i := 0 to (slFiltersDisplay.Count - 1) do
+  begin
+    cbHighlighter.Items.Add(slFiltersDisplay[i]);
+  end;
+
+  if sOld <> '' then
+    if cbHighlighter.Items.IndexOf(sOld)> -1 then
+      cbHighlighter.ItemIndex := cbHighlighter.Items.IndexOf(sOld);
+
+
+  if not assigned(FHighlighterList) then
+    exit;
+
+  FHighlighterList.Items.BeginUpdate;
+  FHighlighterList.Items.Clear;
+  FHighlighterList.Caption := 'Highlighter';
+  FHighlighterList.OnSelect := SelectHighlighter;
+  try
+    for i := 0 to (slFiltersDisplay.Count - 1) do
+    begin
+      gcItem := TUIRecentItem.Create;
+      gcItem.LabelText := slFiltersDisplay[i];
+      FHighlighterList.Items.Add(gcItem);
+    end;
+  finally
+    FHighlighterList.Items.EndUpdate;
+  end;
+
+end;
+
+
+
+procedure TfrmTinnMain.BuildMRU(sTarget: String);
+var
+  i: integer;
+  sFile: string;
+  gcItem: TUIRecentItem;
+{  miMRUAction: TActionClientItem;   miMRU: TMenuItem;
+}
+
+begin
+
+{if sTarget <> 'RecentProjectsMenu' then
+  begin
+    showmessage('unhandeld #12462');
+   showmessage(sTarget);
+    exit;
+  end;   }
+
+  if sTarget = 'RecentFilesMenu' then
+  begin
+    if not assigned(FFileRecent) then
+      exit;
+
+    FFileRecent.Items.BeginUpdate;
+    FFileRecent.Items.Clear;
+    FFileRecent.Caption := 'Recent Files';
+    FFileRecent.OnSelect := SelectRecentFile;
+    try
+      for i := 0 to (slFileMRU.Count - 1) do
+      begin
+        sFile := slFileMRU.Values[IntToStr(i)];
+        if (sFile <> '') then
+        begin
+          gcItem := TUIRecentItem.Create;
+          gcItem.LabelText :=slFileMRU.Values[IntToStr(i)];
+          FFileRecent.Items.Add(gcItem);
+        end;
+      end;
+    finally
+      FFileRecent.Items.EndUpdate;
+    end;
+  end;
+
+
+
+
+
+{  amMain.ActionBars.ActionBars[6].Items[1].Items.Clear;
   pmenMainMRU.Items.Clear;
   miItem.Clear;
   if (slFileMRU.Count > 0) then
@@ -6410,10 +5972,10 @@ begin
         end;
       end;
     end;
-  end;
+  end;}
 end;
 
-procedure TfrmTinnMain.UpdateMRU(var miItem: TMenuItem; sfilename: string);
+procedure TfrmTinnMain.UpdateMRU(sTarget: String; sfilename: string);
 var
   i, j: integer;
   slTmp: TStringList;
@@ -6443,7 +6005,7 @@ begin
   end;
 
   slFileMRU.Text := slTmp.Text;
-  BuildMRU(miItem);
+  BuildMRU('RecentFilesMenu');
   FreeAndNil(slTmp);
 end;
 
@@ -6462,9 +6024,20 @@ begin
 end;
 
 function TfrmTinnMain.GetFocusedObject: TWinControl;
+var i: Integer;
 begin
+  i := FindTopWindow;
+   Result := Screen.FocusedForm;
+  if   Result.ClassName = 'TfrmEditor' then
+  begin
+    Result := (self.MDIChildren[FindTopWindow] as TFrmEditor).ActiveControl;
+   //   label1.Caption := (self.MDIChildren[FindTopWindow] as TFrmEditor).EditorFile.sFile ;
+
+  end else   Result :=  Screen.FocusedForm.ActiveControl;
+  if Result <> nil then
+
   //menHelp.Caption := {ActiveControl.Name+' '+ }Screen.ActiveForm.ActiveControl.Name;
-  Result := Screen.FocusedForm.ActiveControl;
+{  Result := Screen.FocusedForm.ActiveControl;
  // Result := Screen.ActiveControl;
   if not assigned(Result) then
     begin
@@ -6476,12 +6049,12 @@ begin
   begin
     Result := frmRterm.sciLog;
   end;
-  label1.Caption := Result.Name;
+  //label1.Caption := Result.Name;
 
   if Screen.ActiveControl.Name <> Result.Name then
   begin
     Result := Screen.ActiveControl;
-    label1.Caption :=label1.Caption+' mismatch1: '+inttostr((random(98999)))+ ' '+ Result.Name;
+    //label1.Caption :=label1.Caption+' mismatch1: '+inttostr((random(98999)))+ ' '+ Result.Name;
   end;
   if self.MDIChildCount > 0 then
     if (self.MDIChildren[FindTopWindow] as TFrmEditor).sciEditor.Focused then
@@ -6489,10 +6062,14 @@ begin
       begin
 
         Result := (self.MDIChildren[FindTopWindow] as TFrmEditor).sciEditor;
-        label3.Caption :='mismatch3: '+inttostr((random(98999)))+' '+Result.Name;
-      end;
+        //label3.Caption :='mismatch3: '+inttostr((random(98999)))+' '+Result.Name;
+      end;}
 // label4.caption := label4.caption+' ' +  Result.Name;
-
+ { for i:= 0 to ComponentCount - 1 do
+    if components[i].   = TWinControl then
+      if (components[i] as TWinControl).Focused then
+        label3.Caption := (components[i] as TWinControl).Name;
+    }
 end;
 
 
@@ -6638,7 +6215,7 @@ begin
     WriteBool('App', 'bDviOpenAlways', actDviOpenAlways.Checked);
 
     WriteBool('App', 'bHtmlOpenAlways', actHtmlOpenAlways.Checked);
-    WriteBool('App', 'bIniLog.Visible', actIniLogVisible.Checked);
+
 
     WriteBool('App', 'bIPLocal', bIPLocal);
 
@@ -6647,8 +6224,7 @@ begin
     WriteBool('App', 'bOpenMaximized', actOpenMaximized.Checked);
     WriteBool('App', 'bOrganizeAutomatically', bOrganizeAutomatically);
     WriteBool('App', 'bPdfOpenAlways', actPdfOpenAlways.Checked);
-    WriteBool('App', 'bPgFiles.Visible', actPgFilesVisible.Checked);
-    WriteBool('App', 'bProject.Visible', actProjectVisible.Checked);
+
     WriteBool('App', 'bRArchitecture64', bRArchitecture64);
     WriteBool('App', 'bRAsServer', bRAsServer);
     WriteBool('App', 'bRComplexDefault', actRComplexDefault.Checked);
@@ -6672,7 +6248,6 @@ begin
     WriteBool('App', 'bRTinnRcomLoad', bRTinnRcom_Load);
     WriteBool('App', 'bRUseLatest', bRUseLatest);
     WriteBool('App', 'bScrollSendingLines', bScrollSendingLines);
-    WriteBool('App', 'bShowAllBars', actShowAllBars.Checked);
     WriteBool('App', 'bStatusBar', actStatusBarVisible.Checked);
     WriteBool('App', 'bTextDefault', actTextDefault.Checked);
     WriteBool('App', 'bTinnRHotKeysActive', bTinnRHotKeysActive);
@@ -6966,7 +6541,7 @@ begin
     if (MessageDlg(sTmp + #13 + #13 + 'File does not exist.' + #13 +
       'Would you like to remove it from MRU (Most Recent Used) list?',
       mtInformation, [mbYes, mbNo], 0) = mrYes) then
-      UpdateMRU(menFileRecentFiles, sTmp);
+      UpdateMRU('RecentFilesMenu', sTmp);
 end;
 
 function TfrmTinnMain.FindTabByName(sName: string): integer;
@@ -7019,16 +6594,22 @@ var
   bFound: Boolean;
 begin
   bFound := False;
-  if Id > 0 then
+
+//  Label2.caption := inttostr(random(999))+ ' looking for id '+inttostr(Id)+ ': ';
+
+  if Id > -1 then
     for i := (Self.MDIChildCount - 1) downto 0 do
     begin
-      if (Self.MDIChildren[i]).Tag = Id then
+//        Label2.caption :=  Label2.Caption + ((Self.MDIChildren[i]) AS TfrmEditor ).EditorFile.sFile+' '+ inttostr(((Self.MDIChildren[i]) AS TfrmEditor ).EditorFile.iId);
+      if ((Self.MDIChildren[i]) AS TfrmEditor ).EditorFile.iId = Id then
       begin
         bFound := True;
         break;
       end;
     end;
-
+ // if bFound then
+ //  showmessage('found ' + inttostr(Id)+ ' '+inttostr(i)) else
+ //    showmessage('not found ' + inttostr(Id)+ ' '+inttostr(-1));
 
   if bFound then
     Result := i
@@ -7097,7 +6678,6 @@ begin
     if (Self.MDIChildren[i].Active = True) then
     begin
       if edForm <> Self.MDIChildren[i] as TfrmEditor  then
-        Label5.caption := 'Mismatch: ' + inttostr(random(9999));
       edForm := Self.MDIChildren[i] as TfrmEditor;
       Result := true;
 
@@ -7127,6 +6707,7 @@ procedure TfrmTinnMain.actRLibAddSnippetExecute(Sender: TObject);
 var sciEditor: TDscintilla;
     sText: String;
 begin
+  // Consider refactoring
   if not GetActiveEditorOrNil(sciEditor) then
     exit;
 
@@ -7313,12 +6894,13 @@ end;
 procedure TfrmTinnMain.actRQuickCommandExecute(Sender: TObject);
 var
   sTmp: string;
-  sciEditor: TDScintilla;
+  edForm: TfrmEditor;
 begin
   if not ValidRRunning then
     Exit;
 
-  if not GetActiveEditorOrNil(sciEditor) then
+
+  if not GetTopEditorForm(edForm) then
     exit;
 
   //sTmp := trim(sciEditor.GetSelText);
@@ -7371,7 +6953,7 @@ begin
    iLineCount := Sender.GetLineCount;
   if (iLineCount = 0) then
     iLineCount := 1;
-  frmtinnmain.actGotoLine.Caption :=
+  stTextPosition.Caption :=
   { stbMain.Panels[2].Text :=} format('%d/%d: %d', [Sender.LineFromPosition(Sender.GetCurrentPos)+1 , iLineCount,
     Sender.GetColumn(Sender.GetCurrentPos)]);
 
@@ -7482,10 +7064,36 @@ procedure TfrmTinnMain.pgFilesChange(Sender: TObject);
 var
   i: integer;
 
-  sNodeToSelect, sPageSelected, sTmp: string;
-
+  sNodeToSelect, sPageSelected{, sTmp}: string;
+  edForm: TfrmEditor;
 begin
-  sPageSelected := pgFiles.ActivePage.Hint;
+  i := FindWindowById(pgFiles.ActivePage.Tag);
+
+   //label1.Caption :=  ' Tag according to ActivePage '+(inttostr(pgFiles.ActivePage.Tag)+ ' MDI # '+inttostr(i)+ ' PageIndex '+ inttostr(pgFiles.ActivePageIndex));
+  if i> -1 then
+  begin
+    edForm := (Self.MDIChildren[i] AS TfrmEditor);
+    sPageSelected := edForm.EditorFile.sFile;
+  end else sPageSelected := '';
+
+
+  if (i > -1) then
+  with edForm do
+  begin
+    if WindowState = wsMinimized then
+      WindowState := wsNormal
+    else
+    begin
+      // Check if the active form (position 0) is maximized
+      if WindowState = wsMaximized then
+      begin
+        // Size new window to fit mainform
+        Width := Width;
+        Height := Height;
+      end;
+      BringToFront;
+    end;
+
   with frmTools.tvProject do
   begin
     for i := 1 to (Items.Count - 1) do
@@ -7500,13 +7108,6 @@ begin
       end;
     end;
   end;
-  //m.p.statusbar
-  {
-  with stbMain do
-  begin
-    Panels[7].Text := EmptyStr;
-    Panels[8].Text := EmptyStr;
-  end; }
 
   with actRtermWarningError do
   begin
@@ -7514,29 +7115,13 @@ begin
     Checked := False;
   end;
 
-  sTmp := pgFiles.ActivePage.Hint;
-  i := FindWindowByName(sTmp);
 
-  if (i > -1) then
-  begin
-    if Self.MDIChildren[i].WindowState = wsMinimized then
-      Self.MDIChildren[i].WindowState := wsNormal
-    else
-    begin
-      // Check if the active form (position 0) is maximized
-      if Self.MDIChildren[0].WindowState = wsMaximized then
-      begin
-        // Size new window to fit mainform
-        Self.MDIChildren[i].Width := Width;
-        Self.MDIChildren[i].Height := Height;
-      end;
-      Self.MDIChildren[i].BringToFront;
-    end;
+
 
 
   end;
 
-  pgFiles.Hint := sTmp;
+//  pgFiles.Hint := sTmp;
 //  i := FindTopWindow;
 
   pgFiles.Visible := (pgFiles.PageCount <> 0);
@@ -7551,6 +7136,7 @@ begin
   if not GetTopEditorForm(edForm) then
     Exit;
 
+  // Consider refactoring
   edForm.GetActiveEditorOnForm(seEditor);
 
   if (seEditor.GetSelText <> '') then
@@ -7825,67 +7411,26 @@ begin
       end;
 end;
 
-procedure TfrmTinnMain.SetTabTitle(sStat: string);
-begin
-//m.p.settabtitles
-  if (pgFiles.PageCount > 0) then
-  begin
-    if (not actReadOnly.Checked) then
-      pgFiles.ActivePage.Caption := StripPath(pgFiles.ActivePage.Hint) + sStat
-    else
-      pgFiles.ActivePage.Caption := '<' + StripPath(pgFiles.ActivePage.Hint) +
-        sStat + '>'
-  end;
-end;
-
 procedure TfrmTinnMain.RemoveTab(iId: integer);
 var
-  j, i: integer;
+ { j,} i: integer;
 
 begin
-  j := 0;
+{  j := 0;
   while (j <= pgFiles.PageCount - 1) do
   begin
     if (pgFiles.Pages[j].Tag = iId) then
       pgFiles.Pages[j].Free;
     inc(j);
-  end;
-  for i := (Self.MDIChildCount - 1) downto 0 do
-  begin
- //   (Self.MDIChildren[i] as TfrmEditor).Repaint;
-  end;
+  end;   }
+
+  for i := pgFiles.PageCount-1 downto 0 do
+    if (pgFiles.Pages[i].Tag = iId) then
+      pgFiles.Pages[i].Free;
+
   ReRecordTabOrder;
 
   UpdateCloseFileOptions;
-end;
-
-procedure TfrmTinnMain.actOpenMRUExecute(Sender: TObject);
-var
-  i: integer;
-  slTmp: TStringList;
-
-begin
-  // Open all files in fileMRU
-  slTmp := TStringList.Create;
-
-  for i := 0 to (menFileRecentFiles.Count - 1) do
-    slTmp.Add(menFileRecentFiles.Items[i].Caption);
-
-  for i := 0 to (slTmp.Count - 1) do
-  begin
-    if FileExists(slTmp.Strings[i]) then
-      OpenFileIntoTinn(slTmp.Strings[i])
-    else
-    begin
-      // Take it off the fileMRU list
-      if (MessageDlg(slTmp.Strings[i] + #13 + #13 + 'File does not exist.' + #13
-        + 'Would you like to remove it from MRU (Most Recent Used) list?',
-        mtInformation, [mbYes, mbNo], 0) = mrYes) then
-        UpdateMRU(menFileRecentFiles, slTmp.Strings[i]);
-    end;
-  end;
-
-  FreeAndNil(slTmp);
 end;
 
 procedure TfrmTinnMain.actProjectOpenNodeExecute(Sender: TObject);
@@ -7990,9 +7535,7 @@ end;
 procedure TfrmTinnMain.ClearMRU;
 begin
   slFileMRU.Clear;
-  pmenMainMRU.Items.Clear;
-  while (menFileRecentFiles.Count > 0) do
-    menFileRecentFiles.Delete(0);
+  BuildMRU('RecentFilesMenu');
 end;
 
 procedure TfrmTinnMain.MinimizeTinnAfterLastFile;
@@ -8262,15 +7805,17 @@ begin
   tDataConflict.Enabled := false;
   if not assigned(frmTools) then
     exit;
- 
-  actRExplorerRefresh.Execute; 
+    //Label1.Caption := inttostr(random(99999))+' conflict refresh';
+  RExplorerRefresh(true);
 end;
 
 procedure TfrmTinnMain.tNotifyTimerTimer(Sender: TObject);
 begin
   tNotifyTimer.Enabled := false;
-  acShowNotification.Visible := false;
-  acShowNotification.Enabled := false;
+  stNotification.Visible := false;
+  stNotification.Enabled := false;
+  stNotification.Caption := '';
+  stNotification.Hint := '';
 end;
 
 procedure TfrmTinnMain.panProjectDockSiteDockDrop(Sender: TObject;
@@ -8312,7 +7857,7 @@ begin
 
       CreateProject;
       SaveProject;
-      UpdateProjectMRU(menProjRecent, sProjectName);
+      UpdateProjectMRU('RecentProjectsMenu', sProjectName);
       ToolsProjectControls(True);
     end;
     frmTinnMain.ReLoadDialogFileExtension(frmTinnMain.sdMain.FileTypes);
@@ -8379,7 +7924,7 @@ end;
 procedure TfrmTinnMain.actProjectSaveExecute(Sender: TObject);
 begin
   SaveProject;
-  UpdateProjectMRU(menProjRecent, sProjectName);
+  UpdateProjectMRU('RecentProjectsMenu', sProjectName);
 end;
 
 procedure TfrmTinnMain.actFilesRemoveExecute(Sender: TObject);
@@ -8500,7 +8045,7 @@ begin
   bProjectChanged := False;
   ToolsProjectControls(True);
 
-  UpdateProjectMRU(menProjRecent, sProjectName);
+  UpdateProjectMRU('RecentProjectsMenu', sProjectName);
   SortProject;
   ClearStatusBarProject;
 
@@ -8514,14 +8059,51 @@ begin
     Selected := Items.GetFirstNode;
 end;
 
-procedure TfrmTinnMain.BuildProjectMRU(var miItem: TMenuItem);
+procedure TfrmTinnMain.BuildProjectMRU(sTarget: String);
 var
   i: integer;
   miMRU: TMenuItem;
   prjTmp: string;
   miMRUAction: TActionClientItem;
-
+  gcItem: TUIGalleryCollectionItem;
 begin
+
+{if sTarget <> 'RecentProjectsMenu' then
+  begin
+    showmessage('unhandeld #12462');
+   showmessage(sTarget);
+    exit;
+  end;   }
+
+  if sTarget = 'RecentProjectsMenu' then
+  begin
+    if not assigned(FProjectRecent) then
+      exit;
+
+    FProjectRecent.Items.BeginUpdate;
+    FProjectRecent.Items.Clear;
+    FProjectRecent.Caption := 'Recent projects';
+    FProjectRecent.OnSelect := SelectRecentProject;
+    try
+      for i := 0 to (slprojectMRU.Count - 1) do
+      begin
+        prjTmp := slprojectMRU.Values[IntToStr(i)];
+        if (prjTmp <> '') then
+        begin
+          gcItem := TUIGalleryCollectionItem.Create;
+          gcItem.LabelText :=slprojectMRU.Values[IntToStr(i)];
+          FProjectRecent.Items.Add(gcItem);
+        end;
+      end;
+    finally
+      FProjectRecent.Items.EndUpdate;
+    end;
+  end;
+
+
+
+
+{
   amMain.ActionBars.ActionBars[5].Items[0].Items.Clear;
 
   pmenProjectMRU.Items.Clear;
@@ -8554,13 +8136,33 @@ begin
         end;
       end;
     end;
-  end;
+  end;}
 end;
 
 procedure TfrmTinnMain.Button1Click(Sender: TObject);
 var sString: String;
     tst: TfrmEditor;
 begin
+
+frmRTerm.cRTerm.EmptyBuffer;
+
+Exit;
+frmRTerm.bDebug :=  (frmRTerm.bDebug = false);
+
+Exit;
+
+//sString := Edit4.Text;
+moddados.cConsole.SendInput(sString+#13#10);
+
+exit;
+  modDados.BackupFiles;
+
+exit;
+//csRExplorer.socket.SendText(Edit4.Text+#13#10);
+// moddados.cConsole.SendInput(Edit4.Text+#13#10);
+
+
+exit;
 
   if not GetTopEditorForm(tst) then
      Exit;
@@ -8580,8 +8182,27 @@ end;
 procedure TfrmTinnMain.Button2Click(Sender: TObject);
 var sString: String;
     tst: TfrmEditor;
+    var i: Integer;
 begin
- csREnvironment.Socket.SendText(Edit4.Text+#13#10);
+ { RExplorerRefresh(true);
+  Exit;
+
+
+  i := FindWindowById(pgFiles.ActivePage.Tag);
+   label1.Caption := ' Tag according to ActivePage '+(inttostr(pgFiles.ActivePage.Tag)+ ' MDI # '+inttostr(i)+ ' PageIndex '+ inttostr(pgFiles.ActivePageIndex));
+
+   exit;
+
+  modDados.sqlMainBase.Close;
+  exit; }
+  if moddados.cConsole.IsRunning then
+    modDados.cConsole.StopProcess;
+
+  memPackage.Clear;
+  memPackage.Visible := true;
+  modDados.CheckPackages;
+
+// csREnvironment.Socket.SendText(Edit4.Text+#13#10);
 
  Exit ;
 frmtinnmain.UpdateRterm_Appearance;
@@ -8617,12 +8238,20 @@ begin
 end;
 end;
 
-procedure TfrmTinnMain.cbLexersSelect(Sender: TObject);
+procedure TfrmTinnMain.cbHighlighterSelect(Sender: TObject);
 begin
-  if cbLexers.ItemIndex >-1 then
+  if cbHighlighter.ItemIndex >-1 then
   if (Self.MDIChildCount > 0) then
-      (Self.ActiveMDIChild AS TfrmEditor).SetEditorLexerById(modDados.GetLexerIdByName(cbLexers.Items[cbLexers.ItemIndex]));
+      (Self.ActiveMDIChild AS TfrmEditor).SetEditorLexerById(modDados.GetLexerIdByName(slFiltersDisplay[cbHighlighter.ItemIndex]));
 end;
+
+procedure TfrmTinnMain.SelectHighlighter(const Args: TUICommandCollectionEventArgs);
+begin
+{  if Args.ItemIndex >-1 then
+  if (Self.MDIChildCount > 0) then
+      (Self.ActiveMDIChild AS TfrmEditor).SetEditorLexerById(modDados.GetLexerIdByName(slFiltersDisplay[Args.ItemIndex]));  }
+end;
+
 
 procedure TfrmTinnMain.edFilterRightButtonClick(Sender: TObject);
 var
@@ -8671,7 +8300,7 @@ begin
   end;
 end;
 
-procedure TfrmTinnMain.UpdateProjectMRU(var miItem: TMenuItem;
+procedure TfrmTinnMain.UpdateProjectMRU(sTarget: String;
   sfilename: string);
 var
   i, j: integer;
@@ -8704,7 +8333,7 @@ begin
   end;
 
   slprojectMRU.Text := slTmp.Text;
-  BuildProjectMRU(miItem);
+  BuildProjectMRU(sTarget);
   FreeAndNil(slTmp);
 end;
 
@@ -8725,7 +8354,7 @@ begin
     if (MessageDlg(sTmp + #13 + #13 + 'File does not exist.' + #13 +
       'Would you like to remove it from MRU (Most Recent Used) list?',
       mtInformation, [mbYes, mbNo], 0) = mrYes) then
-      UpdateProjectMRU(menProjRecent, sTmp);
+      UpdateProjectMRU('RecentProjectsMenu', sTmp);
   end;
 end;
 
@@ -8856,6 +8485,7 @@ end;
 
 procedure TfrmTinnMain.tUpdateOptionsTimer(Sender: TObject);
 begin
+
   try
     UpdateOptions;
   except
@@ -8864,6 +8494,8 @@ begin
 end;
 
 procedure TfrmTinnMain.tRRuningTimer(Sender: TObject);
+   var i: Integer;
+   edForm: tfrmEditor;
 
   procedure Rgui(bRunning: Boolean);
   begin
@@ -8891,22 +8523,21 @@ procedure TfrmTinnMain.tRRuningTimer(Sender: TObject);
     with actRContTermStartClose do
       if bRunning then
       begin
-        Caption := 'Rterm (close)';
-        ImageIndex := 245
+        Checked := true;
+        //Caption := 'Rterm (close)';
+        //ImageIndex := 245
       end
       else
       begin
-        Caption := 'Rterm (start)';
-        ImageIndex := 244
+        Checked := false;
+        //Caption := 'Rterm (start)';
+        //ImageIndex := 244
       end;
     actRContTermStartClose.Update;
   end;
 
 // R is running
   procedure R_Is_Running;
-  var
-    seEditor: TDScintilla;
-
   begin
     RMenu(True);
 
@@ -8917,15 +8548,7 @@ procedure TfrmTinnMain.tRRuningTimer(Sender: TObject);
     else
     begin
       SendResources(True);
-      with (Self.MDIChildren[FindTopWindow] as TfrmEditor) do
-        if (sActiveEditor = 'sciEditor') then
-          seEditor := sciEditor
-        else
-          seEditor := sciEditor2;
-      with seEditor do
-      begin
-        actRSendSelection.Enabled := GetSelText <> '';
-      end;
+
     end;
 
   {  if bTinnRHotKeysActive then
@@ -8955,9 +8578,10 @@ procedure TfrmTinnMain.tRRuningTimer(Sender: TObject);
 
     if bRObjectsUpdate and frmRTerm.cRTerm.bRterm_Ready then
     begin
+
       bRObjectsUpdate := false;
       frmTinnMain.actREnvironmentRefresh.Execute;
-      frmTinnMain.actRExplorerRefresh.Execute;
+      RExplorerRefresh;
     end;
 
   end;
@@ -8971,10 +8595,6 @@ procedure TfrmTinnMain.tRRuningTimer(Sender: TObject);
 
     SendResources(False);
 
-  {  if (stbMain.Panels[6].Text <> EmptyStr) then
-      stbMain.Panels[6].Text := EmptyStr;   }
-
-    actRSendSelection.Enabled := False;
     bAlreadyOrganized := False;
     bTCPIPRunning := False;
     bRTinnRcom_Loaded := False;
@@ -8984,6 +8604,7 @@ procedure TfrmTinnMain.tRRuningTimer(Sender: TObject);
     sVersion_TinnRcomInstalled := 'UNKNOWN';
     if Assigned(slRLibPaths) then
       FreeAndNil(slRLibPaths);
+
   end;
 
 begin
@@ -9003,6 +8624,31 @@ begin
   except
     // TODO
   end;
+
+  if assigned(frmtools) then
+  with frmtools.editormemo do begin
+    lines.BeginUpdate;
+    lines.Clear;
+
+    for i := 0 to frmTinnMain.pgFiles.PageCount-1 do
+    if GetEditorById(frmTinnMain.pgFiles.Pages[i].Tag, edForm) then
+    with edForm, edForm.EditorFile do
+    begin
+      lines.Add('------------- '+ inttostr(i));
+      lines.Add('File: ' + sFile);
+      lines.Add('ID: ' + inttostr(iId));
+      lines.Add('iUnsavedChanges: ' +inttostr(iUnsavedChanges));
+      lines.Add('iModified: ' +inttostr(iModified));
+
+
+      lines.Add('new file: '+inttostr(iNewFile));
+      lines.Add('iTabPosition: '+inttostr(iTabPosition));
+      lines.Add('TempFile: '+sTempFile);
+
+    end;
+    lines.EndUpdate;
+  end;
+
 end;
 
 procedure TfrmTinnMain.OpenHelpFile(sFileToOpen: string);
@@ -9082,11 +8728,6 @@ begin
     Accept := True
   else if (Source is TJvFileListBox) then
     Accept := True;
-end;
-
-procedure TfrmTinnMain.FormResize(Sender: TObject);
-begin
-  ctbMain.Realign;
 end;
 
 procedure TfrmTinnMain.FormDragDrop(Sender, Source: TObject; X, Y: integer);
@@ -9746,7 +9387,6 @@ begin
     Items.EndUpdate;
   end;
 
-  ctbMain.Realign; // Don't remove!
   UpdateAppearance;
 
   // Check user option related to dock satus
@@ -9837,9 +9477,9 @@ begin
     intPos := FindWindowByName(sProjectName);
     if (intPos > -1) then
       (MDIChildren[intPos] as TfrmEditor).Close;
-    UpdateMRU(menFileRecentFiles, sProjectName);
+    UpdateMRU('RecentFilesMenu', sProjectName);
 
-    UpdateProjectMRU(menProjRecent, sProjectName);
+    UpdateProjectMRU('RecentProjectsMenu', sProjectName);
     with frmTools.jvflbWinExplorer do
     begin
       Items.BeginUpdate;
@@ -9952,7 +9592,7 @@ begin
     FreeAndNil(meTmp);
     bProjectChanged := False;
 
-    UpdateProjectMRU(menProjRecent, sName);
+    UpdateProjectMRU('RecentProjectsMenu', sName);
 
     with frmTools.tvProject do
     begin
@@ -10141,42 +9781,26 @@ end;
 
 procedure TfrmTinnMain.actBlockMarkExecute(Sender: TObject);
 var
-  seEditor: TDScintilla;
+   edForm: TfrmEditor;
 begin
-  if not GetActiveEditorOrNil(seEditor) then
-    exit;
-
-  if (SelStartLine(seEditor) <> SelEndLine(seEditor)) then
-  with seEditor do
-  begin
-    MarkerDeleteAll(0);
-    MarkerDeleteAll(1);
-    MarkerAdd(SelStartLine(seEditor), 0);
-    MarkerAdd(SelEndLine(seEditor), 1);
-  end;
+  if not GetTopEditorForm(edForm) then
+    edForm.BlockMarkExecute;
 end;
 
 procedure TfrmTinnMain.actBlockUnmarkExecute(Sender: TObject);
 var
-  seEditor: TDScintilla;
+   edForm: TfrmEditor;
 begin
-  if not GetActiveEditorOrNil(seEditor) then
-    exit;
-
-  seEditor.MarkerDeleteAll(0);
-  seEditor.MarkerDeleteAll(1);
+  if  GetTopEditorForm(edForm) then
+    edForm.BlockUnmarkExecute;
 end;
 
 procedure TfrmTinnMain.actUnmarkAllExecute(Sender: TObject);
 var
-  seEditor: TDScintilla;
-  i: integer;
+   edForm: TfrmEditor;
 begin
-  if not GetActiveEditorOrNil(seEditor) then
-    exit;
-
-  for i := 0 to 9 do
-    seEditor.MarkerDeleteAll(i);
+  if GetTopEditorForm(edForm) then
+    edForm.UnmarkAllExecute;
 end;
 
 procedure TfrmTinnMain.actUnMarkColorExecute(Sender: TObject);
@@ -10969,12 +10593,10 @@ procedure TfrmTinnMain.csMainBaseRead(Sender: TObject;
 var
   sRecText, sOldSelection: String;
 begin
-  sRecText := trim(Socket.ReceiveText);
+{  sRecText := trim(Socket.ReceiveText);
   if ansipos('!!update!!', sRecText)>0 then
     AfterLibraryUpdate;
-
-  //if ansipos('!!TinnRMSG:Adding', sRecText)>0 then
-  //ShowNotification(copy(sRecText, ansipos('!!TinnRMSG:Adding', sRecText)+11, 999), copy(sRecText, ansipos('!!TinnRMSG:Adding', sRecText)+11, 999)+' This might takes a while.');
+}
 end;
 
 procedure TfrmTinnMain.csREnvironmentError(Sender: TObject;
@@ -11001,36 +10623,58 @@ procedure TfrmTinnMain.csRExplorerRead(Sender: TObject;
   Socket: TCustomWinSocket);
 var
   sRecText: String;
-  iMsgPos: Integer;
+  iMsgPos, itmp: Integer;
   //sTables: TStringList;
 begin
   if not assigned(frmTools) then
     exit;
   sRecText := trim(Socket.ReceiveText);
 
+  iMsgPos := ansipos('TinnRMSG:noupdate:', sRecText);
+  if iMsgPos > 0 then
+  begin
+   try
+    itmp := strtoint(copy(sRecText,iMsgPos + 18 ,ansipos('<',sRecText)-iMsgPos-18));
+    if itmp > iExplorerUpdateCounter then
+    begin
+       //Memo1.Lines.Add('missed something:'+inttostr(itmp));
+       RExplorerRefresh(true);
+       exit;
+    end;
+   finally
+   end;
+
+    tDataConflict.Enabled := false;
+
+  end;
+
   // Explorer update
   iMsgPos := ansipos('TinnRMSG:update:', sRecText);
-
+  //Memo1.Lines.Add(sRecText);
   if iMsgPos>0 then
   if copy(sRecText,iMsgPos + 16 ,ansipos('<',sRecText)-iMsgPos-16) = frmTools.cbbToolsREnvironment.Items[ frmTools.cbbToolsREnvironment.ItemIndex]  then
   with modDados do
   begin
     try
-   //   frmTinnMain.bRExplorerActive := true;
 
       try
-        SQLConnection.Open;
-        //sTables := TStringList.Create;
+        tDataConflict.Enabled := false;
 
-        //SQLConnection.GetTableNames(sTables);
-        //if sTables.IndexOf('Objects') > -1 then
-        //begin
-          sqldsRObjects.Active := true;
-          sqldsRObjects.Refresh;
-          SQLConnection.Close;
-          cdRObjects.Refresh;
-          UpdateLexerKeyWords(2);
-        //end else  tDataConflict.Enabled := true;
+
+        SQLConnection.Open;
+        sqldsRObjects.Active := true;
+        sqldsRObjects.Refresh;
+        SQLConnection.Close;
+        cdRObjects.Refresh;
+        UpdateLexerKeyWords(2);
+
+        sRecText := copy(sRecText,ansipos('<',sRecText)+1, 999);
+        sRecText := copy(sRecText, 1,  ansipos('<',sRecText)-1);
+        try
+           iExplorerUpdateCounter := strtoint(sRecText);
+         finally
+         end;
+        // label2.Caption := inttostr(random(999))+' '+inttostr(iExplorerUpdateCounter);
       except
          tDataConflict.Enabled := true;
       end;
@@ -11038,18 +10682,10 @@ begin
 
     finally
       SQLConnection.Close;
-      //sTables.Free;
     end;
   end;
 
 
-
-  // Names popup
-  iMsgPos := ansipos('TinnRMSG:ObjectInfo:', sRecText);
-   if iMsgPos>0 then
-  if iMsgPos>0 then
-  if copy(sRecText,iMsgPos + 20 ,ansipos('<',sRecText)-iMsgPos-20) = inttostr(iObjectCallID)  then
-    ShowNamesPopup;
 
 end;
 
@@ -11102,7 +10738,7 @@ begin
   begin
     sRecText := copy(sRecText, ansipos('!!update!!', sRecText)+11, length(sRecText));
     sRecText := copy(sRecText, 1, length(sRecText)-1);
-   // frmTinnMain.bRExplorerActive := true;
+
 
 
     if assigned(frmTools) then
@@ -11124,7 +10760,8 @@ begin
         begin
           frmTools.ResetRExplorerFilter;
         end;
-      modDados.CheckForNewPackages;
+      modDados.CheckPackages;
+      //modDados.CheckForNewPackages;
     end;
   end;
 end;
@@ -11268,6 +10905,21 @@ procedure TfrmTinnMain.csRtipError(Sender: TObject; Socket: TCustomWinSocket;
 begin
   ErrorCode := 0;
   Socket.Close;
+end;
+
+procedure TfrmTinnMain.csRTipRead(Sender: TObject; Socket: TCustomWinSocket);
+var
+  sRecText: String;
+  iMsgPos: Integer;
+begin
+  sRecText := trim(Socket.ReceiveText);
+
+  // Names popup
+  iMsgPos := ansipos('TinnRMSG:ObjectInfo:', sRecText);
+   if iMsgPos>0 then
+  if iMsgPos>0 then
+  if copy(sRecText,iMsgPos + 20 ,ansipos('<',sRecText)-iMsgPos-20) = inttostr(iObjectCallID)  then
+    ShowNamesPopup;
 end;
 
 procedure TfrmTinnMain.PrintMessage(sInstruction: string; bNewLine: Boolean;
@@ -11792,6 +11444,7 @@ var
   SelAvail: Boolean;
 begin
 
+
     if GetActiveEditorOrNil(seEditor) then
       SelAvail := seEditor.GetSelText <> ''
     else SelAvail := false;
@@ -11802,7 +11455,8 @@ begin
     actIndentBlock.Enabled := SelAvail;
     actUnindentBlock.Enabled := SelAvail;
 
-
+  //  if  then
+  //     LabelSC.Caption
 end;
 
 procedure TfrmTinnMain.actSplitVerticalExecute(Sender: TObject);
@@ -12461,7 +12115,7 @@ begin
   begin
     if (pgFiles.PageCount = 0) then
       Exit;
-    sToSend := GetSelection(bSingleLine); // Get slection
+    sToSend := GetSelection(bSingleLine); // Get selection
 
     if (sToSend = EmptyStr) then
     begin
@@ -12736,6 +12390,7 @@ begin
   end;
 end;
 
+{
 procedure TfrmTinnMain.SendLibraryUpdate;
 var
  sToSend, smessage: string;
@@ -12773,12 +12428,12 @@ begin
   end;
 
 end;
+}
 
 
-
-procedure TfrmTinnMain.actRExplorerRefreshExecute(Sender: TObject);
+procedure TfrmTinnMain.RExplorerRefresh(bForce: Boolean);
 var
- sToSend: string;
+ sToSend, sForceText: string;
 begin
   if not Assigned(frmTools) then
     Exit;
@@ -12792,7 +12447,12 @@ begin
     if Rterm_Running then
       if (csRExplorer.Active) then
       begin
-        sToSend := 'TinnRExplorer(envir = '''+frmTools.cbbToolsREnvironment.Items[frmTools.cbbToolsREnvironment.ItemIndex]+''')' + #13#10;
+        if bForce then
+          sForceText :=', ForceUpdate = T ' else sForceText :='';
+
+        tDataConflict.Enabled := true;
+        //memo1.Lines.Add('request update, current version '+inttostr(iExplorerUpdateCounter));
+        sToSend := 'TinnRExplorer(envir = '''+frmTools.cbbToolsREnvironment.Items[frmTools.cbbToolsREnvironment.ItemIndex]+''''+sForceText+', CurrentVersion ='+ inttostr(iExplorerUpdateCounter)+' )' + #13#10;
         csRExplorer.Socket.SendText(sToSend);
       end;
 
@@ -13646,6 +13306,12 @@ begin
   (Self.MDIChildren[i] as TfrmEditor).Cursor := oldCursor;
 end;
 
+procedure TfrmTinnMain.consoletestReceiveOutput(Sender: TObject;
+  const Cmd: string);
+begin
+ showmessage(cmd);
+end;
+
 procedure TfrmTinnMain.actLatexToDviSingleExecute(Sender: TObject);
 begin
   CompileLaTeX(sParDviSingle, 'N', '.dvi', actDviOpenAlways.Checked);
@@ -13709,6 +13375,9 @@ begin
     showmessage('sci migration: check Modify status');
     //sciEditor.Modified := False;
     SetFileSize_StatusBar(EditorFile.sFile);
+
+    // check consider refactoring!
+
     CheckSaveStatus;
     SetTitles;
 
@@ -14314,13 +13983,12 @@ begin
 end;
 
 procedure TfrmTinnMain.actEditUndoExecute(Sender: TObject);
-
 var
   cFocus: TObject;
-
 begin
-
   cFocus :=  GetFocusedObject;
+  if cFocus = nil then
+    Exit;
 
     if cFocus.ClassName = 'TDScintilla' then
       (cFocus AS TDScintilla).Undo else
@@ -14330,7 +13998,6 @@ begin
       (cFocus AS TMemo).Undo else
     if cFocus.ClassName = 'TDBEdit' then
       (cFocus AS TDBEdit).Undo;
-
 end;
 
 
@@ -14607,19 +14274,10 @@ begin
 end;
 
 procedure TfrmTinnMain.actUnfoldAllExecute(Sender: TObject);
-var seEditor: TDscintilla;
-    iFold: Integer;
+var edForm: TfrmEditor;
 begin
-  if not GetActiveEditorOrNil(seEditor) then
-    exit;
-
-
-  iFold := -1;
-  repeat
-    iFold := seEditor.ContractedFoldNext(iFold);
-    if iFold > -1 then
-      seEditor.ToggleFold(iFold);
-  until iFold = -1;
+  if GetTopEditorForm(edForm) then
+    edForm.UnfoldAllExecute;
 end;
 
 procedure TfrmTinnMain.actUncommentExecute(Sender: TObject);
@@ -14687,7 +14345,7 @@ begin
       bCloseCanceled := False;
       Close;
       if bCloseCanceled then
-        Exit;;
+        Exit;
     end;
 
   end;
@@ -14913,14 +14571,13 @@ end;
 procedure TfrmTinnMain.namesselection1Click(Sender: TObject);
 var
   sTmp: string;
-  sciEditor: TDScintilla;
+  edForm: TfrmEditor;
 begin
   if not ValidRRunning then
     Exit;
 
-  if not GetActiveEditorOrNil(sciEditor) then
+  if not GetTopEditorForm(edForm) then
     exit;
-
   //sTmp := trim(sciEditor.GetSelText);
   sTmp := trim(FindWord);
   if sTmp = '' then
@@ -15028,37 +14685,6 @@ begin
   SetFocus_Rgui(iDelay);
 end;
 
-procedure TfrmTinnMain.DoIPConnection(sIPHost: string; iIPPort: integer;
-  bActive: Boolean);
-begin
-  csREnvironment.Host := sIPHost;
-  csREnvironment.Port := iIPPort;
-  csRExplorer.Host := sIPHost;
-  csRExplorer.Port := iIPPort;
-  csRGeneral.Host := sIPHost;
-  csRGeneral.Port := iIPPort;
-  csRtip.Host := sIPHost;
-  csRtip.Port := iIPPort;
-
-  csMainBase.Host := sIPHost;
-  csMainBase.Port := iIPPort;
-
-  csMainBase.Active := bActive;
-  csREnvironment.Active := bActive;
-  csRExplorer.Active := bActive;
-
-
-
-  csRGeneral.Active := bActive;
-  csRtip.Active := bActive;
-  bTCPIPRunning := bActive;
-
-
-
-  //showmessage(csRexplorer.Socket.LocalAddress);
-  //showmessage(inttostr(csRexplorer.Socket.LocalPort));
-
-end;
 
 procedure TfrmTinnMain.DoRConnection(sTmp: string; bActive, bSendTask: Boolean);
 var
@@ -15075,9 +14701,9 @@ begin
 
   SetFocus_Rgui(iDelay div 4);
   if bIPLocal then
-    DoIPConnection(sIPHostLocal, iIPPortLocal, bActive)
+    DoUnConnectSocketClients(sIPHostLocal, iIPPortLocal, bActive)
   else
-    DoIPConnection(sIPHostRemote, iIPPortRemote, bActive);
+    DoUnConnectSocketClients(sIPHostRemote, iIPPortRemote, bActive);
 end;
 
 procedure TfrmTinnMain.DoRguiConnection(sTmp: string; bActive: Boolean);
@@ -15088,9 +14714,9 @@ begin
 
   Sleep(2 * iDelay div 3);
   if bIPLocal then
-    DoIPConnection(sIPHostLocal, iIPPortLocal, bActive)
+    DoUnConnectSocketClients(sIPHostLocal, iIPPortLocal, bActive)
   else
-    DoIPConnection(sIPHostRemote, iIPPortRemote, bActive);
+    DoUnConnectSocketClients(sIPHostRemote, iIPPortRemote, bActive);
 end;
 
 procedure TfrmTinnMain.actRContTCPConnectionExecute(Sender: TObject);
@@ -15697,8 +15323,7 @@ begin
   if ((Self.MDIChildren[i] as TfrmEditor) = nil) then
     Exit;
   DoTxt2Tag((Sender as TLabel).Tag);
-  PostMessage(TWinControl(Self.MDIChildren[i] as TfrmEditor).Handle,
-    WM_SETFOCUS, 0, 0);
+  (Self.MDIChildren[i] as TfrmEditor).SetFocus;
 end;
 
 procedure TfrmTinnMain.UdatePgFiles;
@@ -15709,21 +15334,6 @@ end;
 procedure TfrmTinnMain.UpdateBars(bOption: Boolean);
 begin
 
-  with ctbMain do
-  begin
-    Align := alTop;
-    Visible := bOption;
-  end;
-  UdatePgFiles;
-end;
-
-procedure TfrmTinnMain.actShowAllBarsExecute(Sender: TObject);
-begin
-  with actShowAllBars do
-  begin
-    Checked := not Checked;
-    UpdateBars(Checked)
-  end;
 end;
 
 procedure TfrmTinnMain.actRContPackagesExecute(Sender: TObject);
@@ -16033,61 +15643,6 @@ begin
   //
 end;
 
-procedure TfrmTinnMain.actnReopenPseudoFileExecute(Sender: TObject);
-begin
-  //
-end;
-
-procedure TfrmTinnMain.acReopenFile10Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile2Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile3Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile4Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile5Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile6Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile7Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile8Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile9Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
-procedure TfrmTinnMain.acReopenFile1Execute(Sender: TObject);
-begin
-  RecentProjectOpen((Sender as TAction).Caption);
-end;
-
 procedure TfrmTinnMain.Action1Execute(Sender: TObject);
 begin
   //
@@ -16214,6 +15769,61 @@ begin
   end;
 end;
 
+procedure TfrmTinnMain.RibbonCommandCreate(const Sender: TUIRibbon;
+  const Command: TUICommand);
+
+  function FindActionTag(iCommandId: Integer): Integer;
+  var i: Integer;
+  begin
+    Result := -1;
+    //if Sender.ActionManager = nil then
+    //  Exit;
+    for i := 0 to alMain.ActionCount -1 do
+      if alMain.Actions[i].Tag = iCommandId then
+        Exit(i);
+  end;
+  var iLinkedAction, iflength: Integer;
+begin
+
+   iLinkedAction := FindActionTag(Command.CommandId);
+
+   if iLinkedAction >0  then
+   begin
+     setlength(FComAction, length(FComAction) + 1);
+     Command.ActionLink.Action := alMain.Actions[iLinkedAction];
+
+
+     if Command.CommandType = ctBoolean then
+      (Command as TUICommandBoolean).Checked := alMain.Actions[iLinkedAction].Checked
+
+
+     {iflength :=  length(FComAction) -1;
+
+     FComAction[iflength] := Command as TUICommandAction;
+     FComAction[iflength].ActionLink.Action := alMain.Actions[iLinkedAction]; }
+   end;
+
+
+
+   case Command.CommandId of
+     CmdProjectRecent: begin
+                         FProjectRecent := Command AS TUICommandCollection;
+                         BuildProjectMRU('RecentProjectsMenu');
+                       end;
+
+     CmdRecentItems: begin
+                        FFileRecent := Command AS TUICommandRecentItems;
+                        BuildMRU('RecentFilesMenu');
+                      end;
+
+     CmdDefaultHighlighterList:  begin
+                                   FHighlighterList := Command AS TUICommandCollection;
+                                   BuildHighlighterMenu;
+                                 end;
+   end;
+
+end;
+
 procedure TfrmTinnMain.LatexAccents(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: integer);
 var sciEditor: TDScintilla;
@@ -16291,18 +15901,18 @@ begin
     LatexAlgebricSqrtN(sciEditor);
 end;
 
-
 procedure TfrmTinnMain.actReloadLatexSymbolsExecute(Sender: TObject);
 begin
   CheckLatex(True);
 end;
 
-
 procedure TfrmTinnMain.actRemoveLineBreaksExecute(Sender: TObject);
+var
+  edForm: TfrmEditor;
 begin
-  (Self.MDIChildren[FindTopWindow] as TfrmEditor).RemoveLineBreaks;
+  if GetTopEditorForm(edForm) then
+    edForm.RemoveLineBreaks;
 end;
-
 
 procedure TfrmTinnMain.actCountExecute(Sender: TObject);
 
@@ -16369,6 +15979,7 @@ var
   dWords, dChars, dCharsStripSpaces: double;
 
 begin
+  // Consider refactoring
   if ((Self.MDIChildren[FindTopWindow] as TfrmEditor) = nil) then
     Exit;
 
@@ -16472,12 +16083,7 @@ begin
 
     if not FileExists(sPathRterm) or (ExtractFileExt(sPathRterm) <> '.exe') then
     begin
-      sTmp := sPathRterm;
-
-      if (sTmp = EmptyStr) then
-        sTmp := 'Empty';
-
-      MessageDlg(sTmp + #13 + #13 + 'The file above is not executable!' + #13 +
+      MessageDlg(sPathRterm + #13 + #13 + 'The file above is not executable!' + #13 +
         'Please, set Rterm path at: Options/Application/R/Path (R)/Rterm',
         mtError, [mbOk], 0);
       Exit;
@@ -16492,9 +16098,12 @@ begin
 
     with frmRterm do
     begin
+      modDados.ResetRObjectDatabase;
+      sciLog.Lines.Clear;
       sciIO.Lines.Clear;
       iSciWithFocus := 3;
       cRterm.RunProcess(sPathRterm + ' ' + sParRterm);
+      //showmessage(sPathRterm + ' ' + sParRterm)   ;
     end;
 
     bRRequireKnitr := True;
@@ -17165,8 +16774,7 @@ begin
   with (MDIChildren[i] as TfrmEditor) do
     DoTipInsert;
 
-  PostMessage(TWinControl(MDIChildren[i] as TfrmEditor).Handle,
-    WM_SETFOCUS, 0, 0);
+  (Self.MDIChildren[i] as TfrmEditor).SetFocus;
 end;
 
 procedure TfrmTinnMain.actRtermIOSetFocusExecute(Sender: TObject);
@@ -17253,8 +16861,7 @@ begin
   if ((Self.MDIChildren[i] as TfrmEditor) = nil) then
     Exit;
 
-  PostMessage(TWinControl(Self.MDIChildren[i] as TfrmEditor).Handle,
-    WM_SETFOCUS, 0, 0);
+  (Self.MDIChildren[i] as TfrmEditor).SetFocus;
 
   actRtermEditorSetFocus.Checked := True;
 end;
@@ -17635,12 +17242,11 @@ begin
       begin
         i := FindTopWindow;
         if Assigned(Self.MDIChildren[i] as TfrmEditor) then
-          PostMessage(TWinControl(Self.MDIChildren[i] as TfrmEditor).Handle,
-            WM_SETFOCUS, 0, 0);
+          (Self.MDIChildren[i] as TfrmEditor).SetFocus;
       end
   else
-
-      PostMessage(TWinControl(frmRTerm.sciIO).Handle, WM_SETFOCUS, 0,  0);
+     frmRTerm.sciIO.SetFocus;
+     // PostMessage(TWinControl(frmRTerm.sciIO).Handle, WM_SETFOCUS, 0,  0);
 
  //   if frmRterm.Visible then
  //     frmRterm.sciIO.SetFocus;
@@ -17750,13 +17356,10 @@ end;
 
 
 procedure TfrmTinnMain.actFoldAllExecute(Sender: TObject);
-var seEditor: TDScintilla;
-const SCI_FOLDALL = 2662; // Constant not present in the TDScintilla wrapper.
+var edForm: TfrmEditor;
 begin
-  if not GetActiveEditorOrNil(seEditor) then
-    exit;
-
-    seEditor.SendEditor(SCI_FOLDALL);
+  if GetTopEditorForm(edForm) then
+    edForm.FoldExecute;
 end;
 
 
@@ -17907,6 +17510,11 @@ end;
 Sender.Free;
 end;
 
+procedure TfrmTinnMain.stNotificationClick(Sender: TObject);
+begin
+  MessageDlg(sNotifyLongText, mtInformation, [mbOk], 0);
+end;
+
 procedure TfrmTinnMain.InitialBackup;
 begin
   if bBackup or bReopenFiles then
@@ -17936,7 +17544,7 @@ begin
     if (MessageDlg(sTmp + #13 + #13 + 'File does not exist.' + #13 +
       'Would you like to remove it from MRU (Most Recent Used) list?',
       mtInformation, [mbYes, mbNo], 0) = mrYes) then
-      UpdateProjectMRU(menProjRecent, sTmp);
+      UpdateProjectMRU('RecentProjectsMenu', sTmp);
   end;
 end;
 
@@ -17947,6 +17555,7 @@ var
   iCurPos, iStart: Integer;
 
 begin
+
   if Sender.ClassName <> 'TDScintilla' then
     Exit;
   seEditor := Sender as TDScintilla;
@@ -17962,7 +17571,6 @@ begin
 
   if (modDados.cdRObjects.Active) and (assigned(frmTools.cgObjects)) then
     modDados.LookupWord(sWord, modDados.cdRObjects);
-
 
 end;
 
@@ -17998,8 +17606,8 @@ begin
     iObjectCallID := random(9999);
     sToSend := 'trObjInfo(''' + StringReplace(sRObject, #13#10, '', [rfReplaceAll]) + ''', path=.trPaths[10], CallID ='+inttostr(iObjectCallID)+')';
     sToSend := sToSend + #13#10;
-    if (csRExplorer.Active) then
-      csRExplorer.Socket.SendText(sToSend);
+    if (csRTip.Active) then
+      csRTip.Socket.SendText(sToSend);
 end;
 
 
@@ -18161,19 +17769,6 @@ end;
 
 function TfrmTinnMain.GetEditorWithFocus: TDScintilla;
 begin
- {
-  if not GetActiveEditorOrNil(Result) then
-  begin
-    if Assigned(frmRterm.sciLog2) then
-      seLog := frmRterm.sciLog2
-    else
-      seLog := frmRterm.sciLog;
-    if seLog.Focused then
-      Result := seLog;
-    if frmRterm.sciIO.Focused then
-      Result := frmRterm.sciIO;
-  end;
-   }
   Result := nil;
 
   case iSciWithFocus of
@@ -18386,7 +17981,6 @@ begin
     actSortDate.Enabled := bOption;
     actSortNumber.Enabled := bOption;
     actSortString.Enabled := bOption;
-    actSpell.Enabled := bOption;
     actSplitHorizontal.Enabled := bOption;
     actSplitRemove.Enabled := bOption;
     actSplitVertical.Enabled := bOption;
@@ -18400,10 +17994,8 @@ begin
     actSetUTF16BE.Enabled := bOption;
     actSetUTF16LE.Enabled := bOption;
     actSetUTF8.Enabled := bOption;
-    menToolsConversionPandoc.Enabled := bOption;
-    menWebSearchSelGoogle.Enabled := bOption;
     actWebSelectedTextSiteSearch.Enabled := bOption;
-    menWebSearchSelRSite.Enabled := bOption;
+
     edFilter.Enabled := bOption;
 end;
 
@@ -18411,9 +18003,34 @@ procedure TfrmTinnMain.ShowNotification(sShortText: string; sLongText: string);
 begin
   sNotifyLongText := sLongText;
   tNotifyTimer.Enabled := true;
-  acShowNotification.Caption := sShortText;
-  acShowNotification.Visible := true;
-  acShowNotification.Enabled := true;
+  stNotification.Caption := sShortText;
+  stNotification.Hint := sNotifyLongText;
+  stNotification.Visible := true;
+  stNotification.Enabled := true;
+end;
+
+procedure TfrmTinnMain.CheckFreeChildren;
+var i: Integer;
+begin
+  for i := self.MDIChildCount-1 downto 0 do
+    if ansilowercase(self.MDIChildren[i].ClassName) = 'tfrmeditor' then
+      if (self.MDIChildren[i] as tfrmeditor).bIsFree then
+        (self.MDIChildren[i] as tfrmeditor).free;
+
+end;
+
+
+procedure TfrmTinnMain.SelectRecentProject(const Args: TUICommandCollectionEventArgs);
+begin
+  if Args.ItemIndex > -1 then
+    RecentProjectOpen( (FProjectRecent.Items[Args.ItemIndex] AS TUIGalleryCollectionItem).LabelText);
+end;
+
+procedure TfrmTinnMain.SelectRecentFile(const Command: TUICommandRecentItems;
+    const Verb: TUICommandVerb; const ItemIndex: Integer;
+    const Properties: TUICommandExecutionProperties);
+begin
+    RecentProjectOpen( (FFileRecent.Items[ItemIndex] AS TUIRecentItem).LabelText);
 end;
 
 

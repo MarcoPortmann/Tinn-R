@@ -44,7 +44,6 @@
 
 unit ufrmReplaceText;
 
-{$I SynEdit.inc}
 
 interface
 

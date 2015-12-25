@@ -1,6 +1,6 @@
 ; Tinn-R Inno (Installer) Setup Script
-; By: Marco Portmann (7/2015) (original version by José Cláudio Faria)
-; Tinn-R:     http://nbcgib.uesc.br/lec/software/editores/tinn-r/en
+; By: Marco Portmann (11/2015) (original version by José Cláudio Faria)
+; Tinn-R:     https://github.com/MarcoPortmann/Tinn-R
 ; INNO Setup: https://github.com/MarcoPortmann/Tinn-R
 
 [Setup]
@@ -9,13 +9,13 @@ AppPublisher         = Tinn-R Team
 AppPublisherURL      = https://github.com/MarcoPortmann/Tinn-R
 AppSupportURL        = https://github.com/MarcoPortmann/Tinn-R
 AppUpdatesURL        = https://github.com/MarcoPortmann/Tinn-R
-AppVerName           = Tinn-R 3.0.4.1
+AppVerName           = Tinn-R 3.1.0.0
 ChangesAssociations  = true
 Compression          = lzma
 DefaultDirName       = {pf32}\Tinn-R
 DefaultGroupName     = Tinn-R
 LicenseFile          = ..\doc\licence_gpl3.txt
-OutputBaseFilename   = Tinn-R_3.0.4.1_setup
+OutputBaseFilename   = Tinn-R_3.1.0.0_setup
 OutputDir            = ..\install_setup\bin
 SolidCompression     = yes
 WizardImageFile      = ..\res\setup.bmp
@@ -79,6 +79,8 @@ Source: ..\templates\R markdown.Rmd;            DestDir: {app}\templates
 Source: ..\templates\R script.R;                DestDir: {app}\templates
 Source: ..\templates\R_noweb.Rnw;               DestDir: {app}\templates
 Source: ..\utils\TinnRCommunication.R;          DestDir: {app}\utils
+Source: ..\utils\TinnRCommunication-Lib.R;          DestDir: {app}\utils
+
 
 [Icons]
 Name: {group}\Tinn-R;                                                Filename: {app}\bin\Tinn-R.exe; IconIndex: 0; IconFilename: {app}\bin\Tinn-R.exe; Flags: useapppaths

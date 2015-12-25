@@ -36,7 +36,7 @@ procedure RSendSweave;
 procedure RSendKnitPdf;
 procedure RSendKnitHtml;
 procedure ConnectRSocketServer;
-procedure ConnectSocketClients(sIPHost: string; iIPPort: integer);
+procedure DoUnConnectSocketClients(sIPHost: string; iIPPort: integer; bActive: Boolean);
 procedure LoadTinnRCommunicationScripts;
 function  GetPortToUse: Integer;
 
@@ -1390,7 +1390,7 @@ begin
           //SendToConsole(sStart);
         end;
         //else  }
-          ConnectSocketClients(sIPHostToUse, iIPPortToUse);
+          DoUnConnectSocketClients(sIPHostToUse, iIPPortToUse, true);
 
       end;
 
@@ -1403,13 +1403,12 @@ end;
 end;
 
 
-procedure ConnectSocketClients(sIPHost: string; iIPPort: integer);
+procedure DoUnConnectSocketClients(sIPHost: string; iIPPort: integer; bActive: Boolean);
 begin
 with frmTinnMain do
 begin
   csMainBase.Host := sIPHost;
   csMainBase.Port := iIPPort;
-
   csREnvironment.Host := sIPHost;
   csREnvironment.Port := iIPPort;
   csRExplorer.Host := sIPHost;
@@ -1418,14 +1417,12 @@ begin
   csRGeneral.Port := iIPPort;
   csRtip.Host := sIPHost;
   csRtip.Port := iIPPort;
-
-  csMainBase.Active := true;
-  csREnvironment.Active := true;
-  csRExplorer.Active := true;
-  csRGeneral.Active := true;
-
-  csRtip.Active := true;
-  bTCPIPRunning := true;
+  csMainBase.Active := bActive;
+  csREnvironment.Active := bActive;
+  csRExplorer.Active := bActive;
+  csRGeneral.Active := bActive;
+  csRtip.Active := bActive;
+  bTCPIPRunning := bActive;
 end;
 end;
 

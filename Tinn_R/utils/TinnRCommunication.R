@@ -744,7 +744,7 @@ TinnR$TinnRExpList <- data.frame(Name=character(),
                                  stringsAsFactors=FALSE)
 
 
-TinnR$TinnRExplorer <- function(envir = .GlobalEnv, ForceUpdate = F){
+TinnR$TinnRExplorer <- function(envir = .GlobalEnv, ForceUpdate = F, CurrentVersion = NULL){
 
 
   if(is.environment(envir))
@@ -760,6 +760,10 @@ TinnR$TinnRExplorer <- function(envir = .GlobalEnv, ForceUpdate = F){
   old <- TinnR$TinnRExpList[TinnR$TinnRExpList$envir == envir,] 
 
   DoUpdate <- ForceUpdate
+  
+  if (is.null(CurrentVersion) == F)
+    if(CurrentVersion<TinnR$ExplorerCounter)  DoUpdate <- T 
+  
   
   if (DoUpdate == F)
   {
@@ -780,8 +784,9 @@ TinnR$TinnRExplorer <- function(envir = .GlobalEnv, ForceUpdate = F){
       dbWriteTable(TinnR$TinnRSQLiteConnection, "Objects", TinnR$TinnRExpList, field.types=list(Name ="varchar(100)", Dim = "varchar(100)", Group = "varchar(100)", Class ="varchar(100)", Envir = "varchar(100)"), row.names=FALSE)
     }, finally ={dbDisconnect(TinnR$TinnRSQLiteConnection)}
     )
-    print(paste('TinnRMSG:update:', envir, '<',  sep ='' ))
-  }
+    TinnR$ExplorerCounter <- TinnR$ExplorerCounter +1 
+    print(paste('TinnRMSG:update:', envir, '<', TinnR$ExplorerCounter, '<',  sep ='' ))
+  }else print(paste('TinnRMSG:noupdate:', TinnR$ExplorerCounter, '<',  sep ='' ))
 }
 
 
@@ -1173,20 +1178,20 @@ TinnR$trObjList3 <- function(
                  collapse=sep)
   }
 
-  if(length(res2) == 1 && res2 == '')
-    res <- data.frame('',
-                      '',
-                      '',
-                      '',
-                      '',
-                      '',
-                      '',
-                      '',
-                      '',
-                      '',
-                      0,
+  if( !exists('res2') || (length(res2) == 1 && res2 == ''))
+    res <- data.frame(as.character(),
+                      as.character(),
+                      as.character(),
+                      as.character(),
+                      as.character(),
+                      as.character(),
+                      as.character(),
+                      as.character(),
+                      as.character(),
+                      as.character(),
+                      as.numeric(),
+                      as.numeric(),
                       stringsAsFactors=FALSE)
-  
   
   res <- res[, -ncol(res)]
   colnames(res) <- c(
@@ -1225,73 +1230,65 @@ TinnR$trObjList3 <- function(
   res$Group <- trGroup
 
   
-  
-  res <- cbind(res, envir = as.character(envir), PrettyPackage = PrettyName )
+  if (nrow(res)> 0)
+    {res <- cbind(res, envir = as.character(envir), PrettyPackage = as.character(PrettyName))
+    }else{ res <- cbind(res, envir = as.character(), PrettyPackage = as.character()) }
   return(res)
 }
 
 
 #! TinnRLibraryUpdate
 
-TinnR$TinnRLibraryUpdate <- function(Cycle = 1){
-    NoError <- F
-    tryCatch(
-    {
-      TinnR$TinnRSQLiteConnection  <- dbConnect(TinnR$TinnRSQLite,TinnR$.trPaths[12])
-      if (dbExistsTable(TinnR$TinnRSQLiteConnection, "Environments"))
-      {
-        envs <- dbReadTable(TinnR$TinnRSQLiteConnection, "Environments")
-        dbDisconnect(TinnR$TinnRSQLiteConnection)
-        for (i in 1:nrow(envs))
-        {
-          if (envs[i, "CheckUpdate"] == 1)
-          {          
-            PrettyName <- regmatches(envs[i, "Environment"] , gregexpr("(?<=package:).*", envs[i, "Environment"] , perl=T))[[1]]
-            if (length(PrettyName)==0)  PrettyName <- envs[i, "Environment"] 
-            
-            if (require(PrettyName,character.only = T)==T)
-            {
-              PackDescr <- packageDescription(PrettyName)
-              if (length(PackDescr)>1)
-              {
-                Version     <- PackDescr$Version
-                #PrettyName  <- PackDescr$Package
-                Description <- PackDescr$Description
-                require(PrettyName, character.only = TRUE)
-              }else{Version <- NA; PrettyName <- envs[i, "Environment"]; Description <- ""}
-            }else{Version <- NA; PrettyName <- envs[i, "Environment"]; Description <- ""}
-            # To do: message should be printed and shown while function is still running not buffered at the end
-            print(paste("!!TinnRMSG:Adding package ''",PrettyName, "' to the library. Please wait...", sep = ""))
-            # flush.console doesn't work
-            # maybe message has to be send via socket.write
-            
-            cont <- TinnR$trObjList3(envir = envs[i, "Environment"], PrettyName = PrettyName)  
-            TinnR$TinnRSQLiteConnection  <- dbConnect(TinnR$TinnRSQLite,TinnR$.trPaths[12])
-            dbSendQuery(TinnR$TinnRSQLiteConnection, paste("DELETE FROM Objects WHERE Envir =", dQuote( envs[i, "Environment"]),sep = ""))
-            dbWriteTable(TinnR$TinnRSQLiteConnection, "Objects", cont, append = T)
-            dbSendQuery(TinnR$TinnRSQLiteConnection, paste("UPDATE Environments SET CheckUpdate = 0, Version =",dQuote(Version)," WHERE Environment =", dQuote( envs[i, "Environment"]),sep = ""))
-            #dbReadTable(TinnR$TinnRSQLiteConnection, "Environments")
-            #dbReadTable(TinnR$TinnRSQLiteConnection, "Objects")
-            dbDisconnect(TinnR$TinnRSQLiteConnection)
-          }          
-        }       
-     }  
-     NoError <- T
-     
-     #dbRemoveTable(TinnR$TinnRSQLiteConnection, "Objects")
-      #dbWriteTable(TinnR$TinnRSQLiteConnection, "Objects", TinnR$TinnRExpList, field.types=list(Name ="varchar(100)", Dim = "varchar(100)", Group = "varchar(100)", Class ="varchar(100)", Envir = "varchar(100)"), row.names=FALSE)
-    }, finally ={dbDisconnect(TinnR$TinnRSQLiteConnection)
-                 print('!!update!!')
-                 Cycle <- Cycle + 1
-                 if ((NoError == F) & (Cycle < 12)){
-                   Sys.sleep(5)
-                   TinnR$TinnRLibraryUpdate(Cycle)
-                 }
-                }
-    )
-    #print('!!update!!')
-  }
-
+#TinnR$TinnRLibraryUpdate <- function(Cycle = 1){
+#    NoError <- F
+#    tryCatch(
+#    {
+#      TinnR$TinnRSQLiteConnection  <- dbConnect(TinnR$TinnRSQLite,TinnR$.trPaths[12])
+#      if (dbExistsTable(TinnR$TinnRSQLiteConnection, "Environments"))
+#      {
+#        envs <- dbReadTable(TinnR$TinnRSQLiteConnection, "Environments")
+#        dbDisconnect(TinnR$TinnRSQLiteConnection)
+#        for (i in 1:nrow(envs))
+#        {
+#          if (envs[i, "CheckUpdate"] == 1)
+#          {          
+#            PrettyName <- regmatches(envs[i, "Environment"] , gregexpr("(?<=package:).*", envs[i, "Environment"] , perl=T))[[1]]
+#            if (length(PrettyName)==0)  PrettyName <- envs[i, "Environment"] 
+#            
+#            if (require(PrettyName,character.only = T)==T)
+#            {
+#              PackDescr <- packageDescription(PrettyName)
+#              if (length(PackDescr)>1)
+#              {
+#                Version     <- PackDescr$Version
+#                Description <- PackDescr$Description
+#                require(PrettyName, character.only = TRUE)
+#              }else{Version <- NA; PrettyName <- envs[i, "Environment"]; Description <- ""}
+#            }else{Version <- NA; PrettyName <- envs[i, "Environment"]; Description <- ""}
+#            # To do: message should be printed and shown while function is still running not buffered at the end
+#            print(paste("!!TinnRMSG:Adding package ''",PrettyName, "' to the library. Please wait...", sep = ""))
+#            
+#            cont <- TinnR$trObjList3(envir = envs[i, "Environment"], PrettyName = PrettyName)  
+#            TinnR$TinnRSQLiteConnection  <- dbConnect(TinnR$TinnRSQLite,TinnR$.trPaths[12])
+#            dbSendQuery(TinnR$TinnRSQLiteConnection, paste("DELETE FROM Objects WHERE Envir =", dQuote( envs[i, "Environment"]),sep = ""))
+#            dbWriteTable(TinnR$TinnRSQLiteConnection, "Objects", cont, append = T)
+#            dbSendQuery(TinnR$TinnRSQLiteConnection, paste("UPDATE Environments SET CheckUpdate = 0, Version =",dQuote(Version)," WHERE Environment =", dQuote( envs[i, "Environment"]),sep = ""))
+#            dbDisconnect(TinnR$TinnRSQLiteConnection)
+#          }          
+#        }       
+#     }  
+#     NoError <- T
+#     
+#    }, finally ={dbDisconnect(TinnR$TinnRSQLiteConnection)
+#                 print('!!update!!')
+#                 Cycle <- Cycle + 1
+#                 if ((NoError == F) & (Cycle < 12)){
+#                   Sys.sleep(5)
+#                   TinnR$TinnRLibraryUpdate(Cycle)
+#                 }
+#                }
+#    )
+#  }
 
 #! Socket OLD
 
@@ -1323,7 +1320,7 @@ TinnR$TinnRLibraryUpdate <- function(Cycle = 1){
 #! attach
 attach(TinnR)                    
 
-
+TinnR$ExplorerCounter <- 0
 
 
 invisible(startSocketServer(port=TinnPort) )

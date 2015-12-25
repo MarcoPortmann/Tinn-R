@@ -119,6 +119,7 @@ type
     procedure DoSaveFileState;
     procedure WMMDIActivate(var Msg: TWMMDIActivate); message WM_MDIACTIVATE;
     procedure WMSysCommand(var Msg: TWMSysCommand); message WM_SYSCOMMAND;
+    procedure CloseStuff;
   public
     { Public declarations }
     bSendToREditing: Boolean;
@@ -130,7 +131,7 @@ type
     sRtip: string;
     sciEditor2: TDScintilla;
     bBackupUnsaved: Boolean;
-
+    bIsFree: Boolean;
     bEditorFormIsLoading: Boolean;
     // procedure MatchBracket;
     // procedure RtermSplit(bSplitHoriz: boolean = True);
@@ -138,6 +139,9 @@ type
 
     procedure AlignWithFirstLine;
     procedure AlignEqualSign;
+    procedure BlockMarkExecute;
+    procedure BlockUnmarkExecute;
+    procedure UnmarkAllExecute;
     procedure CheckSaveStatus;
     procedure Comment(sStartComment, sEndComment: string);
     procedure CopyFormattedHTML;
@@ -156,6 +160,7 @@ type
     procedure FileClose;
     function  FileSave(Sender: TObject): Boolean;
     function  FileSaveAs(Sender: TObject): Boolean;
+    procedure FoldExecute;
     procedure FullPathUnix;
     procedure FullPathWindows;
     procedure GetActiveEditorOnForm(var seEditor: TDScintilla);
@@ -178,11 +183,12 @@ type
     procedure SetEditorLexerByName(LexerName: String);
     procedure ToogleSpecialChars(bChecked: Boolean);
     procedure Uncomment(sStartComment, sEndComment: string);
+    procedure UnfoldAllExecute;
     procedure UnindentBlock;
 
 
 
-    procedure WriteCursorAndWindoInfo(var EditorFile: TEditorFile);
+    procedure WriteCursorAndWindowInfo(var EditorFile: TEditorFile);
 
   protected
     procedure Loaded; override;
@@ -298,67 +304,12 @@ begin
     Exit;
 
   GetActiveEditorOnForm(seEditor);
-  WriteCursorAndWindoInfo(EditorFile);
+  WriteCursorAndWindowInfo(EditorFile);
   modDados.SaveFileState(EditorFile);
 end;
 
 procedure TfrmEditor.FormClose(Sender: TObject; var Action: TCloseAction);
-var
-  i: Integer;
-  sNodeSelected: string;
-
 begin
-  // Important:
-  // I always thought, the order of events is OnCanClose - OnClose.
-  // However, FormClose seems not to be executed after FormCanClose.
-  // Therefore it should be checked, whether parts of the code below
-  // should be moved.
-
-  // frmTinnMain.RemoveTab(self.Tag); // not remove from here!!!
-
-  with frmTinnMain do
-  begin
-   // synURIOpener.Editor := nil; // don't remove this line!
-
-    if (pgFiles.PageCount = 0) then
-    begin
-      ClearStatusBar;
-
-      ToggleAtLeastOneFileOpenOptions(false);
-
-      frmTinnMain.SetReadOnlyState;
-
-      // m.p.      tbiPandoc.Enabled := False;
-      MinimizeTinnAfterLastFile;
-
-      with tUpdateOptions do
-        if (Enabled) then
-          Enabled := False;
-
-      SetToolbarProcessing('fileAllClosed.disableAll');
-      // will disable all Deplate, Txt2tags and MikTeX options
-      pgFiles.Visible := (pgFiles.PageCount <> 0);
-
-      pgFiles.Refresh;
-    end;
-
-    for i := 1 to (frmTools.tvProject.Items.Count - 1) do
-    begin
-      sNodeSelected := string(frmTools.tvProject.Items[i].Text);
-      if (sNodeSelected = EditorFile.sFile) then
-      begin
-        frmTools.tvProject.Items[i].Selected := False;
-        frmTools.tvProject.Items[i].ImageIndex := 2;
-      end;
-    end;
-  end; // with frmTinnMain
-  if Assigned(clientDDE) then
-  begin
-    clientDDE.CloseLink;
-    FreeAndNil(clientDDE);
-  end;
-
-  frmTools.RNavigator.sciEditor := nil;
   Action := caFree;
 end;
 
@@ -381,30 +332,30 @@ begin
 end;
 
 procedure TfrmEditor.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+var action: TCloseAction;
 begin
-  if frmTinnMain.bRememberFileState then
-    DoSaveFileState;
+  if not bIsFree then
+  begin
 
-  if EditorFile.iModified = 0 then
-  begin
-    CanClose := True;
-    frmTinnMain.RemoveTab(EditorFile.iId);
-    modDados.DeleteEditorEntry(EditorFile.iId, EditorFile.sTempFile);
-    Exit;
-  end;
+    if frmTinnMain.bRememberFileState then
+      DoSaveFileState;
 
-  if (EditorFile.iModified = 1) and not(sciEditor.GetReadOnly) then
-    CanClose := SaveModifiedFileQuery
-  else if sciEditor.GetReadOnly then
-  begin
-    CanClose := False;
-    FileSave(Sender);
-  end;
-  if CanClose then
-  begin
-    frmTinnMain.RemoveTab(EditorFile.iId);
-    modDados.DeleteEditorEntry(EditorFile.iId, EditorFile.sTempFile);
-  end;
+    if (EditorFile.iModified = 1) then
+    begin
+      if not sciEditor.GetReadOnly then
+        CanClose := SaveModifiedFileQuery
+      else CanClose :=  FileSave(Sender);
+    end else CanClose := true;
+
+    if CanClose then
+    begin
+      modDados.DeleteEditorEntry(EditorFile.iId, EditorFile.sTempFile);
+      frmTinnMain.RemoveTab(EditorFile.iId);
+      CloseStuff;
+    end;
+
+
+  end else CanClose := true;
 end;
 
 function TfrmEditor.SaveModifiedFileQuery: Boolean;
@@ -445,7 +396,9 @@ procedure TfrmEditor.sciEditorChange(Sender: TObject);
 var
   iTopLine: Integer;
 begin
-  if not bBackupUnsaved then
+  //frmtinnmain.memPackage.Lines.Add(caption+' '+sciEditor.Lines[0]);
+
+  if not bBackupUnsaved and not bEditorFormIsLoading then
   begin
     bBackupUnsaved := True;
     EditorFile.iUnsavedChanges := 1;
@@ -473,6 +426,67 @@ begin
  }
 end;
 
+procedure TfrmEditor.BlockMarkExecute;
+var seEditor: TDScintilla;
+begin
+  GetActiveEditorOnForm(seEditor);
+
+  if (SelStartLine(seEditor) <> SelEndLine(seEditor)) then
+  with seEditor do
+  begin
+    MarkerDeleteAll(0);
+    MarkerDeleteAll(1);
+    MarkerAdd(SelStartLine(seEditor), 0);
+    MarkerAdd(SelEndLine(seEditor), 1);
+  end;
+
+end;
+
+procedure TfrmEditor.BlockUnmarkExecute;
+var seEditor: TDScintilla;
+begin
+  GetActiveEditorOnForm(seEditor);
+
+  seEditor.MarkerDeleteAll(0);
+  seEditor.MarkerDeleteAll(1);
+end;
+
+procedure TfrmEditor.UnmarkAllExecute;
+var seEditor: TDScintilla;
+    i: Integer;
+begin
+  GetActiveEditorOnForm(seEditor);
+
+  for i := 0 to 9 do
+    seEditor.MarkerDeleteAll(i);
+end;
+
+
+procedure TfrmEditor.FoldExecute;
+var seEditor: TDScintilla;
+const SCI_FOLDALL = 2662; // Constant not present in the TDScintilla wrapper.
+begin
+  GetActiveEditorOnForm(seEditor);
+   seEditor.SendEditor(SCI_FOLDALL);
+end;
+
+procedure TfrmEditor.UnfoldAllExecute;
+var seEditor: TDScintilla;
+    iFold: Integer;
+begin
+  GetActiveEditorOnForm(seEditor);
+
+
+  iFold := -1;
+  repeat
+    iFold := seEditor.ContractedFoldNext(iFold);
+    if iFold > -1 then
+      seEditor.ToggleFold(iFold);
+  until iFold = -1;
+end;
+
+
+
 procedure TfrmEditor.sciEditorCharAdded(ASender: TObject; ACh: Integer);
 var ipos, ibm, ind, iline, iLastOpenBracket: Integer;
 begin
@@ -484,11 +498,11 @@ begin
       if chr(ACh) = ')'  then
       begin
         (ASender AS TDScintilla).CallTipCancel;
-        iLastOpenBracket := FindLastOpenBracket(ASender AS TDScintilla, getCurrentPos-1);
+{        iLastOpenBracket := FindLastOpenBracket(ASender AS TDScintilla, getCurrentPos-1);
         if iLastOpenBracket > -1 then
          begin
           ShowBracketTip(ASender AS TDScintilla, iLastOpenBracket-1);
-         end;
+         end;   }
       end;
 
       ipos := GetCurrentPos-1;
@@ -523,9 +537,9 @@ begin
 
       frmTinnMain.InstantLookup(ASender AS TDScintilla);
 
-      if (ACh = integer('(')) then
+ {     if (ACh = integer('(')) then
         ShowBracketTip(ASender AS TDScintilla, (ASender AS TDScintilla).GetCurrentPos-1);
-
+        }
     end;
 end;
 
@@ -781,11 +795,24 @@ end;
 
 procedure TfrmEditor.sciEditorKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+  var iLastOpenBracket: Integer;
+  seEditor: TDScintilla;
 begin
-  if (Sender = sciEditor) then
+  seEditor := (Sender as TDScintilla);
+  if (seEditor = sciEditor) then
     frmTinnMain.iSciWithFocus := 1
   else
     frmTinnMain.iSciWithFocus := 2;
+
+  with seEditor do
+  begin
+    iLastOpenBracket := FindLastOpenBracket(seEditor, getCurrentPos-1);
+    if iLastOpenBracket > -1 then
+      ShowBracketTip(seEditor, iLastOpenBracket-1)
+      else
+      if CallTipActive then
+        CallTipCancel;
+  end;
 end;
 
 procedure TfrmEditor.sciEditorMarginClick(ASender: TObject; AModifiers,
@@ -924,6 +951,12 @@ begin
 
         bBackupUnsaved := False;
 
+        try
+          if FileExists(sTempFile) then
+            DeleteFile(sTempFile);
+        finally
+        end;
+
         with EditorFile do
         begin
           iNewFile := 0;
@@ -934,12 +967,6 @@ begin
 
         if frmTinnMain.bBackup then
           ModDados.BackupFiles;
-
-        try
-          if FileExists(sTempFile) then
-            DeleteFile(sTempFile);
-        finally
-        end;
 
         SetTitles;
         frmTinnMain.actFileSave.Enabled := False;
@@ -1074,7 +1101,7 @@ begin
 
    //   GetFile_Info(sActiveFile, sciEditor.Lines);
 
-      UpdateMRU(menFileRecentFiles, EditorFile.sFile);
+      UpdateMRU('RecentFilesMenu', EditorFile.sFile);
 
     end;
   end else Result := false;
@@ -1839,6 +1866,55 @@ begin
   Height := frmTinnMain.Height;
 end;
 
+procedure TfrmEditor.CloseStuff;
+var
+  i: Integer;
+  sNodeSelected: string;
+begin
+  // Important:
+  // I always thought, the order of events is OnCanClose - OnClose.
+  // However, FormClose seems not to be executed after FormCanClose.
+  // Therefore it should be checked, whether parts of the code below
+  // should be moved.
+  // frmTinnMain.RemoveTab(self.Tag); // not remove from here!!!
+  with frmTinnMain do
+  begin
+    // synURIOpener.Editor := nil; // don't remove this line!
+    if (pgFiles.PageCount = 0) then
+    begin
+      ClearStatusBar;
+      ToggleAtLeastOneFileOpenOptions(false);
+      frmTinnMain.SetReadOnlyState;
+      // m.p.      tbiPandoc.Enabled := False;
+      MinimizeTinnAfterLastFile;
+      with tUpdateOptions do
+        if (Enabled) then
+          Enabled := False;
+      SetToolbarProcessing('fileAllClosed.disableAll');
+      // will disable all Deplate, Txt2tags and MikTeX options
+      pgFiles.Visible := (pgFiles.PageCount <> 0);
+      //pgFiles.Refresh;
+    end;
+    for i := 1 to (frmTools.tvProject.Items.Count - 1) do
+    begin
+      sNodeSelected := string(frmTools.tvProject.Items[i].Text);
+      if (sNodeSelected = EditorFile.sFile) then
+      begin
+        frmTools.tvProject.Items[i].Selected := False;
+        frmTools.tvProject.Items[i].ImageIndex := 2;
+      end;
+    end;
+  end;
+  // with frmTinnMain
+  if Assigned(clientDDE) then
+  begin
+    clientDDE.CloseLink;
+    FreeAndNil(clientDDE);
+  end;
+  frmTools.RNavigator.sciEditor := nil;
+  bIsFree := True;
+end;
+
 procedure TfrmEditor.GetCursorTo(sWay: string);
 var
   bWordWrapOption: Boolean;
@@ -2398,6 +2474,7 @@ end;
 procedure TfrmEditor.SetTitles;
 var
   sFileName, sStat: String;
+  OpenTab: TTabSheet;
 begin
   sFileName := Trim(EditorFile.sFile);
   sStat := '';
@@ -2410,15 +2487,20 @@ begin
   begin
     if (pgFiles.PageCount > 0) then
     begin
-      pgFiles.ActivePage.Hint := sFileName;
+
+      OpenTab := GetTabById(EditorFile.iId);
+      OpenTab.Hint := sFileName;
 
       if (not actReadOnly.Checked) then
-        pgFiles.ActivePage.Caption := StripPath(sFileName) + sStat
+        OpenTab.Caption := StripPath(sFileName) + sStat
       else
-        pgFiles.ActivePage.Caption := '<' + StripPath(sFileName) + sStat + '>';
+        OpenTab.Caption := '<' + StripPath(sFileName) + sStat + '>';
     end;
   end;
 end;
+
+
+
 
 function TfrmEditor.SaveBackup(sTempFile: String): Boolean;
 begin
@@ -2457,17 +2539,20 @@ procedure TfrmEditor.UpdateMainFormLexer;
 var iIndex: Integer;
 begin
 
-  iIndex := frmTinnMain.cbLexers.Items.IndexOf(GetEditorLexerName);
+
+  iIndex := frmTinnMain.slFiltersDisplay.IndexOf(GetEditorLexerName);
 
   // Has to be updated later. In case no lexer is found it just sets the lexer to 'Text'.
   // However, the lexer itself is not changed.
 
   if iIndex < 0 then
-    iIndex := frmTinnMain.cbLexers.Items.IndexOf('Text');
+    iIndex := frmTinnMain.slFiltersDisplay.IndexOf('Text');
+
 
   if iIndex > -1  then
-    frmTinnMain.cbLexers.ItemIndex := iIndex;
-  frmTinnMain.cbLexers.Invalidate;
+    frmTinnMain.cbHighlighter.ItemIndex := iIndex;
+
+
 end;
 
 function TfrmEditor.ReadOnlyWarning(sFunctionName: String): Boolean;
@@ -2482,7 +2567,7 @@ end;
 
 
 
-procedure TfrmEditor.WriteCursorAndWindoInfo(var EditorFile: TEditorFile);
+procedure TfrmEditor.WriteCursorAndWindowInfo(var EditorFile: TEditorFile);
 var seEditor: TDScintilla;
 begin
   GetActiveEditorOnForm(seEditor);

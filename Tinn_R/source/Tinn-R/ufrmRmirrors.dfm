@@ -394,7 +394,7 @@ object frmRmirrors: TfrmRmirrors
       item
         Expanded = False
         FieldName = 'Name'
-        Width = 188
+        Width = 64
         Visible = True
       end
       item

@@ -456,7 +456,6 @@ begin
           Cells[0,19]:= 'Control: close all graphic devices';
           Cells[0,20]:= 'Control: help (selected)';
         *)
-
         case i of
           1:
             if actRSendFile.Enabled then

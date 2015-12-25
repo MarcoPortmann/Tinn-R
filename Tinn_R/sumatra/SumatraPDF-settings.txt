@@ -65,11 +65,11 @@ FileStates [
 		]
 		IsPinned = false
 		IsMissing = false
-		OpenCount = 1
+		OpenCount = 2
 		UseDefaultState = false
 		DisplayMode = continuous book view
-		ScrollPos = -1 50
-		PageNo = 76
+		ScrollPos = -1 285
+		PageNo = 96
 		Zoom = 100
 		Rotation = 0
 		WindowState = 2
@@ -103,4 +103,4 @@ FileStates [
 	]
 ]
 TimeOfLastUpdateCheck = 0 0
-OpenCountWeek = 238
+OpenCountWeek = 240

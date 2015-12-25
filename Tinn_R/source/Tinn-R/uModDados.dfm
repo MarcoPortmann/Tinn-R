@@ -81,8 +81,8 @@ object modDados: TmodDados
     Top = 216
   end
   object dsEditors: TDataSource
-    Left = 328
-    Top = 360
+    Left = 872
+    Top = 408
   end
   object SQLConnection: TSQLConnection
     ConnectionName = 'SQLITECONNECTION'
@@ -469,5 +469,15 @@ object modDados: TmodDados
     SQLConnection = sqlMainBase
     Left = 120
     Top = 472
+  end
+  object cConsole: TConsoleIO
+    OnError = cConsoleError
+    OnProcessStatusChange = cConsoleProcessStatusChange
+    OnReceiveError = cConsoleReceiveError
+    OnReceiveOutput = cConsoleReceiveOutput
+    SplitSend = False
+    TerminateCommand = 'quit'
+    Left = 24
+    Top = 368
   end
 end

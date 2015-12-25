@@ -39,7 +39,7 @@ object frmTools: TfrmTools
     Top = 0
     Width = 351
     Height = 689
-    ActivePage = ppR
+    ActivePage = ppDeveloper
     Align = alClient
     Background.Stretch = False
     Background.Proportional = False
@@ -248,7 +248,7 @@ object frmTools: TfrmTools
             Left = 3
             Top = 25
             Width = 227
-            Height = 22
+            Height = 18
             Margins.Left = 1
             Margins.Top = 0
             Margins.Right = 0
@@ -366,7 +366,7 @@ object frmTools: TfrmTools
             Left = 0
             Top = 0
             Width = 349
-            Height = 22
+            Height = 20
             Align = alClient
             DataSource = modDados.dsMainBase
             PanelBorder = gbNone
@@ -381,6 +381,7 @@ object frmTools: TfrmTools
             OnKeyDown = cgMainBaseKeyDown
             OnKeyPress = cgMainBaseKeyPress
             OnPaintPanel = cgMainBasePaintPanel
+            ExplicitHeight = 22
             object DBText1: TDBText
               Left = 16
               Top = 16
@@ -1047,7 +1048,7 @@ object frmTools: TfrmTools
             item
               Expanded = False
               FieldName = 'Language'
-              Width = 130
+              Width = 64
               Visible = True
             end
             item
@@ -1335,6 +1336,10 @@ object frmTools: TfrmTools
         Options = [ftoAutoFontDirection, ftoExcludeGlyphs]
         object tbsLatexAccent: TTabSheet
           Caption = 'Accent'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivAccents: TJvImagesViewer
             Left = 0
             Top = 0
@@ -1384,6 +1389,10 @@ object frmTools: TfrmTools
         object tbsLatexArrow: TTabSheet
           Caption = 'Arrow'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ScrollBox3: TScrollBox
             Left = 0
             Top = 0
@@ -1735,6 +1744,10 @@ object frmTools: TfrmTools
         object tbsLatexBar: TTabSheet
           Caption = 'Bar'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivBar: TJvImagesViewer
             Left = 0
             Top = 0
@@ -1784,6 +1797,10 @@ object frmTools: TfrmTools
         object tbsLatexBracket: TTabSheet
           Caption = 'Bracket'
           ImageIndex = 3
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivBracket: TJvImagesViewer
             Left = 0
             Top = 0
@@ -1825,6 +1842,10 @@ object frmTools: TfrmTools
         object tbsLatexDot: TTabSheet
           Caption = 'Dot'
           ImageIndex = 4
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivDot: TJvImagesViewer
             Left = 0
             Top = 0
@@ -1866,6 +1887,10 @@ object frmTools: TfrmTools
         object tbsLatexGeometry: TTabSheet
           Caption = 'Geometry'
           ImageIndex = 8
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ScrollBox1: TScrollBox
             Left = 0
             Top = 0
@@ -2310,6 +2335,10 @@ object frmTools: TfrmTools
         object tbsLatexGreek: TTabSheet
           Caption = 'Greek'
           ImageIndex = 9
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ScrollBox2: TScrollBox
             Left = 0
             Top = 0
@@ -2517,6 +2546,10 @@ object frmTools: TfrmTools
         object tbsLatexMath: TTabSheet
           Caption = 'Math'
           ImageIndex = 10
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ScrollBox5: TScrollBox
             Left = 0
             Top = 0
@@ -2772,6 +2805,10 @@ object frmTools: TfrmTools
         object tbsLatexMisc: TTabSheet
           Caption = 'Misc'
           ImageIndex = 11
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivMisc: TJvImagesViewer
             Left = 0
             Top = 0
@@ -2813,6 +2850,10 @@ object frmTools: TfrmTools
         object tbsLatexNegation: TTabSheet
           Caption = 'Negation'
           ImageIndex = 12
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivNegation: TJvImagesViewer
             Left = 0
             Top = 0
@@ -2854,6 +2895,10 @@ object frmTools: TfrmTools
         object tbsLatexOperator: TTabSheet
           Caption = 'Operator'
           ImageIndex = 5
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivOperator: TJvImagesViewer
             Left = 0
             Top = 0
@@ -2895,6 +2940,10 @@ object frmTools: TfrmTools
         object tbsLatexRelation: TTabSheet
           Caption = 'Relation'
           ImageIndex = 6
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivRelation: TJvImagesViewer
             Left = 0
             Top = 0
@@ -2936,6 +2985,10 @@ object frmTools: TfrmTools
         object tbsLatexSky: TTabSheet
           Caption = 'Sky'
           ImageIndex = 7
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object ScrollBox4: TScrollBox
             Left = 0
             Top = 0
@@ -3095,6 +3148,10 @@ object frmTools: TfrmTools
         object tbsLatexUserCustom: TTabSheet
           Caption = 'User custom'
           ImageIndex = 13
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object jvivUserCustom: TJvImagesViewer
             Left = 0
             Top = 0
@@ -3148,57 +3205,11 @@ object frmTools: TfrmTools
       Background.Transparent = False
       Caption = 'Developer'
       ImageIndex = 280
-      object JvNavPanelDivider8: TJvNavPanelDivider
-        Left = 0
-        Top = 193
-        Width = 349
-        Height = 24
-        Align = alTop
-        Caption = 'Files'
-        ColorFrom = 15725551
-        ColorTo = 13026246
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        StyleManager = npStyle
-      end
-      object JvNavPanelDivider9: TJvNavPanelDivider
-        Left = 0
-        Top = 217
-        Width = 349
-        Align = alTop
-        Caption = 'Ini log'
-        ColorFrom = 15725551
-        ColorTo = 13026246
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Segoe UI'
-        Font.Style = []
-        StyleManager = npStyle
-      end
-      object DBGrid1: TDBGrid
+      object memIniLog: TMemo
         Left = 0
         Top = 0
         Width = 349
-        Height = 193
-        Align = alTop
-        DataSource = modDados.dsMainBase
-        Options = [dgTitles, dgIndicator, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect, dgTitleClick, dgTitleHotTrack]
-        TabOrder = 0
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'Tahoma'
-        TitleFont.Style = []
-      end
-      object memIniLog: TMemo
-        Left = 0
-        Top = 236
-        Width = 349
-        Height = 192
+        Height = 428
         Align = alClient
         BorderStyle = bsNone
         Font.Charset = DEFAULT_CHARSET
@@ -3209,7 +3220,21 @@ object frmTools: TfrmTools
         HideSelection = False
         ParentFont = False
         ScrollBars = ssBoth
+        TabOrder = 0
+        ExplicitTop = 199
+        ExplicitHeight = 235
+      end
+      object editormemo: TMemo
+        Left = 0
+        Top = 0
+        Width = 349
+        Height = 428
+        Align = alClient
         TabOrder = 1
+        ExplicitLeft = 56
+        ExplicitTop = 184
+        ExplicitWidth = 185
+        ExplicitHeight = 89
       end
     end
     object ppTxt2tags: TJvNavPanelPage

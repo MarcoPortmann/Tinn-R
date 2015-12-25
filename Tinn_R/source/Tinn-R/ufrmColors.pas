@@ -51,7 +51,7 @@ uses
   StdCtrls, ExtCtrls, Buttons, ComCtrls, ActnList,
 
   DBCtrls, StrUtils, System.Actions, JvExExtCtrls,
-  JvExtComponent, JvOfficeColorButton, Vcl.Grids, Vcl.DBGrids, Vcl.DBLookup,
+  JvExtComponent, JvOfficeColorButton, Vcl.Grids, Vcl.DBGrids, {Vcl.DBLookup, }
   Vcl.Menus, Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnPopup, Data.DB,
   DScintillaCustom, DScintilla, Vcl.Samples.Spin, JvExStdCtrls, JvCombobox,
   JvColorCombo;

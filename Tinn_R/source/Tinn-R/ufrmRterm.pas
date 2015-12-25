@@ -112,7 +112,7 @@ type
     iSciLog2Width: Integer;
     splRIO: TSplitter;
     sRDebugPrefix: string;
-
+     bDebug: Boolean;
 
     procedure RtermSplit(bSplitHorizontal: Boolean = True);
     procedure RtermRemoveSplit;
@@ -352,6 +352,9 @@ var
 
 begin
 
+if bDebug then
+  showmessage(inttostr(length(cmd))+'|>'+cmd+'<|');
+
   if (Cmd = '') and bTab then
     Exit;
 
@@ -439,6 +442,7 @@ begin
     else
       sciIO.SetFocus;
                  }
+   // frmTinnmain.Label3.Caption := inttostr(random(99999))+' receive true';
   frmTinnMain.bRObjectsUpdate := true;
 end;
 
@@ -471,7 +475,6 @@ begin
   if IsRunning then
   begin
     bRterm_Running := True;
-    modDados.ResetRObjectDatabase;
     LoadTinnRCommunicationScripts;
   end
   else
@@ -557,7 +560,7 @@ begin
 
     Lines.Add(Cmd);
 
-    PostMessage(TWinControl(sciLogA).Handle, WM_SETFOCUS, 0, 0);
+    //PostMessage(TWinControl(sciLogA).Handle, WM_SETFOCUS, 0, 0);
     // Will force ecEditorBottom below
 
     //ExecuteCommand(ecEditorBottom, #0, nil);
@@ -806,7 +809,7 @@ begin
   begin
     if CharInSet(chr(ACh), ['(','[','{','}',']',')']) then
     begin
-      if chr(ACh) = ')'  then
+     { if chr(ACh) = ')'  then
       begin
         (ASender AS TDScintilla).CallTipCancel;
         iLastOpenBracket := FindLastOpenBracket(ASender AS TDScintilla, getCurrentPos-1);
@@ -814,7 +817,7 @@ begin
          begin
           ShowBracketTip(ASender AS TDScintilla, iLastOpenBracket-1);
          end;
-      end;
+      end;}
 
       ipos := GetCurrentPos-1;
        ibm := BraceMatch(ipos);
@@ -833,9 +836,9 @@ begin
 
       frmTinnMain.InstantLookup(ASender AS TDScintilla);
 
-      if (ACh = integer('(')) then
+     { if (ACh = integer('(')) then
         ShowBracketTip(ASender AS TDScintilla, (ASender AS TDScintilla).GetCurrentPos-1);
-
+        }
     end;
   end;
 end;
@@ -1340,8 +1343,23 @@ end;
 
 procedure TfrmRterm.sciIOKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
+  var iLastOpenBracket: Integer;
+  seEditor: TDScintilla;
 begin
+
   frmTinnMain.iSciWithFocus := 3;
+  seEditor := (Sender as TDScintilla);
+
+  with seEditor do
+  begin
+    iLastOpenBracket := FindLastOpenBracket(seEditor, getCurrentPos-1);
+    if iLastOpenBracket > -1 then
+      ShowBracketTip(seEditor, iLastOpenBracket-1)
+      else
+      if CallTipActive then
+        CallTipCancel;
+  end;
+
 end;
 
 procedure TfrmRterm.sciIOMouseUp(Sender: TObject; Button: TMouseButton;
@@ -2139,3 +2157,4 @@ end;
     procedure synLogMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
 }
+

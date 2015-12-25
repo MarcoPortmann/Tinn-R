@@ -1,8 +1,8 @@
 object frmTinnMain: TfrmTinnMain
   Left = 0
   Top = 0
-  Width = 1288
-  Height = 770
+  Width = 1109
+  Height = 631
   AlphaBlend = True
   AlphaBlendValue = 200
   AutoScroll = True
@@ -150,9 +150,9 @@ object frmTinnMain: TfrmTinnMain
     0607800003FF800001FFC00000FFC000007FC000007FC000003FE000001FE000
     000FF8000007FC000003FE000001FF000000FF800000FFC00000FFF00000FFF8
     0000FFFC0000FFFE0000FFFF0000FFFF8000FFFFC000FFFFF001FFFFF803}
-  Menu = jvMenMain
   OldCreateOrder = False
   Position = poDesigned
+  ScreenSnap = True
   ShowHint = True
   Touch.InteractiveGestures = [igZoom, igPan, igRotate, igTwoFingerTap, igPressAndTap]
   Touch.InteractiveGestureOptions = [igoPanSingleFingerHorizontal, igoPanSingleFingerVertical, igoPanInertia, igoPanGutter, igoParentPassthrough]
@@ -162,15 +162,14 @@ object frmTinnMain: TfrmTinnMain
   OnCreate = FormCreate
   OnDragDrop = FormDragDrop
   OnDragOver = FormDragOver
-  OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object panProjectDockSite: TPanel
     Left = 0
-    Top = 79
+    Top = 138
     Width = 1
-    Height = 606
+    Height = 425
     Align = alLeft
     BevelOuter = bvNone
     DockSite = True
@@ -179,7 +178,7 @@ object frmTinnMain: TfrmTinnMain
     OnUnDock = panProjectDockSiteUnDock
   end
   object panInvisibleParent: TPanel
-    Left = 406
+    Left = 414
     Top = 246
     Width = 93
     Height = 28
@@ -187,326 +186,155 @@ object frmTinnMain: TfrmTinnMain
     TabOrder = 1
     Visible = False
   end
-  object ctbMain: TControlBar
-    Left = 0
-    Top = 0
-    Width = 1272
-    Height = 58
-    Align = alTop
-    AutoDock = False
-    AutoDrag = False
-    AutoSize = True
-    BevelEdges = []
-    BevelInner = bvNone
-    BevelOuter = bvNone
-    BevelKind = bkNone
-    DockSite = False
-    PopupMenu = pmenViewToolbars
-    RowSnap = False
-    TabOrder = 2
-    object Label1: TLabel
-      Left = 1120
-      Top = 2
-      Width = 32
-      Height = 13
-      Caption = 'Label1'
-      Visible = False
-    end
-    object Label3: TLabel
-      Left = 1165
-      Top = 2
-      Width = 32
-      Height = 13
-      Caption = 'Label3'
-      Visible = False
-    end
-    object Label5: TLabel
-      Left = 1210
-      Top = 2
-      Width = 60
-      Height = 13
-      Caption = 'ActiveFormErrors'
-      Visible = False
-    end
-    object atbRSend: TActionToolBar
-      Left = 11
-      Top = 31
-      Width = 390
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'RSendTest'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object atbRContent: TActionToolBar
-      Left = 414
-      Top = 31
-      Width = 338
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'R content'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object atbRConsole: TActionToolBar
-      Left = 431
-      Top = 2
-      Width = 90
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'R console'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object atbFiles: TActionToolBar
-      Left = 11
-      Top = 2
-      Width = 166
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'atbFiles'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object edFilter: TButtonedEdit
-      AlignWithMargins = True
-      Left = 606
-      Top = 2
-      Width = 65
-      Height = 21
-      Hint = 'Apply filter'
-      Images = imlTinnR
-      RightButton.ImageIndex = 166
-      RightButton.Visible = True
-      TabOrder = 4
-      OnKeyDown = edFilterKeyDown
-      OnKeyPress = edFilterKeyPress
-      OnRightButtonClick = edFilterRightButtonClick
-    end
-    object atbFind: TActionToolBar
-      Left = 190
-      Top = 2
-      Width = 108
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'atbFind'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object atbMacro: TActionToolBar
-      Left = 534
-      Top = 2
-      Width = 59
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'atbMacro'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object atbView: TActionToolBar
-      Left = 765
-      Top = 31
-      Width = 228
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      AllowHiding = False
-      Caption = 'atbView'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object atBookmark: TActionToolBar
-      Left = 684
-      Top = 2
-      Width = 130
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'atBookmark'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object atbFormat: TActionToolBar
-      Left = 311
-      Top = 2
-      Width = 107
-      Height = 25
-      ActionManager = amMain
-      Align = alNone
-      Caption = 'atbFormat'
-      Color = clMenuBar
-      ColorMap.DisabledFontColor = 7171437
-      ColorMap.HighlightColor = clWhite
-      ColorMap.BtnSelectedFont = clBlack
-      ColorMap.UnusedColor = clWhite
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clBlack
-      Font.Height = -12
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      Spacing = 0
-    end
-    object cbLexers: TComboBox
-      Left = 827
-      Top = 2
-      Width = 146
-      Height = 21
-      Style = csDropDownList
-      TabOrder = 10
-      OnSelect = cbLexersSelect
-    end
-    object Button2: TButton
-      Left = 1008
-      Top = 31
-      Width = 75
-      Height = 25
-      Caption = 'Button2'
-      TabOrder = 11
-      Visible = False
-      OnClick = Button2Click
-    end
-    object Edit4: TEdit
-      Left = 986
-      Top = 2
-      Width = 121
-      Height = 21
-      TabOrder = 12
-      Text = 'Edit4'
-      Visible = False
-    end
-    object Button1: TButton
-      Left = 1104
-      Top = 31
-      Width = 75
-      Height = 25
-      Caption = 'Button1'
-      TabOrder = 13
-      Visible = False
-      OnClick = Button1Click
-    end
-  end
-  object atbStatus: TActionToolBar
-    Left = 0
-    Top = 685
-    Width = 1272
-    Height = 26
-    ActionManager = amMain
-    Align = alBottom
-    Caption = 'atbStatus'
-    Color = clMenuBar
-    ColorMap.DisabledFontColor = 7171437
-    ColorMap.HighlightColor = clWhite
-    ColorMap.BtnSelectedFont = clBlack
-    ColorMap.UnusedColor = clWhite
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlack
-    Font.Height = -12
-    Font.Name = 'Tahoma'
-    Font.Style = []
-    ParentFont = False
-    Spacing = 0
-    Visible = False
-  end
   object pgFiles: TPageControl
     Left = 0
-    Top = 58
-    Width = 1272
+    Top = 117
+    Width = 1093
     Height = 21
     Align = alTop
     PopupMenu = pabPgFiles
-    TabOrder = 4
+    TabOrder = 2
     StyleElements = [seFont, seBorder]
     OnChange = pgFilesChange
     OnDragDrop = pgFilesDragDrop
     OnDragOver = pgFilesDragOver
     OnMouseDown = pgFilesMouseDown
+  end
+  object memPackage: TMemo
+    Left = 630
+    Top = 298
+    Width = 315
+    Height = 207
+    Lines.Strings = (
+      'memPackage')
+    TabOrder = 3
+    Visible = False
+  end
+  object Ribbon: TUIRibbon
+    Left = 0
+    Top = 0
+    Width = 1093
+    Height = 117
+    ResourceName = 'APPLICATION'
+    OnCommandCreate = RibbonCommandCreate
+  end
+  object edFilter: TButtonedEdit
+    AlignWithMargins = True
+    Left = 21
+    Top = 154
+    Width = 65
+    Height = 21
+    Hint = 'Apply filter'
+    Images = imlTinnR
+    RightButton.ImageIndex = 166
+    RightButton.Visible = True
+    TabOrder = 5
+    Visible = False
+    OnKeyDown = edFilterKeyDown
+    OnKeyPress = edFilterKeyPress
+    OnRightButtonClick = edFilterRightButtonClick
+  end
+  object jvStatusBar: TJvStatusBar
+    Left = 0
+    Top = 563
+    Width = 1093
+    Height = 29
+    Panels = <
+      item
+        Width = 801
+        Control = atbStatus
+      end
+      item
+        Text = 'text'
+        Width = 50
+        Control = FlowPanel1
+      end>
+    SimplePanel = True
+    object atbStatus: TActionToolBar
+      AlignWithMargins = True
+      Left = 1
+      Top = 1
+      Width = 945
+      Height = 27
+      Margins.Left = 1
+      Margins.Top = 1
+      Margins.Right = 1
+      Margins.Bottom = 1
+      ActionManager = amMain
+      Align = alClient
+      Caption = 'atbStatus'
+      Color = clMenuBar
+      ColorMap.DisabledFontColor = 7171437
+      ColorMap.HighlightColor = clWhite
+      ColorMap.BtnSelectedFont = clBlack
+      ColorMap.UnusedColor = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -12
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      Spacing = 0
+      Visible = False
+      ExplicitWidth = 926
+    end
+    object FlowPanel1: TFlowPanel
+      AlignWithMargins = True
+      Left = 950
+      Top = 3
+      Width = 140
+      Height = 23
+      Align = alRight
+      AutoSize = True
+      BevelOuter = bvNone
+      FlowStyle = fsTopBottomLeftRight
+      TabOrder = 1
+      ExplicitLeft = 931
+      object stNotification: TStaticText
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 4
+        Height = 4
+        Margins.Right = 10
+        Align = alLeft
+        TabOrder = 0
+        OnClick = stNotificationClick
+      end
+      object stTextPosition: TStaticText
+        AlignWithMargins = True
+        Left = 3
+        Top = 14
+        Width = 4
+        Height = 4
+        Margins.Right = 10
+        TabOrder = 1
+      end
+      object stSize: TStaticText
+        AlignWithMargins = True
+        Left = 20
+        Top = 3
+        Width = 4
+        Height = 4
+        Margins.Right = 10
+        TabOrder = 2
+      end
+      object cbHighlighter: TComboBox
+        AlignWithMargins = True
+        Left = 34
+        Top = 0
+        Width = 91
+        Height = 23
+        Hint = 'Set the highlighter for the current document.'
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 15
+        Margins.Bottom = 0
+        Style = csDropDownList
+        TabOrder = 3
+        OnSelect = cbHighlighterSelect
+      end
+    end
   end
   object pmenViewToolbars: TJvPopupMenu
     Images = imlTinnR
@@ -519,9 +347,12 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Width = 0
     TextMargin = 1
     Left = 544
-    Top = 584
+    Top = 507
     object pmenViewToolbarsShowall: TMenuItem
-      Action = actShowAllBars
+      Caption = 'All bars (show/hide)'
+      Checked = True
+      Hint = 'Visualization: all bars (show/hide)'
+      ShortCut = 49238
     end
     object N123: TMenuItem
       Caption = '-'
@@ -813,7 +644,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 200
     Bitmap = {
-      494C01010A002806CC0910001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A0028066C0A10001000FFFFFF00FF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       000000000000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -1242,6 +1073,7 @@ object frmTinnMain: TfrmTinnMain
     Active = False
     ClientType = ctNonBlocking
     Port = 0
+    OnRead = csRTipRead
     OnError = csRTipError
     Left = 248
     Top = 152
@@ -1284,7 +1116,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 160
     Bitmap = {
-      494C010125012806D80910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010125012806780A10001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000A0040000010020000000000000A0
       04000000000000000000000000000000000000000000369DD9003199D8002C94
       D7002890D600238CD5001E88D4001A84D3001580D200117CD1000E79D1000A76
@@ -11062,7 +10894,75 @@ object frmTinnMain: TfrmTinnMain
   object alMain: TActionList
     Images = imlTinnR
     Left = 648
-    Top = 272
+    Top = 232
+    object actComment: TAction
+      Tag = 2501
+      Category = 'Format'
+      Caption = 'Comment'
+      Enabled = False
+      Hint = 'Edit: comment'
+      ImageIndex = 139
+      ShortCut = 32835
+      OnExecute = actCommentExecute
+    end
+    object actUncomment: TAction
+      Tag = 2502
+      Category = 'Format'
+      Caption = 'Uncomment all'
+      Enabled = False
+      Hint = 'Edit: uncomment all'
+      ImageIndex = 141
+      ShortCut = 32858
+      OnExecute = actUncommentExecute
+    end
+    object actQuote: TAction
+      Tag = 2503
+      Category = 'Format'
+      Caption = 'Quote'
+      Enabled = False
+      OnExecute = actQuoteExecute
+    end
+    object actRemoveLineBreaks: TAction
+      Tag = 2504
+      Category = 'Format'
+      Caption = 'Remove line breaks'
+      Enabled = False
+      OnExecute = actRemoveLineBreaksExecute
+    end
+    object actUpperCase: TAction
+      Tag = 2505
+      Category = 'Format'
+      Caption = 'Uppercase'
+      Enabled = False
+      Hint = 'Format: uppercase'
+      ImageIndex = 60
+      OnExecute = actUpperCaseExecute
+    end
+    object actLowerCase: TAction
+      Tag = 2506
+      Category = 'Format'
+      Caption = 'Lowercase'
+      Enabled = False
+      Hint = 'Format: lowercase'
+      ImageIndex = 60
+      OnExecute = actLowerCaseExecute
+    end
+    object actInvertCase: TAction
+      Tag = 2507
+      Category = 'Format'
+      Caption = 'Invert case'
+      Enabled = False
+      Hint = 'Format: invert case'
+      ImageIndex = 60
+      OnExecute = actInvertCaseExecute
+    end
+    object actInvertSelection: TAction
+      Category = 'Format'
+      Caption = 'Invert selection'
+      Enabled = False
+      Hint = 'Format: invert case (selection)'
+      OnExecute = actInvertSelectionExecute
+    end
     object actShowMenuCompletion: TAction
       Caption = 'actShowMenuShortcuts'
       OnExecute = sdMainShow
@@ -11104,6 +11004,25 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 26
       OnExecute = actRCardExampleSelectedExecute
     end
+    object actIndentBlock: TAction
+      Tag = 2508
+      Category = 'Format'
+      Caption = 'Indent'
+      Enabled = False
+      Hint = 'Format: indent block'
+      ImageIndex = 102
+      ShortCut = 16457
+      OnExecute = actIndentBlockExecute
+    end
+    object actRContEditVariable: TAction
+      Tag = 13014
+      Category = 'R control'
+      Caption = 'Edit (selected)'
+      Enabled = False
+      Hint = 'R control: edit (selected)'
+      ImageIndex = 18
+      OnExecute = actRContEditVariableExecute
+    end
     object actRCardCopyFunction: TAction
       Category = 'R library'
       Caption = 'Copy function'
@@ -11123,6 +11042,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRCardEditExecute
     end
     object actShortcutsHelp: TAction
+      Tag = 4001
       Category = 'dtb Shortcuts'
       Caption = 'Help'
       Hint = 'Shortcuts: help'
@@ -11130,6 +11050,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actShortcutsHelpExecute
     end
     object actShortcutsEdit: TAction
+      Tag = 5001
       Category = 'Options'
       Caption = 'Shortcuts settings'
       Hint = 'Shortcuts: edit'
@@ -11137,6 +11058,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actShortcutsEditExecute
     end
     object actEditUndo: TAction
+      Tag = 6001
       Category = 'Edit'
       Caption = 'Undo'
       Hint = 'Edit: undo'
@@ -11145,6 +11067,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actEditUndoExecute
     end
     object actEditRedo: TAction
+      Tag = 6002
       Category = 'Edit'
       Caption = 'Redo'
       Hint = 'Edit: redo'
@@ -11153,6 +11076,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actEditRedoExecute
     end
     object actEditCopy: TAction
+      Tag = 6003
       Category = 'Edit'
       Caption = 'Copy'
       Hint = 'Edit: copy'
@@ -11166,7 +11090,17 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 48
       OnExecute = actCopyFormattedExecute
     end
+    object actRsendEchoOn: TAction
+      Tag = 15007
+      Category = 'R send'
+      AutoCheck = True
+      Caption = 'Echo on'
+      Hint = 'Turn echo on'
+      ImageIndex = 140
+      OnExecute = actRsendEchoOnExecute
+    end
     object actCopyFormattedRTF: TAction
+      Tag = 6006
       Category = 'Edit'
       Caption = 'RTF'
       Enabled = False
@@ -11174,6 +11108,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actCopyFormattedRTFExecute
     end
     object actCopyFormattedHTML: TAction
+      Tag = 6007
       Category = 'Edit'
       Caption = 'HTML'
       Enabled = False
@@ -11181,6 +11116,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actCopyFormattedHTMLExecute
     end
     object actCopyFormattedTeX: TAction
+      Tag = 6008
       Category = 'Edit'
       Caption = 'TeX'
       Enabled = False
@@ -11188,6 +11124,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actCopyFormattedTeXExecute
     end
     object actEditCut: TAction
+      Tag = 6004
       Category = 'Edit'
       Caption = 'Cut'
       Hint = 'Edit: cut'
@@ -11196,6 +11133,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actEditCutExecute
     end
     object actEditPaste: TAction
+      Tag = 6005
       Category = 'Edit'
       Caption = 'Paste'
       Hint = 'Edit: paste'
@@ -11203,6 +11141,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actEditPasteExecute
     end
     object actEditSelectAll: TAction
+      Tag = 6009
       Category = 'Edit'
       Caption = 'Select all'
       Hint = 'Edit: select all'
@@ -11210,6 +11149,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actEditSelectAllExecute
     end
     object actFileNew: TAction
+      Tag = 1001
       Category = 'File'
       Caption = 'New'
       Hint = 'File: new'
@@ -11218,6 +11158,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileNewExecute
     end
     object actFileOpen: TAction
+      Tag = 1002
       Category = 'File'
       Caption = 'Open'
       Hint = 'File: open an existing file'
@@ -11226,13 +11167,14 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileOpenExecute
     end
     object actOpenMRU: TAction
+      Tag = 1003
       Category = 'File'
       Caption = 'Open all recent files'
       Hint = 'File: open all recent files'
       ImageIndex = 67
-      OnExecute = actOpenMRUExecute
     end
     object actReload: TAction
+      Tag = 1004
       Category = 'File'
       Caption = 'Reload'
       Enabled = False
@@ -11242,6 +11184,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actReloadExecute
     end
     object actFileSave: TAction
+      Tag = 1005
       Category = 'File'
       Caption = 'Save'
       Enabled = False
@@ -11251,6 +11194,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileSaveExecute
     end
     object actFileSaveAll: TAction
+      Tag = 1006
       Category = 'File'
       Caption = 'Save all'
       Enabled = False
@@ -11259,6 +11203,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileSaveAllExecute
     end
     object actFileSaveAs: TAction
+      Tag = 1007
       Category = 'File'
       Caption = 'Save as'
       Enabled = False
@@ -11267,6 +11212,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileSaveAsExecute
     end
     object actFileClose: TAction
+      Tag = 1008
       Category = 'File'
       Caption = 'Close'
       Enabled = False
@@ -11276,6 +11222,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileCloseExecute
     end
     object actFileCloseOthers: TAction
+      Tag = 1009
       Category = 'File'
       Caption = 'Close others'
       Enabled = False
@@ -11284,6 +11231,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileCloseOthersExecute
     end
     object actFileCloseAll: TAction
+      Tag = 1010
       Category = 'File'
       Caption = 'Close all'
       Enabled = False
@@ -11292,6 +11240,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileCloseAllExecute
     end
     object actFileCloseRight: TAction
+      Tag = 1011
       Category = 'File'
       Caption = 'Close all right'
       Enabled = False
@@ -11300,6 +11249,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileCloseRightExecute
     end
     object actFileCloseLeft: TAction
+      Tag = 1012
       Category = 'File'
       Caption = 'Close all left'
       Enabled = False
@@ -11308,6 +11258,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFileCloseLeftExecute
     end
     object actFullPathUnix: TAction
+      Tag = 1013
       Category = 'File'
       Caption = 'Unix mode ../..'
       Enabled = False
@@ -11315,6 +11266,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFullPathUnixExecute
     end
     object actFullPathWindows: TAction
+      Tag = 1014
       Category = 'File'
       Caption = 'Windows mode ..\..'
       Enabled = False
@@ -11322,6 +11274,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFullPathWindowsExecute
     end
     object actPrint: TAction
+      Tag = 1015
       Category = 'File'
       Caption = 'Print'
       Enabled = False
@@ -11330,16 +11283,8 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 16464
       OnExecute = actPrintExecute
     end
-    object actIndentBlock: TAction
-      Category = 'Format'
-      Caption = 'Indent'
-      Enabled = False
-      Hint = 'Format: indent block'
-      ImageIndex = 102
-      ShortCut = 16457
-      OnExecute = actIndentBlockExecute
-    end
     object actUnindentBlock: TAction
+      Tag = 2509
       Category = 'Format'
       Caption = 'Unindent'
       Enabled = False
@@ -11348,56 +11293,8 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 16469
       OnExecute = actUnindentBlockExecute
     end
-    object actComment: TAction
-      Category = 'Edit'
-      Caption = 'Comment'
-      Enabled = False
-      Hint = 'Edit: comment'
-      ImageIndex = 139
-      ShortCut = 32835
-      OnExecute = actCommentExecute
-    end
-    object actUncomment: TAction
-      Category = 'Edit'
-      Caption = 'Uncomment all'
-      Enabled = False
-      Hint = 'Edit: uncomment all'
-      ImageIndex = 141
-      ShortCut = 32858
-      OnExecute = actUncommentExecute
-    end
-    object actUpperCase: TAction
-      Category = 'Format'
-      Caption = 'Uppercase'
-      Enabled = False
-      Hint = 'Format: uppercase'
-      ImageIndex = 60
-      OnExecute = actUpperCaseExecute
-    end
-    object actLowerCase: TAction
-      Category = 'Format'
-      Caption = 'Lowercase'
-      Enabled = False
-      Hint = 'Format: lowercase'
-      ImageIndex = 60
-      OnExecute = actLowerCaseExecute
-    end
-    object actInvertCase: TAction
-      Category = 'Format'
-      Caption = 'Invert case'
-      Enabled = False
-      Hint = 'Format: invert case'
-      ImageIndex = 60
-      OnExecute = actInvertCaseExecute
-    end
-    object actInvertSelection: TAction
-      Category = 'Format'
-      Caption = 'Invert selection'
-      Enabled = False
-      Hint = 'Format: invert case (selection)'
-      OnExecute = actInvertSelectionExecute
-    end
     object actDateStamp: TAction
+      Tag = 9001
       Category = 'Insert'
       Caption = 'Date / Time stamp'
       Enabled = False
@@ -11406,6 +11303,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actDateStampExecute
     end
     object actCompletion: TAction
+      Tag = 9002
       Category = 'Insert'
       Caption = 'Completion'
       Hint = 'Insert: completion'
@@ -11678,6 +11576,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = LatexFontSize
     end
     object actBlockMark: TAction
+      Tag = 2201
       Category = 'Code visualization'
       Caption = 'Mark'
       Enabled = False
@@ -11687,6 +11586,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actBlockMarkExecute
     end
     object actBlockUnmark: TAction
+      Tag = 2202
       Category = 'Code visualization'
       Caption = 'Unmark'
       Enabled = False
@@ -11696,6 +11596,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actBlockUnmarkExecute
     end
     object actUnmarkAll: TAction
+      Tag = 2203
       Category = 'Code visualization'
       Caption = 'Unmark all'
       Enabled = False
@@ -11705,6 +11606,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actUnmarkAllExecute
     end
     object actHelpAbout: TAction
+      Tag = 1016
       Category = 'Help'
       Caption = 'About'
       Hint = 'Misc: about'
@@ -11712,6 +11614,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actHelpAboutExecute
     end
     object actAplicationExit: TAction
+      Tag = 1017
       Category = 'Misc'
       Caption = 'E&xit'
       Hint = 'Misc: exit application'
@@ -11720,6 +11623,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actAplicationExitExecute
     end
     object actShowAppOptions: TAction
+      Tag = 5002
       Category = 'Options'
       Caption = 'Application'
       Hint = 'Options: application'
@@ -11727,6 +11631,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actShowAppOptionsExecute
     end
     object actColorsPreference: TAction
+      Tag = 5003
       Category = 'Options'
       Caption = 'Highlighter settings'
       Hint = 'Options: color preferences'
@@ -11754,6 +11659,7 @@ object frmTinnMain: TfrmTinnMain
       Hint = 'Options: Text as default'
     end
     object actOpenMaximized: TAction
+      Tag = 5007
       Category = 'Options'
       Caption = 'File (open maximized)'
       Checked = True
@@ -11761,6 +11667,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actOpenMaximizedExecute
     end
     object actOnTop: TAction
+      Tag = 5008
       Category = 'Options'
       Caption = 'On top'
       Hint = 'Options: on top (toogle)'
@@ -11775,6 +11682,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRguiReturnFocusExecute
     end
     object actReadOnly: TAction
+      Tag = 5010
       Category = 'Options'
       Caption = 'Read only'
       Hint = 'Options: read only (toogle)'
@@ -11782,6 +11690,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actReadOnlyExecute
     end
     object actDOSMinimizedAlways: TAction
+      Tag = 5011
       Category = 'Options'
       Caption = 'Always shows console minimized when compiling'
       Checked = True
@@ -11790,24 +11699,28 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actDOSMinimizedAlwaysExecute
     end
     object actPDFOpenAlways: TAction
+      Tag = 5012
       Category = 'Options'
       Caption = 'Open always after compilation (option)'
       Hint = 'Options: PDF open (always)'
       OnExecute = actPDFOpenAlwaysExecute
     end
     object actDVIOpenAlways: TAction
+      Tag = 5013
       Category = 'Options'
       Caption = 'Open always after compilation (option)'
       Hint = 'Options: DVI open (always)'
       OnExecute = actDVIOpenAlwaysExecute
     end
     object actHTMLOpenAlways: TAction
+      Tag = 5014
       Category = 'Options'
       Caption = 'Open always after conversion (option)'
       Hint = 'Options: HTML open (always)'
       OnExecute = actHTMLOpenAlwaysExecute
     end
     object actProjectNew: TAction
+      Tag = 3201
       Category = 'Project'
       Caption = 'New'
       Hint = 'Project: new'
@@ -11815,6 +11728,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectNewExecute
     end
     object actProjectOpen: TAction
+      Tag = 3202
       Category = 'Project'
       Caption = 'Open'
       Hint = 'Project: open'
@@ -11822,6 +11736,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectOpenExecute
     end
     object actProjectSave: TAction
+      Tag = 3204
       Category = 'Project'
       Caption = 'Save'
       Hint = 'Project: save'
@@ -11829,6 +11744,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectSaveExecute
     end
     object actProjectSaveAs: TAction
+      Tag = 3205
       Category = 'Project'
       Caption = 'Save as'
       Hint = 'Project: save as'
@@ -11836,6 +11752,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectSaveAsExecute
     end
     object actProjectClose: TAction
+      Tag = 3206
       Category = 'Project'
       Caption = 'Close project'
       Hint = 'Project: close (current)'
@@ -11843,6 +11760,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectCloseExecute
     end
     object actProjectDeleteCurrent: TAction
+      Tag = 3207
       Category = 'Project'
       Caption = 'Delete current'
       Hint = 'Project: delete (current)'
@@ -11850,6 +11768,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectDeleteCurrentExecute
     end
     object actProjectEdit: TAction
+      Tag = 32015
       Category = 'Project'
       Caption = 'Edit (as text file)'
       Hint = 'Project: edit (as text file)'
@@ -11857,6 +11776,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectEditExecute
     end
     object actProjectReload: TAction
+      Tag = 3216
       Category = 'Project'
       Caption = 'Reload (from text file)'
       Hint = 'Project: reload (from text file)'
@@ -11864,6 +11784,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectReloadExecute
     end
     object actGrouptNew: TAction
+      Tag = 3209
       Category = 'Project'
       Caption = 'New'
       Hint = 'Project: new group'
@@ -11871,12 +11792,14 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actGrouptNewExecute
     end
     object actGroupRename: TAction
+      Tag = 3210
       Category = 'Project'
       Caption = 'Rename'
       Hint = 'Project: rename group (current)'
       OnExecute = actGroupRenameExecute
     end
     object actGroupDeleteCurrent: TAction
+      Tag = 3211
       Category = 'Project'
       Caption = 'Delete current'
       Hint = 'Project: delete group (current)'
@@ -11884,6 +11807,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actGroupDeleteCurrentExecute
     end
     object actGroupDeleteAll: TAction
+      Tag = 3212
       Category = 'Project'
       Caption = 'Delete all'
       Hint = 'Project: delete group (all)'
@@ -11891,6 +11815,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actGroupDeleteAllExecute
     end
     object actGroupExpandAll: TAction
+      Tag = 3213
       Category = 'Project'
       Caption = 'Expand all'
       Hint = 'Project: expand group (all)'
@@ -11898,6 +11823,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actGroupExpandAllExecute
     end
     object actGroupCollapseAll: TAction
+      Tag = 3214
       Category = 'Project'
       Caption = 'Collapse all'
       Hint = 'Project: collapse group (all)'
@@ -11905,6 +11831,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actGroupCollapseAllExecute
     end
     object actFilesOpenAll: TAction
+      Tag = 3218
       Category = 'Project'
       Caption = 'Open all (project)'
       Hint = 'Project: open all files (current)'
@@ -11912,6 +11839,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFilesOpenAllExecute
     end
     object actFilesCloseAll: TAction
+      Tag = 3219
       Category = 'Project'
       Caption = 'Close all (project)'
       Hint = 'Project: close all files (current)'
@@ -11919,18 +11847,21 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFilesCloseAllExecute
     end
     object actFilesOpenAllOfGroup: TAction
+      Tag = 12002
       Category = 'Project'
       Caption = 'Open all (selected group)'
       Hint = 'Project: open all files (current group)'
       OnExecute = actFilesOpenAllOfGroupExecute
     end
     object actFilesCloseAllOfGroup: TAction
+      Tag = 12003
       Category = 'Project'
       Caption = 'Close all (selected group)'
       Hint = 'Project: close all files (current group)'
       OnExecute = actFilesCloseAllOfGroupExecute
     end
     object actFilesAdd: TAction
+      Tag = 3220
       Category = 'Project'
       Caption = 'Add'
       Hint = 'Project: add file to current'
@@ -11939,6 +11870,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFilesAddExecute
     end
     object actFilesAddCurrent: TAction
+      Tag = 3221
       Category = 'Project'
       Caption = 'Add current'
       Hint = 'Project: add file (current)'
@@ -11947,36 +11879,42 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFilesAddCurrentExecute
     end
     object actFilesRemove: TAction
+      Tag = 3224
       Category = 'Project'
       Caption = 'Remove'
       Hint = 'Project: remove (current or selected)'
       OnExecute = actFilesRemoveExecute
     end
     object actFilesRemoveAllOfGroup: TAction
+      Tag = 3223
       Category = 'Project'
       Caption = 'Remove all (selected group)'
       Hint = 'Project: delete all files (selected group)'
       OnExecute = actFilesRemoveAllOfGroupExecute
     end
     object actFilesRemoveAllOfProject: TAction
+      Tag = 3222
       Category = 'Project'
       Caption = 'Remove all (project)'
       Hint = 'Project: delete all files (current project)'
       OnExecute = actFilesRemoveAllOfProjectExecute
     end
     object actFilesFullPathUnix: TAction
+      Tag = 3225
       Category = 'Project'
       Caption = 'Unix mode ../..'
       Hint = 'Project: copy full path to clipboard (Unix mode ../..)'
       OnExecute = actFilesFullPathUnixExecute
     end
     object actFilesFullPathWindows: TAction
+      Tag = 3226
       Category = 'Project'
       Caption = 'Windows mode ..\..'
       Hint = 'Project: copy full path to clipboard (Windows mode ..\..)'
       OnExecute = actFilesFullPathWindowsExecute
     end
     object actProjectOpenNode: TAction
+      Tag = 12004
       Category = 'Project'
       Caption = 'Open node'
       Hint = 'Project: open node'
@@ -11984,6 +11922,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actProjectOpenNodeExecute
     end
     object actRContSetWorkDirectory: TAction
+      Tag = 13033
       Category = 'R control'
       Caption = 'Set work directory (current file path)'
       Enabled = False
@@ -11992,6 +11931,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContSetWorkDirectoryExecute
     end
     object actRContListAllObjects: TAction
+      Tag = 13015
       Category = 'R control'
       Caption = 'List all objects'
       Enabled = False
@@ -12000,6 +11940,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContListAllObjectsExecute
     end
     object actRContPrintVariableContent: TAction
+      Tag = 13016
       Category = 'R control'
       Caption = 'Print content (selected)'
       Enabled = False
@@ -12008,6 +11949,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPrintVariableContentExecute
     end
     object actRContListVariableNames: TAction
+      Tag = 13025
       Category = 'R control'
       Caption = 'List names (selected)'
       Enabled = False
@@ -12016,6 +11958,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContListVariableNamesExecute
     end
     object actRContListVariableStructure: TAction
+      Tag = 13026
       Category = 'R control'
       Caption = 'List structure (selected)'
       Enabled = False
@@ -12024,15 +11967,8 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 113
       OnExecute = actRContListVariableStructureExecute
     end
-    object actRContEditVariable: TAction
-      Category = 'R control'
-      Caption = 'Edit (selected)'
-      Enabled = False
-      Hint = 'R control: edit (selected)'
-      ImageIndex = 18
-      OnExecute = actRContEditVariableExecute
-    end
     object actRContFixVariable: TAction
+      Tag = 13027
       Category = 'R control'
       Caption = 'Fix (selected)'
       Enabled = False
@@ -12041,6 +11977,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContFixVariableExecute
     end
     object actRContPlotVariable: TAction
+      Tag = 13024
       Category = 'R control'
       Caption = 'Plot (selected)'
       Enabled = False
@@ -12049,6 +11986,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPlotVariableExecute
     end
     object actRContClearConsole: TAction
+      Tag = 13028
       Category = 'R control'
       Caption = 'Clear console'
       Enabled = False
@@ -12058,6 +11996,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContClearConsoleExecute
     end
     object actRContCloseAllGraphics: TAction
+      Tag = 13029
       Category = 'R control'
       Caption = 'Close all graphic devices'
       Enabled = False
@@ -12067,6 +12006,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContCloseAllGraphicsExecute
     end
     object actRContRemoveAllObjects: TAction
+      Tag = 13017
       Category = 'R control'
       Caption = 'Remove all objects'
       Enabled = False
@@ -12076,6 +12016,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContRemoveAllObjectsExecute
     end
     object actRContClearAll: TAction
+      Tag = 13018
       Category = 'R control'
       Caption = 'Clear all'
       Enabled = False
@@ -12085,6 +12026,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContClearAllExecute
     end
     object actRContEscape: TAction
+      Tag = 13019
       Category = 'R control'
       Caption = 'Escape'
       Enabled = False
@@ -12093,6 +12035,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContEscapeExecute
     end
     object actRContHelpSelectedWord: TAction
+      Tag = 13020
       Category = 'R control'
       Caption = 'Help (selected)'
       Enabled = False
@@ -12102,6 +12045,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContHelpSelectedWordExecute
     end
     object actRContExampleSelectedWord: TAction
+      Tag = 1321
       Category = 'R control'
       Caption = 'Example (selected)'
       Enabled = False
@@ -12111,6 +12055,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContExampleSelectedWordExecute
     end
     object actRContHelp: TAction
+      Tag = 1322
       Category = 'R control'
       Caption = 'Help'
       Enabled = False
@@ -12127,6 +12072,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContGuiStartCloseExecute
     end
     object actRContTermStartClose: TAction
+      Tag = 15017
       Category = 'R control'
       Caption = 'Rterm (start/close)'
       Hint = 'R control: term (start/close)'
@@ -12142,6 +12088,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContTCPConnectionExecute
     end
     object actRContPackages: TAction
+      Tag = 13004
       Category = 'R control'
       Caption = 'Packages'
       Hint = 'R control: packages'
@@ -12149,6 +12096,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPackagesExecute
     end
     object actRContPacInstall: TAction
+      Tag = 13005
       Category = 'R control'
       Caption = 'Install'
       Enabled = False
@@ -12156,6 +12104,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacInstallExecute
     end
     object actRContPacInstallZip: TAction
+      Tag = 13006
       Category = 'R control'
       Caption = 'Install (from local zip)'
       Enabled = False
@@ -12163,6 +12112,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacInstallZipExecute
     end
     object actRContPacInstTinnRcom: TAction
+      Tag = 13007
       Category = 'R control'
       Caption = 'Install (TinnRcom)'
       Enabled = False
@@ -12170,6 +12120,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacInstTinnRcomExecute
     end
     object actRContPacLoadTinnRcom: TAction
+      Tag = 13008
       Category = 'R control'
       Caption = 'Load (TinnRcom)'
       Enabled = False
@@ -12177,6 +12128,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacLoadTinnRcomExecute
     end
     object actRContPacInstalled: TAction
+      Tag = 13009
       Category = 'R control'
       Caption = 'Installed'
       Enabled = False
@@ -12191,6 +12143,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacLoadExecute
     end
     object actRContPacNew: TAction
+      Tag = 13010
       Category = 'R control'
       Caption = 'New'
       Enabled = False
@@ -12198,6 +12151,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacNewExecute
     end
     object actRContPacRemove: TAction
+      Tag = 13011
       Category = 'R control'
       Caption = 'Remove'
       Enabled = False
@@ -12205,6 +12159,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacRemoveExecute
     end
     object actRContPacUpdate: TAction
+      Tag = 13012
       Category = 'R control'
       Caption = 'Update'
       Enabled = False
@@ -12212,6 +12167,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContPacUpdateExecute
     end
     object actRContPacStatus: TAction
+      Tag = 13013
       Category = 'R control'
       Caption = 'Status'
       Enabled = False
@@ -12368,14 +12324,6 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 86
       OnExecute = actREnvironmentRefreshExecute
     end
-    object actRExplorerRefresh: TAction
-      Category = 'R explorer'
-      Caption = 'Refresh explorer'
-      Hint = 'Explorer (R): refresh explorer'
-      ImageIndex = 86
-      ShortCut = 24645
-      OnExecute = actRExplorerRefreshExecute
-    end
     object actRFilterRefresh: TAction
       Category = 'R explorer'
       Caption = 'Refresh filter'
@@ -12384,6 +12332,7 @@ object frmTinnMain: TfrmTinnMain
       ShortCut = 24645
     end
     object actRSendFile: TAction
+      Tag = 15004
       Category = 'R send'
       Caption = 'Send File to R'
       Enabled = False
@@ -12392,6 +12341,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendFileExecute
     end
     object actRSendSelection: TAction
+      Tag = 15005
       Category = 'R send'
       Caption = 'Send selection to R'
       Enabled = False
@@ -12401,6 +12351,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendSelectionExecute
     end
     object actRSendClipboard: TAction
+      Tag = 15011
       Category = 'R send'
       Caption = 'Send clipboard content to R'
       Enabled = False
@@ -12410,6 +12361,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendClipboardExecute
     end
     object actRSendBlockMarked: TAction
+      Tag = 15012
       Category = 'R send'
       Caption = 'Send marked block to R'
       Enabled = False
@@ -12418,6 +12370,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendBlockMarkedExecute
     end
     object actRSendContiguous: TAction
+      Tag = 15013
       Category = 'R send'
       Caption = 'Send contiguous content to R'
       Enabled = False
@@ -12426,6 +12379,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendContiguousExecute
     end
     object actRSendLine: TAction
+      Tag = 15015
       Category = 'R send'
       Caption = 'Line'
       Enabled = False
@@ -12435,6 +12389,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendLineExecute
     end
     object actRSendLinesToEndPage: TAction
+      Tag = 15014
       Category = 'R send'
       Caption = 'Send lines to end of the file to R'
       Enabled = False
@@ -12443,6 +12398,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendLinesToEndPageExecute
     end
     object actRSendCursorToBeginningLine: TAction
+      Tag = 15016
       Category = 'R send'
       Caption = 'Send content from beggining line to the cursor to R'
       Enabled = False
@@ -12451,6 +12407,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendCursorToBeginningLineExecute
     end
     object actRSendCursorToEndLine: TAction
+      Tag = 15006
       Category = 'R send'
       Caption = 'Send content from cursor to end line to R'
       Enabled = False
@@ -12459,6 +12416,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendCursorToEndLineExecute
     end
     object actRCurrentLineToTop: TAction
+      Tag = 15001
       Category = 'R send'
       Caption = 'Send content from current line to top to R'
       Enabled = False
@@ -12467,6 +12425,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRCurrentLineToTopExecute
     end
     object actRSendSweave: TAction
+      Tag = 15010
       Category = 'R send'
       Caption = 'Sweave to LaTeX (Rnw)'
       Enabled = False
@@ -12505,6 +12464,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermLogSetFocusExecute
     end
     object actRtermWarningError: TAction
+      Tag = 13023
       Category = 'Rterm'
       Caption = 'Warning and error'
       Hint = 'Rterm: warnings and errors'
@@ -12646,6 +12606,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermLoadWorkspaceExecute
     end
     object actRtermIOSplitHorizontal: TAction
+      Tag = 16022
       Category = 'Rterm'
       AutoCheck = True
       Caption = 'Horizontal split (IO and LOG in the same view)'
@@ -12655,6 +12616,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermIOSplitHorizontalExecute
     end
     object actRtermIOSplitVertical: TAction
+      Tag = 16023
       Category = 'Rterm'
       AutoCheck = True
       Caption = 'Vertical split (IO and LOG in the same view)'
@@ -12664,6 +12626,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermIOSplitVerticalExecute
     end
     object actRtermIOSplitRemove: TAction
+      Tag = 16024
       Category = 'Rterm'
       AutoCheck = True
       Caption = 'Remove split (IO and LOG in distinct view)'
@@ -12672,6 +12635,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermIOSplitRemoveExecute
     end
     object actFindAgain: TAction
+      Tag = 17009
       Category = 'Search'
       Caption = 'Find again'
       Hint = 'Search: again'
@@ -12679,6 +12643,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFindAgainExecute
     end
     object actSearchInFiles: TAction
+      Tag = 17008
       Category = 'Search'
       Caption = 'Search in files'
       Hint = 'Search: in files'
@@ -12687,6 +12652,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSearchInFilesExecute
     end
     object actReplace: TAction
+      Tag = 17007
       Category = 'Search'
       Caption = 'Replace'
       Hint = 'Search: replace'
@@ -12695,6 +12661,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actReplaceExecute
     end
     object actGotoLine: TAction
+      Tag = 17006
       Category = 'Search'
       Caption = 'Go to'
       Enabled = False
@@ -12728,6 +12695,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSearchCollapseOneExecute
     end
     object actReformatR: TAction
+      Tag = 2510
       Category = 'Format'
       Caption = 'Reformat R (file or selection)'
       Enabled = False
@@ -13037,6 +13005,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRestoreDatabaseExecute
     end
     object actMacroRecord: TAction
+      Tag = 18043
       Category = 'Tools'
       Caption = 'Record'
       Enabled = False
@@ -13046,6 +13015,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actMacroRecordExecute
     end
     object actMacroPlay: TAction
+      Tag = 18044
       Category = 'Tools'
       Caption = 'Play'
       Enabled = False
@@ -13055,6 +13025,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actMacroPlayExecute
     end
     object actAsciiChart: TAction
+      Tag = 18045
       Category = 'Tools'
       Caption = 'ASCII chart'
       Hint = 'Tools: ASCII chart'
@@ -13062,20 +13033,15 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actAsciiChartExecute
     end
     object actDifferences: TAction
+      Tag = 18046
       Category = 'Tools'
       Caption = 'Differences'
       Hint = 'Tools: differences'
       ImageIndex = 173
       OnExecute = actDifferencesExecute
     end
-    object actSpell: TAction
-      Category = 'Tools'
-      Caption = 'Spell'
-      Enabled = False
-      Hint = 'Tools: spell'
-      ImageIndex = 183
-    end
     object actSortString: TAction
+      Tag = 18048
       Category = 'Tools'
       Caption = 'Strings'
       Enabled = False
@@ -13084,6 +13050,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSortStringExecute
     end
     object actSortNumber: TAction
+      Tag = 18049
       Category = 'Tools'
       Caption = 'Numbers'
       Enabled = False
@@ -13092,6 +13059,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSortNumberExecute
     end
     object actSortDate: TAction
+      Tag = 18050
       Category = 'Tools'
       Caption = 'Dates'
       Enabled = False
@@ -13100,12 +13068,14 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSortDateExecute
     end
     object actCount: TAction
+      Tag = 18051
       Category = 'Tools'
       Caption = 'Count'
       Hint = 'Tools: count'
       OnExecute = actCountExecute
     end
     object actMatchBracket: TAction
+      Tag = 18052
       Category = 'Tools'
       Caption = 'Match bracket'
       Enabled = False
@@ -13114,6 +13084,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actMatchBracketExecute
     end
     object actReloadLatexSymbols: TAction
+      Tag = 18053
       Category = 'Tools'
       Caption = 'Reload Latex symbols (from ini)'
       Hint = 'Latex: reload symbols (from ini)'
@@ -13121,6 +13092,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actReloadLatexSymbolsExecute
     end
     object actRtermVisible: TAction
+      Tag = 19001
       Category = 'Visualization'
       Caption = 'Rterm (show/hide)'
       Hint = 'Visualization: Rterm (show/hide)'
@@ -13129,6 +13101,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermVisibleExecute
     end
     object actRtermMaximize: TAction
+      Tag = 19002
       Category = 'Visualization'
       Caption = 'Rterm (maximize)'
       Hint = 'Visualization: maximize (Rterm)'
@@ -13137,6 +13110,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermMaximizeExecute
     end
     object actRtermDivide: TAction
+      Tag = 19003
       Category = 'Visualization'
       Caption = 'Rterm (divide)'
       Hint = 'Visualization: divide (Rterm)'
@@ -13145,6 +13119,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermDivideExecute
     end
     object actRtermMinimize: TAction
+      Tag = 19004
       Category = 'Visualization'
       Caption = 'Rterm (minimize)'
       Hint = 'Visualization: minimize (Rterm)'
@@ -13153,6 +13128,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermMinimizeExecute
     end
     object actToolsVisible: TAction
+      Tag = 19005
       Category = 'Visualization'
       Caption = 'Tools (show/hide)'
       Hint = 'Visualization: tools (show/hide)'
@@ -13161,6 +13137,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actToolsVisibleExecute
     end
     object actToolsMaximize: TAction
+      Tag = 19006
       Category = 'Visualization'
       Caption = 'Tools (maximize)'
       Hint = 'Visualization: maximize (tools)'
@@ -13168,6 +13145,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actToolsMaximizeExecute
     end
     object actToolsDivide: TAction
+      Tag = 19007
       Category = 'Visualization'
       Caption = 'Tools (divide)'
       Hint = 'Visualization: divide (tools)'
@@ -13175,41 +13153,15 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actToolsDivideExecute
     end
     object actToolsMinimize: TAction
+      Tag = 19008
       Category = 'Visualization'
       Caption = 'Tools (minimize)'
       Hint = 'Visualization: minimize (tools)'
       ImageIndex = 246
       OnExecute = actToolsMinimizeExecute
     end
-    object actWinExplVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Windows expl. (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools windows expl. (show/hide)'
-    end
-    object actFontIncrease: TAction
-      Category = 'Visualization'
-      Caption = 'Increase'
-      Hint = 'Visualization: font (+)'
-      ImageIndex = 261
-      ShortCut = 24614
-    end
-    object actFontDecrease: TAction
-      Category = 'Visualization'
-      Caption = 'Decrease'
-      Hint = 'Visualization: font (-)'
-      ImageIndex = 262
-      ShortCut = 24616
-    end
-    object actShowAllBars: TAction
-      Category = 'Visualization'
-      Caption = 'All bars (show/hide)'
-      Checked = True
-      Hint = 'Visualization: all bars (show/hide)'
-      ShortCut = 49238
-      OnExecute = actShowAllBarsExecute
-    end
     object actEditorLineWrap: TAction
+      Tag = 19013
       Category = 'Visualization'
       Caption = 'Editor (show/hide)'
       Hint = 'Visualization: editor line wrap (show/hide)'
@@ -13217,6 +13169,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actEditorLineWrapExecute
     end
     object actRtermIOLineWrap: TAction
+      Tag = 19014
       Category = 'Visualization'
       Caption = 'IO (show/hide)'
       Hint = 'Visualization: Rterm/IO line wrap (show/hide)'
@@ -13224,25 +13177,22 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRtermIOLineWrapExecute
     end
     object actRtermLogLineWrap: TAction
+      Tag = 19015
       Category = 'Visualization'
       Caption = 'Log (show/hide)'
       Hint = 'Visualization: Rterm/Log line wrap (show/hide)'
       ImageIndex = 101
       OnExecute = actRtermLogLineWrapExecute
     end
-    object actPgFilesVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Tabs (show/hide)'
-      Checked = True
-      Hint = 'Visualization: files view tabs (show/hide)'
-    end
     object actStatusBarVisible: TAction
+      Tag = 19017
       Category = 'Visualization'
       Caption = 'Status bar (show/hide)'
       Hint = 'Visualization: status bar (show/hide)'
       OnExecute = actStatusBarVisibleExecute
     end
     object actMarkersVisible: TAction
+      Tag = 19018
       Category = 'Visualization'
       Caption = 'Markers (show/hide)'
       Hint = 'Visualization: Markers (show/hide)'
@@ -13251,6 +13201,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actMarkersVisibleExecute
     end
     object actLineNumbersVisible: TAction
+      Tag = 19019
       Category = 'Visualization'
       Caption = 'Line numbers (show/hide)'
       Hint = 'Visualization: line numbers (show/hide)'
@@ -13259,6 +13210,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actLineNumbersVisibleExecute
     end
     object actSpecialCharVisible: TAction
+      Tag = 19020
       Category = 'Visualization'
       Caption = 'Special characters (show/hide)'
       Hint = 'Visualization: special characters (show/hide)'
@@ -13267,6 +13219,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSpecialCharVisibleExecute
     end
     object actSplitHorizontal: TAction
+      Tag = 19021
       Category = 'Visualization'
       Caption = 'Horizontal'
       Enabled = False
@@ -13275,6 +13228,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSplitHorizontalExecute
     end
     object actSplitVertical: TAction
+      Tag = 19022
       Category = 'Visualization'
       Caption = 'Vertical'
       Enabled = False
@@ -13283,30 +13237,20 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actSplitVerticalExecute
     end
     object actSplitRemove: TAction
+      Tag = 19023
       Category = 'Visualization'
       Caption = 'Remove'
       Enabled = False
       Hint = 'Visualization: split remove'
       OnExecute = actSplitRemoveExecute
     end
-    object actProjectVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Project (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools project (show/hide)'
-    end
     object actOrganizeScreen: TAction
+      Tag = 19025
       Category = 'Visualization'
       Caption = 'Organize screen  (Tinn-R/Rgui)'
       Hint = 'Visualization: organize screen (Tinn-R/Rgui)'
       ImageIndex = 201
       OnExecute = actOrganizeScreenExecute
-    end
-    object actIniLogVisible: TAction
-      Category = 'Visualization'
-      Caption = 'Ini log (show/hide)'
-      Checked = True
-      Hint = 'Visualization: tools ini log (show/hide)'
     end
     object actWindowTileVertical: TWindowTileVertical
       Category = 'Window'
@@ -13344,6 +13288,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actWindowArrangeExecute
     end
     object actFind: TAction
+      Tag = 17005
       Category = 'Search'
       Caption = 'Find'
       Hint = 'Search: text'
@@ -13352,6 +13297,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actFindExecute
     end
     object actRSendKnitPdf: TAction
+      Tag = 15009
       Category = 'R send'
       Caption = 'Knit to LaTeX (Rnw)'
       Enabled = False
@@ -13361,6 +13307,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendKnitPdfExecute
     end
     object actANSI: TAction
+      Tag = 21001
       Category = 'Encoding'
       Caption = 'ANSI'
       Checked = True
@@ -13369,6 +13316,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actANSIExecute
     end
     object actUTF8: TAction
+      Tag = 21002
       Category = 'Encoding'
       Caption = 'UTF-8'
       GroupIndex = 1
@@ -13376,6 +13324,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actUTF8Execute
     end
     object actUTF16LE: TAction
+      Tag = 21003
       Category = 'Encoding'
       Caption = 'UTF16-LE'
       GroupIndex = 1
@@ -13383,6 +13332,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actUTF16LEExecute
     end
     object actUTF16BE: TAction
+      Tag = 21004
       Category = 'Encoding'
       Caption = 'UTF16-BE'
       GroupIndex = 1
@@ -13390,6 +13340,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actUTF16BEExecute
     end
     object actCommentsHelp: TAction
+      Tag = 27001
       Category = 'dtb Comments'
       Caption = 'Help'
       Hint = 'Comments: help'
@@ -13397,6 +13348,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actCommentsHelpExecute
     end
     object actCommentsEdit: TAction
+      Tag = 27002
       Category = 'dtb Comments'
       Caption = 'Edit'
       Hint = 'Comments: edit'
@@ -13404,6 +13356,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actCommentsEditExecute
     end
     object actRmirrorsHelp: TAction
+      Tag = 28001
       Category = 'dtb Mirrors (R)'
       Caption = 'Help'
       Hint = 'Mirrors (R): help'
@@ -13411,6 +13364,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRmirrorsHelpExecute
     end
     object actRmirrorsUpdate: TAction
+      Tag = 23002
       Category = 'dtb Mirrors (R)'
       Caption = 'Update mirrors'
       Enabled = False
@@ -13419,12 +13373,14 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRmirrorsUpdateExecute
     end
     object actRmirrorsOpenURLCurrent: TAction
+      Tag = 23003
       Category = 'dtb Mirrors (R)'
       Caption = 'Current'
       Hint = 'Mirrors (R): open URL current'
       OnExecute = actRmirrorsOpenURLCurrentExecute
     end
     object actRmirrorsOpenURLDefault: TAction
+      Tag = 23004
       Category = 'dtb Mirrors (R)'
       Caption = 'Default'
       Hint = 'Mirrors (R): open URL default'
@@ -13432,18 +13388,21 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRmirrorsOpenURLDefaultExecute
     end
     object actRmirrorsCopyURL: TAction
+      Tag = 23005
       Category = 'dtb Mirrors (R)'
       Caption = 'URL'
       Hint = 'Mirrors (R): copy URL'
       OnExecute = actRmirrorsCopyURLExecute
     end
     object actRmirrorsCopyHost: TAction
+      Tag = 23006
       Category = 'dtb Mirrors (R)'
       Caption = 'Host'
       Hint = 'Mirrors (R): copy host'
       OnExecute = actRmirrorsCopyHostExecute
     end
     object actRmirrorsEdit: TAction
+      Tag = 23007
       Category = 'dtb Mirrors (R)'
       Caption = 'Edit'
       Hint = 'Mirrors (R): edit'
@@ -13451,6 +13410,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRmirrorsEditExecute
     end
     object actRmirrorsSetRepos: TAction
+      Tag = 23008
       Category = 'dtb Mirrors (R)'
       Caption = 'Set repos'
       Enabled = False
@@ -13459,6 +13419,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRmirrorsSetReposExecute
     end
     object actRSendKnitHtml: TAction
+      Tag = 15008
       Category = 'R send'
       Caption = 'Knit to HTML (Rmd, Rhtml)'
       Enabled = False
@@ -13468,6 +13429,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRSendKnitHtmlExecute
     end
     object actRSendNavigator: TAction
+      Tag = 15018
       Category = 'R send'
       Caption = 'Send selected navigator tree to R'
       Enabled = False
@@ -13475,45 +13437,43 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 227
       OnExecute = actRSendNavigatorExecute
     end
-    object actRsendEchoOn: TAction
-      Category = 'R send'
-      AutoCheck = True
-      Caption = 'Echo on'
-      Hint = 'Turn echo on'
-      ImageIndex = 140
-      OnExecute = actRsendEchoOnExecute
-    end
     object actChaLinEndWIN: TAction
       Category = 'Encoding'
       Caption = 'WIN (CR+LF)'
       OnExecute = actChaLinEndWINExecute
     end
     object actSetANSI: TAction
+      Tag = 21006
       Category = 'Encoding'
       Caption = 'ANSI'
       OnExecute = actSetANSIExecute
     end
     object actSetUTF8: TAction
+      Tag = 21007
       Category = 'Encoding'
       Caption = 'UTF-8'
       OnExecute = actSetUTF8Execute
     end
     object actSetUTF16LE: TAction
+      Tag = 21008
       Category = 'Encoding'
       Caption = 'UTF16-LE'
       OnExecute = actSetUTF16LEExecute
     end
     object actSetUTF16BE: TAction
+      Tag = 21009
       Category = 'Encoding'
       Caption = 'UTF16-BE'
       OnExecute = actSetUTF16BEExecute
     end
     object actChaLinEndMAC: TAction
+      Tag = 21010
       Category = 'Encoding'
       Caption = 'MAC (CR)'
       OnExecute = actChaLinEndMACExecute
     end
     object actChaLinEndUnix: TAction
+      Tag = 21011
       Category = 'Encoding'
       Caption = 'UNIX (LF)'
       OnExecute = actChaLinEndUnixExecute
@@ -13524,82 +13484,84 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRContObjNamesExecute
     end
     object actCopyFileList: TAction
+      Tag = 24001
       Category = 'File Tools'
       Caption = 'Copy file list'
       OnExecute = actCopyFileListExecute
     end
     object actFoldAll: TAction
+      Tag = 2204
       Category = 'Code visualization'
       Caption = 'Fold all'
       ImageIndex = 251
       OnExecute = actFoldAllExecute
     end
     object actUnfoldAll: TAction
+      Tag = 2205
       Category = 'Code visualization'
       Caption = 'Unfold all'
       ImageIndex = 214
       OnExecute = actUnfoldAllExecute
     end
-    object actQuote: TAction
-      Category = 'Edit'
-      Caption = 'Quote'
-      Enabled = False
-      OnExecute = actQuoteExecute
-    end
-    object actRemoveLineBreaks: TAction
-      Category = 'Edit'
-      Caption = 'Remove line breaks'
-      Enabled = False
-      OnExecute = actRemoveLineBreaksExecute
-    end
     object actTemplateRScript: TAction
+      Tag = 1051
       Category = 'Template'
       Caption = 'R script'
       OnExecute = actTemplateRScriptExecute
     end
     object actTemplateRFunction: TAction
+      Tag = 1052
       Category = 'Template'
       Caption = 'Function'
       OnExecute = actTemplateRFunctionExecute
     end
     object actTemplateRDataset: TAction
+      Tag = 1053
       Category = 'Template'
       Caption = 'Dataset'
       OnExecute = actTemplateRDatasetExecute
     end
     object actTemplateREmpty: TAction
+      Tag = 1054
       Category = 'Template'
       Caption = 'Empty'
       OnExecute = actTemplateREmptyExecute
     end
     object actTemplateRMarkdown: TAction
+      Tag = 1055
       Category = 'Template'
       Caption = 'R markdown'
       OnExecute = actTemplateRMarkdownExecute
     end
     object actTemplateRNoWeb: TAction
+      Tag = 1056
       Category = 'Template'
       Caption = 'R noweb'
       OnExecute = actTemplateRNoWebExecute
     end
     object actTemplateRHTML: TAction
+      Tag = 1057
       Category = 'Template'
       Caption = 'R html'
       OnExecute = actTemplateRHTMLExecute
     end
     object actConvertANSI: TAction
+      Tag = 21012
       Category = 'Encoding'
       Caption = 'ANSI'
     end
     object actConvertUTF8: TAction
+      Tag = 21013
       Category = 'Encoding'
       Caption = 'UTF-8'
     end
     object actConvertUTF16LE: TAction
+      Tag = 21014
       Category = 'Encoding'
       Caption = 'UTF16-LE'
     end
     object actConvertUTF16BE: TAction
+      Tag = 21015
       Category = 'Encoding'
       Caption = 'UTF16-BE'
     end
@@ -13610,6 +13572,7 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Completion'
     end
     object actDoComments: TAction
+      Tag = 2007
       Caption = 'Comment'
       OnExecute = actDoCommentsExecute
     end
@@ -13618,28 +13581,34 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actDoRCardExecute
     end
     object actDoMirrors: TAction
+      Tag = 2010
       Caption = 'Mirrors (R)'
       OnExecute = actDoMirrorsExecute
     end
     object actActionListToClipboard: TAction
+      Tag = 26001
       Category = 'Developer'
       Caption = 'Actionlist to clipboard'
       Enabled = False
     end
     object actActionListToDataset: TAction
+      Tag = 26002
       Category = 'Developer'
       Caption = 'Actionlist to dataset'
     end
     object actDatasetToActionList: TAction
+      Tag = 26003
       Category = 'Developer'
       Caption = 'Dataset to Actionlist'
     end
     object actTestRegEx: TAction
+      Tag = 26004
       Category = 'Developer'
       Caption = 'Test: RegEx'
       OnExecute = actTestRegExExecute
     end
     object actStringReplace: TAction
+      Tag = 26005
       Category = 'Developer'
       Caption = 'StringReplace'
       OnExecute = actStringReplaceExecute
@@ -13648,6 +13617,7 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'Show R Info'
     end
     object actShowMenuHotkeys: TAction
+      Tag = 2012
       Caption = 'Hotkeys (operational system)'
       OnExecute = actShowMenuHotkeysExecute
     end
@@ -13731,6 +13701,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actToolsPandocConversionExecute
     end
     object actFoldingVisible: TAction
+      Tag = 19027
       Category = 'Visualization'
       Caption = 'Folding (show/hide)'
       ImageIndex = 214
@@ -13743,6 +13714,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actRLibAddSnippetExecute
     end
     object actAlignFirstLine: TAction
+      Tag = 2511
       Category = 'Format'
       Caption = 'Align with first line'
       Enabled = False
@@ -13751,6 +13723,7 @@ object frmTinnMain: TfrmTinnMain
       OnExecute = actAlignFirstLineExecute
     end
     object actAlignEqualSign: TAction
+      Tag = 2512
       Category = 'Format'
       Caption = 'Align ='
       Enabled = False
@@ -13764,32 +13737,29 @@ object frmTinnMain: TfrmTinnMain
       ImageIndex = 155
       OnExecute = actRLibDeleteEntryExecute
     end
-    object acShowNotification: TAction
-      Caption = 'Show notification'
-      Enabled = False
-      ImageIndex = 25
-      Visible = False
-      OnExecute = acShowNotificationExecute
-    end
     object actMarkColor1: TAction
+      Tag = 2206
       Category = 'Code visualization'
       Caption = 'Mark green'
       ImageIndex = 107
       OnExecute = actMarkColor1Execute
     end
     object actMarkColor2: TAction
+      Tag = 2207
       Category = 'Code visualization'
       Caption = 'Mark red'
       ImageIndex = 105
       OnExecute = actMarkColor2Execute
     end
     object actUnMarkColor: TAction
+      Tag = 2208
       Category = 'Code visualization'
       Caption = 'Remove color marks'
       ImageIndex = 104
       OnExecute = actUnMarkColorExecute
     end
     object actSendMarkColor1Only: TAction
+      Tag = 15003
       Category = 'R send'
       Caption = 'Send green marked text only'
       GroupIndex = 22
@@ -13800,7 +13770,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 232
     Bitmap = {
-      494C010105002806CC0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101050028066C0A10001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14075,7 +14045,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 264
     Bitmap = {
-      494C010104002806CC0910001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101040028066C0A10001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -14356,8 +14326,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 320
-    Top = 576
+    Left = 312
+    Top = 536
     object pmemLogShowHide: TMenuItem
       Action = actRtermVisible
     end
@@ -14596,8 +14566,8 @@ object frmTinnMain: TfrmTinnMain
     ImageSize.Height = 0
     ImageSize.Width = 0
     TextMargin = 1
-    Left = 408
-    Top = 520
+    Left = 368
+    Top = 368
     object pmenWinExplorerFoldersRefresh: TMenuItem
       Caption = 'Refresh'
       ImageIndex = 86
@@ -14607,7 +14577,7 @@ object frmTinnMain: TfrmTinnMain
     Left = 56
     Top = 304
     Bitmap = {
-      494C010104001003B40610001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010104001003540710001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -15264,7 +15234,6 @@ object frmTinnMain: TfrmTinnMain
             ImageIndex = 266
             ShowCaption = False
           end>
-        ActionBar = atbRSend
       end
       item
         Items = <
@@ -15379,7 +15348,6 @@ object frmTinnMain: TfrmTinnMain
             ImageIndex = 252
             ShowCaption = False
           end>
-        ActionBar = atbRContent
       end
       item
         Items = <
@@ -15493,17 +15461,11 @@ object frmTinnMain: TfrmTinnMain
             CommandProperties.Font.Style = []
             CommandProperties.Height = 0
           end>
-        ActionBar = atbRConsole
       end
       item
         Items.CaptionOptions = coNone
         Items = <
           item
-            Items = <
-              item
-                Action = actnReopenPseudo
-                Caption = '&actnReopenPseudo'
-              end>
             Action = actProjectOpen
             Caption = '&Open'
             CommandStyle = csComboBox
@@ -15692,329 +15654,6 @@ object frmTinnMain: TfrmTinnMain
         ActionBar = frmTools.atbProject
       end
       item
-        Items = <
-          item
-            Action = actFileNew
-            Caption = '&New'
-            ImageIndex = 28
-            ShowCaption = False
-            ShortCut = 16462
-          end
-          item
-            Items = <
-              item
-                Caption = '&ActionClientItem0'
-              end>
-            Action = actFileOpen
-            Caption = '&Open'
-            CommandStyle = csComboBox
-            ImageIndex = 66
-            ShowCaption = False
-            ShortCut = 16463
-            CommandProperties.Width = -1
-          end
-          item
-            Action = actFileSave
-            Caption = '&Save'
-            ImageIndex = 96
-            ShowCaption = False
-            ShortCut = 16467
-          end
-          item
-            Action = actFileSaveAll
-            Caption = 'S&ave all'
-            ImageIndex = 95
-            ShowCaption = False
-          end
-          item
-            Action = actReload
-            Caption = '&Reload'
-            ImageIndex = 88
-            ShowCaption = False
-            ShortCut = 24658
-          end
-          item
-            Action = actPrint
-            Caption = '&Print'
-            ImageIndex = 153
-            ShowCaption = False
-            ShortCut = 16464
-          end>
-        ActionBar = atbFiles
-      end
-      item
-        Items = <
-          item
-            Action = actFind
-            Caption = '&Find'
-            ImageIndex = 57
-            ShowCaption = False
-            ShortCut = 16454
-          end
-          item
-            Action = actSearchInFiles
-            Caption = '&Search in files'
-            ImageIndex = 58
-            ShowCaption = False
-            ShortCut = 24646
-          end
-          item
-            Action = actReplace
-            Caption = '&Replace'
-            ImageIndex = 61
-            ShowCaption = False
-            ShortCut = 16466
-          end
-          item
-            Action = actGotoLine
-            Caption = '&Go to'
-            ImageIndex = 33
-            ShowCaption = False
-            ShortCut = 32839
-          end>
-        ActionBar = atbFind
-      end
-      item
-        Items = <
-          item
-            Action = actOnTop
-            Caption = '&On top'
-            ImageIndex = 176
-            ShowCaption = False
-          end
-          item
-            Action = actRguiReturnFocus
-            Caption = '&Return focus to editor (after send/control Rgui)'
-            ImageIndex = 87
-            ShowCaption = False
-          end
-          item
-            Action = actOrganizeScreen
-            Caption = 'Or&ganize screen  (Tinn-R/Rgui)'
-            ImageIndex = 201
-            ShowCaption = False
-          end
-          item
-            Items = <
-              item
-                Action = actToolsDivide
-                Caption = '&Tools (divide)'
-                ImageIndex = 247
-              end
-              item
-                Action = actToolsMaximize
-                Caption = 'T&ools (maximize)'
-                ImageIndex = 248
-              end
-              item
-                Action = actToolsMinimize
-                Caption = 'Too&ls (minimize)'
-                ImageIndex = 246
-              end>
-            Action = actToolsVisible
-            Caption = '&Tools (show/hide)'
-            CommandStyle = csComboBox
-            ImageIndex = 149
-            ShowCaption = False
-            ShortCut = 16503
-            CommandProperties.Width = -1
-          end
-          item
-            Items = <
-              item
-                Action = actRtermDivide
-                Caption = '&Rterm (divide)'
-                ImageIndex = 247
-                ShortCut = 16506
-              end
-              item
-                Action = actRtermMaximize
-                Caption = 'R&term (maximize)'
-                ImageIndex = 248
-                ShortCut = 16507
-              end
-              item
-                Action = actRtermMinimize
-                Caption = 'Rt&erm (minimize)'
-                ImageIndex = 246
-                ShortCut = 16505
-              end>
-            Action = actRtermVisible
-            Caption = 'Rt&erm (show/hide)'
-            ImageIndex = 148
-            ShowCaption = False
-            ShortCut = 16504
-          end
-          item
-            Items = <
-              item
-                Action = actRtermIOSplitHorizontal
-                Caption = '&Horizontal split (IO and LOG in the same view)'
-                ImageIndex = 146
-              end
-              item
-                Action = actRtermIOSplitVertical
-                Caption = '&Vertical split (IO and LOG in the same view)'
-                ImageIndex = 145
-              end
-              item
-                Action = actRtermIOSplitRemove
-                Caption = '&Remove split (IO and LOG in distinct view)'
-              end>
-            Caption = '&IO and log'
-            CommandStyle = csComboBox
-            ImageIndex = 255
-            ShowCaption = False
-            CommandProperties.Width = -1
-          end
-          item
-            Items = <
-              item
-                Action = actEditorLineWrap
-                Caption = '&Editor (show/hide)'
-                ImageIndex = 101
-              end
-              item
-                Action = actRtermIOLineWrap
-                Caption = '&IO (show/hide)'
-                ImageIndex = 101
-              end
-              item
-                Action = actRtermLogLineWrap
-                Caption = '&Log (show/hide)'
-                ImageIndex = 101
-              end>
-            Caption = '&Line wrap'
-            CommandStyle = csComboBox
-            ImageIndex = 101
-            ShowCaption = False
-            CommandProperties.Width = -1
-          end>
-        ActionBar = atbView
-      end
-      item
-        Items = <
-          item
-            Action = actMacroRecord
-            Caption = '&Record'
-            ImageIndex = 89
-            ShowCaption = False
-            ShortCut = 118
-          end
-          item
-            Action = actMacroPlay
-            Caption = '&Play'
-            ImageIndex = 92
-            ShowCaption = False
-            ShortCut = 119
-          end>
-        ActionBar = atbMacro
-      end
-      item
-        Items = <
-          item
-            Action = actBlockMark
-            Caption = '&Mark'
-            ImageIndex = 105
-            ShowCaption = False
-            ShortCut = 49235
-          end
-          item
-            Action = actBlockUnmark
-            Caption = '&Unmark'
-            ImageIndex = 106
-            ShowCaption = False
-            ShortCut = 49242
-          end
-          item
-            Action = actUnmarkAll
-            Caption = 'U&nmark all'
-            ImageIndex = 107
-            ShowCaption = False
-            ShortCut = 49240
-          end
-          item
-            Action = actFoldAll
-            Caption = '&Fold all'
-            ImageIndex = 251
-            ShowCaption = False
-          end
-          item
-            Action = actUnfoldAll
-            Caption = 'Unf&old all'
-            ImageIndex = 214
-            ShowCaption = False
-          end>
-        ActionBar = atBookmark
-      end
-      item
-        Items = <
-          item
-            Items = <
-              item
-                Action = actIndentBlock
-                Caption = '&Indent'
-                ImageIndex = 102
-                ShowCaption = False
-                ShortCut = 16457
-              end
-              item
-                Action = actUnindentBlock
-                Caption = '&Unindent'
-                ImageIndex = 103
-                ShortCut = 16469
-              end
-              item
-                Caption = '-'
-              end
-              item
-                Caption = '-'
-              end
-              item
-                Action = actInvertSelection
-                Caption = 'I&nvert selection'
-              end>
-            Caption = '&Format selection'
-            CommandStyle = csComboBox
-            ImageIndex = 3
-            ShowCaption = False
-            CommandProperties.Width = -1
-          end
-          item
-            Items = <
-              item
-                Action = actUpperCase
-                Caption = '&Uppercase'
-                ImageIndex = 59
-              end
-              item
-                Action = actLowerCase
-                Caption = '&Lowercase'
-                ImageIndex = 60
-              end
-              item
-                Caption = '-'
-              end
-              item
-                Action = actInvertCase
-                Caption = '&Invert case'
-              end>
-            Caption = 'F&ormat word'
-            CommandStyle = csComboBox
-            ImageIndex = 221
-            ShowCaption = False
-            CommandProperties.Width = -1
-          end
-          item
-            Action = actReformatR
-            Caption = '&Reformat R (file or selection)'
-            ImageIndex = 279
-            ShowCaption = False
-            ShortCut = 16500
-          end>
-        ActionBar = atbFormat
-      end
-      item
         Color = clHighlightText
         Items.Customizable = False
         Items = <
@@ -16092,19 +15731,10 @@ object frmTinnMain: TfrmTinnMain
             ShortCut = 16455
           end
           item
-            Action = actGotoLine
-            Caption = '&Go to'
-            ImageIndex = 33
-            ShortCut = 32839
-          end
-          item
             Action = actReadOnly
             Caption = '&Read only'
             ImageIndex = 292
             ShowCaption = False
-          end
-          item
-            Caption = '&File size'
           end
           item
             Visible = False
@@ -16114,18 +15744,9 @@ object frmTinnMain: TfrmTinnMain
             Action = actRtermWarningError
             Caption = '&Warnings and errors'
             ImageIndex = 252
-          end
-          item
-            Visible = False
-            Action = acShowNotification
-            ImageIndex = 25
           end>
         Visible = False
         ActionBar = atbStatus
-      end
-      item
-      end
-      item
       end>
     DisabledImages = imlTinnR
     LargeDisabledImages = imlTinnR
@@ -16139,66 +15760,6 @@ object frmTinnMain: TfrmTinnMain
     Left = 648
     Top = 320
     StyleName = 'Platform Default'
-    object actnReopenPseudo: TAction
-      Category = 'Recent Files'
-      Caption = 'actnReopenPseudo'
-      OnExecute = actnReopenPseudoExecute
-    end
-    object actnReopenPseudoFile: TAction
-      Category = 'Recent Files'
-      Caption = 'actnReopenPseudoFile'
-      OnExecute = actnReopenPseudoFileExecute
-    end
-    object acReopenFile1: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile1'
-      OnExecute = acReopenFile1Execute
-    end
-    object acReopenFile2: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile2'
-      OnExecute = acReopenFile2Execute
-    end
-    object acReopenFile3: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile3'
-      OnExecute = acReopenFile3Execute
-    end
-    object acReopenFile4: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile4'
-      OnExecute = acReopenFile4Execute
-    end
-    object acReopenFile5: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile5'
-      OnExecute = acReopenFile5Execute
-    end
-    object acReopenFile6: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile6'
-      OnExecute = acReopenFile6Execute
-    end
-    object acReopenFile7: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile7'
-      OnExecute = acReopenFile7Execute
-    end
-    object acReopenFile8: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile8'
-      OnExecute = acReopenFile8Execute
-    end
-    object acReopenFile9: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile9'
-      OnExecute = acReopenFile9Execute
-    end
-    object acReopenFile10: TAction
-      Category = 'Recent Files'
-      Caption = 'acReopenFile10'
-      OnExecute = acReopenFile10Execute
-    end
     object acReopenProject1: TAction
       Caption = 'acReopenProject1'
       OnExecute = acReopenProject1Execute
@@ -16455,6 +16016,10 @@ object frmTinnMain: TfrmTinnMain
       Caption = 'names(<selection>)'
       OnClick = namesselection1Click
     end
+    object dimselection1: TMenuItem
+      Caption = 'dim(<selection>)'
+      OnClick = dimselection1Click
+    end
     object N76: TMenuItem
       Caption = '-'
     end
@@ -16667,1505 +16232,6 @@ object frmTinnMain: TfrmTinnMain
       end
     end
   end
-  object jvMenMain: TMainMenu
-    Images = imlTinnR
-    Left = 648
-    Top = 216
-    object menFile1: TMenuItem
-      Caption = '&File'
-      GroupIndex = 1
-      object menFileNew1: TMenuItem
-        Action = actFileNew
-      end
-      object menFileTemplate1: TMenuItem
-        Caption = 'Template'
-        object menFileTemplateRscript1: TMenuItem
-          Action = actTemplateRScript
-        end
-        object menFileTemplateRdoc1: TMenuItem
-          Caption = 'R doc'
-          object menFileTemplateRdocFunction1: TMenuItem
-            Action = actTemplateRFunction
-          end
-          object actTemplateRDatasetDiff1: TMenuItem
-            Action = actTemplateRDataset
-          end
-          object menFileTemplateRdocEmpty1: TMenuItem
-            Action = actTemplateREmpty
-          end
-        end
-        object menFileTemplateRhtml1: TMenuItem
-          Action = actTemplateRNoWeb
-        end
-        object menFileTemplateRmarkdown1: TMenuItem
-          Action = actTemplateRHTML
-        end
-        object menFileTemplateRsweave1: TMenuItem
-          Action = actTemplateRNoWeb
-        end
-      end
-      object N3: TMenuItem
-        Caption = '-'
-      end
-      object menFileOpenAllMRU1: TMenuItem
-        Action = actOpenMRU
-        GroupIndex = 1
-      end
-      object menFileOpen1: TMenuItem
-        Action = actFileOpen
-        GroupIndex = 1
-      end
-      object menFileRecentFiles: TMenuItem
-        Caption = 'Recent files'
-        GroupIndex = 1
-        ImageIndex = 54
-      end
-      object menFileReload1: TMenuItem
-        Action = actReload
-        GroupIndex = 1
-      end
-      object N4: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileSave1: TMenuItem
-        Action = actFileSave
-        GroupIndex = 1
-      end
-      object menFileSaveAs1: TMenuItem
-        Action = actFileSaveAs
-        GroupIndex = 1
-      end
-      object menFileSaveAll1: TMenuItem
-        Action = actFileSaveAll
-        GroupIndex = 1
-      end
-      object N7: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileClose1: TMenuItem
-        Action = actFileClose
-        GroupIndex = 1
-      end
-      object menFileCloseAll1: TMenuItem
-        Action = actFileCloseAll
-        GroupIndex = 1
-      end
-      object N8: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFilePrint1: TMenuItem
-        Action = actPrint
-        GroupIndex = 1
-      end
-      object N9: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileCopyFullPath1: TMenuItem
-        Caption = 'Copy full path to clipboard'
-        GroupIndex = 1
-        object menFileCopyFullPathUnix1: TMenuItem
-          Action = actFullPathUnix
-        end
-        object menFileCopyFullPathWindows1: TMenuItem
-          Action = actFullPathWindows
-        end
-      end
-      object N10: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menFileExit1: TMenuItem
-        Action = actAplicationExit
-        GroupIndex = 1
-      end
-    end
-    object menProject1: TMenuItem
-      Caption = '&Project'
-      GroupIndex = 6
-      object menProjProject1: TMenuItem
-        Caption = 'Project'
-        Hint = 'Project'
-        ImageIndex = 108
-        object menProjProjectNew1: TMenuItem
-          Action = actProjectNew
-        end
-        object menProjProjectOpen1: TMenuItem
-          Action = actProjectOpen
-        end
-        object N11: TMenuItem
-          Caption = '-'
-        end
-        object menProjProjectSave1: TMenuItem
-          Action = actProjectSave
-        end
-        object menProjProjectSaveAs1: TMenuItem
-          Action = actProjectSaveAs
-        end
-        object menProjProjectClose1: TMenuItem
-          Action = actProjectClose
-        end
-        object N13: TMenuItem
-          Caption = '-'
-        end
-        object menProjProjectDeleteCurrent1: TMenuItem
-          Action = actProjectDeleteCurrent
-        end
-      end
-      object N14: TMenuItem
-        Caption = '-'
-      end
-      object menProjGroup1: TMenuItem
-        Caption = 'Group(s)'
-        Hint = 'Group(s)'
-        ImageIndex = 70
-        object menProjGroupNew1: TMenuItem
-          Action = actGrouptNew
-        end
-        object N15: TMenuItem
-          Caption = '-'
-        end
-        object menProjGroupRename1: TMenuItem
-          Action = actGroupRename
-        end
-        object N17: TMenuItem
-          Caption = '-'
-        end
-        object menProjGroupDeleteCurrent1: TMenuItem
-          Action = actGroupDeleteCurrent
-        end
-        object menProjGroupDeleteAll1: TMenuItem
-          Action = actGroupDeleteAll
-        end
-        object N19: TMenuItem
-          Caption = '-'
-        end
-        object menProjGroupExpandAll1: TMenuItem
-          Action = actGroupExpandAll
-        end
-        object menProjGroupCollapseAll1: TMenuItem
-          Action = actGroupCollapseAll
-        end
-      end
-      object N20: TMenuItem
-        Caption = '-'
-      end
-      object menProjFiles1: TMenuItem
-        Caption = 'File(s)'
-        ImageIndex = 49
-        object menProjFilesOpenAll1: TMenuItem
-          Action = actFilesOpenAll
-        end
-        object menProjFilesCloseAll1: TMenuItem
-          Action = actFilesCloseAll
-        end
-        object N22: TMenuItem
-          Caption = '-'
-        end
-        object menProjFilesOpenAllOfGroup1: TMenuItem
-          Action = actFilesOpenAllOfGroup
-        end
-        object menProjFilesCloseAllOfGroup1: TMenuItem
-          Action = actFilesCloseAllOfGroup
-        end
-        object N23: TMenuItem
-          Caption = '-'
-        end
-        object menProjFilesAdd1: TMenuItem
-          Action = actFilesAdd
-        end
-        object menProjFilesAddCurrent1: TMenuItem
-          Action = actFilesAddCurrent
-        end
-        object N24: TMenuItem
-          Caption = '-'
-        end
-        object menProjFilesRemoveAllOfProject1: TMenuItem
-          Action = actFilesRemoveAllOfProject
-        end
-        object menProjFilesRemoveAllOfGroup1: TMenuItem
-          Action = actFilesRemoveAllOfGroup
-        end
-        object menProjFilesRemove1: TMenuItem
-          Action = actFilesRemove
-        end
-        object N25: TMenuItem
-          Caption = '-'
-        end
-        object menFilesFullPath1: TMenuItem
-          Caption = 'Copy full path to clipboard'
-          object menFilesFullPathUnix1: TMenuItem
-            Action = actFilesFullPathUnix
-          end
-          object menFilesFullPathWindows1: TMenuItem
-            Action = actFilesFullPathWindows
-          end
-        end
-      end
-      object N27: TMenuItem
-        Caption = '-'
-      end
-      object menProjRecent: TMenuItem
-        Caption = 'Recent'
-        Hint = 'Reload project'
-        ImageIndex = 161
-      end
-      object N29: TMenuItem
-        Caption = '-'
-      end
-      object menProjEdit1: TMenuItem
-        Action = actProjectEdit
-      end
-      object menProjReload1: TMenuItem
-        Action = actProjectReload
-      end
-    end
-    object menEdit1: TMenuItem
-      Caption = '&Edit'
-      GroupIndex = 6
-      object menEditUndo1: TMenuItem
-        Action = actEditUndo
-        GroupIndex = 6
-      end
-      object menEditRedo1: TMenuItem
-        Action = actEditRedo
-        GroupIndex = 6
-      end
-      object N31: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditCopy1: TMenuItem
-        Action = actEditCopy
-        GroupIndex = 6
-      end
-      object menEditCut1: TMenuItem
-        Action = actEditCut
-        GroupIndex = 6
-      end
-      object menEditPaste1: TMenuItem
-        Action = actEditPaste
-        GroupIndex = 6
-      end
-      object N32: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditCopyFormated1: TMenuItem
-        Action = actCopyFormatted
-        GroupIndex = 6
-        object menEditCopyFormatedRtf1: TMenuItem
-          Action = actCopyFormattedRTF
-        end
-        object menEditCopyFormatedHtml1: TMenuItem
-          Action = actCopyFormattedHTML
-        end
-        object menEditCopyFormatedTex1: TMenuItem
-          Action = actCopyFormattedTeX
-        end
-      end
-      object N34: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditSelectAll1: TMenuItem
-        Action = actEditSelectAll
-        GroupIndex = 6
-      end
-      object N35: TMenuItem
-        Caption = '-'
-        GroupIndex = 6
-      end
-      object menEditComment1: TMenuItem
-        Action = actComment
-        GroupIndex = 6
-      end
-      object menEditUncommentAll1: TMenuItem
-        Action = actUncomment
-        GroupIndex = 6
-      end
-      object menEditQuoteWords1: TMenuItem
-        Action = actQuote
-        GroupIndex = 6
-      end
-      object menEditRemoveLineBreaks1: TMenuItem
-        Action = actRemoveLineBreaks
-        GroupIndex = 6
-      end
-    end
-    object menFormat1: TMenuItem
-      Caption = 'Form&at'
-      GroupIndex = 6
-      object UppercaseWord1: TMenuItem
-        Action = actUpperCase
-      end
-      object LowercaseWord1: TMenuItem
-        Action = actLowerCase
-      end
-      object InvertCase1: TMenuItem
-        Action = actInvertCase
-      end
-      object InvertSelection1: TMenuItem
-        Action = actInvertSelection
-      end
-      object N40: TMenuItem
-        Caption = '-'
-      end
-      object menFormatBlockIndent1: TMenuItem
-        Action = actIndentBlock
-      end
-      object menFormatBlockUnident1: TMenuItem
-        Action = actUnindentBlock
-      end
-      object N42: TMenuItem
-        Caption = '-'
-      end
-      object menFormatReformat1: TMenuItem
-        Caption = 'Reformat'
-        object R1: TMenuItem
-          Action = actReformatR
-        end
-      end
-    end
-    object menMarks1: TMenuItem
-      Caption = '&Marks'
-      GroupIndex = 6
-      object menMarksBlock1: TMenuItem
-        Caption = 'Block'
-        object menMarksMark1: TMenuItem
-          Action = actBlockMark
-          GroupIndex = 4
-        end
-        object menMarksUnmark1: TMenuItem
-          Action = actBlockUnmark
-          GroupIndex = 4
-        end
-      end
-      object N43: TMenuItem
-        Caption = '-'
-        GroupIndex = 4
-      end
-      object menMarksUnmarkAll1: TMenuItem
-        Action = actUnmarkAll
-        GroupIndex = 4
-      end
-    end
-    object menInsert1: TMenuItem
-      Caption = '&Insert'
-      GroupIndex = 6
-      object menInsertLatex1: TMenuItem
-        Caption = 'LaTeX'
-        object menInsertLatexMath1: TMenuItem
-          Caption = 'Math'
-          ImageIndex = 97
-          object menInsertLatexMathDimensional1: TMenuItem
-            Action = actLatexDimensional
-          end
-          object N44: TMenuItem
-            Caption = '-'
-          end
-          object menInsertLatexMathFrac1: TMenuItem
-            Action = actLatexAlgebricFrac
-          end
-          object menInsertLatexMathSqrt1: TMenuItem
-            Action = actLatexAlgebricSqrt
-          end
-          object menInsertLatexMathSqrtn1: TMenuItem
-            Action = actLatexAlgebricSqrtN
-          end
-        end
-        object N45: TMenuItem
-          Caption = '-'
-        end
-        object menInsertLatexHeader1: TMenuItem
-          Caption = 'Header'
-          ImageIndex = 214
-          object menInsertLatexHeaderPart1: TMenuItem
-            Action = actLatexHeaderPart
-          end
-          object menInsertLatexHeaderChapter1: TMenuItem
-            Action = actLatexHeaderChapter
-          end
-          object menInsertLatexHeaderSection1: TMenuItem
-            Action = actLatexHeaderSection
-          end
-          object menInsertLatexHeaderSubsection1: TMenuItem
-            Action = actLatexHeaderSubSection
-          end
-          object menInsertLatexHeaderSubsubsection1: TMenuItem
-            Action = actLatexHeaderSubSubSection
-          end
-          object menInsertLatexHeaderParagraph1: TMenuItem
-            Action = actLatexHeaderParagraph
-          end
-          object menInsertLatexHeaderSubparagraph1: TMenuItem
-            Action = actLatexHeaderSubParagraph
-          end
-        end
-        object menInsertLatexFormat1: TMenuItem
-          Caption = 'Format'
-          ImageIndex = 215
-          object menInsertLatexFormatItemization1: TMenuItem
-            Action = actLatexFormatItemization
-          end
-          object menInsertLatexFormatEnumeration1: TMenuItem
-            Action = actLatexFormatEnumeration
-          end
-          object N46: TMenuItem
-            Caption = '-'
-          end
-          object menInsertLatexFormatLeft1: TMenuItem
-            Action = actLatexFormatLeft
-          end
-          object menInsertLatexFormatCenter1: TMenuItem
-            Action = actLatexFormatCenter
-          end
-          object menInsertLatexFormatRight1: TMenuItem
-            Action = actLatexFormatRight
-          end
-        end
-        object menInsertLatexFont1: TMenuItem
-          Caption = 'Font'
-          ImageIndex = 221
-          object menInsertLatexFontEnphase1: TMenuItem
-            Action = actLatexFontEnphase
-          end
-          object menInsertLatexFontBold1: TMenuItem
-            Action = actLatexFontBold
-          end
-          object menInsertLatexFontItalic1: TMenuItem
-            Action = actLatexFontItalic
-          end
-          object menInsertLatexFontSlatend1: TMenuItem
-            Action = actLatexFontSlatend
-          end
-          object menInsertLatexFontTypewriter1: TMenuItem
-            Action = actLatexFontTypewriter
-          end
-          object menInsertLatexFontSmallcaps1: TMenuItem
-            Action = actLatexFontSmallcaps
-          end
-          object N48: TMenuItem
-            Caption = '-'
-          end
-          object menInsertLatexFontTiny1: TMenuItem
-            Action = actLatexFontTiny
-          end
-          object menInsertLatexFontScriptsize1: TMenuItem
-            Action = actLatexFontScript
-          end
-          object menInsertLatexFontFootnotsize1: TMenuItem
-            Action = actLatexFontFootnote
-          end
-          object menInsertLatexFontSmall1: TMenuItem
-            Action = actLatexFontSmall
-          end
-          object menInsertLatexFontNormal1: TMenuItem
-            Action = actLatexFontNormal
-          end
-          object menInsertLatexFontLarge1: TMenuItem
-            Action = actLatexFontLarge
-          end
-          object menInsertLatexFontLarger1: TMenuItem
-            Action = actLatexFontLarger
-          end
-          object menInsertLatexFontLargest1: TMenuItem
-            Action = actLatexFontLargest
-          end
-          object menInsertLatexFontHuge1: TMenuItem
-            Action = actLatexFontHuge
-          end
-          object menInsertLatexFontHuger1: TMenuItem
-            Action = actLatexFontHuger
-          end
-        end
-      end
-      object N49: TMenuItem
-        Caption = '-'
-      end
-      object menInserCompletion1: TMenuItem
-        Action = actCompletion
-      end
-      object N51: TMenuItem
-        Caption = '-'
-      end
-      object menInsertDateTime1: TMenuItem
-        Action = actDateStamp
-      end
-    end
-    object menSearch1: TMenuItem
-      Caption = '&Search'
-      GroupIndex = 6
-      object menSearchFind1: TMenuItem
-        Action = actFind
-      end
-      object menSearchFindAgain1: TMenuItem
-        Action = actFindAgain
-      end
-      object N54: TMenuItem
-        Caption = '-'
-        GroupIndex = 3
-      end
-      object menSearchInFiles1: TMenuItem
-        Action = actSearchInFiles
-        GroupIndex = 3
-      end
-      object N55: TMenuItem
-        Caption = '-'
-        GroupIndex = 3
-      end
-      object menSearchReplace1: TMenuItem
-        Action = actReplace
-        GroupIndex = 3
-      end
-      object N57: TMenuItem
-        Caption = '-'
-        GroupIndex = 3
-      end
-      object menSearchGoTo1: TMenuItem
-        Action = actGotoLine
-        GroupIndex = 3
-      end
-    end
-    object menOptions1: TMenuItem
-      Caption = '&Options'
-      GroupIndex = 7
-      object menOptionsApplication1: TMenuItem
-        Action = actShowAppOptions
-      end
-      object menOptionsShortcuts1: TMenuItem
-        Action = actShortcutsEdit
-        Caption = 'Shortcuts'
-      end
-      object menOptionColorPreference1: TMenuItem
-        Action = actColorsPreference
-        GroupIndex = 1
-      end
-      object menToolsDatabase1: TMenuItem
-        Caption = 'Database'
-        GroupIndex = 1
-        object menToolsDatabaseComments1: TMenuItem
-          Action = actDoComments
-          GroupIndex = 1
-        end
-        object menToolsDatabaseMirrorsR1: TMenuItem
-          Action = actDoMirrors
-          GroupIndex = 1
-        end
-      end
-      object N58: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menOptionStartupFileMaximized1: TMenuItem
-        Action = actOpenMaximized
-        GroupIndex = 1
-      end
-      object menOptionGoBack1: TMenuItem
-        Action = actRguiReturnFocus
-        GroupIndex = 1
-      end
-      object menOptionAlwaysOnTop1: TMenuItem
-        Action = actOnTop
-        GroupIndex = 1
-      end
-      object menOptionReadOnlyToggle1: TMenuItem
-        Action = actReadOnly
-        GroupIndex = 1
-      end
-      object Setdefaulthighlighter1: TMenuItem
-        Caption = 'Set default highlighter'
-        GroupIndex = 1
-      end
-    end
-    object menTools1: TMenuItem
-      Caption = '&Tools'
-      GroupIndex = 7
-      object menToolsProcessing1: TMenuItem
-        Caption = 'Processing'
-        object menToolsConversion1: TMenuItem
-          Caption = 'Conversion'
-          ImageIndex = 129
-          object menToolsConversionDeplateTo1: TMenuItem
-            Caption = 'Deplate to'
-            ImageIndex = 172
-            object menToolsConversionDeplateToLaTeX1: TMenuItem
-              Action = actDeplateToLaTeX
-            end
-            object menToolsConversionDeplateToLaTeXdramastic1: TMenuItem
-              Action = actDeplateToLaTeXDramatist
-            end
-            object menToolsConversionDeplateToSweave1: TMenuItem
-              Action = actDeplateToSweave
-            end
-            object menToolsConversionDeplateToPlain1: TMenuItem
-              Action = actDeplateToPlain
-            end
-            object N59: TMenuItem
-              Caption = '-'
-            end
-            object menToolsConversionDeplateToHTML1: TMenuItem
-              Action = actDeplateToHtml
-            end
-            object menToolsConversionDeplateToHtmlsite1: TMenuItem
-              Action = actDeplateToHtmlSite
-            end
-            object menToolsConversionDeplateToHtmlslides1: TMenuItem
-              Action = actDeplateToHtmlSlides
-            end
-            object menToolsConversionDeplateToXhtml1: TMenuItem
-              Action = actDeplateToXhtmlTransitional
-            end
-            object menToolsConversionDeplateToXhtml2: TMenuItem
-              Action = actDeplateToXhtmlMathMl
-            end
-            object menToolsConversionDeplateToPhp1: TMenuItem
-              Action = actDeplateToPhp
-            end
-            object N60: TMenuItem
-              Caption = '-'
-            end
-            object menToolsConversionDeplateToDbkarticle1: TMenuItem
-              Action = actDeplateToDocbookArticle
-            end
-            object menToolsConversionDeplateToDbkbook1: TMenuItem
-              Action = actDeplateToDocbookBook
-            end
-            object menToolsConversionDeplateToDbkref1: TMenuItem
-              Action = actDeplateToDocbookReference
-            end
-          end
-          object menToolsConversionPandoc: TMenuItem
-            Action = actToolsPandocConversion
-          end
-          object menToolsConversionTxt2tagsTo1: TMenuItem
-            Caption = 'Txt2tags to'
-            ImageIndex = 174
-            object menToolsConversionTxt2tagsToLatex1: TMenuItem
-              Action = actTxt2tagsToLatex
-            end
-            object menToolsConversionTxt2tagsToSweave1: TMenuItem
-              Action = actTxt2tagsToSweave
-            end
-            object xt1: TMenuItem
-              Action = actTxt2tagsToTxt
-            end
-            object N61: TMenuItem
-              Caption = '-'
-            end
-            object menToolsConversionTxt2tagsToHTML1: TMenuItem
-              Action = actTxt2tagsToHtml
-            end
-            object XHTML1: TMenuItem
-              Action = actTxt2tagsToXhtml
-            end
-            object SGML1: TMenuItem
-              Action = actTxt2tagsToSgml
-            end
-            object Lout1: TMenuItem
-              Action = actTxt2tagsToLout
-            end
-            object Manpage1: TMenuItem
-              Action = actTxt2tagsToMan
-            end
-            object N63: TMenuItem
-              Caption = '-'
-            end
-            object Wikipedia1: TMenuItem
-              Action = actTxt2tagsToWiki
-            end
-            object GoogleCodeWiki1: TMenuItem
-              Action = actTxt2tagsToGwiki
-            end
-            object DokuWiki1: TMenuItem
-              Action = actTxt2tagsToDoku
-            end
-            object MoinMoin1: TMenuItem
-              Action = actTxt2tagsToMoin
-            end
-            object N64: TMenuItem
-              Caption = '-'
-            end
-            object MagicPoint1: TMenuItem
-              Action = actTxt2tagsToMgp
-            end
-            object PageMaker1: TMenuItem
-              Action = actTxt2tagsToPm6
-            end
-          end
-        end
-        object menToolsCompilation1: TMenuItem
-          Caption = 'Compilation (LaTeX)'
-          ImageIndex = 128
-          object menToolsCompilationMinimized1: TMenuItem
-            Action = actDOSMinimizedAlways
-          end
-          object N66: TMenuItem
-            Caption = '-'
-          end
-          object menToolsCompilationLaTeXToDVISingle1: TMenuItem
-            Action = actLatexToDVISingle
-          end
-          object menToolsCompilationLaTeXToDVIBibtex1: TMenuItem
-            Action = actLatexToDVIBibtex
-          end
-          object N67: TMenuItem
-            Caption = '-'
-          end
-          object menToolsCompilationLaTeXToPDFSingle1: TMenuItem
-            Action = actLatexToPDFSingle
-          end
-          object menToolsCompilationLaTeXToPDFBibtex1: TMenuItem
-            Action = actLatexToPDFBibtex
-          end
-          object N68: TMenuItem
-            Caption = '-'
-          end
-          object Makeindexmakeindex1: TMenuItem
-            Action = actLatexMakeIndex
-          end
-        end
-        object menToolsViewer1: TMenuItem
-          Caption = 'Viewer'
-          ImageIndex = 170
-          object menToolsViewerDVI1: TMenuItem
-            Caption = 'DVI'
-            object menToolsViewerDVIOpenAlways1: TMenuItem
-              Action = actDVIOpenAlways
-            end
-            object menToolsViewerDVIOpenFile1: TMenuItem
-              Action = actDVIOpenFile
-            end
-          end
-          object menToolsViewerPDF1: TMenuItem
-            Caption = 'PDF'
-            ImageIndex = 46
-            object menToolsViewerPDFOpenAlways1: TMenuItem
-              Action = actPDFOpenAlways
-            end
-            object menToolsViewerPDFOpenFile1: TMenuItem
-              Action = actPDFOpenFile
-            end
-          end
-          object menToolsViewerHTML1: TMenuItem
-            Caption = 'HTML'
-            object menToolsViewerHTMLOpenAlways1: TMenuItem
-              Action = actHTMLOpenAlways
-            end
-            object N69: TMenuItem
-              Caption = '-'
-            end
-            object menToolsViewerHTMLOpenCurrent1: TMenuItem
-              Action = actHTMLOpenCurrentFile
-            end
-            object menToolsViewerHTMLOpenFile1: TMenuItem
-              Action = actHTMLOpenFile
-            end
-          end
-        end
-      end
-      object N70: TMenuItem
-        Caption = '-'
-      end
-      object menToolsBackup1: TMenuItem
-        Caption = 'Backup'
-        GroupIndex = 1
-        ImageIndex = 121
-        object menToolsBackupSystem1: TMenuItem
-          Action = actBackupSystemConfiguration
-        end
-        object menToolsBackupDatabase1: TMenuItem
-          Action = actBackupDatabase
-        end
-      end
-      object menToolsRestore1: TMenuItem
-        Caption = 'Restore'
-        GroupIndex = 1
-        ImageIndex = 124
-        object menToolsRestoreSystem1: TMenuItem
-          Action = actRestoreSystemConfiguration
-        end
-        object menToolsRestoreDatabase1: TMenuItem
-          Action = actRestoreDatabase
-        end
-      end
-      object N71: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsMacro1: TMenuItem
-        Caption = 'Macro'
-        GroupIndex = 1
-        object menToolsMacroRecord1: TMenuItem
-          Action = actMacroRecord
-        end
-        object menToolsMacroPlay1: TMenuItem
-          Action = actMacroPlay
-        end
-      end
-      object N73: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsASCIIChart1: TMenuItem
-        Action = actAsciiChart
-        GroupIndex = 1
-      end
-      object menToolsDifferences1: TMenuItem
-        Action = actDifferences
-        GroupIndex = 1
-      end
-      object N84: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsSpell1: TMenuItem
-        Action = actSpell
-        GroupIndex = 1
-      end
-      object menToolsSort1: TMenuItem
-        Caption = 'Sort'
-        GroupIndex = 1
-        Hint = 'Sort (all or selection)'
-        ImageIndex = 205
-        object menToolsSortString1: TMenuItem
-          Action = actSortString
-        end
-        object menToolsSortNumber1: TMenuItem
-          Action = actSortNumber
-        end
-        object menToolsSortDate1: TMenuItem
-          Action = actSortDate
-        end
-      end
-      object actCount1: TMenuItem
-        Action = actCount
-        GroupIndex = 1
-      end
-      object N86: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menToolsMatchBracket1: TMenuItem
-        Action = actMatchBracket
-        GroupIndex = 1
-      end
-      object menToolsUtils1: TMenuItem
-        Caption = 'Utils'
-        GroupIndex = 12
-        object menToolsUtilsTesteRegex1: TMenuItem
-          Action = actTestRegEx
-          GroupIndex = 12
-        end
-        object N88: TMenuItem
-          Caption = '-'
-          GroupIndex = 12
-        end
-        object menToolsUtilsStringReplace1: TMenuItem
-          Action = actStringReplace
-          GroupIndex = 12
-        end
-        object N90: TMenuItem
-          Caption = '-'
-          GroupIndex = 12
-        end
-      end
-    end
-    object menR1: TMenuItem
-      Caption = '&R'
-      GroupIndex = 8
-      object menRStartClose1: TMenuItem
-        Caption = 'Start/close and connections'
-        object menRTermStartClose1: TMenuItem
-          Action = actRContTermStartClose
-        end
-        object menRGuiStartClose1: TMenuItem
-          Action = actRContGuiStartClose
-        end
-        object N91: TMenuItem
-          Caption = '-'
-        end
-        object menRserver1: TMenuItem
-          Action = actRserver
-        end
-      end
-      object N92: TMenuItem
-        Caption = '-'
-      end
-      object menRSet_trPaths1: TMenuItem
-        Action = actRSet_trPaths
-      end
-      object menRGet_Info1: TMenuItem
-        Action = actGetInfo
-      end
-      object menRmirrors_update1: TMenuItem
-        Action = actRmirrorsUpdate
-      end
-      object N93: TMenuItem
-        Caption = '-'
-      end
-      object menRterm1: TMenuItem
-        Caption = 'Rterm'
-        ImageIndex = 148
-        object menRtermShowHide1: TMenuItem
-          Action = actRtermVisible
-        end
-        object N94: TMenuItem
-          Caption = '-'
-        end
-        object menRtermFile1: TMenuItem
-          Caption = 'File'
-          ImageIndex = 32
-          object menRtermFileIO1: TMenuItem
-            Caption = 'IO'
-            ImageIndex = 244
-            object menRtermFileIOSave1: TMenuItem
-              Action = actRtermIOSave
-            end
-            object menRtermFileIOSaveAs1: TMenuItem
-              Action = actRtermIOSaveAs
-            end
-            object menRtermFileIOPrint1: TMenuItem
-              Action = actRtermIOPrint
-            end
-          end
-          object menRtermFileLog1: TMenuItem
-            Caption = 'Log'
-            ImageIndex = 252
-            object menRtermFileLogSave1: TMenuItem
-              Action = actRtermLogSave
-            end
-            object menRtermFileLogSaveAs1: TMenuItem
-              Action = actRtermLogSaveAs
-            end
-            object menRtermFileLogPrint1: TMenuItem
-              Action = actRtermLogPrint
-            end
-          end
-        end
-        object N95: TMenuItem
-          Caption = '-'
-        end
-        object Clear1: TMenuItem
-          Caption = 'Clear'
-          ImageIndex = 20
-          object IO1: TMenuItem
-            Action = actRtermIOClear
-          end
-          object Log1: TMenuItem
-            Action = actRtermLogClear
-          end
-          object IOandLog1: TMenuItem
-            Action = actRtermIOandLogClear
-          end
-        end
-        object menRtermFocus1: TMenuItem
-          Caption = 'Focus'
-          ImageIndex = 274
-          object menRtermFocusEditor1: TMenuItem
-            Action = actRtermEditorSetFocus
-            AutoCheck = True
-          end
-          object menRtermFocusConsole1: TMenuItem
-            Action = actRtermIOSetFocus
-            AutoCheck = True
-          end
-          object menRtermFocusLog1: TMenuItem
-            Action = actRtermLogSetFocus
-            AutoCheck = True
-          end
-        end
-        object menRtermSize1: TMenuItem
-          Caption = 'Size'
-          ImageIndex = 248
-          object menRtermSizeMaximize1: TMenuItem
-            Action = actRtermMaximize
-          end
-          object mmenRtermSizeDivide1: TMenuItem
-            Action = actRtermDivide
-          end
-          object mmenRtermSizeMinimize1: TMenuItem
-            Action = actRtermMinimize
-          end
-        end
-        object menRtermSplit1: TMenuItem
-          Caption = 'Split'
-          ImageIndex = 255
-          object menRtermSplitHorizontal1: TMenuItem
-            Action = actRtermIOSplitHorizontal
-            AutoCheck = True
-          end
-          object menRtermSplitVertical1: TMenuItem
-            Action = actRtermIOSplitVertical
-            AutoCheck = True
-          end
-          object N96: TMenuItem
-            Caption = '-'
-          end
-          object menRtermSplitRemove1: TMenuItem
-            Action = actRtermIOSplitRemove
-            AutoCheck = True
-          end
-        end
-        object menRtermHighlighter1: TMenuItem
-          Caption = 'Highlighter'
-          ImageIndex = 62
-          object menRtermSyntaxIO1: TMenuItem
-            Caption = 'IO'
-            ImageIndex = 244
-            object menRtermSyntaxIOText1: TMenuItem
-              Action = actRtermSetIOSyntaxToText
-              AutoCheck = True
-            end
-            object menRtermSyntaxIOR1: TMenuItem
-              Action = actRtermSetIOSyntaxToR
-              AutoCheck = True
-            end
-          end
-          object menRtermSyntaxLog1: TMenuItem
-            Caption = 'Log'
-            ImageIndex = 252
-            object menRtermSyntaxLogText1: TMenuItem
-              Action = actRtermSetLogSyntaxToText
-              AutoCheck = True
-            end
-            object menRtermSyntaxLogR1: TMenuItem
-              Action = actRtermSetLogSyntaxToR
-              AutoCheck = True
-            end
-          end
-        end
-        object menRtermLineWrap1: TMenuItem
-          Caption = 'Line wrap'
-          ImageIndex = 101
-          object IO2: TMenuItem
-            Action = actRtermIOLineWrap
-          end
-          object Log2: TMenuItem
-            Action = actRtermLogLineWrap
-          end
-        end
-        object N97: TMenuItem
-          Caption = '-'
-        end
-        object menRtermHistory1: TMenuItem
-          Caption = 'History'
-          ImageIndex = 272
-          object menRtermHistorySave1: TMenuItem
-            Action = actRtermSaveHistory
-          end
-          object menRtermHistoryLoad1: TMenuItem
-            Action = actRtermLoadHistory
-          end
-          object N98: TMenuItem
-            Caption = '-'
-          end
-          object menRtermHistoryPrior1: TMenuItem
-            Action = actRtermIOHistory
-          end
-          object menRtermHistoryNext1: TMenuItem
-            Caption = 'Show command history'
-            Hint = 'Shows a popup menul with all commands recently send to R'
-            ImageIndex = 259
-            ShortCut = 32808
-            OnClick = actRtermIOHistoryExecute
-          end
-        end
-        object menRtermWorkspace1: TMenuItem
-          Caption = 'Workspace'
-          ImageIndex = 273
-          object menRtermWorkspaceSave1: TMenuItem
-            Action = actRtermSaveWorkspace
-          end
-          object menRtermWorkspaceLoad1: TMenuItem
-            Action = actRtermLoadWorkspace
-          end
-        end
-        object N99: TMenuItem
-          Caption = '-'
-        end
-        object menRtermFont1: TMenuItem
-          Caption = 'Font of active control (not permanent)'
-          ImageIndex = 260
-          object Increase1: TMenuItem
-            Action = actFontIncrease
-          end
-          object Decrease1: TMenuItem
-            Action = actFontDecrease
-          end
-        end
-      end
-      object N100: TMenuItem
-        Caption = '-'
-      end
-      object menControlR1: TMenuItem
-        Caption = 'Control'
-        ImageIndex = 12
-        object menControlRSetWorkDir1: TMenuItem
-          Action = actRContSetWorkDirectory
-        end
-        object N103: TMenuItem
-          Caption = '-'
-        end
-        object menControlRListAllObjects1: TMenuItem
-          Action = actRContListAllObjects
-        end
-        object menControlRPrintVariableContent1: TMenuItem
-          Action = actRContPrintVariableContent
-        end
-        object menControlRListVariableNames1: TMenuItem
-          Action = actRContListVariableNames
-        end
-        object menControlRListVariableStructure1: TMenuItem
-          Action = actRContListVariableStructure
-        end
-        object menControlREditSelected1: TMenuItem
-          Action = actRContEditVariable
-        end
-        object menControlRFixSelected1: TMenuItem
-          Action = actRContFixVariable
-        end
-        object menControlRPlotSelected1: TMenuItem
-          Action = actRContPlotVariable
-        end
-        object N104: TMenuItem
-          Caption = '-'
-        end
-        object menControlRClearConsole1: TMenuItem
-          Action = actRContClearConsole
-        end
-        object menControlRCloseAllGraphicDevices1: TMenuItem
-          Action = actRContCloseAllGraphics
-        end
-        object menControlRRemoveAllObjects1: TMenuItem
-          Action = actRContRemoveAllObjects
-        end
-        object N105: TMenuItem
-          Caption = '-'
-        end
-        object menControlRClearAll1: TMenuItem
-          Action = actRContClearAll
-        end
-        object N107: TMenuItem
-          Caption = '-'
-        end
-        object menControlREscape1: TMenuItem
-          Action = actRContEscape
-        end
-        object N109: TMenuItem
-          Caption = '-'
-        end
-        object menControlRHelpSelected1: TMenuItem
-          Action = actRContHelpSelectedWord
-        end
-        object menControlRExampleSelected1: TMenuItem
-          Action = actRContExampleSelectedWord
-        end
-        object menControlRHelp1: TMenuItem
-          Action = actRContHelp
-        end
-        object N110: TMenuItem
-          Caption = '-'
-        end
-        object menRPackages1: TMenuItem
-          Action = actRContPackages
-          object menRPackagesInstall1: TMenuItem
-            Action = actRContPacInstall
-          end
-          object menRPackagesInstallfromZip1: TMenuItem
-            Action = actRContPacInstallZip
-          end
-          object N111: TMenuItem
-            Caption = '-'
-          end
-          object menRPackagesInstallTinnRcom1: TMenuItem
-            Action = actRContPacInstTinnRcom
-          end
-          object menRPackagesLoadTinnRcom1: TMenuItem
-            Action = actRContPacLoadTinnRcom
-          end
-          object N112: TMenuItem
-            Caption = '-'
-          end
-          object menRPackagesInstalled1: TMenuItem
-            Action = actRContPacInstalled
-          end
-          object menRPackagesLoad1: TMenuItem
-            Action = actRContPacLoad
-          end
-          object menRPackagesNew1: TMenuItem
-            Action = actRContPacNew
-          end
-          object menRPackagesRemove1: TMenuItem
-            Action = actRContPacRemove
-          end
-          object menRPackagesUpdate1: TMenuItem
-            Action = actRContPacUpdate
-          end
-          object menRPackagesStatus1: TMenuItem
-            Action = actRContPacStatus
-          end
-        end
-        object N114: TMenuItem
-          Caption = '-'
-        end
-        object memRTCPConnection1: TMenuItem
-          Action = actRContTCPConnection
-        end
-      end
-      object N115: TMenuItem
-        Caption = '-'
-      end
-      object menRHotKeys1: TMenuItem
-        Action = actShowMenuHotkeys
-      end
-    end
-    object menView1: TMenuItem
-      Caption = 'Vie&w'
-      GroupIndex = 9
-      object oolsshowhide1: TMenuItem
-        Action = actToolsVisible
-      end
-      object oolsmaximize1: TMenuItem
-        Action = actToolsMaximize
-      end
-      object oolsdivide1: TMenuItem
-        Action = actToolsDivide
-      end
-      object oolsminimize1: TMenuItem
-        Action = actToolsMinimize
-      end
-      object N117: TMenuItem
-        Caption = '-'
-      end
-      object OrganizescreenTinnRRgui1: TMenuItem
-        Action = actOrganizeScreen
-      end
-      object N118: TMenuItem
-        Caption = '-'
-      end
-      object Rtermshowhide1: TMenuItem
-        Action = actRtermVisible
-      end
-      object Rtermmaximize1: TMenuItem
-        Action = actRtermMaximize
-      end
-      object Rtermdivide1: TMenuItem
-        Action = actRtermDivide
-      end
-      object Rtermminimize1: TMenuItem
-        Action = actRtermMinimize
-      end
-      object menViewRtermSplit1: TMenuItem
-        Caption = 'Split'
-        ImageIndex = 255
-        object menViewRtermSplitHorizontal1: TMenuItem
-          Action = actRtermIOSplitHorizontal
-          AutoCheck = True
-        end
-        object menViewRtermSplitVertical1: TMenuItem
-          Action = actRtermIOSplitVertical
-          AutoCheck = True
-        end
-        object N119: TMenuItem
-          Caption = '-'
-        end
-        object menViewRtermSplitRemove1: TMenuItem
-          Action = actRtermIOSplitRemove
-          AutoCheck = True
-        end
-      end
-      object menViewRtermSyntax1: TMenuItem
-        Caption = 'Syntax'
-        ImageIndex = 62
-        object menViewRtermSyntaxIO1: TMenuItem
-          Caption = 'IO'
-          ImageIndex = 244
-          object menViewRtermSyntaxIOText1: TMenuItem
-            Action = actRtermSetIOSyntaxToText
-            AutoCheck = True
-          end
-          object menViewRtermSyntaxIOR1: TMenuItem
-            Action = actRtermSetIOSyntaxToR
-            AutoCheck = True
-          end
-        end
-        object menViewRtermSyntaxLog1: TMenuItem
-          Caption = 'Log'
-          ImageIndex = 252
-          object menViewRtermSyntaxLogText1: TMenuItem
-            Action = actRtermSetLogSyntaxToText
-            AutoCheck = True
-          end
-          object menViewRtermSyntaxLogR1: TMenuItem
-            Action = actRtermSetLogSyntaxToR
-            AutoCheck = True
-          end
-        end
-      end
-      object N120: TMenuItem
-        Caption = '-'
-      end
-      object Wordwrap1: TMenuItem
-        Caption = 'Line wrap'
-        ImageIndex = 101
-        object Editorshowhide1: TMenuItem
-          Action = actEditorLineWrap
-        end
-        object RtermIOshowhide1: TMenuItem
-          Action = actRtermIOLineWrap
-        end
-        object RtermLogLinewrapshowhide1: TMenuItem
-          Action = actRtermLogLineWrap
-        end
-      end
-      object menViewGutter1: TMenuItem
-        Action = actMarkersVisible
-      end
-      object menViewLineNumbers1: TMenuItem
-        Action = actLineNumbersVisible
-      end
-      object Foldingshowhide1: TMenuItem
-        Action = actFoldingVisible
-      end
-      object menViewSpecialCharacters1: TMenuItem
-        Action = actSpecialCharVisible
-      end
-      object menViewStatusBar1: TMenuItem
-        Action = actStatusBarVisible
-      end
-      object menViewSplit1: TMenuItem
-        Caption = 'Split'
-        object menViewSplitHorizontal1: TMenuItem
-          Action = actSplitHorizontal
-        end
-        object menViewSplitVertical1: TMenuItem
-          Action = actSplitVertical
-        end
-        object N121: TMenuItem
-          Caption = '-'
-        end
-        object menViewSplitRemove1: TMenuItem
-          Action = actSplitRemove
-        end
-      end
-    end
-    object menWindow1: TMenuItem
-      Caption = 'Win&dow'
-      GroupIndex = 10
-      object menWindowTileVertically1: TMenuItem
-        Action = actWindowTileVertical
-      end
-      object menWindowTileHorizontally1: TMenuItem
-        Action = actWindowTileHorizontal
-      end
-      object N122: TMenuItem
-        Caption = '-'
-      end
-      object menWindowMinimizeAll1: TMenuItem
-        Action = actWindowMinimizeAll
-      end
-      object menWindowCascade1: TMenuItem
-        Action = actWindowCascade
-      end
-      object menWindowArrangeIcons1: TMenuItem
-        Action = actWindowArrange
-      end
-    end
-    object menWeb1: TMenuItem
-      Caption = 'We&b'
-      GroupIndex = 11
-      object menWebRSearch1: TMenuItem
-        Caption = 'R search selected'
-        ImageIndex = 184
-        object menWebSearchSelGoogle: TMenuItem
-          Action = actWebSelectedTextGoogle
-        end
-        object menWebSearchSelRSite: TMenuItem
-          Action = actWebSelectedTextSiteSearch
-        end
-        object N124: TMenuItem
-          Caption = '-'
-        end
-      end
-      object N126: TMenuItem
-        Caption = '-'
-      end
-      object menWebRInformation1: TMenuItem
-        Caption = 'R information'
-        ImageIndex = 162
-        object menWebRInformationsCRAN: TMenuItem
-          Action = actWebRInfoCRAN
-        end
-        object menWebRInformationsNews: TMenuItem
-          Action = actWebRNews
-        end
-        object menWebRInformationsRWiki: TMenuItem
-          Action = actWebRWiki
-        end
-        object menWebRInformationsWebSite: TMenuItem
-          Action = actWebWebsite
-        end
-      end
-    end
-    object menHelp: TMenuItem
-      Caption = '&Help'
-      GroupIndex = 12
-      object menHelUserGuide: TMenuItem
-        Action = actHelpUserGuide
-      end
-      object menHelNews: TMenuItem
-        Action = actHelpWhatsNew
-      end
-      object menHelSecrets: TMenuItem
-        Action = actHelpEfficientUse
-      end
-      object N127: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menHelExampleOfScript: TMenuItem
-        Action = actHelpScript
-        GroupIndex = 1
-      end
-      object menHelpRecognizedWords: TMenuItem
-        Action = actHelpRecognizedWords
-        GroupIndex = 1
-      end
-      object N128: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menHelFileConversion1: TMenuItem
-        Caption = 'File conversion (introduction)'
-        GroupIndex = 1
-        ImageIndex = 129
-        object menHelFileConversionDeplate: TMenuItem
-          Action = actHelpDeplate
-          GroupIndex = 1
-        end
-        object menHelFileConversionPandoc: TMenuItem
-          Action = actHelpPandoc
-          GroupIndex = 1
-        end
-        object menHelFileConversionTxt2tags: TMenuItem
-          Action = actTxt2tags
-          GroupIndex = 1
-        end
-      end
-      object N129: TMenuItem
-        Caption = '-'
-        GroupIndex = 1
-      end
-      object menHelAbout1: TMenuItem
-        Action = actHelpAbout
-        GroupIndex = 1
-      end
-    end
-  end
   object csMainBase: TClientSocket
     Active = False
     ClientType = ctNonBlocking
@@ -18194,7 +16260,7 @@ object frmTinnMain: TfrmTinnMain
   end
   object tDataConflict: TTimer
     Enabled = False
-    Interval = 300
+    Interval = 500
     OnTimer = tDataConflictTimer
     Left = 160
     Top = 304
@@ -18233,8 +16299,8 @@ object frmTinnMain: TfrmTinnMain
     Priority = tpNormal
     StopMode = smTerminate
     OnRun = StartupThreadShortcutsRun
-    Left = 232
-    Top = 360
+    Left = 248
+    Top = 328
   end
   object pabIO: TPopupActionBar
     Images = imlTinnR

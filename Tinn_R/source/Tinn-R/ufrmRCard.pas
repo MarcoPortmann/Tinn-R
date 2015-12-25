@@ -48,7 +48,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, Db, DBTables,
+  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, Db, {DBTables,}
   Buttons, ComCtrls, System.UITypes, Vcl.CheckLst ;
 
 type
@@ -154,8 +154,6 @@ begin
   // Actualize groups in frmTinnMain
   with modDados do
   begin
-    RcardGroupsFilter(self);
-
     with frmTinnMain do
     begin
       frmTools.lbRcard.Items := slRcard_Groups;

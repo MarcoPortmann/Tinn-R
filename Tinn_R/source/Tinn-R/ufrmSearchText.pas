@@ -83,7 +83,7 @@
 
 unit ufrmSearchText;
 
-{$I SynEdit.inc}
+
 
 interface
 

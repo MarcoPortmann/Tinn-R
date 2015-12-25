@@ -48,7 +48,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, Db, DBTables,
+  Dialogs, Grids, DBGrids, StdCtrls, ExtCtrls, DBCtrls, Mask, Db,{ DBTables, }
   Buttons, ComCtrls, JvExComCtrls, JvHotKey, System.UITypes ;
 
 type
@@ -136,13 +136,13 @@ procedure TfrmShortcuts.UpdateSearchFilters;
 var
   sFilter, sOldFilter, sTextFilter, sCatFilter, sShortcutFilter, sHotKey: String;
 begin
-  with modDados.cdMainBase do
+  with modDados.cdShortcuts do
   begin
     FilterOptions := [foCaseInsensitive];
 
     sFilter := (trim(edShortcutSearch.Text));
     if sFilter <> '' then
-      sTextFilter := ' Caption Like ' +QuotedStr('%' + sFilter + '%')+' OR Hint Like ' +QuotedStr('%' + sFilter + '%')  else
+      sTextFilter := ' ( Caption Like ' +QuotedStr('%' + (sFilter) + '%')+'  OR Hint Like ' +QuotedStr('%' + ansilowercase(sFilter) + '%') + ') '   else
       sTextFilter := '';
 
     if cbShortcuts.ItemIndex > 0  then
@@ -166,19 +166,17 @@ begin
     else
       sFilter := sFilter + sShortcutFilter;
 
-    with modDados.cdShortcuts do
-    begin
-      sOldFilter := Filter;
-     if sOldFilter <> sFilter then
-     begin
-       DisableControls;
-       Filter := sFilter;
-       Filtered := length(Filter)>0;
+    sOldFilter := Filter;
+   if sOldFilter <> sFilter then
+   begin
+     DisableControls;
+     Filter := sFilter;
+     Filtered := length(Filter)>0;
 
-       First;
-       EnableControls;
-     end;
-    end;
+     First;
+     EnableControls;
+   end;
+
   end;
 end;
 
@@ -193,6 +191,8 @@ begin
 
   sSortList := TStringList.Create;
   sSortList.CommaText :='"Category COLLATE NOCASE","Caption COLLATE NOCASE","Hint COLLATE NOCASE","Shortcut COLLATE NOCASE"';
+
+  UpdateSearchFilters;
 
 end;
 

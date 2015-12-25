@@ -58,7 +58,7 @@ uses
   JvExButtons, JvBitBtn, Mask, System.Actions, RNavi, JvNavigationPane,
   JvPageList, JvExExtCtrls, JvToolBar, Vcl.ActnMan, Vcl.ActnCtrls, System.UITypes,
   JvMTComponents, JvThread, JvExDBGrids, JvDBGrid, Vcl.DBCGrids, Vcl.OleCtrls,
-  SHDocVw, MSHTML, WinApi.ActiveX, JvRichEdit, JvDBRichEdit;
+  SHDocVw, MSHTML, WinApi.ActiveX, JvRichEdit, JvDBRichEdit, Data.DB;
 // Adding System.Actions solves "assuspended/asnormal undefined" issue
 
 type
@@ -178,9 +178,6 @@ type
     JvNavPanelDivider6: TJvNavPanelDivider;
     ppLatex: TJvNavPanelPage;
     ppDeveloper: TJvNavPanelPage;
-    JvNavPanelDivider8: TJvNavPanelDivider;
-    DBGrid1: TDBGrid;
-    JvNavPanelDivider9: TJvNavPanelDivider;
     memIniLog: TMemo;
     ppTxt2tags: TJvNavPanelPage;
     atbLatex: TActionToolBar;
@@ -282,11 +279,12 @@ type
     DBText1: TDBText;
     wbDescription: TWebBrowser;
     cgObjects: TDBCtrlGrid;
+    editormemo: TMemo;
 
     procedure bbtExplorerAddFavoritesClick(Sender: TObject);
     procedure bbtExplorerRemoveFavoritesClick(Sender: TObject);
     procedure bbtREnvironmentRefreshClick(Sender: TObject);
-    procedure bbtRExplorerRefreshClick(Sender: TObject);
+  //  procedure bbtRExplorerRefreshClick(Sender: TObject);
     procedure cbbToolsREnvironmentSelect(Sender: TObject);
     procedure cbbToolsRExplorerSelect(Sender: TObject);
     procedure cbExplorerFavoritesChange(Sender: TObject);
@@ -456,16 +454,16 @@ procedure TfrmTools.bbtREnvironmentRefreshClick(Sender: TObject);
 begin
   frmTinnMain.actREnvironmentRefreshExecute(nil);
 end;
-
+ {
 procedure TfrmTools.bbtRExplorerRefreshClick(Sender: TObject);
 begin
-  frmTinnMain.actRExplorerRefreshExecute(nil);
-end;
+  frmTinnMain.RExplorerRefresh;
+end;     }
 
 procedure TfrmTools.bbRefreshExplorerBothClick(Sender: TObject);
 begin
   frmTinnMain.actREnvironmentRefresh.Execute;
-  frmTinnMain.actRExplorerRefresh.Execute;
+  frmTinnMain.RExplorerRefresh;
 end;
 
 procedure TfrmTools.edCardSearchExit(Sender: TObject);
@@ -1109,7 +1107,7 @@ procedure TfrmTools.edToolsRExplorerFilterKeyDown(Sender: TObject;
 begin
   if (Key = VK_RETURN) then
   begin
-    frmTinnMain.actRExplorerRefreshExecute(nil);
+    frmTinnMain.RExplorerRefresh;
     edToolsRExplorerFilter.SetFocus;
   end;
 end;
@@ -1467,7 +1465,7 @@ begin
     end;
   end;
   //if frmTinnMain.bRExplorerActive then
-    frmTinnMain.actRExplorerRefreshExecute(nil);
+    frmTinnMain.RExplorerRefresh;
 end;
 
 procedure TfrmTools.ResizeMainBase;

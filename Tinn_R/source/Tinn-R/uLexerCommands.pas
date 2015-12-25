@@ -267,7 +267,7 @@ var
   end;
 
 begin
-
+TRY
   if iSet in [2, 3] then
   begin
 
@@ -347,7 +347,21 @@ begin
            (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.SetKeyWords(SCE_R_KWord, KeyWordString);   }
     //       (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.SetKeyWords(1, KeyWordString);
      //        (frmTinnMain.MDIChildren[i] as TfrmEditor).sciEditor.SetKeyWords(2, KeyWordString);
-
+EXCEPT
+end;
 end;
 
 end.
+
+
+
+
+
+
+
+
+
+
+
+
+

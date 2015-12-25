@@ -1,0 +1,1242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Application xmlns="http://schemas.microsoft.com/windows/2009/Ribbon">
+  <Application.Commands>
+    <Command Name="CmdTabHome" LabelTitle="Home"/>
+    <Command Name="CmdGroupClipboard" LabelTitle="Clipboard">
+      <Command.SmallImages>
+        <Image>Res/Paste_S096.bmp</Image>
+        <Image MinDPI="120">Res/Paste_S120.bmp</Image>
+        <Image MinDPI="144">Res/Paste_S144.bmp</Image>
+        <Image MinDPI="192">Res/Paste_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdPaste" LabelTitle="Paste" TooltipTitle="Paste (Ctrl+V)" TooltipDescription="Paste the contents of the Clipboard.">
+      <Command.SmallImages>
+        <Image>Res/Paste_S096.bmp</Image>
+        <Image MinDPI="120">Res/Paste_S120.bmp</Image>
+        <Image MinDPI="144">Res/Paste_S144.bmp</Image>
+        <Image MinDPI="192">Res/Paste_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Paste_S192.bmp</Image>
+        <Image MinDPI="120">Res/Paste_L120.bmp</Image>
+        <Image MinDPI="144">Res/Paste_L144.bmp</Image>
+        <Image MinDPI="192">Res/Paste_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdCut" LabelTitle="Cut" TooltipTitle="Cut (Ctrl+X)" TooltipDescription="Cut the selection from the document and put it on the Clipboard.">
+      <Command.SmallImages>
+        <Image>Res/Cut_S096.bmp</Image>
+        <Image MinDPI="120">Res/Cut_S120.bmp</Image>
+        <Image MinDPI="144">Res/Cut_S144.bmp</Image>
+        <Image MinDPI="192">Res/Cut_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdCopy" LabelTitle="Copy" TooltipTitle="Copy (Ctrl+C)" TooltipDescription="Copy the selection and put it on the Clipboard">
+      <Command.SmallImages>
+        <Image>Res/Copy_S096.bmp</Image>
+        <Image MinDPI="120">Res/Copy_S120.bmp</Image>
+        <Image MinDPI="144">Res/Copy_S144.bmp</Image>
+        <Image MinDPI="192">Res/Copy_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdCopyFormattedRTF" LabelTitle="Copy fomatted (RTF)" LabelDescription="Copy fomatted (RTF)" TooltipTitle="Copy fomatted (RTF)"/>
+    <Command Name="CmdCopyFormattedHTML" LabelTitle="Copy fomatted (HTML)" LabelDescription="Copy fomatted (HTML)" TooltipTitle="Copy fomatted (HTML)"/>
+    <Command Name="CmdCopyFormattedTeX" LabelTitle="Copy fomatted (TeX)" LabelDescription="Copy fomatted (TeX)" TooltipTitle="Copy fomatted (TeX)"/>
+    <Command Name="CmdEditSelectAll" LabelTitle="Select all" LabelDescription="Select all" TooltipTitle="Select all">
+      <Command.SmallImages>
+        <Image>Res/SelectAll_S096.bmp</Image>
+        <Image MinDPI="120">Res/SelectAll_S120.bmp</Image>
+        <Image MinDPI="144">Res/SelectAll_S144.bmp</Image>
+        <Image MinDPI="192">Res/SelectAll_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/SelectAll_S192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdGroupEditing" LabelTitle="Find and replace">
+      <Command.SmallImages>
+        <Image>Res/Find_S096.bmp</Image>
+        <Image MinDPI="120">Res/Find_S120.bmp</Image>
+        <Image MinDPI="144">Res/Find_S144.bmp</Image>
+        <Image MinDPI="192">Res/Find_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdFind" LabelTitle="Find" TooltipTitle="Find (Ctrl+F)" TooltipDescription="Find text in the document.">
+      <Command.SmallImages>
+        <Image>Res/Find_S096.bmp</Image>
+        <Image MinDPI="120">Res/Find_S120.bmp</Image>
+        <Image MinDPI="144">Res/Find_S144.bmp</Image>
+        <Image MinDPI="192">Res/Find_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Find_S192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdGotoLine" LabelTitle="Go to line" LabelDescription="Go to line" TooltipTitle="Go to line">
+      <Command.SmallImages>
+        <Image>Res/document_redirect.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdReplace" LabelTitle="Replace" TooltipTitle="Replace (Ctrl+H)" TooltipDescription="Replace text in the document.">
+      <Command.SmallImages>
+        <Image>Res/Replace_S096.bmp</Image>
+        <Image MinDPI="120">Res/Replace_S120.bmp</Image>
+        <Image MinDPI="144">Res/Replace_S144.bmp</Image>
+        <Image MinDPI="192">Res/Replace_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Replace_S192.bmp</Image>
+      </Command.LargeImages>
+      <Command.SmallHighContrastImages>
+        <Image>Res/Replace_SHC.bmp</Image>
+      </Command.SmallHighContrastImages>
+    </Command>
+    <Command Name="CmdFindAgain" LabelTitle="Find again" LabelDescription="Find again" TooltipTitle="Find again">
+      <Command.SmallImages>
+        <Image>Res/application_form_magnify.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/application_form_magnify.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdSearchInFiles" LabelTitle="Search in files" LabelDescription="Search in files" TooltipTitle="Search in files">
+      <Command.SmallImages>
+        <Image>Res/PrintPreview_S096.bmp</Image>
+        <Image MinDPI="120">Res/PrintPreview_S120.bmp</Image>
+        <Image MinDPI="144">Res/PrintPreview_S144.bmp</Image>
+        <Image MinDPI="192">Res/PrintPreview_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/PrintPreview_L096.bmp</Image>
+        <Image MinDPI="120">Res/PrintPreview_L120.bmp</Image>
+        <Image MinDPI="144">Res/PrintPreview_L144.bmp</Image>
+        <Image MinDPI="192">Res/PrintPreview_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdTabView" LabelTitle="View"/>
+    <Command Name="CmdGroupZoom" LabelTitle="Zoom">
+      <Command.SmallImages>
+        <Image>Res/Zoom_S096.bmp</Image>
+        <Image MinDPI="120">Res/Zoom_S120.bmp</Image>
+        <Image MinDPI="144">Res/Zoom_S144.bmp</Image>
+        <Image MinDPI="192">Res/Zoom_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdZoomIn" LabelTitle="Zoom in" TooltipTitle="Zoom in" TooltipDescription="Zoom in on the document.">
+      <Command.SmallImages>
+        <Image>Res/ZoomIn_S096.bmp</Image>
+        <Image MinDPI="120">Res/ZoomIn_S120.bmp</Image>
+        <Image MinDPI="144">Res/ZoomIn_S144.bmp</Image>
+        <Image MinDPI="192">Res/ZoomIn_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/ZoomIn_L096.bmp</Image>
+        <Image MinDPI="120">Res/ZoomIn_L120.bmp</Image>
+        <Image MinDPI="144">Res/ZoomIn_L144.bmp</Image>
+        <Image MinDPI="192">Res/ZoomIn_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdZoomOut" LabelTitle="Zoom out" TooltipTitle="Zoom out" TooltipDescription="Zoom out on the document.">
+      <Command.SmallImages>
+        <Image>Res/ZoomOut_S096.bmp</Image>
+        <Image MinDPI="120">Res/ZoomOut_S120.bmp</Image>
+        <Image MinDPI="144">Res/ZoomOut_S144.bmp</Image>
+        <Image MinDPI="192">Res/ZoomOut_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/ZoomOut_L096.bmp</Image>
+        <Image MinDPI="120">Res/ZoomOut_L120.bmp</Image>
+        <Image MinDPI="144">Res/ZoomOut_L144.bmp</Image>
+        <Image MinDPI="192">Res/ZoomOut_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdZoom100Percent" LabelTitle="100%" TooltipTitle="100%" TooltipDescription="Zoom the document to 100% of the normal size.">
+      <Command.SmallImages>
+        <Image>Res/Zoom100_S096.bmp</Image>
+        <Image MinDPI="120">Res/Zoom100_S120.bmp</Image>
+        <Image MinDPI="144">Res/Zoom100_S144.bmp</Image>
+        <Image MinDPI="192">Res/Zoom100_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Zoom100_L096.bmp</Image>
+        <Image MinDPI="120">Res/Zoom100_L120.bmp</Image>
+        <Image MinDPI="144">Res/Zoom100_L144.bmp</Image>
+        <Image MinDPI="192">Res/Zoom100_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdGroupShowOrHide" LabelTitle="Show or hide"/>
+    <Command Name="CmdGroupSettings" LabelTitle="Settings"/>
+    <Command Name="CmdWordWrap" LabelTitle="Word wrap" TooltipTitle="Word wrap" TooltipDescription="Select word wrapping option to change how text appears on your screen. This does not affect how the document looks when you print it.">
+      <Command.SmallImages>
+        <Image>Res/WordWrap_S096.bmp</Image>
+        <Image MinDPI="120">Res/WordWrap_S120.bmp</Image>
+        <Image MinDPI="144">Res/WordWrap_S144.bmp</Image>
+        <Image MinDPI="192">Res/WordWrap_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdNoWrap" LabelTitle="No wrap" TooltipTitle="No wrap" TooltipDescription="No text wrapping."/>
+    <Command Name="CmdWrapToWindow" LabelTitle="Wrap to window" TooltipTitle="Wrap to window" TooltipDescription="Wrap text to window."/>
+    <Command Name="CmdApplicationMenu"/>
+    <Command Name="CmdRecentItems" LabelTitle="Recent documents"/>
+    <Command Name="CmdFileNew" Id="1001" LabelTitle="&amp;New" TooltipTitle="New (Ctrl+N)" TooltipDescription="Create a new document.">
+      <Command.SmallImages>
+        <Image>Res/New_S096.bmp</Image>
+        <Image MinDPI="120">Res/New_S120.bmp</Image>
+        <Image MinDPI="144">Res/New_S144.bmp</Image>
+        <Image MinDPI="192">Res/New_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/New_L096.bmp</Image>
+        <Image MinDPI="120">Res/New_L120.bmp</Image>
+        <Image MinDPI="144">Res/New_L144.bmp</Image>
+        <Image MinDPI="192">Res/New_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdOpen" Id="1002" LabelTitle="&amp;Open" TooltipTitle="Open (Ctrl+O)" TooltipDescription="Open an existing document.">
+      <Command.SmallImages>
+        <Image>Res/Open_S096.bmp</Image>
+        <Image MinDPI="120">Res/Open_S120.bmp</Image>
+        <Image MinDPI="144">Res/Open_S144.bmp</Image>
+        <Image MinDPI="192">Res/Open_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Open_L096.bmp</Image>
+        <Image MinDPI="120">Res/Open_L120.bmp</Image>
+        <Image MinDPI="144">Res/Open_L144.bmp</Image>
+        <Image MinDPI="192">Res/Open_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdSave" Id="1005" LabelTitle="&amp;Save" TooltipTitle="Save (Ctrl+S)" TooltipDescription="Save the active document.">
+      <Command.SmallImages>
+        <Image>Res/Save_S096.bmp</Image>
+        <Image MinDPI="120">Res/Save_S120.bmp</Image>
+        <Image MinDPI="144">Res/Save_S144.bmp</Image>
+        <Image MinDPI="192">Res/Save_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Save_L096.bmp</Image>
+        <Image MinDPI="120">Res/Save_L120.bmp</Image>
+        <Image MinDPI="144">Res/Save_L144.bmp</Image>
+        <Image MinDPI="192">Res/Save_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdSaveAs" Id="1006" LabelTitle="Save &amp;as" TooltipDescription="Save the document with a new name or format.">
+      <Command.SmallImages>
+        <Image>Res/SaveAs_S096.bmp</Image>
+        <Image MinDPI="120">Res/SaveAs_S120.bmp</Image>
+        <Image MinDPI="144">Res/SaveAs_S144.bmp</Image>
+        <Image MinDPI="192">Res/SaveAs_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/SaveAs_L096.bmp</Image>
+        <Image MinDPI="120">Res/SaveAs_L120.bmp</Image>
+        <Image MinDPI="144">Res/SaveAs_L144.bmp</Image>
+        <Image MinDPI="192">Res/SaveAs_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdSaveAsMore"/>
+    <Command Name="CmdHeaderSave" LabelTitle="Save a copy of the document"/>
+    <Command Name="CmdRDocument" LabelTitle="&amp;R document" LabelDescription="Save the document in the R format.">
+      <Command.SmallImages>
+        <Image>Res/RichText_S096.bmp</Image>
+        <Image MinDPI="120">Res/RichText_S120.bmp</Image>
+        <Image MinDPI="144">Res/RichText_S144.bmp</Image>
+        <Image MinDPI="192">Res/RichText_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/RichText_L096.bmp</Image>
+        <Image MinDPI="120">Res/RichText_L120.bmp</Image>
+        <Image MinDPI="144">Res/RichText_L144.bmp</Image>
+        <Image MinDPI="192">Res/RichText_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdPrint" LabelTitle="&amp;Print" LabelDescription="Select printer, number of copies and other printing options before printing." TooltipTitle="Print (Ctrl+P)" TooltipDescription="Print the current document.">
+      <Command.SmallImages>
+        <Image>Res/Print_S096.bmp</Image>
+        <Image MinDPI="120">Res/Print_S120.bmp</Image>
+        <Image MinDPI="144">Res/Print_S144.bmp</Image>
+        <Image MinDPI="192">Res/Print_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Print_L096.bmp</Image>
+        <Image MinDPI="120">Res/Print_L120.bmp</Image>
+        <Image MinDPI="144">Res/Print_L144.bmp</Image>
+        <Image MinDPI="192">Res/Print_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdPrintMore"/>
+    <Command Name="CmdHeaderPrint" LabelTitle="Preview and print the document"/>
+    <Command Name="CmdQuickPrint" LabelTitle="&amp;Quick print" LabelDescription="Send the document directly to the default printer without making changes.">
+      <Command.SmallImages>
+        <Image>Res/PrintQuick_S096.bmp</Image>
+        <Image MinDPI="120">Res/PrintQuick_S120.bmp</Image>
+        <Image MinDPI="144">Res/PrintQuick_S144.bmp</Image>
+        <Image MinDPI="192">Res/PrintQuick_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/PrintQuick_L096.bmp</Image>
+        <Image MinDPI="120">Res/PrintQuick_L120.bmp</Image>
+        <Image MinDPI="144">Res/PrintQuick_L144.bmp</Image>
+        <Image MinDPI="192">Res/PrintQuick_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdPrintPreview" LabelTitle="Print pre&amp;view" LabelDescription="Preview and make changes to pages before printing.">
+      <Command.SmallImages>
+        <Image>Res/PrintPreview_S096.bmp</Image>
+        <Image MinDPI="120">Res/PrintPreview_S120.bmp</Image>
+        <Image MinDPI="144">Res/PrintPreview_S144.bmp</Image>
+        <Image MinDPI="192">Res/PrintPreview_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/PrintPreview_L096.bmp</Image>
+        <Image MinDPI="120">Res/PrintPreview_L120.bmp</Image>
+        <Image MinDPI="144">Res/PrintPreview_L144.bmp</Image>
+        <Image MinDPI="192">Res/PrintPreview_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdPageSetup" LabelTitle="Pa&amp;ge setup" TooltipDescription="Change page layout settings.">
+      <Command.SmallImages>
+        <Image>Res/PageSetup_S096.bmp</Image>
+        <Image MinDPI="120">Res/PageSetup_S120.bmp</Image>
+        <Image MinDPI="144">Res/PageSetup_S144.bmp</Image>
+        <Image MinDPI="192">Res/PageSetup_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/PageSetup_L096.bmp</Image>
+        <Image MinDPI="120">Res/PageSetup_L120.bmp</Image>
+        <Image MinDPI="144">Res/PageSetup_L144.bmp</Image>
+        <Image MinDPI="192">Res/PageSetup_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdReload" Id="1004" LabelTitle="Reload file" LabelDescription="Reload file" TooltipTitle="Reload file">
+      <Command.SmallImages>
+        <Image>Res/update.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/update.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdAbout" LabelTitle="About">
+      <Command.SmallImages>
+        <Image>Res/About_S096.bmp</Image>
+        <Image MinDPI="120">Res/About_S120.bmp</Image>
+        <Image MinDPI="144">Res/About_S144.bmp</Image>
+        <Image MinDPI="192">Res/About_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/About_L096.bmp</Image>
+        <Image MinDPI="120">Res/About_L120.bmp</Image>
+        <Image MinDPI="144">Res/About_L144.bmp</Image>
+        <Image MinDPI="192">Res/About_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdExit" LabelTitle="E&amp;xit" TooltipDescription="Exit WordPad">
+      <Command.SmallImages>
+        <Image>Res/Exit_S096.bmp</Image>
+        <Image MinDPI="120">Res/Exit_S120.bmp</Image>
+        <Image MinDPI="144">Res/Exit_S144.bmp</Image>
+        <Image MinDPI="192">Res/Exit_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Exit_L096.bmp</Image>
+        <Image MinDPI="120">Res/Exit_L120.bmp</Image>
+        <Image MinDPI="144">Res/Exit_L144.bmp</Image>
+        <Image MinDPI="192">Res/Exit_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdTabPrintPreview" LabelTitle="Print preview"/>
+    <Command Name="CmdGroupPrint" LabelTitle="Print">
+      <Command.SmallImages>
+        <Image>Res/Print_S096.bmp</Image>
+        <Image MinDPI="120">Res/Print_S120.bmp</Image>
+        <Image MinDPI="144">Res/Print_S144.bmp</Image>
+        <Image MinDPI="192">Res/Print_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdViewOnePage" LabelTitle="One page" TooltipTitle="One page" TooltipDescription="Zoom the document so that an entire page fits in the window.">
+      <Command.SmallImages>
+        <Image>Res/ViewOnePage_S096.bmp</Image>
+        <Image MinDPI="120">Res/ViewOnePage_S120.bmp</Image>
+        <Image MinDPI="144">Res/ViewOnePage_S144.bmp</Image>
+        <Image MinDPI="192">Res/ViewOnePage_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdViewTwoPages" LabelTitle="Two pages" TooltipTitle="Two pages" TooltipDescription="Zoom the document so that two pages fit in the window.">
+      <Command.SmallImages>
+        <Image>Res/ViewTwoPages_S096.bmp</Image>
+        <Image MinDPI="120">Res/ViewTwoPages_S120.bmp</Image>
+        <Image MinDPI="144">Res/ViewTwoPages_S144.bmp</Image>
+        <Image MinDPI="192">Res/ViewTwoPages_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdGroupPreview" LabelTitle="Preview">
+      <Command.SmallImages>
+        <Image>Res/Preview_S096.bmp</Image>
+        <Image MinDPI="120">Res/Preview_S120.bmp</Image>
+        <Image MinDPI="144">Res/Preview_S144.bmp</Image>
+        <Image MinDPI="192">Res/Preview_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdPreviousPage" LabelTitle="Previous page" TooltipTitle="Previous page" TooltipDescription="Navigate to the previous page of the document.">
+      <Command.SmallImages>
+        <Image>Res/PagePrevious_S096.bmp</Image>
+        <Image MinDPI="120">Res/PagePrevious_S120.bmp</Image>
+        <Image MinDPI="144">Res/PagePrevious_S144.bmp</Image>
+        <Image MinDPI="192">Res/PagePrevious_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/PagePrevious_L096.bmp</Image>
+        <Image MinDPI="120">Res/PagePrevious_L120.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdNextPage" LabelTitle="Next page" TooltipTitle="Next page" TooltipDescription="Navigate to the next page in the document.">
+      <Command.SmallImages>
+        <Image>Res/PageNext_S096.bmp</Image>
+        <Image MinDPI="120">Res/PageNext_S120.bmp</Image>
+        <Image MinDPI="144">Res/PageNext_S144.bmp</Image>
+        <Image MinDPI="192">Res/PageNext_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/PageNext_L096.bmp</Image>
+        <Image MinDPI="120">Res/PageNext_L120.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdGroupClose" LabelTitle="Close"/>
+    <Command Name="CmdClosePrintPreview" LabelTitle="Close print preview" TooltipTitle="Close print preview" TooltipDescription="Close print preview and return to editing the document.">
+      <Command.SmallImages>
+        <Image>Res/Close_S096.bmp</Image>
+        <Image MinDPI="120">Res/Close_S120.bmp</Image>
+        <Image MinDPI="144">Res/Close_S144.bmp</Image>
+        <Image MinDPI="192">Res/Close_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Close_L096.bmp</Image>
+        <Image MinDPI="120">Res/Close_L120.bmp</Image>
+        <Image MinDPI="144">Res/Close_L144.bmp</Image>
+        <Image MinDPI="192">Res/Close_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdQuickAccessToolbar" LabelTitle="Quick Access Toolbar"/>
+    <Command Name="CmdUndo" LabelTitle="Undo" TooltipTitle="Undo (Ctrl+Z)" TooltipDescription="Reverses the last action.">
+      <Command.SmallImages>
+        <Image>Res/Undo_S096.bmp</Image>
+        <Image MinDPI="120">Res/Undo_S120.bmp</Image>
+        <Image MinDPI="144">Res/Undo_S144.bmp</Image>
+        <Image MinDPI="192">Res/Undo_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.SmallHighContrastImages>
+        <Image>Res/Undo_SHC.bmp</Image>
+      </Command.SmallHighContrastImages>
+    </Command>
+    <Command Name="CmdRedo" LabelTitle="Redo" TooltipTitle="Redo (Ctrl+Y)" TooltipDescription="Repeats the last action.">
+      <Command.SmallImages>
+        <Image>Res/Redo_S096.bmp</Image>
+        <Image MinDPI="120">Res/Redo_S120.bmp</Image>
+        <Image MinDPI="144">Res/Redo_S144.bmp</Image>
+        <Image MinDPI="192">Res/Redo_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.SmallHighContrastImages>
+        <Image>Res/Redo_SHC.bmp</Image>
+      </Command.SmallHighContrastImages>
+    </Command>
+    <Command Name="CmdHelp" LabelTitle="Help" TooltipTitle="WordPad Help (F1)" TooltipDescription="Get help using WordPad."/>
+    <Command Name="CmdContextPopupEditText"/>
+    <Command Name="CmdContextPopupEditPicture"/>
+    <Command Name="CmdObjectProperties" LabelTitle="Object properties"/>
+    <Command Name="CmdOpenObject" LabelTitle="Open object"/>
+    <Command Name="CmdLinks" LabelTitle="Links"/>
+    <Command Name="CmdContextPopupObject"/>
+    <Command Name="CmdNewMore"/>
+    <Command Name="CmdTemplateRScript" LabelTitle="R Script"/>
+    <Command Name="CmdTemplateRNoWeb" LabelTitle="R noweb"/>
+    <Command Name="CmdTemplateRHtml" LabelTitle="R html"/>
+    <Command Name="CmdHeaderTemplate" LabelTitle="Open a template"/>
+    <Command Name="CmdTemplateDocTop" LabelTitle="R documents" LabelDescription="R documents" TooltipTitle="R documents"/>
+    <Command Name="CmdTemplateRFunction" LabelTitle="R function"/>
+    <Command Name="CmdTemplateRDataset" LabelTitle="R dataset" TooltipTitle="R dataset"/>
+    <Command Name="CmdClose" Id="1008" LabelTitle="Close" LabelDescription="Close file.">
+      <Command.SmallImages>
+        <Image>Res/Close_S096.bmp</Image>
+        <Image MinDPI="120">Res/Close_S120.bmp</Image>
+        <Image MinDPI="144">Res/Close_S144.bmp</Image>
+        <Image MinDPI="192">Res/Close_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Close_L096.bmp</Image>
+        <Image MinDPI="120">Res/Close_L120.bmp</Image>
+        <Image MinDPI="144">Res/Close_L144.bmp</Image>
+        <Image MinDPI="192">Res/Close_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdCloseAll" Id="1010" LabelTitle="Close all">
+      <Command.SmallImages>
+        <Image>Res/Close_S096.bmp</Image>
+        <Image MinDPI="120">Res/Close_S120.bmp</Image>
+        <Image MinDPI="144">Res/Close_S144.bmp</Image>
+        <Image MinDPI="192">Res/Close_S192.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/Close_L096.bmp</Image>
+        <Image MinDPI="120">Res/Close_L120.bmp</Image>
+        <Image MinDPI="144">Res/Close_L144.bmp</Image>
+        <Image MinDPI="192">Res/Close_L192.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdTemplateREmpty" LabelTitle="Empty R file" LabelDescription="Empty R file" TooltipTitle="Empty R file"/>
+    <Command Name="CmdGroupRSend" LabelTitle="R send">
+      <Command.SmallImages>
+        <Image>Res/send12.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendFile" LabelTitle="Send file to R" LabelDescription="Send file to R" TooltipTitle="Send file to R" TooltipDescription="Sends the entire file to R.">
+      <Command.SmallImages>
+        <Image>Res/New_S096.bmp</Image>
+        <Image MinDPI="120">Res/New_S120.bmp</Image>
+        <Image MinDPI="144">Res/New_S144.bmp</Image>
+        <Image MinDPI="192">Res/New_S192.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendSelection" LabelTitle="Send selection to R" LabelDescription="Send selection to R">
+      <Command.SmallImages>
+        <Image>Res/select-by-adding-to-selection-icon_S.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/select-by-adding-to-selection-icon.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdRSendCursorToEndLine" LabelTitle="Send content from cursor to end line to R">
+      <Command.SmallImages>
+        <Image>Res/arrow_right.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/arrow_right.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdRSendEchoOn" LabelTitle="Echo on/off">
+      <Command.SmallImages>
+        <Image>Res/non_derivative.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/non_derivative.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdRSendKnitHtml" LabelTitle="Knit to HTML (Rmd, Rhtml)">
+      <Command.SmallImages>
+        <Image>Res/asterisk_yellow.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendKnitPdf" LabelTitle="Knit to L&amp;aTeX (Rnw)">
+      <Command.SmallImages>
+        <Image>Res/asterisk_orange.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendSweave" LabelTitle="Sweave to LaTeX (Rnw)">
+      <Command.SmallImages>
+        <Image>Res/arrow_switch.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendClipboard" LabelTitle="Send clipboard content to R">
+      <Command.SmallImages>
+        <Image>Res/clipboard_sign.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendBlockMarked" LabelTitle="Send marked block to R">
+      <Command.SmallImages>
+        <Image>Res/document_spacing.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendNavigator" LabelTitle="Send selected navigator tree to R">
+      <Command.SmallImages>
+        <Image>Res/document_tree.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendContiguous" LabelTitle="Send contiguous content to R">
+      <Command.SmallImages>
+        <Image>Res/document_rename.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendLinesToEndPage" LabelTitle="Send lines to end of the file to R">
+      <Command.SmallImages>
+        <Image>Res/arrow_down.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendLine" LabelTitle="Send line to R">
+      <Command.SmallImages>
+        <Image>Res/Single-row-marquee-tool-icon_S.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image MinDPI="192">Res/Single-row-marquee-tool-icon.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdRSendCurrentLineToTop" LabelTitle="Send con&amp;tent from current line to top to R">
+      <Command.SmallImages>
+        <Image>Res/arrow_up.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRSendCursorToBeginningLine" LabelTitle="Send content &amp;from beggining line to the cursor to R">
+      <Command.SmallImages>
+        <Image>Res/arrow_left.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRContTermStartClose" LabelTitle="Start and close R term" LabelDescription="Start/close R term" TooltipTitle="Start/close R term">
+      <Command.SmallImages>
+        <Image>Res/application_osx_terminal.bmp</Image>
+      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/application_osx_terminal.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="CmdControlRSend1"/>
+    <Command Name="CmdGroupRTools" LabelTitle="R tools">
+      <Command.SmallImages>
+        <Image>Res/commands.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="CmdRContSetWorkDirectory" LabelTitle="Set work directory (current file path)" LabelDescription="Set work directory (current file path)" TooltipTitle="Set work directory (current file path)"/>
+    <Command Name="CmdRContListAllObjects" LabelTitle="List all objects" LabelDescription="List all objects" TooltipTitle="List all objects"/>
+    <Command Name="CmdRContPrintVariableContent" LabelTitle="Print content (selected)" LabelDescription="Print content (selected)" TooltipTitle="Print content (selected)"/>
+    <Command Name="CmdRContRemoveAllObjects" LabelTitle="Remove all objects" LabelDescription="Remove all objects" TooltipTitle="Remove all objects"/>
+    <Command Name="CmdRContClearAll" LabelTitle="Clear all" LabelDescription="Clear all" TooltipTitle="Clear all"/>
+    <Command Name="CmdRContEscape" LabelTitle="Escape" LabelDescription="Escape" TooltipTitle="Escape"/>
+    <Command Name="CmdRContHelpSelectedWord" LabelTitle="Help (selected)" LabelDescription="Help (selected)" TooltipTitle="Help (selected)"/>
+    <Command Name="CmdRContExampleSelectedWord" LabelTitle="Example (selected)" LabelDescription="Example (selected)" TooltipTitle="Example (selected)"/>
+    <Command Name="CmdRContHelp" LabelTitle="Help" LabelDescription="Help" TooltipTitle="Help"/>
+    <Command Name="CmdRtermWarningError" LabelTitle="Warning and error" LabelDescription="Warning and error" TooltipTitle="Warning and error"/>
+    <Command Name="CmdRContPlotVariable" LabelTitle="Plot (selected)" LabelDescription="Plot (selected)" TooltipTitle="Plot (selected)" TooltipDescription="Plot (selected)"/>
+    <Command Name="CmdRContListVariableNames" LabelTitle="List names (selected)" LabelDescription="List names (selected)" TooltipTitle="List names (selected)"/>
+    <Command Name="CmdRContListVariableStructure" LabelTitle="List structure (selected)" LabelDescription="List structure (selected)" TooltipTitle="List structure (selected)"/>
+    <Command Name="CmdtRContEditVariable" LabelTitle="Edit (selected)" LabelDescription="Edit (selected)" TooltipTitle="Edit (selected)"/>
+    <Command Name="CmdRContFixVariable" LabelTitle="Fix (selected)" LabelDescription="Fix (selected)" TooltipTitle="Fix (selected)"/>
+    <Command Name="CmdRContClearConsole" LabelTitle="Clear console" LabelDescription="Clear console" TooltipTitle="Clear console"/>
+    <Command Name="CmdRContCloseAllGraphics" LabelTitle="Close all graphic devices" LabelDescription="Close all graphic devices" TooltipTitle="Close all graphic devices"/>
+    <Command Name="CmdRContSummary" LabelTitle="Summary" LabelDescription="Summary" TooltipTitle="Summary"/>
+    <Command Name="CmdRContHead" LabelTitle="Head" LabelDescription="Head" TooltipTitle="Head"/>
+    <Command Name="CmdRContDim" LabelTitle="Dim" LabelDescription="Dim" TooltipTitle="Dim"/>
+    <Command Name="CmdGroupCode" LabelTitle="Code Visualization"/>
+    <Command Name="CmdBlockMark" LabelTitle="Block mark" LabelDescription="Block mark" TooltipTitle="Block mark"/>
+    <Command Name="CmdBlockUnmark" LabelTitle="Block unmark" LabelDescription="Block unmark" TooltipTitle="Block unmark"/>
+    <Command Name="CmdUnmarkAll" LabelTitle="Unmark all blocks" LabelDescription="Unmark all blocks" TooltipTitle="Unmark all blocks"/>
+    <Command Name="CmdFoldAll" LabelTitle="Fold all nodes" LabelDescription="Fold all nodes" TooltipTitle="Fold all nodes"/>
+    <Command Name="CmdUnfoldAll" LabelTitle="Unfold all nodes" LabelDescription="Unfold all nodes" TooltipTitle="Unfold all nodes"/>
+    <Command Name="CmdMarkColor1" LabelTitle="Mark green" LabelDescription="Mark green" TooltipTitle="Mark green"/>
+    <Command Name="CmdMarkColor2" LabelTitle="Mark red" LabelDescription="Mark red" TooltipTitle="Mark red"/>
+    <Command Name="CmdUnMarkColor" LabelTitle="Remove color marks" LabelDescription="Remove color marks" TooltipTitle="Remove color marks" TooltipDescription="Remove color marks"/>
+    <Command Name="CmdGroupFormat" LabelTitle="Format"/>
+    <Command Name="CmdComment" LabelTitle="Comment" LabelDescription="Comment" TooltipTitle="Comment"/>
+    <Command Name="CmdUncomment" LabelTitle="Uncomment" LabelDescription="Uncomment" TooltipTitle="Uncomment"/>
+    <Command Name="CmdQuote" LabelTitle="Quote" LabelDescription="Quote" TooltipTitle="Quote"/>
+    <Command Name="CmdRemoveLineBreaks" LabelTitle="Remove line breaks" LabelDescription="Remove line breaks" TooltipTitle="Remove line breaks"/>
+    <Command Name="CmdUpperCase" LabelTitle="Convert to upper case" LabelDescription="Convert to upper case" TooltipTitle="Convert to upper case"/>
+    <Command Name="CmdLowerCase" LabelTitle="Convert to lower case" LabelDescription="Convert to lower case" TooltipTitle="Convert to lower case"/>
+    <Command Name="CmdInvertCase" LabelTitle="Invert case" LabelDescription="Invert case" TooltipTitle="Invert case"/>
+    <Command Name="CmdIndentBlock" LabelTitle="Indent block" LabelDescription="Indent block" TooltipTitle="Indent block"/>
+    <Command Name="CmdUnindentBlock" LabelTitle="Unindent block" LabelDescription="Unindent block" TooltipTitle="Unindent block"/>
+    <Command Name="CmdReformatR" LabelTitle="Reformat R (file or selection)" LabelDescription="Reformat R (file or selection)" TooltipTitle="Reformat R (file or selection)"/>
+    <Command Name="CmdAlignEqualSign" LabelTitle="Align with =" LabelDescription="Align with =" TooltipTitle="Align with ="/>
+    <Command Name="CmdAlignFirstLine" LabelTitle="Align with first line" LabelDescription="Align with first line" TooltipTitle="Align with first line"/>
+    <Command Name="CmdTabProject" LabelTitle="Project"/>
+    <Command Name="CmdGroupProject" LabelTitle="Project"/>
+    <Command Name="CmdProjectNew" LabelTitle="New project" LabelDescription="New project" TooltipTitle="New project"/>
+    <Command Name="CmdProjectOpen" LabelTitle="Open project" LabelDescription="Open project" TooltipTitle="Open project"/>
+    <Command Name="CmdProjectRecent" LabelTitle="Recent projects" LabelDescription="Recent projects" TooltipTitle="Recent projects"/>
+    <Command Name="CmdProjectSave" LabelTitle="Save project" LabelDescription="Save project" TooltipTitle="Save project"/>
+    <Command Name="CmdProjectSaveAs" LabelTitle="Save project as" LabelDescription="Save project as" TooltipTitle="Save project as"/>
+    <Command Name="CmdProjectClose" LabelTitle="Close project" LabelDescription="Close project" TooltipTitle="Close project"/>
+    <Command Name="CmdProjectDeleteCurrent" LabelTitle="Delete current project" LabelDescription="Delete current project" TooltipTitle="Delete current project"/>
+    <Command Name="CmdGroupGroups" LabelTitle="Group(s)" LabelDescription="Group(s)" TooltipTitle="Group(s)"/>
+    <Command Name="CmdGroupsNew" LabelTitle="New group" LabelDescription="New group" TooltipTitle="New group" TooltipDescription="New group"/>
+    <Command Name="CmdGroupRename" LabelTitle="Rename group" LabelDescription="Rename group" TooltipTitle="Rename group"/>
+    <Command Name="CmdGroupDeleteCurrent" LabelTitle="Delete current group" LabelDescription="Delete current group" TooltipTitle="Delete current group"/>
+    <Command Name="CmdGroupDeleteAll" LabelTitle="Delete all groups" LabelDescription="Delete all groups" TooltipTitle="Delete all groups"/>
+    <Command Name="CmdGroupExpandAll" LabelTitle="Expand all groups" LabelDescription="Expand all groups" TooltipTitle="Expand all groups"/>
+    <Command Name="CmdGroupCollapseAll" LabelTitle="Collapse all groups" LabelDescription="Collapse all groups" TooltipTitle="Collapse all groups"/>
+    <Command Name="CmdProjectEdit" LabelTitle="Edit project as text file" LabelDescription="Edit project as text file" TooltipTitle="Edit project as text file"/>
+    <Command Name="CmdProjectReload" LabelTitle="Reload project from text file"/>
+    <Command Name="CmdGroupFiles" LabelTitle="File(s)" LabelDescription="File(s)" TooltipTitle="File(s)" TooltipDescription="File(s)"/>
+    <Command Name="CmdFilesOpenAll" LabelTitle="Open all files in project" LabelDescription="Open all files in project" TooltipTitle="Open all files in project" TooltipDescription="Open all files in project"/>
+    <Command Name="CmdFilesCloseAll" LabelTitle="Close all files in project" LabelDescription="Close all files in project" TooltipTitle="Close all files in project"/>
+    <Command Name="CmdFilesAdd" LabelTitle="Add files to project" LabelDescription="Add files to project" TooltipTitle="Add files to project"/>
+    <Command Name="CmdFilesAddCurrent" LabelTitle="Add current file to project" LabelDescription="Add current file to project" TooltipTitle="Add current file to project"/>
+    <Command Name="CmdFilesRemoveAllOfProject" LabelTitle="Remove all files from project" LabelDescription="Remove all files from project" TooltipTitle="Remove all files from project"/>
+    <Command Name="CmdFilesRemoveAllOfGroup" LabelTitle="Remove all files from selected group" LabelDescription="Remove all files from selected group" TooltipTitle="Remove all files from selected group"/>
+    <Command Name="CmdFilesRemove" LabelTitle="Remove files" LabelDescription="Remove files" TooltipTitle="Remove files"/>
+    <Command Name="CmdFilesFullPathUnix" LabelTitle="Copy file path (Unix mode ../..)" LabelDescription="Copy file path (Unix mode ../..)" TooltipTitle="Copy file path (Unix mode ../..)"/>
+    <Command Name="CmdFilesFullPathWindows" LabelTitle="Copy file path (Windows mode ..\..)" LabelDescription="Copy file path (Windows mode ..\..)" TooltipTitle="Copy file path (Windows mode ..\..)"/>
+  </Application.Commands>
+  <Application.Views>
+    <Ribbon Name="Ribbon">
+      <Ribbon.SizeDefinitions>
+        <SizeDefinition Name="SendLayout">
+          <ControlNameMap>
+            <ControlNameDefinition Name="CmdRSendFile"/>
+            <ControlNameDefinition Name="CmdRSendSelection"/>
+            <ControlNameDefinition Name="CmdRSendNavigator"/>
+            <ControlNameDefinition Name="CmdRSendClipboard"/>
+            <ControlNameDefinition Name="CmdRSendBlockMarked"/>
+            <ControlNameDefinition Name="CmdRSendKnitHtml"/>
+            <ControlNameDefinition Name="CmdRSendKnitPdf"/>
+            <ControlNameDefinition Name="CmdRSendSweave"/>
+            <ControlNameDefinition Name="CmdRSendLine"/>
+            <ControlNameDefinition Name="CmdRSendCursorToBeginningLine"/>
+            <ControlNameDefinition Name="CmdRSendCursorToEndLine"/>
+            <ControlNameDefinition Name="CmdRSendContiguous"/>
+            <ControlNameDefinition Name="CmdRSendCurrentLineToTop"/>
+            <ControlNameDefinition Name="CmdRSendLinesToEndPage"/>
+            <ControlNameDefinition Name="CmdRSendEchoOn"/>
+            <ControlNameDefinition Name="CmdRContTermStartClose"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendFile"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendSelection"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendNavigator"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendClipboard"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendBlockMarked"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendKnitHtml"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendKnitPdf"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendSweave"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCursorToBeginningLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCursorToEndLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendContiguous"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCurrentLineToTop"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendLinesToEndPage"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendEchoOn"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContTermStartClose"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendFile"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendSelection"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendNavigator"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendClipboard"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendBlockMarked"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendKnitHtml"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendKnitPdf"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendSweave"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCursorToBeginningLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCursorToEndLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendContiguous"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCurrentLineToTop"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendLinesToEndPage"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendEchoOn"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContTermStartClose"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendFile"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendSelection"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendNavigator"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendClipboard"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendBlockMarked"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendKnitHtml"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendKnitPdf"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendSweave"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCursorToBeginningLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCursorToEndLine"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendContiguous"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendCurrentLineToTop"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendLinesToEndPage"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRSendEchoOn"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContTermStartClose"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="Content">
+          <ControlNameMap>
+            <ControlNameDefinition Name="CmdRContSetWorkDirectory"/>
+            <ControlNameDefinition Name="CmdRContListAllObjects"/>
+            <ControlNameDefinition Name="CmdRContPrintVariableContent"/>
+            <ControlNameDefinition Name="CmdRContRemoveAllObjects"/>
+            <ControlNameDefinition Name="CmdRContClearAll"/>
+            <ControlNameDefinition Name="CmdRContEscape"/>
+            <ControlNameDefinition Name="CmdRContHelpSelectedWord"/>
+            <ControlNameDefinition Name="CmdRContExampleSelectedWord"/>
+            <ControlNameDefinition Name="CmdRContHelp"/>
+            <ControlNameDefinition Name="CmdRtermWarningError"/>
+            <ControlNameDefinition Name="CmdRContPlotVariable"/>
+            <ControlNameDefinition Name="CmdRContListVariableNames"/>
+            <ControlNameDefinition Name="CmdRContListVariableStructure"/>
+            <ControlNameDefinition Name="CmdtRContEditVariable"/>
+            <ControlNameDefinition Name="CmdRContFixVariable"/>
+            <ControlNameDefinition Name="CmdRContClearConsole"/>
+            <ControlNameDefinition Name="CmdRContCloseAllGraphics"/>
+            <ControlNameDefinition Name="CmdRContSummary"/>
+            <ControlNameDefinition Name="CmdRContHead"/>
+            <ControlNameDefinition Name="CmdRContDim"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHelpSelectedWord"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContExampleSelectedWord"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHelp"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContSetWorkDirectory"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListAllObjects"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContRemoveAllObjects"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContEscape"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContPlotVariable"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContPrintVariableContent"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListVariableNames"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListVariableStructure"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContSummary"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHead"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContDim"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContFixVariable"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdtRContEditVariable"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRtermWarningError"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContClearAll"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContClearConsole"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContCloseAllGraphics"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHelpSelectedWord"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContExampleSelectedWord"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHelp"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContSetWorkDirectory"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListAllObjects"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContRemoveAllObjects"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContEscape"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContPlotVariable"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContPrintVariableContent"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListVariableNames"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListVariableStructure"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContSummary"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHead"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContDim"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContFixVariable"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdtRContEditVariable"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRtermWarningError"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContClearAll"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContClearConsole"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContCloseAllGraphics"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHelpSelectedWord"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContExampleSelectedWord"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHelp"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContSetWorkDirectory"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListAllObjects"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContRemoveAllObjects"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContEscape"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContPlotVariable"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContPrintVariableContent"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListVariableNames"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContListVariableStructure"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContSummary"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContHead"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContDim"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContFixVariable"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdtRContEditVariable"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRtermWarningError"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContClearAll"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContClearConsole"/>
+                <ControlSizeDefinition IsLabelVisible="false" ControlName="CmdRContCloseAllGraphics"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="Code">
+          <ControlNameMap>
+            <ControlNameDefinition Name="CmdBlockMark"/>
+            <ControlNameDefinition Name="CmdBlockUnMark"/>
+            <ControlNameDefinition Name="CmdUnmarkAll"/>
+            <ControlNameDefinition Name="CmdFoldAll"/>
+            <ControlNameDefinition Name="CmdUnfoldAll"/>
+            <ControlNameDefinition Name="CmdMarkColor1"/>
+            <ControlNameDefinition Name="CmdMarkColor2"/>
+            <ControlNameDefinition Name="CmdUnMarkColor"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="CmdBlockMark"/>
+                <ControlSizeDefinition ControlName="CmdBlockUnMark"/>
+                <ControlSizeDefinition ControlName="CmdUnmarkAll"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="CmdFoldAll"/>
+                <ControlSizeDefinition ControlName="CmdUnfoldAll"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlSizeDefinition ControlName="CmdMarkColor1"/>
+              <ControlSizeDefinition ControlName="CmdMarkColor2"/>
+              <ControlSizeDefinition ControlName="CmdUnMarkColor"/>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+        <SizeDefinition Name="Format">
+          <ControlNameMap>
+            <ControlNameDefinition Name="CmdComment"/>
+            <ControlNameDefinition Name="CmdUncomment"/>
+            <ControlNameDefinition Name="CmdQuote"/>
+            <ControlNameDefinition Name="CmdRemoveLineBreaks"/>
+            <ControlNameDefinition Name="CmdUpperCase"/>
+            <ControlNameDefinition Name="CmdLowerCase"/>
+            <ControlNameDefinition Name="CmdInvertCase"/>
+            <ControlNameDefinition Name="CmdIndentBlock"/>
+            <ControlNameDefinition Name="CmdUnIndentBlock"/>
+            <ControlNameDefinition Name="CmdReformatR"/>
+            <ControlNameDefinition Name="CmdAlignEqualSign"/>
+            <ControlNameDefinition Name="CmdAlignFirstLine"/>
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="CmdComment"/>
+                <ControlSizeDefinition ControlName="CmdUncomment"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="CmdQuote"/>
+                <ControlSizeDefinition ControlName="CmdRemoveLineBreaks"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="CmdUpperCase"/>
+                <ControlSizeDefinition ControlName="CmdLowerCase"/>
+                <ControlSizeDefinition ControlName="CmdInvertCase"/>
+              </ControlGroup>
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="CmdIndentBlock"/>
+                <ControlSizeDefinition ControlName="CmdUnIndentBlock"/>
+                <ControlSizeDefinition ControlName="CmdAlignEqualSign"/>
+                <ControlSizeDefinition ControlName="CmdAlignFirstLine"/>
+              </ControlGroup>
+              <ControlSizeDefinition ControlName="CmdReformatR"/>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+      </Ribbon.SizeDefinitions>
+      <Ribbon.ApplicationMenu>
+        <ApplicationMenu CommandName="CmdApplicationMenu">
+          <ApplicationMenu.RecentItems>
+            <RecentItems CommandName="CmdRecentItems" EnablePinning="false"/>
+          </ApplicationMenu.RecentItems>
+          <MenuGroup>
+            <SplitButton CommandName="CmdNewMore">
+              <SplitButton.ButtonItem>
+                <Button CommandName="CmdFileNew"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup CommandName="CmdHeaderTemplate">
+                  <Button CommandName="CmdTemplateRHtml"/>
+                  <Button CommandName="CmdTemplateRNoWeb"/>
+                  <Button CommandName="CmdTemplateRScript"/>
+                  <DropDownButton CommandName="CmdTemplateDocTop">
+                    <Button CommandName="CmdTemplateRFunction"/>
+                    <Button CommandName="CmdTemplateRDataset"/>
+                    <Button CommandName="CmdTemplateREmpty"/>
+                  </DropDownButton>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+            <Button CommandName="CmdOpen" ApplicationModes="0,1"/>
+            <Button CommandName="CmdSave" ApplicationModes="0,1"/>
+            <SplitButton CommandName="CmdSaveAsMore" ApplicationModes="0,1">
+              <SplitButton.ButtonItem>
+                <Button CommandName="CmdSaveAs"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup CommandName="CmdHeaderSave" Class="MajorItems">
+                  <Button CommandName="CmdRDocument"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+          </MenuGroup>
+          <MenuGroup>
+            <Button CommandName="CmdReload"/>
+            <Button CommandName="CmdClose"/>
+            <Button CommandName="CmdCloseAll"/>
+          </MenuGroup>
+          <MenuGroup>
+            <SplitButton CommandName="CmdPrintMore" ApplicationModes="0,1">
+              <SplitButton.ButtonItem>
+                <Button CommandName="CmdPrint"/>
+              </SplitButton.ButtonItem>
+              <SplitButton.MenuGroups>
+                <MenuGroup CommandName="CmdHeaderPrint" Class="MajorItems">
+                  <Button CommandName="CmdPrint"/>
+                  <Button CommandName="CmdQuickPrint"/>
+                  <Button CommandName="CmdPrintPreview"/>
+                </MenuGroup>
+              </SplitButton.MenuGroups>
+            </SplitButton>
+            <Button CommandName="CmdPageSetup" ApplicationModes="0,1"/>
+          </MenuGroup>
+          <MenuGroup>
+            <Button CommandName="CmdExit" ApplicationModes="0,1"/>
+          </MenuGroup>
+        </ApplicationMenu>
+      </Ribbon.ApplicationMenu>
+      <Ribbon.HelpButton>
+        <HelpButton CommandName="CmdHelp"/>
+      </Ribbon.HelpButton>
+      <Ribbon.QuickAccessToolbar>
+        <QuickAccessToolbar CommandName="CmdQuickAccessToolbar">
+          <QuickAccessToolbar.ApplicationDefaults>
+            <Button CommandName="CmdFileNew" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="CmdOpen" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="CmdSave" ApplicationDefaults.IsChecked="true"/>
+            <Button CommandName="CmdQuickPrint" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="CmdPrintPreview" ApplicationDefaults.IsChecked="false"/>
+            <Button CommandName="CmdUndo" ApplicationDefaults.IsChecked="true"/>
+            <Button CommandName="CmdRedo" ApplicationDefaults.IsChecked="true"/>
+          </QuickAccessToolbar.ApplicationDefaults>
+        </QuickAccessToolbar>
+      </Ribbon.QuickAccessToolbar>
+      <Ribbon.Tabs>
+        <Tab CommandName="CmdTabHome" ApplicationModes="0">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="CmdGroupClipboard" Size="Medium"/>
+                <Scale Group="CmdGroupEditing" Size="Medium"/>
+                <Scale Group="CmdGroupRSend" Size="Large"/>
+              </ScalingPolicy.IdealSizes>
+              <Scale Group="CmdGroupClipboard" Size="Small"/>
+              <Scale Group="CmdGroupEditing" Size="Popup"/>
+              <Scale Group="CmdGroupClipboard" Size="Popup"/>
+              <Scale Group="CmdGroupRSend" Size="Small"/>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="CmdGroupClipboard" SizeDefinition="FourButtons">
+            <Button CommandName="CmdPaste"/>
+            <Button CommandName="CmdCut"/>
+            <SplitButton>
+              <SplitButton.ButtonItem>
+                <Button CommandName="CmdCopy"/>
+              </SplitButton.ButtonItem>
+              <Button CommandName="CmdCopyFormattedHTML"/>
+              <Button CommandName="CmdCopyFormattedRTF"/>
+              <Button CommandName="CmdCopyFormattedTeX"/>
+            </SplitButton>
+            <Button CommandName="CmdEditSelectAll"/>
+          </Group>
+          <Group CommandName="CmdGroupEditing" SizeDefinition="FiveButtons">
+            <Button CommandName="CmdFind"/>
+            <Button CommandName="CmdReplace"/>
+            <Button CommandName="CmdGotoLine"/>
+            <Button CommandName="CmdSearchInFiles"/>
+            <Button CommandName="CmdFindAgain"/>
+          </Group>
+          <Group CommandName="CmdGroupRSend" SizeDefinition="SendLayout">
+            <Button CommandName="CmdRSendFile"/>
+            <Button CommandName="CmdRSendSelection"/>
+            <Button CommandName="CmdRSendNavigator"/>
+            <Button CommandName="CmdRSendClipboard"/>
+            <Button CommandName="CmdRSendBlockMarked"/>
+            <Button CommandName="CmdRSendKnitHtml"/>
+            <Button CommandName="CmdRSendKnitPdf"/>
+            <Button CommandName="CmdRSendSweave"/>
+            <Button CommandName="CmdRSendLine"/>
+            <Button CommandName="CmdRSendCursorToBeginningLine"/>
+            <Button CommandName="CmdRSendCursorToEndLine"/>
+            <Button CommandName="CmdRSendContiguous"/>
+            <Button CommandName="CmdRSendCurrentLineToTop"/>
+            <Button CommandName="CmdRSendLinesToEndPage"/>
+            <Button CommandName="CmdRSendEchoOn"/>
+            <Button CommandName="CmdRContTermStartClose"/>
+          </Group>
+          <Group CommandName="CmdGroupRTools" SizeDefinition="Content">
+            <Button CommandName="CmdRContSetWorkDirectory"/>
+            <Button CommandName="CmdRContListAllObjects"/>
+            <Button CommandName="CmdRContPrintVariableContent"/>
+            <Button CommandName="CmdRContRemoveAllObjects"/>
+            <Button CommandName="CmdRContClearAll"/>
+            <Button CommandName="CmdRContEscape"/>
+            <Button CommandName="CmdRContHelpSelectedWord"/>
+            <Button CommandName="CmdRContExampleSelectedWord"/>
+            <Button CommandName="CmdRContHelp"/>
+            <Button CommandName="CmdRtermWarningError"/>
+            <Button CommandName="CmdRContPlotVariable"/>
+            <Button CommandName="CmdRContListVariableNames"/>
+            <Button CommandName="CmdRContListVariableStructure"/>
+            <Button CommandName="CmdtRContEditVariable"/>
+            <Button CommandName="CmdRContFixVariable"/>
+            <Button CommandName="CmdRContClearConsole"/>
+            <Button CommandName="CmdRContCloseAllGraphics"/>
+            <Button CommandName="CmdRContSummary"/>
+            <Button CommandName="CmdRContHead"/>
+            <Button CommandName="CmdRContDim"/>
+          </Group>
+          <Group CommandName="CmdGroupCode" SizeDefinition="Code">
+            <Button CommandName="CmdBlockMark"/>
+            <Button CommandName="CmdBlockUnmark"/>
+            <Button CommandName="CmdUnmarkAll"/>
+            <Button CommandName="CmdFoldAll"/>
+            <Button CommandName="CmdUnfoldAll"/>
+            <Button CommandName="CmdMarkColor1"/>
+            <Button CommandName="CmdMarkColor2"/>
+            <Button CommandName="CmdUnMarkColor"/>
+          </Group>
+          <Group CommandName="CmdGroupFormat" SizeDefinition="Format">
+            <Button CommandName="CmdComment"/>
+            <Button CommandName="CmdUncomment"/>
+            <Button CommandName="CmdQuote"/>
+            <Button CommandName="CmdRemoveLineBreaks"/>
+            <Button CommandName="CmdUpperCase"/>
+            <Button CommandName="CmdLowerCase"/>
+            <Button CommandName="CmdInvertCase"/>
+            <Button CommandName="CmdIndentBlock"/>
+            <Button CommandName="CmdUnindentBlock"/>
+            <Button CommandName="CmdAlignEqualSign"/>
+            <Button CommandName="CmdAlignFirstLine"/>
+            <Button CommandName="CmdReformatR"/>
+          </Group>
+        </Tab>
+        <Tab CommandName="CmdTabProject">
+          <Group CommandName="CmdGroupProject">
+            <Button CommandName="CmdProjectNew"/>
+            <ComboBox CommandName="CmdProjectRecent" IsEditable="false"/>
+            <Button CommandName="CmdProjectOpen"/>
+            <Button CommandName="CmdProjectSave"/>
+            <Button CommandName="CmdProjectSaveAs"/>
+            <Button CommandName="CmdProjectReload"/>
+            <Button CommandName="CmdProjectDeleteCurrent"/>
+            <Button CommandName="CmdProjectClose"/>
+          </Group>
+          <Group CommandName="CmdGroupGroups"/>
+        </Tab>
+        <Tab CommandName="CmdTabPrintPreview" ApplicationModes="1">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="CmdGroupPrint" Size="Large"/>
+                <Scale Group="CmdGroupZoom" Size="Medium"/>
+                <Scale Group="CmdGroupPreview" Size="Large"/>
+                <Scale Group="CmdGroupClose" Size="Large"/>
+              </ScalingPolicy.IdealSizes>
+              <Scale Group="CmdGroupPrint" Size="Popup"/>
+              <Scale Group="CmdGroupZoom" Size="Small"/>
+              <Scale Group="CmdGroupPreview" Size="Popup"/>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="CmdGroupPrint" ApplicationModes="0,1" SizeDefinition="TwoButtons">
+            <Button CommandName="CmdPrint"/>
+            <Button CommandName="CmdPageSetup"/>
+          </Group>
+          <Group CommandName="CmdGroupZoom" ApplicationModes="0,1" SizeDefinition="ThreeButtons-OneBigAndTwoSmall">
+            <Button CommandName="CmdZoom100Percent"/>
+            <ToggleButton CommandName="CmdViewOnePage"/>
+            <ToggleButton CommandName="CmdViewTwoPages"/>
+          </Group>
+          <Group CommandName="CmdGroupPreview" ApplicationModes="0,1" SizeDefinition="TwoButtons">
+            <Button CommandName="CmdPreviousPage"/>
+            <Button CommandName="CmdNextPage"/>
+          </Group>
+          <Group CommandName="CmdGroupClose" ApplicationModes="0,1" SizeDefinition="OneButton">
+            <Button CommandName="CmdClosePrintPreview"/>
+          </Group>
+        </Tab>
+        <Tab CommandName="CmdTabView" ApplicationModes="0">
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group="CmdGroupZoom" Size="Large"/>
+              </ScalingPolicy.IdealSizes>
+              <Scale Group="CmdGroupZoom" Size="Medium"/>
+              <Scale Group="CmdGroupZoom" Size="Popup"/>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName="CmdGroupZoom" SizeDefinition="ThreeButtons">
+            <Button CommandName="CmdZoomIn"/>
+            <Button CommandName="CmdZoomOut"/>
+            <Button CommandName="CmdZoom100Percent"/>
+          </Group>
+        </Tab>
+      </Ribbon.Tabs>
+    </Ribbon>
+    <ContextPopup>
+      <ContextPopup.ContextMenus>
+        <ContextMenu Name="Edit Text">
+          <MenuGroup>
+            <Button CommandName="CmdCut"/>
+            <Button CommandName="CmdCopy"/>
+            <Button CommandName="CmdPaste"/>
+          </MenuGroup>
+        </ContextMenu>
+      </ContextPopup.ContextMenus>
+    </ContextPopup>
+  </Application.Views>
+</Application>

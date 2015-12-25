@@ -1,35 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.311,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\uLaTeX.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.921,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\trCommon.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.964,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\uLexerCommands.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.644,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\SciSupport.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.688,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.367,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.dfm,D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\Tinn-R\ufrmComments.dfm=D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\Tinn-R\ufrmCompletion.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.397,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\SciKeyBindings.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.375,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\ufrmTidyAbort.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.160,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Tinn_R.todo</Transaction>
     <Transaction>1899.12.30 00:00:00.000.748,C:\Users\Marco\Documents\GitHub\Tinn_R\source\SynEdit_adapted\SynEditPrintPreview.pas=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.388,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.841,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.040,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.970,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.375,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.dfm=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\ufrmTidyAbort.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.067,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\ufrmCompletion.pas=</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.329,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\ufrmCloneLexer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.160,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Tinn_R.todo</Transaction>
     <Transaction>1899.12.30 00:00:00.000.498,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\SciResLang.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.pas,D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\SynEdit_adapted\SynEditOptionsContainer.pas=D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.pas,D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\SynEdit_adapted\SynEditOC.pas=D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\SynEdit_adapted\SynEditOptionsContainer.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.pas,D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\Tinn-R\ufrmComments.pas=D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\Tinn-R\ufrmCompletion.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.417,C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.dfm=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\ufrmNameBrowser.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.417,C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\ufrmNameBrowser.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.480,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.438,C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\uRSendCommands.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.pas,D:\$tinn-r\$tinn-r_3.0.1.2_UNICODE_CG\source\SynEdit_highlighters\SynHighlighterText_term.pas=D:\$tinn-r\$tinn-r_3.0.1.2_UNICODE_CG\source\SynEdit_highlighters\SynHighlighterText.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.067,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\ufrmCompletion.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\SynEdit_adapted\SynEditOC.pas=D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\SynEdit_adapted\SynEditOptionsContainer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.329,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\ufrmCloneLexer.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.964,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\uLexerCommands.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.870,C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\uIni.pas=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.644,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\SciSupport.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.dfm,D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\Tinn-R\ufrmComments.dfm=D:\$tinn-r\$tinn-r_3.0.1.1_UNICODE_CG\source\Tinn-R\ufrmCompletion.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.417,C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.dfm=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\ufrmNameBrowser.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.397,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\SciKeyBindings.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.pas,D:\$tinn-r\$tinn-r_3.0.1.2_UNICODE_CG\source\SynEdit_highlighters\SynHighlighterText_term.pas=D:\$tinn-r\$tinn-r_3.0.1.2_UNICODE_CG\source\SynEdit_highlighters\SynHighlighterText.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.375,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\ufrmTidyAbort.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.pas,D:\$tinn-r\$tinn-r_3.0.1.2_UNICODE_CG\source\SynEdit_highlighters\SynHighlighterR_term.pas=D:\$tinn-r\$tinn-r_3.0.1.2_UNICODE_CG\source\SynEdit_highlighters\SynHighlighterRterm.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.921,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\trCommon.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.841,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.970,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.388,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.040,=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.pas,D:\GitHub\Tinn-R\Tinn_R\source\others\Split.pas=D:\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.367,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.311,C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\uLaTeX.pas=C:\Users\Marco\Documents\GitHub\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.586,=C:\Users\marco\Documents\GitHub\Tinn_R\source\Tinn-R\Ribbon\RibbonMarkup.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.480,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.417,C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\ufrmNameBrowser.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.438,C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\uRSendCommands.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.688,=C:\Users\Marco\Documents\GitHub\Tinn-R\Tinn_R\source\Tinn-R\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

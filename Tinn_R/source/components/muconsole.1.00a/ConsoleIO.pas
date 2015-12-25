@@ -23,6 +23,7 @@ type
 
   TConsoleIO = class(TComponent)
   private
+    bDeleteBuffer: Boolean;
     ErrorReadPipe, ErrorWritePipe: THandle;
     FEnableKill: Boolean;
     FOnError: TReceiveEvent;
@@ -71,7 +72,7 @@ type
       ShowWindow: Boolean = False);
     procedure SendInput(Msg: String);
     procedure StopProcess;
-
+    procedure EmptyBuffer;
   published
     property EnableKill: Boolean read FEnableKill write FEnableKill
       default False;
@@ -401,6 +402,18 @@ begin
 
     Screen.Cursor := crDefault
   end;
+  if bDeleteBuffer then
+  begin
+{    bDeleteBuffer := false;
+    OutputBuffer := '';
+    sOutput := '';
+    FreeMem(buf);}
+
+    { Delete(
+     SetLength(Cmd, Size);
+     Move(Buf^, Cmd[1], Size);
+     OutputBuffer := ''; }
+  end;
 end;
 
 (* //Original
@@ -675,6 +688,13 @@ begin
     Result := #$0D#$0A
   else
     Result := SplitChar
+end;
+
+
+procedure TConsoleIO.EmptyBuffer;
+begin
+  OutputBuffer := '';
+  bDeleteBuffer := True;
 end;
 
 end.

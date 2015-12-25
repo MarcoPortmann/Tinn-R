@@ -47,9 +47,9 @@ unit uModDados;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Web.HTTPApp,
   DBClient, DB, MidasLib, FMTBcd, SqlExpr, WideStrings, System.Actions, System.UITypes,
-  Data.DbxSqlite, Datasnap.Provider, trCommon, ufrmEditor;
+  Data.DbxSqlite, Datasnap.Provider, trCommon, ufrmEditor, ConsoleIO;
 // Adding System.Actions solves "assuspended/asnormal undefined" issue
 
 
@@ -122,6 +122,7 @@ type
     dsShortcuts: TDataSource;
     cdShortcuts: TClientDataSet;
     sqldsLibraryTip: TSQLDataSet;
+    cConsole: TConsoleIO;
 
     procedure cdCommentsAfterPost(DataSet: TDataSet);
     procedure cdCommentsAfterScroll(DataSet: TDataSet);
@@ -155,16 +156,20 @@ type
     procedure dsIdentifiersDataChange(Sender: TObject; Field: TField);
     procedure cdIdentifiersBeforeRefresh(DataSet: TDataSet);
     procedure dsMainBaseDataChange(Sender: TObject; Field: TField);
+    procedure cConsoleReceiveOutput(Sender: TObject; const Cmd: string);
+    procedure cConsoleProcessStatusChange(Sender: TObject; IsRunning: Boolean);
+    procedure cConsoleReceiveError(Sender: TObject; const Cmd: string);
+    procedure cConsoleError(Sender: TObject; const Cmd: string);
   private
+    bUpdateAgainLater: Boolean;
     sCurDescription: String;
     sCurDwellTextExplorer: String;
     sCurDwellTextLibrary: String;
-
     { Private declarations }
 
   public
     { Public declarations }
-    slCompletion_Groups: TStringList; // Stores groups of Completion
+
     slRcard_Groups: TStringList; // Stores groups of R card
     slRmirrors_Countries: TStringList; // Stores countries of R mirrors
     slShortcuts_Groups: TStringList; // Stores groups of Shortcuts
@@ -172,13 +177,13 @@ type
     function ActionlistToDataset: Boolean;
     procedure BackupFiles;
     procedure CreateShortcutsCategoriesList;
+    procedure CheckPackages;
     function LoadFileState(var EditorFile: TEditorFile): Boolean;
     function Rmirrors_Update(sFile: string): Boolean;
     function SaveFileState(EditorFile: TEditorFile): Boolean;
     function  SaveEditorFile(EditorFile: TEditorFile): Boolean;
     procedure CompletionGroupsFilter(Sender: TObject);
     procedure LookupWord(sKey: String; cdDataBase: TClientDataSet);
-    procedure RcardGroupsFilter(Sender: TObject);
     procedure RmirrorsCountriesFilter(Sender: TObject);
     procedure SetCurrentHighlighter(sLanguage: string);
     procedure ShortcutsGroupsFilter(Sender: TObject);
@@ -271,6 +276,10 @@ begin
       sFolding := FieldByName('Folding').AsString;
       iLexerId := FieldByName('LexerId').AsInteger;
       Result := true;
+      iUnsavedChanges := 0;
+      iModified := 0;
+      iNewFile := 0;
+      iTabPosition := -1;
      end;
    end;
   Except //On E: EDatabaseError Do showmessage(e.Message);
@@ -383,31 +392,7 @@ begin
    cdRObjects.Refresh;
 end;
 
-procedure TmodDados.RcardGroupsFilter(Sender: TObject);
-{var
-  i: integer;
 
-  strTemp: string;
-                    }
-begin
- { slRcard_Groups := TStringList.Create;
-  slRcard_Groups.CaseSensitive := True;
-  slRcard_Groups.Add('All');
-  with cdRcard do
-  begin
-    DisableControls;
-    First;
-    for i := 1 to RecordCount do
-    begin
-      strTemp := cdRcardGroup.Value;
-      with slRcard_Groups do
-        if (IndexOf(strTemp) = -1) then
-          Add(strTemp);
-      Next;
-    end;
-    EnableControls;
-  end;   }
-end;
 
 procedure TmodDados.CompletionGroupsFilter(Sender: TObject);
 
@@ -503,13 +488,15 @@ begin
   if fileexists(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt') then
     deletefile(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt');
 
-  SQLConnection.Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt';
-  SQLConnection.Params.Values['FailIfMissing'] := 'False';
-  SQLConnection.Connected := True;
+  with SQLConnection do
+  begin
+    Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt';
+    Params.Values['FailIfMissing'] := 'False';
+    Connected := True;
 
-  SQLConnection.ExecuteDirect('CREATE TABLE Objects (ObjID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name VARCHAR(100) NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR(100) NOT NULL, Class VARCHAR(100) NOT NULL, Envir VARCHAR(100) NOT NULL)');
-  SQLConnection.ExecuteDirect('INSERT INTO Objects (Name, Dim, [Group], Class, Envir) VALUES ("empty","empty","empty","empty","empty")');
-
+    ExecuteDirect('CREATE TABLE Objects (ObjID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name VARCHAR(100) NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR(100) NOT NULL, Class VARCHAR(100) NOT NULL, Envir VARCHAR(100) NOT NULL)');
+    ExecuteDirect('INSERT INTO Objects (Name, Dim, [Group], Class, Envir) VALUES ("empty","empty","empty","empty","empty")');
+  end;
 
   sqldsRObjects.Active := true;
   sqldsRObjects.Refresh;
@@ -518,27 +505,35 @@ begin
 
   if assigned(frmTools) then
     frmTools.ResetRExplorerFilter;
-
 end;
 
 
 procedure TmodDados.ResetRObjectDatabase;
 var sCommand: String;
 begin
+  with SQLConnection do
+  begin
 
-  SQLConnection.Close;
+    Close;
+    if fileexists(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt') then
+      {if not} DeleteFile(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt');// then
+      //MessageDlg('Tinn-R was unable to delete data from a previous session because ''RExplorer.txt'' is used by another application', mtWarning, [mbOK], 0);
 
-  if fileexists(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt') then
-    deletefile(IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt');
+    Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt';
+    Params.Values['FailIfMissing'] := 'False';
+    Connected := True;
+    try
 
-  SQLConnection.Params.Values['Database']:=IncludeTrailingBackslash(frmTinnMain.sPathTmp)+'RExplorer.txt';
-  SQLConnection.Params.Values['FailIfMissing'] := 'False';
-  SQLConnection.Connected := True;
+      ExecuteDirect('CREATE TABLE Objects (ObjID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name VARCHAR(100) NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR(100) NOT NULL, Class VARCHAR(100) NOT NULL, Envir VARCHAR(100) NOT NULL)');
+      ExecuteDirect('INSERT INTO Objects (Name, Dim, [Group], Class, Envir) VALUES ("empty","empty","empty","empty","empty")');
+    except
+      try
+        ExecuteDirect('DELETE FROM Objects');
+      finally
+      end;
+  end;
 
-
-  SQLConnection.ExecuteDirect('CREATE TABLE Objects (ObjID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE, Name VARCHAR(100) NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR(100) NOT NULL, Class VARCHAR(100) NOT NULL, Envir VARCHAR(100) NOT NULL)');
-  SQLConnection.ExecuteDirect('INSERT INTO Objects (Name, Dim, [Group], Class, Envir) VALUES ("empty","empty","empty","empty","empty")');
-
+  end;
 
   sqldsRObjects.Active := true;
   sqldsRObjects.Refresh;
@@ -558,6 +553,7 @@ begin
 
   sqlCache.Close;
   cdComments.Close;
+  cConsole.StopProcess;
 end;
 
 procedure TmodDados.cdRcardPostError(DataSet: TDataSet; E: EDatabaseError;
@@ -680,6 +676,70 @@ begin
   if (cdShortcuts.State <> dsBrowse) then
     Exit;
                }
+end;
+
+procedure TmodDados.cConsoleError(Sender: TObject; const Cmd: string);
+begin
+//
+end;
+
+procedure TmodDados.cConsoleProcessStatusChange(Sender: TObject;
+  IsRunning: Boolean);
+var
+  sSend, fname: String;
+begin
+  if not IsRunning then
+    Exit;
+
+  fname := IncludeTrailingPathDelimiter(frmTinnMain.sUtilsOrigin)+'TinnRCommunication-Lib.r';
+  sSend := 'source("'+DosPathToUnixPath(fname)+'", echo=F, max.deparse.length=150)';
+  if not FileExists(fname) then
+  begin
+    showmessage('File '''+fname+''' not found.');
+    exit;
+  end;
+
+  sSend := 'LibraryPath <- file.path(Sys.getenv(''APPDATA''), ''Tinn-R'', ''data'', ''RHelpSystem.txt'' , fsep=''\\''); source("'+DosPathToUnixPath(fname)+'", echo=F, max.deparse.length=150)';
+  cConsole.SendInput(sSend+#13#10);
+end;
+
+procedure TmodDados.cConsoleReceiveError(Sender: TObject; const Cmd: string);
+begin
+  frmTinnMain.memPackage.Lines.Add('------------ Error ------------');
+ frmTinnMain.memPackage.Lines.Add(Cmd);
+  frmTinnMain.memPackage.Lines.Add('------------ ----- ------------');
+
+{  if ansipos('TinnRMSG:', cmd)>0 then
+  begin
+    if ansipos(':ConnectSockets', cmd) >0 then
+     ConnectRSocketServer;
+    if ansipos(':MissingPackage', cmd) >0 then
+      InstallTinnRPackages(copy(cmd, ansipos('|', cmd)+1,  ansipos('<', cmd) - ansipos('|', cmd)-1 ));
+    if ansipos(':PackagesInstalled', cmd) >0 then
+      LoadTinnRCommunicationScripts;
+    exit;
+  end;
+}
+end;
+
+procedure TmodDados.cConsoleReceiveOutput(Sender: TObject; const Cmd: string);
+var smsg: String;
+begin
+  if ansipos('!!TinnRMSG:Adding package:', Cmd)>0 then
+  begin
+    smsg := copy(Cmd, ansipos('!!TinnRMSG:Adding package:', Cmd)+26);
+    smsg := copy(smsg, 1, ansipos('<', smsg)-1);
+
+    frmTinnMain.ShowNotification('Package '''+smsg+''' is being imported.',  'Package '''+smsg+''' is being imported into the library. This might takes a while.');
+  end;
+
+  if ansipos('!!TinnRMSG:Library updated<', Cmd)>0 then
+  begin
+    frmTinnMain.AfterLibraryUpdate;
+    if bUpdateAgainLater then
+      CheckPackages;
+  end;
+  frmTinnMain.memPackage.Lines.Add(Cmd);
 end;
 
 procedure TmodDados.cdCommentsAfterPost(DataSet: TDataSet);
@@ -1017,15 +1077,9 @@ var
   sTmpFile: String;
   EditorFile: TEditorFile;
 begin
-
-
-
-
   sqlEditors.ExecuteDirect('DELETE FROM Editors WHERE EditorId = '+inttostr(EditorId));
   if FileExists(sBackupFile) then
     DeleteFile(sBackupFile);
-
-
 end;
 
 procedure TmodDados.dsIdentifiersDataChange(Sender: TObject; Field: TField);
@@ -1272,14 +1326,32 @@ begin
     begin
       sCommand := 'CREATE TABLE Objects ';
       sCommand := sCommand + '(DisplayName VARCHAR NOT NULL, Name VARCHAR NOT NULL, InsertText VARCHAR NOT NULL, Description VARCHAR NOT NULL, ';
-
       sCommand := sCommand + 'DescriptionFormatted VARCHAR NOT NULL, Title VARCHAR NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR NOT NULL, ';
       sCommand := sCommand + 'Class VARCHAR NOT NULL, Arguments VARCHAR, HasArguments INTEGER, Envir VARCHAR NOT NULL, PrettyPackage NOT NULL)';
+      ExecuteDirect(sCommand);
+    end;
 
+
+    if stables.IndexOf('Packages') < 0 then
+    begin
+      sCommand := 'CREATE TABLE Packages ';
+      sCommand := sCommand + '(Package VARCHAR, LibPath VARCHAR, Version VARCHAR, Priority VARCHAR, ';
+      sCommand := sCommand + 'Depends VARCHAR, Imports VARCHAR, LinkingTo VARCHAR, Suggests VARCHAR,';
+      sCommand := sCommand + 'Enhances VARCHAR, License VARCHAR, License_is_FOSS VARCHAR, License_restricts_use VARCHAR,';
+      sCommand := sCommand + 'OS_type VARCHAR, MD5sum VARCHAR, NeedsCompilation VARCHAR, Built VARCHAR, TinnVersion VARCHAR)';
       ExecuteDirect(sCommand);
       //  showmessage(sCommand) ;
-
     end;
+
+    if stables.IndexOf('Objects2') < 0 then
+    begin
+      sCommand := 'CREATE TABLE Objects2 ';
+      sCommand := sCommand + '(DisplayName VARCHAR NOT NULL, Name VARCHAR NOT NULL, InsertText VARCHAR NOT NULL, Description VARCHAR NOT NULL, ';
+      sCommand := sCommand + 'DescriptionFormatted VARCHAR NOT NULL, Title VARCHAR NOT NULL, Dim VARCHAR(100) NOT NULL, [Group] VARCHAR NOT NULL, ';
+      sCommand := sCommand + 'Class VARCHAR NOT NULL, Arguments VARCHAR, HasArguments INTEGER, Envir VARCHAR NOT NULL, PrettyPackage NOT NULL)';
+      ExecuteDirect(sCommand);
+    end;
+
 
     if stables.IndexOf('UserDefined') < 0 then
     begin
@@ -1322,10 +1394,7 @@ begin
     sTables.Free;
   end;
 
-
-
-
-  RcardGroupsFilter(Self);
+  CheckPackages;
 end;
 
 
@@ -1464,7 +1533,8 @@ begin
   sqlMainBase.Connected := false;
 
   if bNeedsUpdate then
-    frmTinnMain.SendLibraryUpdate;
+    modDados.CheckPackages;
+  //  frmTinnMain.SendLibraryUpdate;
 
 end;
 
@@ -1533,13 +1603,14 @@ end;
 
 function TmodDados.FindRObjectTipText(sWord: String): String;
 begin
+  try
   with sqldsExplorerTip do
   begin
     if sCurDwellTextExplorer <> sWord then
     begin
       sCurDwellTextExplorer := sWord;
       Active := false;
-      CommandText := 'SELECT Name, Dim, Class FROM objects WHERE name like ' + AnsiQuotedStr(ansilowercase(sWord),'"');
+      CommandText := 'SELECT Name, Dim, Class FROM objects WHERE name = ' + AnsiQuotedStr(sWord,'"');
       Active := true;
     end;
 
@@ -1552,6 +1623,9 @@ begin
 
     end;
   end;
+  finally
+
+  end;
 end;
 
 
@@ -1559,13 +1633,14 @@ end;
 
 function TmodDados.FindLibraryTipText(sWord: String; HasArguments: Boolean = False): String;
 begin
+  try
   with sqldsLibraryTip do
   begin
     if sCurDwellTextLibrary <> sWord then
     begin
       sCurDwellTextLibrary := sWord;
       Active := false;
-      CommandText := 'SELECT Name, InsertText, HasArguments FROM objects WHERE name like ' + AnsiQuotedStr((sWord),'"');
+      CommandText := 'SELECT Name, InsertText, HasArguments, Title FROM objects WHERE name = ' + AnsiQuotedStr(sWord,'"');
       Active := true;
     end;
 
@@ -1574,12 +1649,17 @@ begin
       First;
       if not FieldByName('InsertText').IsNull  then
       begin
-        Result := FieldByName('InsertText').AsString;
+        Result := trim(FieldByName('Title').AsString);
+        if Result <> '' then
+          Result := Result + #13#10 + FieldByName('InsertText').AsString;
         if HasArguments then
           if FieldByName('HasArguments').AsInteger = 0 then
-            Result := '';
+            Result := trim(FieldByName('Title').AsString);
       end;
     end;
+  end;
+  finally
+
   end;
 end;
 
@@ -1591,7 +1671,7 @@ procedure TmodDados.BackupFiles;
 var
   i: integer;
   bSaved: Boolean;
-
+  edForm: TfrmEditor;
   function CreateUniqueTempName(sfilename: String): String;
   var
     i: integer;
@@ -1604,33 +1684,65 @@ var
   end;
 
 begin
-    for i := 0 to frmTinnMain.MDIChildCount - 1 do
-    with (frmTinnMain.MDIChildren[i] as TfrmEditor), (frmTinnMain.MDIChildren[i] as TfrmEditor).EditorFile do
+    for i := 0 to frmTinnMain.pgFiles.PageCount-1 do
     begin
-      if iUnsavedChanges = 1 then
+      if GetEditorById(frmTinnMain.pgFiles.Pages[i].Tag, edForm) then
+      with edForm, edForm.EditorFile do
       begin
-        if sTempFile = '' then
-            sTempFile := CreateUniqueTempName(StripPath(sFile));
-        bSaved := SaveBackup(sTempFile);
-        if bSaved then
+        if iUnsavedChanges = 1 then
         begin
-          iUnsavedChanges := 0;
-          bBackupUnsaved := False;
-          sMarks := GetMarkerString;
-          sFolding := GetToggleString;
-          WriteCursorAndWindoInfo(EditorFile);
+          if sTempFile = '' then
+              sTempFile := CreateUniqueTempName(StripPath(sFile));
+          bSaved := SaveBackup(sTempFile);
+          if bSaved then
+          begin
+            iUnsavedChanges := 0;
+            bBackupUnsaved := False;
+            sMarks := GetMarkerString;
+            sFolding := GetToggleString;
+            WriteCursorAndWindowInfo(EditorFile);
+          end;
         end;
+        moddados.SaveEditorFile(EditorFile);
       end;
-      moddados.SaveEditorFile(EditorFile);
     end;
 
-
-    if frmTinnMain.MDIChildCount = 0 then
+    if frmTinnMain.pgFiles.PageCount = 0 then
       if FileExists(frmTinnMain.sPathData + '\Editors.txt') then
          DeleteFile(frmTinnMain.sPathData + '\Editors.txt');
 end;
 
+procedure TmodDados.CheckPackages;
+var
+  sSend, fname: String;
+begin
+  if not cConsole.IsRunning then
+    if FileExists(sPathRterm) AND (ExtractFileExt(sPathRterm) = '.exe') then
+      cConsole.RunProcess(sPathRterm + ' ' + sParRterm);
 
+  if not cConsole.IsRunning then
+    Exit;
+
+  if not cConsole.bRterm_Ready then
+  begin
+    bUpdateAgainLater := true;
+    Exit;
+  end;
+
+  bUpdateAgainLater := false;
+
+  fname := IncludeTrailingPathDelimiter(frmTinnMain.sUtilsOrigin)+'TinnRCommunication-Lib.r';
+  sSend := 'source("'+DosPathToUnixPath(fname)+'", echo=F, max.deparse.length=150)';
+  if not FileExists(fname) then
+  begin
+    showmessage('File '''+fname+''' not found.');
+    exit;
+  end;
+
+  sSend := 'LibraryPath <- file.path(Sys.getenv(''APPDATA''), ''Tinn-R'', ''data'', ''RHelpSystem.txt'' , fsep=''\\''); source("'+DosPathToUnixPath(fname)+'", echo=F, max.deparse.length=150)';
+  cConsole.SendInput(sSend+#13#10);
+
+end;
 
 
 end.

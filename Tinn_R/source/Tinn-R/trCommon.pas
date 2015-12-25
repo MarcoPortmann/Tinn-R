@@ -27,8 +27,9 @@ end;
   function  IsValidRWord(sWord: String): Boolean;
   procedure ShowBracketTip(seEditor: TDScintilla; iPos: Integer);
 
-//var bDwellActive: Boolean;
-
+var //bDwellActive: Boolean;
+   sParRterm: string;
+   sPathRterm: string;
 
 implementation
 
@@ -165,7 +166,7 @@ end;
 
 procedure ShowBracketTip(seEditor: TDScintilla; iPos: Integer);
 var sTip, sWord: String;
- //   iPos: Integer;
+   iVisibleFirstPos: Integer;
 
 begin
   with seEditor do
@@ -181,6 +182,11 @@ begin
     sTip := modDados.FindLibraryTipText(sWord, true);
     if sTip <> '' then
     begin
+      iVisibleFirstPos := PositionFromLine(GetFirstVisibleLine);
+      if iPos < iVisibleFirstPos then
+        iPos := iVisibleFirstPos;
+
+      CallTipSetPosition(LineFromPosition(GetCurrentPos) > LineFromPosition(iPos));
       CallTipShow(iPos, sTip);
       CallTipSetHlt(0, length(sTip));
     end;
@@ -218,7 +224,6 @@ begin
       begin
         CallTipShow(iPos, sTip);
         CallTipSetHlt(0, length(sTip));
-        //bDwellActive := true;
       end;
     end;
   end;

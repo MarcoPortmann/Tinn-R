@@ -353,7 +353,7 @@ object frmComments: TfrmComments
       item
         Expanded = False
         FieldName = 'Language'
-        Width = 380
+        Width = 64
         Visible = True
       end
       item

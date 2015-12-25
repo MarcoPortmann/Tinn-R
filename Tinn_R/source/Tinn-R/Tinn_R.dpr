@@ -105,7 +105,10 @@ uses
   ufrmCloneLexer in 'ufrmCloneLexer.pas' {frmCloneDialog},
   uLaTeX in 'uLaTeX.pas',
   trCommon in 'trCommon.pas',
-  ufrmTidyAbort in 'ufrmTidyAbort.pas' {frmTidyAbort};
+  ufrmTidyAbort in 'ufrmTidyAbort.pas' {frmTidyAbort},
+  Vcl.Themes,
+  Vcl.Styles,
+  RibbonMarkup in 'Ribbon\RibbonMarkup.pas';
 
 {$R Tinn_R.KLR}
 {$R *.RES}

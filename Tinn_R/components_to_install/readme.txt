@@ -7,7 +7,7 @@
 #==========================================================================#
 
 01. Abbrevia
-    - http://tpabbrevia.sourceforge.net/
+    - Available via package manager: http://tpabbrevia.sourceforge.net/
 
 02. FindFile
     - FdFile.dpk
