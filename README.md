@@ -4,7 +4,7 @@ This is a fork of the **Tinn-R Editor - GUI for R Language and Environment** mai
 
 In particular, the project aims at migrating the source code of Tinn-R to Delphi 10 and includes a bunch of new features.
 ## Experimental features
-- New ribbon UI (plreliminary, most tabs are WIP) 
+- New ribbon UI (preliminary, most tabs are WIP) 
 - Autosave and recovery capabilities
 - There is as column selection mode. Press “alt” and start to select.
 -  Code navigator (located on the tools window/panel): Lines starting with #! are interpreted as headers. Tip: write “#! Main Title” and start another line with “#!2 Subtitle”. In case there is a digit placed after “#!” it will be interpreted as the hierarchical level. 
@@ -27,7 +27,7 @@ In particular, the project aims at migrating the source code of Tinn-R to Delphi
 Version 3.1.0.0 of the app is **available [here](https://github.com/MarcoPortmann/Tinn-R/blob/Delphi-XE/Tinn_R/install_setup/bin/Tinn-R_3.1.0.0_setup.exe?raw=true)**
 
 ### First run
-Start Tinn-R and click on “R control: term start/close” in the toolbar. If required, Tinn-R asks for the path of the R executable, starts to download all required packages. Make sure that you are connected to the internet and no popup windows are hidden behind the main window and are waiting for your input (e.g. specifying a download server). Once all packages Tinn-R requires in order to communicate with R are installed and loaded Tinn-R will continuously check which packages are loaded and import parts of their help files into its library. Tinn-R comes with an empty libarry. Note that it can take up to 15 minutes until all base packages are imported. 
+Start Tinn-R and click on “R send: R terminal on/off” on the "Home" tab. If required, Tinn-R asks for the path of the R executable, starts to download all required packages. Make sure that you are connected to the internet and no popup windows are hidden behind the main window and are waiting for your input (e.g. specifying a download server). Once all packages required by Tinn-R are installed and loaded Tinn-R will continuously check which packages are loaded and imports parts of their help files into its library. Tinn-R comes with an empty libarry. Note that it can take up to 15 minutes until all base packages are imported. 
 
 
 
