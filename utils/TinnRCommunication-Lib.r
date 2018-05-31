@@ -12,7 +12,7 @@ GetArgText <- function(obj)
   
     for (i in 1:length(form))
     {
-      if ( is.null(form[i][[1]]) == F &&  !is.na(form[i]) && (nchar(as.character(form[i][[1]]))>0)  ){
+      if ( is.null(form[i][[1]]) == F && (!is.na(as.character(form[i][[1]]))) && (nchar(as.character(form[i][[1]]))>0)  ){
         arglist <- c(arglist, paste(names(form[i]), " = ", as.character(form[i][[1]]), sep =""))
       }else  arglist <- c(arglist, names(form[i]) )   
     }
@@ -83,11 +83,11 @@ trObjList3 <- function(
                search(),
                nomatch=-1)
 
-  if(pos < 1)
+  if(pos < 1){
     # NOT FOUND, return nothing
     pos <- 1
   # Environment found
-  else {
+  }else {
     # Get the list of objects in this environment
     Items <- ls(pos=pos,
                 all.names=all.names)
@@ -109,15 +109,11 @@ trObjList3 <- function(
                           stringsAsFactors = FALSE))
 
     # Get characteristics of all objects
-    describe <- function(name,
-                           pos='.GlobalEnv',
-                           all.info=FALSE
-                           )
+    describe <- function(name, pos='.GlobalEnv', all.info=FALSE)
     {
       # get a vector with five items:
       # Name, Dims, Group, Class and Recursive
-      obj <- get(name,
-                 pos=pos)
+      obj <- get(name, pos=pos)
       ArgText <- GetArgText(obj)
       if (is.null(ArgText))
       {
@@ -131,6 +127,8 @@ trObjList3 <- function(
       HI <- HelpItems(name, PrettyName)
       Ti <- HI[[1]]
       Descr <- HI[[2]]
+      if (length(Descr)>1) Descr <- Descr[[1]]
+     
       
       if (length(Ti)==0) Ti <- ''
       if (length(Descr)==0) Descr <- ''      
@@ -291,7 +289,7 @@ if (length(packagelist)>0)
 }
 
 
-#LibraryPath <-  "C:\\Users\\Marco\\AppData\\Roaming\\Tinn-R\\data\\RHelpSystem.txt"
+#LibraryPath <-  "C:\\Users\\Marco\\AppData\\Roaming\\Tinn-R\\data\\RHelpSystem - Copy.txt"
 
 
 AllInstalled <- installed.packages()
@@ -321,8 +319,8 @@ AllInstalled <- installed.packages()
   
   if (!exists('FullList'))
    stop()
-  #### What to do if the list doesn't exist?
-  
+
+  FullList <- unique(FullList[, c('Package', 'Version', 'TinnVersion')])
   
   lcount <- tapply(FullList$Version, factor(FullList$Package), length)
   lcount <- lcount[lcount>1] 
@@ -364,11 +362,13 @@ AllInstalled <- installed.packages()
                       #library(as.character(PrettyName), character.only = T)
                       if (require(as.character(PrettyName),character.only = T, quietly = T)==T)
                       {
-                         print(paste("!!TinnRMSG:Adding package:",PrettyName, "<", sep = ""))
+                        print(paste("!!TinnRMSG:Adding package:",PrettyName, "<", sep = ""))
                         cont <- trObjList3(envir = Envir,  PrettyName = PrettyName)  
                         TinnRSQLiteConnection  <- dbConnect(TinnRSQLite, LibraryPath)
                         dbSendQuery(TinnRSQLiteConnection, paste("DELETE FROM Objects WHERE Envir =", dQuote(Envir),sep = ""))
-                        dbWriteTable(TinnRSQLiteConnection, "Objects", cont, append = T)
+                        if (nrow(cont)>0)
+                          dbWriteTable(TinnRSQLiteConnection, "Objects", cont, append = T)
+                        
                         dbSendQuery(TinnRSQLiteConnection, paste("UPDATE Packages SET TinnVersion = ", dQuote(as.character(NeedsUpd[i, 'Version'])), ' WHERE Package =', dQuote(PrettyName ), sep = ""))
                         dbDisconnect(TinnRSQLiteConnection)
                         FullList[FullList$Package == PrettyName, 'TinnVersion'] <- as.character(NeedsUpd[i, 'Version'])
